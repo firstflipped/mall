@@ -6,6 +6,7 @@
 		<groupId>com.laughingather.gulimall</groupId>
 		<artifactId>gulimall</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath/>
 	</parent>
 
 	<groupId>com.laughingather.gulimall</groupId>
