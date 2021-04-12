@@ -8,9 +8,10 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/>
     </parent>
+
     <groupId>com.laughingather.gulimall</groupId>
     <artifactId>gulimall-admin</artifactId>
-    <version>3.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>gulimall-admin</description>
 
@@ -20,7 +21,7 @@
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.io.version>2.5</commons.io.version>
         <commons.configuration.version>1.10</commons.configuration.version>
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.1</shiro.version>
         <jwt.version>0.7.0</jwt.version>
         <kaptcha.version>0.0.9</kaptcha.version>
         <qiniu.version>7.2.23</qiniu.version>
@@ -30,6 +31,7 @@
         <joda.time.version>2.9.9</joda.time.version>
         <fastjson.version>1.2.72</fastjson.version>
         <hutool.version>4.1.1</hutool.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
 
         <!--wagon plugin 配置-->
         <service-path>/work/renren</service-path>
@@ -41,6 +43,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.laughingather.gulimall</groupId>
+            <artifactId>gulimall-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -49,6 +57,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
         </dependency>
 
         <dependency>
@@ -70,23 +83,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatisplus.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-generator</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <dependency>
@@ -210,6 +206,7 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
