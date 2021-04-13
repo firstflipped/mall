@@ -1,10 +1,7 @@
 package com.laughingather.gulimall.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.common.utils.PageUtils;
 import com.laughingather.gulimall.member.entity.IntegrationChangeHistoryEntity;
-
-import java.util.Map;
 
 /**
  * 积分变化历史记录

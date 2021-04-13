@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("coupon/spubounds")
+@RequestMapping("/coupon/spubounds")
 public class SpuBoundsController {
     @Autowired
     private SpuBoundsService spuBoundsService;

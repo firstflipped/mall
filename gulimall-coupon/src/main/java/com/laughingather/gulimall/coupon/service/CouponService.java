@@ -3,6 +3,8 @@ package com.laughingather.gulimall.coupon.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.coupon.entity.CouponEntity;
 
+import java.util.List;
+
 /**
  * 优惠券信息
  *
@@ -12,5 +14,6 @@ import com.laughingather.gulimall.coupon.entity.CouponEntity;
  */
 public interface CouponService extends IService<CouponEntity> {
 
+    List<CouponEntity> listCoupons();
 }
 

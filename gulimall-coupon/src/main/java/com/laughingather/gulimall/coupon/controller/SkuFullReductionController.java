@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:49:53
  */
 @RestController
-@RequestMapping("coupon/skufullreduction")
+@RequestMapping("/coupon/skufullreduction")
 public class SkuFullReductionController {
     @Autowired
     private SkuFullReductionService skuFullReductionService;

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: gulimall-ware
+  profiles:
+    active: dev

@@ -1,10 +1,7 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.common.utils.PageUtils;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
-
-import java.util.Map;
 
 /**
  * 品牌分类关联

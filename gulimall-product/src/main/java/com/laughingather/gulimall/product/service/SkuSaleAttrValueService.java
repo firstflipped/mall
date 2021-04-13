@@ -1,10 +1,7 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.common.utils.PageUtils;
 import com.laughingather.gulimall.product.entity.SkuSaleAttrValueEntity;
-
-import java.util.Map;
 
 /**
  * sku销售属性&值

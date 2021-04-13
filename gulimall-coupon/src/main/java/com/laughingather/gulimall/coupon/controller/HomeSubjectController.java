@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("coupon/homesubject")
+@RequestMapping("/coupon/homesubject")
 public class HomeSubjectController {
     @Autowired
     private HomeSubjectService homeSubjectService;

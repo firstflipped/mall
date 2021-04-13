@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("member/memberstatisticsinfo")
+@RequestMapping("/member/memberstatisticsinfo")
 public class MemberStatisticsInfoController {
     @Autowired
     private MemberStatisticsInfoService memberStatisticsInfoService;

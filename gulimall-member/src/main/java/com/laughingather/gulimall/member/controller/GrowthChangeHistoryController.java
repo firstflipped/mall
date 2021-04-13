@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("member/growthchangehistory")
+@RequestMapping("/member/growthchangehistory")
 public class GrowthChangeHistoryController {
     @Autowired
     private GrowthChangeHistoryService growthChangeHistoryService;

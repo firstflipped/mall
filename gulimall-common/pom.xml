@@ -14,6 +14,7 @@
     <properties>
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <commons-collections4.version>4.4</commons-collections4.version>
+        <druid.version>1.2.5</druid.version>
     </properties>
 
     <dependencies>
@@ -32,6 +33,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
         </dependency>
 
         <dependency>
