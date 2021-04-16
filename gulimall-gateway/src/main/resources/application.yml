@@ -8,6 +8,14 @@ spring:
   cloud:
     gateway:
       routes:
+        ## 一个请求满足多个路由的谓词条件时，请求只会被首个成功匹配的路由转发
+        - id: gulimall-product
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/gulimall-product/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-admin
           uri: lb://gulimall-admin
           predicates:
@@ -15,9 +23,3 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>/?.*), /gulimall-admin/$\{segment}
 
-#        - id: gulimall-produce
-#          uri: lb://gulimall-produce
-#          predicates:
-#            - Path=/api/gulimall-produce/**
-#          filters:
-#            - StripPrefix=1

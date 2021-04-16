@@ -10,18 +10,19 @@ import org.springframework.web.util.pattern.PathPatternParser;
 /**
  * 全局跨域配置
  * 注意：前端从网关进行调用时需要配置
- * Created by macro on 2019/7/27.
+ *
  */
 @Configuration
 public class GlobalCorsConfig {
 
     @Bean
-    public CorsWebFilter corsFilter() {
+    public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedMethod("*");
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
         source.registerCorsConfiguration("/**", config);
 

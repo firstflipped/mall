@@ -1,11 +1,9 @@
 server:
   port: 8084
   servlet:
-    context-path: /gulimall-produce
+    context-path: /gulimall-product
 
 spring:
-  application:
-    name: gulimall-product
   profiles:
     active: dev
 
