@@ -13,7 +13,7 @@ import com.laughingather.gulimall.admin.modules.app.annotation.Login;
 import io.jsonwebtoken.Claims;
 import com.laughingather.gulimall.admin.common.exception.RRException;
 import com.laughingather.gulimall.admin.modules.app.utils.JwtUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

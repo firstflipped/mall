@@ -12,7 +12,7 @@ import com.laughingather.gulimall.admin.modules.job.service.ScheduleJobLogServic
 import com.laughingather.gulimall.admin.common.utils.SpringContextUtils;
 import com.laughingather.gulimall.admin.modules.job.entity.ScheduleJobEntity;
 import com.laughingather.gulimall.admin.modules.job.entity.ScheduleJobLogEntity;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;

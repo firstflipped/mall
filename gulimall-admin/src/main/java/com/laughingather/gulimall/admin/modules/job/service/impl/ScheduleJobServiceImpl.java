@@ -18,7 +18,7 @@ import com.laughingather.gulimall.admin.modules.job.dao.ScheduleJobDao;
 import com.laughingather.gulimall.admin.modules.job.entity.ScheduleJobEntity;
 import com.laughingather.gulimall.admin.modules.job.service.ScheduleJobService;
 import com.laughingather.gulimall.admin.modules.job.utils.ScheduleUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -16,7 +16,7 @@ import com.laughingather.gulimall.admin.common.utils.Query;
 import com.laughingather.gulimall.admin.modules.sys.dao.SysLogDao;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysLogEntity;
 import com.laughingather.gulimall.admin.modules.sys.service.SysLogService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

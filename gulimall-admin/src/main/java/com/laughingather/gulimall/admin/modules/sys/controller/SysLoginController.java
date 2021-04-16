@@ -56,7 +56,7 @@ public class SysLoginController extends AbstractController {
 
 		ServletOutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
-		IOUtils.closeQuietly(out);
+		IOUtils.close(out);
 	}
 
 	/**

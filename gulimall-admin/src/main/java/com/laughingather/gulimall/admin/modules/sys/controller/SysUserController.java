@@ -20,7 +20,7 @@ import com.laughingather.gulimall.admin.modules.sys.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.modules.sys.form.PasswordForm;
 import com.laughingather.gulimall.admin.modules.sys.service.SysUserRoleService;
 import com.laughingather.gulimall.admin.modules.sys.service.SysUserService;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;

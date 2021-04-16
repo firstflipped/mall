@@ -17,7 +17,7 @@ import com.laughingather.gulimall.admin.common.utils.DateUtils;
 import com.laughingather.gulimall.admin.modules.sys.dao.SysCaptchaDao;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysCaptchaEntity;
 import com.laughingather.gulimall.admin.modules.sys.service.SysCaptchaService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

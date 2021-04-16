@@ -1,7 +1,7 @@
 version: '2'
 services:
   renren-fast:
-    image: renren/fast
+    image: gulimall/admin
     ports:
       - "8080:8080"
     environment:

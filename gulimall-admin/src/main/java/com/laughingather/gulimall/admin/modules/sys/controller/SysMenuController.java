@@ -15,7 +15,7 @@ import com.laughingather.gulimall.admin.common.utils.R;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysMenuEntity;
 import com.laughingather.gulimall.admin.modules.sys.service.ShiroService;
 import com.laughingather.gulimall.admin.modules.sys.service.SysMenuService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

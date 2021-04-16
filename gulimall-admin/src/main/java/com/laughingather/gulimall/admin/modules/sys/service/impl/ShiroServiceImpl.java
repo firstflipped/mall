@@ -16,7 +16,7 @@ import com.laughingather.gulimall.admin.modules.sys.entity.SysMenuEntity;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysUserTokenEntity;
 import com.laughingather.gulimall.admin.modules.sys.service.ShiroService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.laughingather.gulimall.admin;
 
 import com.laughingather.gulimall.admin.common.utils.RedisUtils;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysUserEntity;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

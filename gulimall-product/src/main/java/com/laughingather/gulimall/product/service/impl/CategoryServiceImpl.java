@@ -54,7 +54,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                     category.setChildren(getChildrens(category, all));
                     return category;
                 })
-                .sorted(Comparator.comparingInt(CategoryTreeVO::getSort))
+                .sorted((c1, c2) -> (c1.getSort() == null ? 0 : c1.getSort()) - (c2.getSort() == null ? 0 : c1.getSort()))
                 .collect(Collectors.toList());
 
         return children;

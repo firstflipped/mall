@@ -9,7 +9,7 @@
 package com.laughingather.gulimall.admin.modules.oss.cloud;
 
 import com.laughingather.gulimall.admin.common.utils.DateUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.InputStream;
 import java.util.Date;

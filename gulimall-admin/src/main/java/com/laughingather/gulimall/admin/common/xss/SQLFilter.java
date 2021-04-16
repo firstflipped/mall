@@ -9,7 +9,7 @@
 package com.laughingather.gulimall.admin.common.xss;
 
 import com.laughingather.gulimall.admin.common.exception.RRException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * SQL过滤

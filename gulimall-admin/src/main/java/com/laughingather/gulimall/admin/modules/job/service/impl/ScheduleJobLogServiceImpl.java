@@ -16,7 +16,7 @@ import com.laughingather.gulimall.admin.common.utils.Query;
 import com.laughingather.gulimall.admin.modules.job.dao.ScheduleJobLogDao;
 import com.laughingather.gulimall.admin.modules.job.entity.ScheduleJobLogEntity;
 import com.laughingather.gulimall.admin.modules.job.service.ScheduleJobLogService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

@@ -19,7 +19,7 @@ import com.laughingather.gulimall.admin.modules.sys.dao.SysConfigDao;
 import com.laughingather.gulimall.admin.modules.sys.entity.SysConfigEntity;
 import com.laughingather.gulimall.admin.modules.sys.redis.SysConfigRedis;
 import com.laughingather.gulimall.admin.modules.sys.service.SysConfigService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
