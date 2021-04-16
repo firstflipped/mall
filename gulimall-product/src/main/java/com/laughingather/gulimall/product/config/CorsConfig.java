@@ -6,7 +6,7 @@
  * 版权所有，侵权必究！
  */
 
-package com.laughingather.gulimall.admin.config;
+package com.laughingather.gulimall.product.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -8,11 +8,16 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: baidu_route
-          uri: https://baidu.com
+        - id: gulimall-admin
+          uri: lb://gulimall-admin
           predicates:
-            - Query=url,baidu
-        - id: qq_route
-          uri: https://qq.com
-          predicates:
-            - Query=url,qq
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*), /gulimall-admin/$\{segment}
+
+#        - id: gulimall-produce
+#          uri: lb://gulimall-produce
+#          predicates:
+#            - Path=/api/gulimall-produce/**
+#          filters:
+#            - StripPrefix=1
