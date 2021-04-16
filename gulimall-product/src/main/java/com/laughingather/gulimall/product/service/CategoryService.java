@@ -2,6 +2,9 @@ package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
+import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
+
+import java.util.List;
 
 /**
  * 商品三级分类
@@ -12,5 +15,10 @@ import com.laughingather.gulimall.product.entity.CategoryEntity;
  */
 public interface CategoryService extends IService<CategoryEntity> {
 
+    /**
+     * 查询所有分类，并将其转换成树形结构
+     * @return
+     */
+    List<CategoryTreeVO> listWithTree();
 }
 
