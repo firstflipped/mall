@@ -40,6 +40,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return level1Menus;
     }
 
+    @Override
+    public boolean deleteCategoryByIds(List<Long> catIdList) {
+        // TODO:遍历需要被删除的id，确定在其他位置是否存在引用
+
+        int deleteCounts = categoryDao.deleteBatchIds(catIdList);
+        return deleteCounts > 0 ? true : false;
+    }
+
     /**
      * 递归查找所有菜单的子菜单
      * @param root
@@ -48,7 +56,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      */
     private List<CategoryTreeVO> getChildrens(CategoryTreeVO root, List<CategoryTreeVO> all) {
         List<CategoryTreeVO> children = all.stream()
-                .filter(category -> category.getParentCid() == root.getCatId())
+                .filter(category -> category.getParentCid().equals(root.getCatId()))
                 // 找到子菜单
                 .map(category -> {
                     category.setChildren(getChildrens(category, all));

@@ -6,4 +6,5 @@ spring:
         server-addr: http://localhost:8848
       config:
         server-addr: http://localhost:8848
+        group: GULIMALL-MEMBER
         file-extension: yaml

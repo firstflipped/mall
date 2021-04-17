@@ -20,5 +20,12 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @return
      */
     List<CategoryTreeVO> listWithTree();
+
+    /**
+     * 批量删除分类
+     * @param catIdList
+     * @return
+     */
+    boolean deleteCategoryByIds(List<Long> catIdList);
 }
 
