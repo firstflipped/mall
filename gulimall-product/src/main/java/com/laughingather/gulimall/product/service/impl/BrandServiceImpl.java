@@ -9,14 +9,15 @@ import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.query.BrandQuery;
 import com.laughingather.gulimall.product.service.BrandService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 
 @Service("brandService")
 public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
 
-    @Autowired
+    @Resource
     private BrandDao brandDao;
 
     @Override
@@ -27,7 +28,6 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
             queryWrapper.lambda().like(BrandEntity::getName, brandQuery.getName());
         }
 
-        IPage<BrandEntity> listBrands = brandDao.selectPage(page, queryWrapper);
-        return listBrands;
+        return brandDao.selectPage(page, queryWrapper);
     }
 }
