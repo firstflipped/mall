@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Mark sunlightcs@gmail.com
  */
 @Configuration
-public class MybatisPlusConfig {
+public class BaseMybatisPlusConfig {
 
     /**
      * 分页插件

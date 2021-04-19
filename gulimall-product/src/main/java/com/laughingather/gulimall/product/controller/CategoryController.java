@@ -34,11 +34,16 @@ public class CategoryController {
         return Result.success(categoryTreeVOs);
     }
 
-    @PostMapping("/save")
-    public Result saveCategory(@RequestBody CategoryEntity categoryEntity) {
-        boolean isSuccess = categoryService.save(categoryEntity);
+    @GetMapping("/get/{catId}")
+    public Result getCategoryById(@PathVariable("catId") Long catId) {
+        CategoryEntity category = categoryService.getById(catId);
+        return category == null ? Result.failed() : Result.success(category);
+    }
 
-        return isSuccess ? Result.success(categoryEntity) : Result.failed();
+    @PostMapping("/save")
+    public Result saveCategory(@RequestBody CategoryEntity category) {
+        boolean isSuccess = categoryService.save(category);
+        return isSuccess ? Result.success(category) : Result.failed();
     }
 
     @DeleteMapping("/delete")
@@ -49,11 +54,15 @@ public class CategoryController {
         return isSuccess ? Result.success(catIdList) : Result.failed();
     }
 
-    @PostMapping("/insert")
-    public Result insertCategory(@RequestBody CategoryEntity categoryEntity) {
-
-
-        return Result.success(null);
+    @PutMapping("/update")
+    public Result updateCategoryById(@RequestBody CategoryEntity category) {
+        boolean isSuccess = categoryService.updateById(category);
+        return isSuccess ? Result.success(null) : Result.failed();
     }
 
+    @PutMapping("/update/dragAndDrop")
+    public Result updateDragAndDrop(@RequestBody CategoryEntity[] categories) {
+        boolean isSuccess = categoryService.updateBatchById(Arrays.asList(categories));
+        return isSuccess ? Result.success(null) : Result.failed();
+    }
 }

@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49
  */
-@Mapper
 public interface AttrDao extends BaseMapper<AttrEntity> {
 	
 }
