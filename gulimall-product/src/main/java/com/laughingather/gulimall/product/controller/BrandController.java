@@ -8,6 +8,8 @@ import com.laughingather.gulimall.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 
 /**
  * 品牌
@@ -48,6 +50,13 @@ public class BrandController {
         boolean isSuccess = brandService.removeById(brandId);
 
         return isSuccess ? Result.success(brandId) : Result.failed();
+    }
+
+    @DeleteMapping
+    public Result deleteBrandsByIds(@RequestBody Long[] brandIds) {
+        boolean isSuccess = brandService.removeByIds(Arrays.asList(brandIds));
+
+        return isSuccess ? Result.success(brandIds) : Result.failed();
     }
 
     @PutMapping

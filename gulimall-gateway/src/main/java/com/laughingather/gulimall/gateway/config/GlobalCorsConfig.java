@@ -1,4 +1,4 @@
-package com.laugingather.gulimall.gateway.config;
+package com.laughingather.gulimall.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

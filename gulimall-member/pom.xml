@@ -6,7 +6,7 @@
         <groupId>com.laughingather.gulimall</groupId>
         <artifactId>gulimall</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.laughingather.gulimall</groupId>
     <artifactId>gulimall-member</artifactId>
@@ -42,19 +42,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>2.2.5.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>2.2.5.RELEASE</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -62,6 +49,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.laughingather.gulimall.member.GulimallMemberApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

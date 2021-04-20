@@ -9,6 +9,13 @@ spring:
     gateway:
       routes:
         ## 一个请求满足多个路由的谓词条件时，请求只会被首个成功匹配的路由转发
+        - id: gulimall-third-party
+          uri: lb://gulimall-third-party
+          predicates:
+            - Path=/api/gulimall-third-party/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-product
           uri: lb://gulimall-product
           predicates:

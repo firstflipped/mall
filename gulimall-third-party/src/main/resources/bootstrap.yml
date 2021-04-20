@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: gulimall-third-party
+  profiles:
+    active: dev
