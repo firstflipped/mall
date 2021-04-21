@@ -4,19 +4,21 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
+import com.laughingather.gulimall.common.api.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/oss")
 public class OSSController {
@@ -32,12 +34,13 @@ public class OSSController {
     private String bucket;
 
     @GetMapping("/policy")
-    public Map<String, String> policy() {
+    public Result policy() {
         String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
-
+        String projectName = "gulimall";
         // 格式化一个当前日期
         String format = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
-        String dir = format + File.pathSeparator; // 用户上传文件时指定的前缀。
+        // File.separator    系统路径分隔符
+        String dir = projectName + "/" + format + "/"; // 用户上传文件时指定的前缀。
 
         Map<String, String> respMap = null;
 
@@ -62,13 +65,11 @@ public class OSSController {
             respMap.put("dir", dir);
             respMap.put("host", host);
             respMap.put("expire", String.valueOf(expireEndTime / 1000));
-            // respMap.put("expire", formatISO8601Date(expiration));
         } catch (Exception e) {
-            // Assert.fail(e.getMessage());
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
 
-        return respMap;
+        return Result.success(respMap);
     }
 
 }

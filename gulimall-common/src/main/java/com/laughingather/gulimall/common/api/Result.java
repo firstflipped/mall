@@ -23,6 +23,11 @@ public class Result {
 
     private Object data;
 
+    public static Result success() {
+        return Result.builder().code(ResultCodeEnum.SUCCESS.getCode())
+                .message(ResultCodeEnum.SUCCESS.getMessage()).data(null).build();
+    }
+
     public static Result success(Object data) {
         return Result.builder().code(ResultCodeEnum.SUCCESS.getCode())
                 .message(ResultCodeEnum.SUCCESS.getMessage()).data(data).build();
@@ -31,6 +36,11 @@ public class Result {
     public static Result failed() {
         return Result.builder().code(ResultCodeEnum.FAILED.getCode())
                 .message(ResultCodeEnum.FAILED.getMessage()).data(null).build();
+    }
+
+    public static Result failed(Object data) {
+        return Result.builder().code(ResultCodeEnum.FAILED.getCode())
+                .message(ResultCodeEnum.FAILED.getMessage()).data(data).build();
     }
 
 }
