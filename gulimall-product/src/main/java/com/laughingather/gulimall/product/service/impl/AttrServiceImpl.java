@@ -17,7 +17,6 @@ import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.service.AttrService;
 import com.laughingather.gulimall.product.service.CategoryService;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -124,7 +122,8 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     private void saveAttrOtherInfo(AttrDTO attrDTO, AttrEntity attr) {
-        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType())) {
+        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType()) &&
+                null != attrDTO.getAttrGroupId()) {
             AttrAttrgroupRelationEntity attrAttrgroupRelation = AttrAttrgroupRelationEntity.builder()
                     .attrId(attr.getAttrId())
                     .attrGroupId(attrDTO.getAttrGroupId())
@@ -146,7 +145,8 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     private void updateAttrOtherInfo(AttrDTO attrDTO) {
-        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType())) {
+        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType())
+                && null != attrDTO.getAttrGroupId()) {
             AttrAttrgroupRelationEntity attrAttrgroupRelation = AttrAttrgroupRelationEntity.builder()
                     .attrId(attrDTO.getAttrId()).attrGroupId(attrDTO.getAttrGroupId()).build();
             Integer count = attrAttrgroupRelationDao.countAttrAttrGroupByAttrId(attrDTO.getAttrId());
