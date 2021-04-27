@@ -1,7 +1,11 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.AttrEntity;
+import com.laughingather.gulimall.product.entity.dto.AttrDTO;
+import com.laughingather.gulimall.product.entity.query.AttrQuery;
+import com.laughingather.gulimall.product.entity.vo.AttrVO;
 
 /**
  * 商品属性
@@ -12,5 +16,12 @@ import com.laughingather.gulimall.product.entity.AttrEntity;
  */
 public interface AttrService extends IService<AttrEntity> {
 
+    MyPage<AttrVO> listBaseAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery);
+
+    void saveAttr(AttrDTO attrDTO);
+
+    void updateAttrById(AttrDTO attrDTO);
+
+    AttrVO getAttrVOById(Long attrId);
 }
 

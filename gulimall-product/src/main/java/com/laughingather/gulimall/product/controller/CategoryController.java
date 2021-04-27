@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product.controller;
 
-import com.laughingather.gulimall.common.api.Result;
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 import com.laughingather.gulimall.product.service.CategoryService;
@@ -29,40 +29,40 @@ public class CategoryController {
      * 查询分类列表，并组装成树
      */
     @GetMapping("/tree")
-    public Result treeCategory() {
+    public MyResult<List<CategoryTreeVO>> treeCategory() {
         List<CategoryTreeVO> categoryTreeVOs = categoryService.listWithTree();
-        return Result.success(categoryTreeVOs);
+        return MyResult.success(categoryTreeVOs);
     }
 
     @GetMapping("/get/{catId}")
-    public Result getCategoryById(@PathVariable("catId") Long catId) {
+    public MyResult<CategoryEntity> getCategoryById(@PathVariable("catId") Long catId) {
         CategoryEntity category = categoryService.getById(catId);
-        return category == null ? Result.failed() : Result.success(category);
+        return category == null ? MyResult.failed() : MyResult.success(category);
     }
 
     @PostMapping("/save")
-    public Result saveCategory(@RequestBody CategoryEntity category) {
+    public MyResult<CategoryEntity> saveCategory(@RequestBody CategoryEntity category) {
         boolean isSuccess = categoryService.save(category);
-        return isSuccess ? Result.success(category) : Result.failed();
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @DeleteMapping("/delete")
-    public Result deleteCategoryByIds(@RequestBody Long[] catIds) {
+    public MyResult deleteCategoryByIds(@RequestBody Long[] catIds) {
         List<Long> catIdList = Arrays.asList(catIds);
         boolean isSuccess = categoryService.deleteCategoryByIds(catIdList);
 
-        return isSuccess ? Result.success(catIdList) : Result.failed();
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @PutMapping("/update")
-    public Result updateCategoryById(@RequestBody CategoryEntity category) {
+    public MyResult updateCategoryById(@RequestBody CategoryEntity category) {
         boolean isSuccess = categoryService.updateById(category);
-        return isSuccess ? Result.success(null) : Result.failed();
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @PutMapping("/update/dragAndDrop")
-    public Result updateDragAndDrop(@RequestBody CategoryEntity[] categories) {
+    public MyResult updateDragAndDrop(@RequestBody CategoryEntity[] categories) {
         boolean isSuccess = categoryService.updateBatchById(Arrays.asList(categories));
-        return isSuccess ? Result.success(null) : Result.failed();
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 }

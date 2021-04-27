@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.product.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.query.BrandQuery;
 
@@ -14,6 +14,8 @@ import com.laughingather.gulimall.product.entity.query.BrandQuery;
  */
 public interface BrandService extends IService<BrandEntity> {
 
-    IPage<BrandEntity> pageBrandsByParams(BrandQuery brandQuery);
+    MyPage<BrandEntity> pageBrandsByParams(BrandQuery brandQuery);
+
+    boolean updateBrandById(BrandEntity brand);
 }
 

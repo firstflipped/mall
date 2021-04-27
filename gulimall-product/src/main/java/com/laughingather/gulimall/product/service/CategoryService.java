@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -23,9 +24,18 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     /**
      * 批量删除分类
+     *
      * @param catIdList
      * @return
      */
     boolean deleteCategoryByIds(List<Long> catIdList);
+
+    /**
+     * 根据子节点查询完整节点关系
+     *
+     * @param catelogId
+     * @return
+     */
+    Long[] getCatelogPath(@NotNull Long catelogId);
 }
 

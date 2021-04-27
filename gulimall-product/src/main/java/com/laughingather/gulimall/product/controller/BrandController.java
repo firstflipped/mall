@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.product.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.laughingather.gulimall.common.api.Result;
+import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
 import com.laughingather.gulimall.product.entity.BrandEntity;
@@ -28,44 +28,41 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping("/page")
-    public Result pageBrandsByParams(@ModelAttribute BrandQuery brandQuery) {
-        IPage<BrandEntity> pageBrands = brandService.pageBrandsByParams(brandQuery);
+    public MyResult<MyPage<BrandEntity>> pageBrandsByParams(@ModelAttribute BrandQuery brandQuery) {
+        MyPage<BrandEntity> pageBrands = brandService.pageBrandsByParams(brandQuery);
 
-        return Result.success(pageBrands);
+        return MyResult.success(pageBrands);
     }
 
     @GetMapping("/{brandId}")
-    public Result getBrandById(@PathVariable("brandId") Long brandId) {
+    public MyResult<BrandEntity> getBrandById(@PathVariable("brandId") Long brandId) {
         BrandEntity brand = brandService.getById(brandId);
 
-        return brand == null ? Result.failed() : Result.success(brand);
+        return brand == null ? MyResult.failed() : MyResult.success(brand);
     }
 
     @PostMapping
-    public Result saveBrand(@Validated({AddGroup.class}) @RequestBody BrandEntity brand) {
+    public MyResult saveBrand(@Validated({AddGroup.class}) @RequestBody BrandEntity brand) {
         brandService.save(brand);
-        return Result.success(brand);
+        return MyResult.success();
     }
 
     @DeleteMapping("/{brandId}")
-    public Result deleteBrandById(@PathVariable("brandId") Long brandId) {
+    public MyResult deleteBrandById(@PathVariable("brandId") Long brandId) {
         boolean isSuccess = brandService.removeById(brandId);
-
-        return isSuccess ? Result.success(brandId) : Result.failed();
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @DeleteMapping
-    public Result deleteBrandsByIds(@RequestBody Long[] brandIds) {
+    public MyResult deleteBrandsByIds(@RequestBody Long[] brandIds) {
         boolean isSuccess = brandService.removeByIds(Arrays.asList(brandIds));
-
-        return isSuccess ? Result.success(brandIds) : Result.failed();
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @PutMapping
-    public Result updateBrandById(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand) {
-        boolean isSuccess = brandService.updateById(brand);
-
-        return isSuccess ? Result.success(brand) : Result.failed();
+    public MyResult updateBrandById(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand) {
+        boolean isSuccess = brandService.updateBrandById(brand);
+        return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
 

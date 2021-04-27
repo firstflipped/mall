@@ -4,7 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
-import com.laughingather.gulimall.common.api.Result;
+import com.laughingather.gulimall.common.api.MyResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,7 @@ public class OSSController {
     private String bucket;
 
     @GetMapping("/policy")
-    public Result policy() {
+    public MyResult<Map<String, String>> policy() {
         String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
         String projectName = "gulimall";
         // 格式化一个当前日期
@@ -69,7 +69,7 @@ public class OSSController {
             log.error(e.getMessage());
         }
 
-        return Result.success(respMap);
+        return MyResult.success(respMap);
     }
 
 }

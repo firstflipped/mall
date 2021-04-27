@@ -1,10 +1,13 @@
 package com.laughingather.gulimall.product.controller;
 
+import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.product.entity.dto.AttrDTO;
+import com.laughingather.gulimall.product.entity.query.AttrQuery;
+import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -20,6 +23,33 @@ public class AttrController {
 
     @Autowired
     private AttrService attrService;
+
+    @GetMapping("/{attrType}/list/{catId}")
+    public MyResult<MyPage<AttrVO>> listBaseAttrsByCatId(@PathVariable("catId") Long catId,
+                                                         @PathVariable("attrType") String attrType,
+                                                         @ModelAttribute AttrQuery attrQuery) {
+        MyPage<AttrVO> attrEntityMyPage = attrService.listBaseAttrsByCatId(catId, attrType, attrQuery);
+        return MyResult.success(attrEntityMyPage);
+    }
+
+
+    @GetMapping("/{attrId}")
+    public MyResult<AttrVO> getAttrVOById(@PathVariable Long attrId) {
+        AttrVO attrVO = attrService.getAttrVOById(attrId);
+        return MyResult.success(attrVO);
+    }
+
+    @PostMapping
+    public MyResult saveAttr(@RequestBody AttrDTO attrDTO) {
+        attrService.saveAttr(attrDTO);
+        return MyResult.success();
+    }
+
+    @PutMapping
+    public MyResult updateAttrById(@RequestBody AttrDTO attrDTO) {
+        attrService.updateAttrById(attrDTO);
+        return MyResult.success();
+    }
 
 
 }

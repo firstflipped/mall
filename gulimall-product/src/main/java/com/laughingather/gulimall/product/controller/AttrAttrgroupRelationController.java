@@ -1,10 +1,15 @@
 package com.laughingather.gulimall.product.controller;
 
+import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.product.entity.AttrEntity;
+import com.laughingather.gulimall.product.entity.dto.AttrGroupRelationDTO;
+import com.laughingather.gulimall.product.entity.query.AttrAttrGroupQuery;
 import com.laughingather.gulimall.product.service.AttrAttrgroupRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 /**
@@ -21,5 +26,29 @@ public class AttrAttrgroupRelationController {
     @Autowired
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
+    @GetMapping("/list/attr/{attrGroupId}")
+    public MyResult<List<AttrEntity>> listAttrsByAttrGroupId(@PathVariable("attrGroupId") Long attrGroupId) {
+        List<AttrEntity> attrEntities = attrAttrgroupRelationService.listAttrsByAttrGroupId(attrGroupId);
+        return MyResult.success(attrEntities);
+    }
+
+    @GetMapping("/list/noAttr/{attrGroupId}")
+    public MyResult<MyPage<AttrEntity>> listNoAttrsByAttrGroupId(@PathVariable("attrGroupId") Long attrGroupId,
+                                                                 @ModelAttribute AttrAttrGroupQuery attrAttrGroupQuery) {
+        MyPage<AttrEntity> listNoAttrsByAttrGroupId = attrAttrgroupRelationService.listNoAttrsByAttrGroupId(attrGroupId, attrAttrGroupQuery);
+        return MyResult.success(listNoAttrsByAttrGroupId);
+    }
+
+    @PostMapping
+    public MyResult saveAttrAttrgroupRelation(@RequestBody AttrGroupRelationDTO[] attrGroupRelationDTOs) {
+        attrAttrgroupRelationService.saveAttrAttrgroupRelation(attrGroupRelationDTOs);
+        return MyResult.success();
+    }
+
+    @DeleteMapping("/byAttrIdAndAttrGroupId")
+    public MyResult deleteAttrAttrgroupRelationByAttrIdAndAttrGroupId(@RequestBody AttrGroupRelationDTO[] attrGroupRelationDTOs) {
+        attrAttrgroupRelationService.deleteAttrAttrgroupRelationByAttrIdAndAttrGroupId(attrGroupRelationDTOs);
+        return MyResult.success();
+    }
 
 }

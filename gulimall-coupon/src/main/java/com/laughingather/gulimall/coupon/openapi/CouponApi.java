@@ -1,8 +1,8 @@
-package com.laughingather.gulimall.coupon.controller;
+package com.laughingather.gulimall.coupon.openapi;
 
-import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.CouponEntity;
 import com.laughingather.gulimall.coupon.service.CouponService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,24 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
-/**
- * 优惠券信息
- *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:49:53
- */
+@Slf4j
 @RestController
-@RequestMapping("/coupon/coupon")
-public class CouponController {
+@RequestMapping("/openapi/coupon/coupon")
+public class CouponApi {
+
     @Autowired
     private CouponService couponService;
 
     @GetMapping("/list")
-    public MyResult<List<CouponEntity>> listCoupons() {
-        List<CouponEntity> couponList = couponService.listCoupons();
-        return MyResult.success(couponList);
+    public List<CouponEntity> listCoupons() {
+        log.info("走的openapi");
+        return couponService.listCoupons();
     }
 
 }

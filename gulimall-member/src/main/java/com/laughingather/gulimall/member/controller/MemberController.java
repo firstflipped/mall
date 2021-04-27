@@ -1,10 +1,11 @@
 package com.laughingather.gulimall.member.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.laughingather.gulimall.common.api.Result;
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
-import com.laughingather.gulimall.member.feign.CouponFeignService;
+import com.laughingather.gulimall.member.feign.entity.CouponEntity;
+import com.laughingather.gulimall.member.feign.service.CouponFeignService;
 import com.laughingather.gulimall.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -26,32 +29,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     @Autowired
     private MemberService memberService;
-    @Autowired
+    @Resource
     private CouponFeignService couponFeignService;
 
     @GetMapping("/coupons")
-    public Result listCoupons() {
-        Result result = couponFeignService.listCoupons();
+    public MyResult<List<CouponEntity>> listCoupons() {
+        List<CouponEntity> coupons = couponFeignService.listCoupons();
 
-        return Result.builder().data(result.getData()).build();
+        return MyResult.success(coupons);
     }
 
     @GetMapping("/list")
-    public Result listMembers(@ModelAttribute MemberQuery memberQuery) {
-
-        // 设置分页减一
-        // memberQuery.setPageNumber(memberQuery.getPageNumber() - 1);
-
-        if (memberQuery.getPageNumber() == null || memberQuery.getPageNumber() < 0) {
-            memberQuery.setPageNumber(0);
-        }
-
-        if (memberQuery.getPageSize() == null || memberQuery.getPageSize() < 0) {
-            memberQuery.setPageSize(10);
-        }
-
+    public MyResult listMembers(@ModelAttribute MemberQuery memberQuery) {
         IPage<MemberEntity> memberPage = memberService.listMembers(memberQuery);
-        return Result.builder().data(memberPage).build();
+        return MyResult.success(memberPage);
     }
 
 }
