@@ -40,8 +40,8 @@ public class AttrAttrgroupRelationController {
     }
 
     @PostMapping
-    public MyResult saveAttrAttrgroupRelation(@RequestBody AttrGroupRelationDTO[] attrGroupRelationDTOs) {
-        attrAttrgroupRelationService.saveAttrAttrgroupRelation(attrGroupRelationDTOs);
+    public MyResult saveBatchAttrAttrgroupRelation(@RequestBody AttrGroupRelationDTO[] attrGroupRelationDTOs) {
+        attrAttrgroupRelationService.saveBatchAttrAttrgroupRelation(attrGroupRelationDTOs);
         return MyResult.success();
     }
 

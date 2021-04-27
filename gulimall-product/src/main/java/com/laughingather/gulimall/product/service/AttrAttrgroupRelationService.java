@@ -40,7 +40,7 @@ public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRela
      *
      * @param attrGroupRelationDTOs
      */
-    void saveAttrAttrgroupRelation(AttrGroupRelationDTO[] attrGroupRelationDTOs);
+    void saveBatchAttrAttrgroupRelation(AttrGroupRelationDTO[] attrGroupRelationDTOs);
 
     /**
      * 根据分组id和属性id删除关联关系

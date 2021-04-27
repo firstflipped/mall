@@ -94,7 +94,7 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
     }
 
     @Override
-    public void saveAttrAttrgroupRelation(AttrGroupRelationDTO[] attrGroupRelationDTOs) {
+    public void saveBatchAttrAttrgroupRelation(AttrGroupRelationDTO[] attrGroupRelationDTOs) {
         List<AttrAttrgroupRelationEntity> attrgroupRelations = Arrays.stream(attrGroupRelationDTOs).map(item ->
                 AttrAttrgroupRelationEntity.builder().attrId(item.getAttrId()).attrGroupId(item.getAttrGroupId()).build()
         ).collect(Collectors.toList());
