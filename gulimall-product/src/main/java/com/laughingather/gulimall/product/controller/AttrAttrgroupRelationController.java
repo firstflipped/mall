@@ -32,10 +32,10 @@ public class AttrAttrgroupRelationController {
         return MyResult.success(attrEntities);
     }
 
-    @GetMapping("/list/noAttr/{attrGroupId}")
-    public MyResult<MyPage<AttrEntity>> listNoAttrsByAttrGroupId(@PathVariable("attrGroupId") Long attrGroupId,
+    @GetMapping("/page/noAttr/{attrGroupId}")
+    public MyResult<MyPage<AttrEntity>> pageNoAttrsByAttrGroupId(@PathVariable("attrGroupId") Long attrGroupId,
                                                                  @ModelAttribute AttrAttrGroupQuery attrAttrGroupQuery) {
-        MyPage<AttrEntity> listNoAttrsByAttrGroupId = attrAttrgroupRelationService.listNoAttrsByAttrGroupId(attrGroupId, attrAttrGroupQuery);
+        MyPage<AttrEntity> listNoAttrsByAttrGroupId = attrAttrgroupRelationService.pageNoAttrsByAttrGroupId(attrGroupId, attrAttrGroupQuery);
         return MyResult.success(listNoAttrsByAttrGroupId);
     }
 

@@ -23,6 +23,20 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: gulimall-member
+          uri: lb://gulimall-member
+          predicates:
+            - Path=/api/gulimall-member/**
+          filters:
+            - StripPrefix=1
+
+        - id: gulimall-ware
+          uri: lb://gulimall-ware
+          predicates:
+            - Path=/api/gulimall-ware/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-admin
           uri: lb://gulimall-admin
           predicates:

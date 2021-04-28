@@ -11,16 +11,4 @@
         <result property="brandName" column="brand_name"/>
         <result property="catelogName" column="catelog_name"/>
     </resultMap>
-
-    <resultMap type="com.laughingather.gulimall.product.entity.vo.CategoryBrandRelationVO"
-               id="categoryBrandRelationVOMap">
-        <result property="catelogId" column="catelog_id"/>
-        <result property="catelogName" column="catelog_name"/>
-    </resultMap>
-
-    <select id="listCategoryByBrandId" resultMap="categoryBrandRelationVOMap">
-        SELECT catelog_id, catelog_name
-        FROM pms_category_brand_relation
-        WHERE brand_id = #{brandId}
-    </select>
 </mapper>

@@ -1,7 +1,10 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.SpuInfoEntity;
+import com.laughingather.gulimall.product.entity.dto.SpuSaveDTO;
+import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 
 /**
  * spu信息
@@ -12,5 +15,8 @@ import com.laughingather.gulimall.product.entity.SpuInfoEntity;
  */
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
+    void saveSpuInfo(SpuSaveDTO spuSaveDTO);
+
+    MyPage<SpuInfoEntity> pageSpuInfoByParams(SpuInfoQuery spuInfoQuery);
 }
 

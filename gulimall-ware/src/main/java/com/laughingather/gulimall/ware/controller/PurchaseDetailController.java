@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:57:23
  */
 @RestController
-@RequestMapping("ware/purchasedetail")
+@RequestMapping("/ware/purchasedetail")
 public class PurchaseDetailController {
     @Autowired
     private PurchaseDetailService purchaseDetailService;

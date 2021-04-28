@@ -2,6 +2,7 @@ package com.laughingather.gulimall.coupon.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
  * @date 2021-04-12 11:49:52
  */
 @Data
+@Builder
 @TableName("sms_member_price")
 public class MemberPriceEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

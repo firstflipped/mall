@@ -1,10 +1,14 @@
 package com.laughingather.gulimall.member.controller;
 
+import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.member.entity.MemberLevelEntity;
+import com.laughingather.gulimall.member.entity.query.MemberLevelQuery;
 import com.laughingather.gulimall.member.service.MemberLevelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 
 
 /**
@@ -19,4 +23,41 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberLevelController {
     @Autowired
     private MemberLevelService memberLevelService;
+
+    @GetMapping("/page")
+    public MyResult<MyPage<MemberLevelEntity>> pageMemberLevels(@ModelAttribute MemberLevelQuery memberLevelQuery) {
+        MyPage<MemberLevelEntity> memberLevelMyPage = memberLevelService.pageMemberLevels(memberLevelQuery);
+        return MyResult.success(memberLevelMyPage);
+    }
+
+    @GetMapping("/{id}")
+    public MyResult<MemberLevelEntity> getMemberLevelById(@PathVariable("id") Long id) {
+        MemberLevelEntity memberLevel = memberLevelService.getById(id);
+        return MyResult.success(memberLevel);
+    }
+
+    @PostMapping
+    public MyResult saveMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
+        memberLevelService.save(memberLevelEntity);
+        return MyResult.success();
+    }
+
+    @DeleteMapping("/{id}")
+    public MyResult deleteMemberLevelById(@PathVariable("id") Long id) {
+        memberLevelService.removeById(id);
+        return MyResult.success();
+    }
+
+    @DeleteMapping
+    public MyResult deleteBatchMemberLevelByIds(@RequestBody Long[] ids) {
+        memberLevelService.removeByIds(Arrays.asList(ids));
+        return MyResult.success();
+    }
+
+    @PutMapping
+    public MyResult updateMemberLevelById(@RequestBody MemberLevelEntity memberLevelEntity) {
+        memberLevelService.updateById(memberLevelEntity);
+        return MyResult.success();
+    }
+
 }

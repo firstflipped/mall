@@ -2,6 +2,7 @@ package com.laughingather.gulimall.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.coupon.entity.SkuFullReductionEntity;
+import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
 
 /**
  * 商品满减信息
@@ -12,5 +13,6 @@ import com.laughingather.gulimall.coupon.entity.SkuFullReductionEntity;
  */
 public interface SkuFullReductionService extends IService<SkuFullReductionEntity> {
 
+    void saveSkuFullReduction(SkuOtherInfoTO skuOtherInfoTO);
 }
 

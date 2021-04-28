@@ -49,7 +49,7 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
     }
 
     @Override
-    public MyPage<AttrEntity> listNoAttrsByAttrGroupId(Long attrGroupId, AttrAttrGroupQuery attrAttrGroupQuery) {
+    public MyPage<AttrEntity> pageNoAttrsByAttrGroupId(Long attrGroupId, AttrAttrGroupQuery attrAttrGroupQuery) {
         Long categoryId = attrGroupDao.selectCategoryIdByAttrGroupId(attrGroupId);
 
         // 查询选中的的属性id

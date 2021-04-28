@@ -33,7 +33,7 @@ public interface AttrAttrgroupRelationService extends IService<AttrAttrgroupRela
      * @param attrAttrGroupQuery
      * @return
      */
-    MyPage<AttrEntity> listNoAttrsByAttrGroupId(Long attrGroupId, AttrAttrGroupQuery attrAttrGroupQuery);
+    MyPage<AttrEntity> pageNoAttrsByAttrGroupId(Long attrGroupId, AttrAttrGroupQuery attrAttrGroupQuery);
 
     /**
      * 增加属性分组和属性的关联关系

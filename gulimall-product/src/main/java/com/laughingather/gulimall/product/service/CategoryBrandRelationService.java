@@ -2,7 +2,6 @@ package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
-import com.laughingather.gulimall.product.entity.vo.CategoryBrandRelationVO;
 
 import java.util.List;
 
@@ -15,7 +14,9 @@ import java.util.List;
  */
 public interface CategoryBrandRelationService extends IService<CategoryBrandRelationEntity> {
 
-    List<CategoryBrandRelationVO> listCategoryByBrandId(Long brandId);
+    List<CategoryBrandRelationEntity> listCategoryByBrandId(Long brandId);
+
+    List<CategoryBrandRelationEntity> listBrandsByCategoryId(Long categoryId);
 
     void saveCategoryBrandRelation(CategoryBrandRelationEntity categoryBrandRelation);
 }

@@ -2,19 +2,20 @@ package com.laughingather.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Builder;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * sku图片
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49
  */
 @Data
+@Builder
 @TableName("pms_sku_images")
 public class SkuImagesEntity implements Serializable {
 

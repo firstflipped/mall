@@ -4,13 +4,13 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
 import com.laughingather.gulimall.product.entity.dto.CategoryBrandRelationDTO;
-import com.laughingather.gulimall.product.entity.vo.CategoryBrandRelationVO;
 import com.laughingather.gulimall.product.service.CategoryBrandRelationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -35,11 +35,16 @@ public class CategoryBrandRelationController {
      * @return
      */
     @GetMapping("/list/category")
-    public MyResult<List<CategoryBrandRelationVO>> listCategoryByBrandId(@RequestParam("brandId") Long brandId) {
-        List<CategoryBrandRelationVO> categoryBrandRelationVOList = categoryBrandRelationService.listCategoryByBrandId(brandId);
+    public MyResult<List<CategoryBrandRelationEntity>> listCategoryByBrandId(@RequestParam("brandId") Long brandId) {
+        List<CategoryBrandRelationEntity> categoryBrandRelationVOList = categoryBrandRelationService.listCategoryByBrandId(brandId);
         return MyResult.success(categoryBrandRelationVOList);
     }
 
+    @GetMapping("/list/brand")
+    public MyResult<List<CategoryBrandRelationEntity>> listBrandsByCategoryId(@RequestParam("categoryId") Long categoryId) {
+        List<CategoryBrandRelationEntity> categoryBrandRelationVOList = categoryBrandRelationService.listBrandsByCategoryId(categoryId);
+        return MyResult.success(categoryBrandRelationVOList);
+    }
 
     @PostMapping
     public MyResult saveCategoryBrandRelation(@Validated(value = {AddGroup.class}) @RequestBody
@@ -54,6 +59,12 @@ public class CategoryBrandRelationController {
     @DeleteMapping("/{id}")
     public MyResult deleteCategoryBrandRelationById(@PathVariable("id") Long id) {
         categoryBrandRelationService.removeById(id);
+        return MyResult.success();
+    }
+
+    @DeleteMapping
+    public MyResult deleteCategoryBrandRelationByIds(@RequestBody Long[] ids) {
+        categoryBrandRelationService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
 

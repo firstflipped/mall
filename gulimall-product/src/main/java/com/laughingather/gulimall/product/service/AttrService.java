@@ -16,7 +16,7 @@ import com.laughingather.gulimall.product.entity.vo.AttrVO;
  */
 public interface AttrService extends IService<AttrEntity> {
 
-    MyPage<AttrVO> listBaseAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery);
+    MyPage<AttrVO> pageAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery);
 
     void saveAttr(AttrDTO attrDTO);
 

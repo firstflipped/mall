@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021-04-12 11:57:23
  */
 @RestController
-@RequestMapping("ware/wareordertaskdetail")
+@RequestMapping("/ware/wareordertaskdetail")
 public class WareOrderTaskDetailController {
     @Autowired
     private WareOrderTaskDetailService wareOrderTaskDetailService;

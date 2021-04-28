@@ -24,11 +24,11 @@ public class AttrController {
     @Autowired
     private AttrService attrService;
 
-    @GetMapping("/{attrType}/list/{catId}")
-    public MyResult<MyPage<AttrVO>> listBaseAttrsByCatId(@PathVariable("catId") Long catId,
-                                                         @PathVariable("attrType") String attrType,
-                                                         @ModelAttribute AttrQuery attrQuery) {
-        MyPage<AttrVO> attrEntityMyPage = attrService.listBaseAttrsByCatId(catId, attrType, attrQuery);
+    @GetMapping("/{attrType}/page/{catId}")
+    public MyResult<MyPage<AttrVO>> pageAttrsByCatId(@PathVariable("catId") Long catId,
+                                                     @PathVariable("attrType") String attrType,
+                                                     @ModelAttribute AttrQuery attrQuery) {
+        MyPage<AttrVO> attrEntityMyPage = attrService.pageAttrsByCatId(catId, attrType, attrQuery);
         return MyResult.success(attrEntityMyPage);
     }
 

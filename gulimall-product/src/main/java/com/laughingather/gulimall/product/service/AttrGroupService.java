@@ -5,6 +5,9 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.AttrGroupEntity;
 import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
+import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
+
+import java.util.List;
 
 /**
  * 属性分组
@@ -15,8 +18,10 @@ import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
  */
 public interface AttrGroupService extends IService<AttrGroupEntity> {
 
-    MyPage<AttrGroupEntity> listAttrGroupsByCatId(Long catId, AttrGroupQuery attrGroupQuery);
+    MyPage<AttrGroupEntity> pageAttrGroupsByParams(Long catId, AttrGroupQuery attrGroupQuery);
 
     AttrGroupVO getAttrGroupById(Long attrGroupId);
+
+    List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId);
 }
 

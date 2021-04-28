@@ -1,18 +1,16 @@
 package com.laughingather.gulimall.product.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.product.dao.BrandDao;
 import com.laughingather.gulimall.product.dao.CategoryBrandRelationDao;
 import com.laughingather.gulimall.product.dao.CategoryDao;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
-import com.laughingather.gulimall.product.entity.vo.CategoryBrandRelationVO;
 import com.laughingather.gulimall.product.service.CategoryBrandRelationService;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -27,10 +25,17 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     private CategoryDao categoryDao;
 
     @Override
-    public List<CategoryBrandRelationVO> listCategoryByBrandId(Long brandId) {
-        List<CategoryBrandRelationVO> categoryBrandRelationVOList = categoryBrandRelationDao.listCategoryByBrandId(brandId);
-        return CollectionUtils.isNotEmpty(categoryBrandRelationVOList) ?
-                categoryBrandRelationVOList : Collections.emptyList();
+    public List<CategoryBrandRelationEntity> listCategoryByBrandId(Long brandId) {
+        List<CategoryBrandRelationEntity> categoryBrandRelationList = categoryBrandRelationDao.selectList(new QueryWrapper<CategoryBrandRelationEntity>()
+                .lambda().eq(CategoryBrandRelationEntity::getBrandId, brandId));
+        return categoryBrandRelationList;
+    }
+
+    @Override
+    public List<CategoryBrandRelationEntity> listBrandsByCategoryId(Long categoryId) {
+        List<CategoryBrandRelationEntity> categoryBrandRelations = categoryBrandRelationDao.selectList(new QueryWrapper<CategoryBrandRelationEntity>()
+                .lambda().eq(CategoryBrandRelationEntity::getCatelogId, categoryId));
+        return categoryBrandRelations;
     }
 
     @Override

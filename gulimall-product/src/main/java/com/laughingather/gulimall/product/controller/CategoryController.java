@@ -34,7 +34,7 @@ public class CategoryController {
         return MyResult.success(categoryTreeVOs);
     }
 
-    @GetMapping("/get/{catId}")
+    @GetMapping("/{catId}")
     public MyResult<CategoryEntity> getCategoryById(@PathVariable("catId") Long catId) {
         CategoryEntity category = categoryService.getById(catId);
         return category == null ? MyResult.failed() : MyResult.success(category);

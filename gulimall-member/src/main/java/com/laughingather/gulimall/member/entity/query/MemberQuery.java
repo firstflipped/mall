@@ -1,17 +1,13 @@
 package com.laughingather.gulimall.member.entity.query;
 
+import com.laughingather.gulimall.common.query.PageQuery;
 import lombok.Data;
 
 /**
  * @author WangJie
  */
 @Data
-public class MemberQuery {
-
-    private Integer pageNumber;
-
-    private Integer pageSize;
-
+public class MemberQuery extends PageQuery {
     /**
      * 昵称
      */

@@ -47,7 +47,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private CategoryService categoryService;
 
     @Override
-    public MyPage<AttrVO> listBaseAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery) {
+    public MyPage<AttrVO> pageAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery) {
 
         // 拼接分页条件
         IPage page = new Page(attrQuery.getPageNumber(), attrQuery.getPageSize());
@@ -77,7 +77,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             // 设置分类和分组的名字
             AttrVO attrVO = getAttrOtherInfoById(attr);
             BeanUtils.copyProperties(attr, attrVO);
-
             return attrVO;
         }).collect(Collectors.toList());
 

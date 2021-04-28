@@ -1,5 +1,7 @@
 server:
   port: 8082
+  servlet:
+    context-path: /gulimall-member
 
 spring:
   profiles:
@@ -9,9 +11,6 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    # url: jdbc:mysql://101.200.147.195:3306/gulimall_ums?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    # password: root
-
 
 #mybatis
 mybatis-plus:

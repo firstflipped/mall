@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.product.dao.SkuInfoDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.product.entity.SkuInfoEntity" id="skuInfoMap">
         <result property="skuId" column="sku_id"/>
         <result property="spuId" column="spu_id"/>
@@ -18,5 +17,36 @@
         <result property="saleCount" column="sale_count"/>
     </resultMap>
 
-
+    <select id="pageSkuInfoByParams" resultMap="skuInfoMap">
+        SELECT sku_id,
+               spu_id,
+               sku_name,
+               sku_desc,
+               catalog_id,
+               brand_id,
+               sku_default_img,
+               sku_title,
+               sku_subtitle,
+               price,
+               sale_count
+        FROM pms_sku_info
+        <where>
+            <if test="params.key != null and params.key != ''">
+                AND (sku_name LIKE CONCAT('%', #{params.key}, '%') OR
+                     pms_sku_info.sku_desc LIKE CONCAT('%', #{params.key}, '%'))
+            </if>
+            <if test="params.catelogId != null and params.catelogId != 0">
+                AND catalog_id = #{params.catelogId}
+            </if>
+            <if test="params.brandId != null and params.brandId != 0">
+                AND brand_id = #{params.brandId}
+            </if>
+            <if test="params.min != null and params.min != 0">
+                AND price &gt; #{params.min}
+            </if>
+            <if test="params.max != null and params.max != 0">
+                AND price &lt; #{params.max}
+            </if>
+        </where>
+    </select>
 </mapper>

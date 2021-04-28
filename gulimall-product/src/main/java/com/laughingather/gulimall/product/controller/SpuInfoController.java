@@ -1,14 +1,13 @@
 package com.laughingather.gulimall.product.controller;
 
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.SpuInfoEntity;
+import com.laughingather.gulimall.product.entity.dto.SpuSaveDTO;
+import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.service.SpuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -25,9 +24,15 @@ public class SpuInfoController {
     @Autowired
     private SpuInfoService spuInfoService;
 
+    @GetMapping("/page")
+    public MyResult<MyPage<SpuInfoEntity>> pageSpuInfoByParams(@ModelAttribute SpuInfoQuery spuInfoQuery) {
+        MyPage<SpuInfoEntity> spuInfoMyPage = spuInfoService.pageSpuInfoByParams(spuInfoQuery);
+        return MyResult.success(spuInfoMyPage);
+    }
+
     @PostMapping
-    public MyResult saveSpuInfo(@RequestBody SpuInfoEntity spuInfo) {
-        spuInfoService.save(spuInfo);
+    public MyResult saveSpuInfo(@RequestBody SpuSaveDTO spuSaveDTO) {
+        spuInfoService.saveSpuInfo(spuSaveDTO);
         return MyResult.success();
     }
 

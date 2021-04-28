@@ -1,7 +1,9 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
+import com.laughingather.gulimall.product.entity.query.SkuInfoQuery;
 
 /**
  * sku信息
@@ -12,5 +14,7 @@ import com.laughingather.gulimall.product.entity.SkuInfoEntity;
  */
 public interface SkuInfoService extends IService<SkuInfoEntity> {
 
+
+    MyPage<SkuInfoEntity> pageSkuInfoByParams(SkuInfoQuery skuInfoQuery);
 }
 

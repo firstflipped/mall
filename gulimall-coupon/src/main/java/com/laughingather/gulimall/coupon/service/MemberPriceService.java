@@ -2,6 +2,7 @@ package com.laughingather.gulimall.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
+import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
 
 /**
  * 商品会员价格
@@ -12,5 +13,6 @@ import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
  */
 public interface MemberPriceService extends IService<MemberPriceEntity> {
 
+    void saveMemberPrice(SkuOtherInfoTO skuOtherInfoTO);
 }
 
