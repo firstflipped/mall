@@ -2,7 +2,10 @@ package com.laughingather.gulimall.ware.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,6 +18,9 @@ import java.math.BigDecimal;
  * @date 2021-04-12 11:57:23
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("wms_purchase_detail")
 public class PurchaseDetailEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

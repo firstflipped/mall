@@ -38,7 +38,7 @@ public class WareSkuController {
 
     @PostMapping
     public MyResult saveWareSku(@RequestBody WareSkuEntity wareSku) {
-        wareSkuService.save(wareSku);
+        wareSkuService.saveWareSku(wareSku);
         return MyResult.success();
     }
 
@@ -50,7 +50,7 @@ public class WareSkuController {
 
     @PutMapping
     public MyResult updateWareSkuById(@RequestBody WareSkuEntity wareSku) {
-        wareSkuService.updateById(wareSku);
+        wareSkuService.updateWareSkuById(wareSku);
         return MyResult.success();
     }
 

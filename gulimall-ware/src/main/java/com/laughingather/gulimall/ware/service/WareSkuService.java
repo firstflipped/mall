@@ -15,5 +15,11 @@ import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
 public interface WareSkuService extends IService<WareSkuEntity> {
 
     MyPage<WareSkuEntity> pageWareSkuByParams(WareSkuQuery wareSkuQuery);
+
+    void addStock(Long skuId, Long wareId, Integer skuNum);
+
+    void saveWareSku(WareSkuEntity wareSku);
+
+    void updateWareSkuById(WareSkuEntity wareSku);
 }
 
