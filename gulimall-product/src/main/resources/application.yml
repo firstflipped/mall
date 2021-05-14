@@ -12,7 +12,6 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
 
-
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
