@@ -7,6 +7,8 @@ import com.laughingather.gulimall.product.entity.dto.AttrDTO;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 
+import java.util.List;
+
 /**
  * 商品属性
  *
@@ -23,5 +25,7 @@ public interface AttrService extends IService<AttrEntity> {
     void updateAttrById(AttrDTO attrDTO);
 
     AttrVO getAttrVOById(Long attrId);
+
+    List<Long> selectSearchAttrIds(List<Long> attrIds);
 }
 

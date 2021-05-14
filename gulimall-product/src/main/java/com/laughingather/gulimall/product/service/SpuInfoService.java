@@ -15,8 +15,20 @@ import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
  */
 public interface SpuInfoService extends IService<SpuInfoEntity> {
 
+    /**
+     * 保存spu信息
+     *
+     * @param spuSaveDTO
+     */
     void saveSpuInfo(SpuSaveDTO spuSaveDTO);
 
     MyPage<SpuInfoEntity> pageSpuInfoByParams(SpuInfoQuery spuInfoQuery);
+
+    /**
+     * 上架功能
+     *
+     * @param spuId
+     */
+    void upSpu(Long spuId);
 }
 

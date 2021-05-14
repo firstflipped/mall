@@ -8,6 +8,7 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.ware.dao.WareSkuDao;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
+import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 import com.laughingather.gulimall.ware.feign.service.ProductFeignService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service("wareSkuService")
@@ -84,5 +87,26 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         }
         wareSku.setSkuName(skuName);
         wareSkuDao.updateById(wareSku);
+    }
+
+
+    /**
+     * 第三方服务调用，查询sku是否有库存
+     *
+     * @param skuIds
+     * @return
+     */
+    @Override
+    public List<SkuHasStockVO> getSkusHasStock(List<Long> skuIds) {
+        List<SkuHasStockVO> skuHasStockVOS = skuIds.stream().map(skuId -> {
+            SkuHasStockVO skuHasStockVO = new SkuHasStockVO();
+            skuHasStockVO.setSkuId(skuId);
+            // 根据skuId查询库存信息
+            Long stockCount = wareSkuDao.getSkusHasStock(skuId);
+            skuHasStockVO.setHasStock(stockCount == null ? Boolean.FALSE : stockCount > 0);
+            return skuHasStockVO;
+        }).collect(Collectors.toList());
+
+        return skuHasStockVOS;
     }
 }

@@ -96,6 +96,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         return attrVO;
     }
 
+    @Override
+    public List<Long> selectSearchAttrIds(List<Long> attrIds) {
+        return attrDao.selectSearchAttrIds(attrIds);
+    }
+
     private AttrVO getAttrOtherInfoById(AttrEntity attr) {
         // 设置分类和分组的名字
         Long[] catelogPath = categoryService.getCatelogPath(attr.getCatelogId());

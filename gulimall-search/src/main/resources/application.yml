@@ -1,0 +1,9 @@
+server:
+  port: 100
+  servlet:
+    context-path: /gulimall-search
+
+
+spring:
+  profiles:
+    active: dev

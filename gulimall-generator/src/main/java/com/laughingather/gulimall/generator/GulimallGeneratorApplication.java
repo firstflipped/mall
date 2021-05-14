@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
  * @author WangJie
  */
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
-@MapperScan("com.laughintather.gulimall.generator.dao")
+@MapperScan("com.laughingather.gulimall.generator.dao")
 public class GulimallGeneratorApplication {
 
 	public static void main(String[] args) {

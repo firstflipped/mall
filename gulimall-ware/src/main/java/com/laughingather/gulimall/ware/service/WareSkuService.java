@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
+import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
+
+import java.util.List;
 
 /**
  * 商品库存
@@ -21,5 +24,7 @@ public interface WareSkuService extends IService<WareSkuEntity> {
     void saveWareSku(WareSkuEntity wareSku);
 
     void updateWareSkuById(WareSkuEntity wareSku);
+
+    List<SkuHasStockVO> getSkusHasStock(List<Long> skuIds);
 }
 

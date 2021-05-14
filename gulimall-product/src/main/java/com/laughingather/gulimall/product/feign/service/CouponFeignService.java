@@ -18,9 +18,14 @@ public interface CouponFeignService {
     @PostMapping("/gulimall-coupon/openapi/coupon/spubounds")
     Boolean saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
 
+    /**
+     * 保存sku的其他信息
+     *
+     * @param skuOtherInfoTO
+     * @return
+     */
     @PostMapping("/gulimall-coupon/openapi/coupon/skuOtherInfo")
     Boolean saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);
-
 
 }
 

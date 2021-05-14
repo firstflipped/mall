@@ -44,3 +44,7 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>/?.*), /gulimall-admin/$\{segment}
 
+        - id: gulimall-product-web
+          uri: lb://gulimall-product
+          predicates:
+            - Host=**.gulimall.com

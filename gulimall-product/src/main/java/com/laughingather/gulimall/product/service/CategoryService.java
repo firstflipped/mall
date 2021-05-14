@@ -2,10 +2,12 @@ package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
+import com.laughingather.gulimall.product.entity.vo.Category2VO;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 商品三级分类
@@ -37,5 +39,21 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @return
      */
     Long[] getCatelogPath(@NotNull Long catelogId);
+
+    /**
+     * 查询所有一级分类
+     *
+     * @return
+     */
+    List<CategoryEntity> listLevel1Categorys();
+
+    /**
+     * 根据一级分类查询子分类
+     *
+     * @return
+     */
+    Map<String, List<Category2VO>> getCatelogJSON();
+
+    Map<String, List<Category2VO>> getCatelogJSONNew();
 }
 

@@ -22,5 +22,5 @@ public class Sku {
 
     private List<Image> images;
     private List<String> descar;
-    private List<Attr> attr;
+    private List<Attr> attrs;
 }

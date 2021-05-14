@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/spuinfo")
+@RequestMapping("/product/spuinfo")
 public class SpuInfoController {
 
     @Autowired
@@ -28,6 +28,17 @@ public class SpuInfoController {
     public MyResult<MyPage<SpuInfoEntity>> pageSpuInfoByParams(@ModelAttribute SpuInfoQuery spuInfoQuery) {
         MyPage<SpuInfoEntity> spuInfoMyPage = spuInfoService.pageSpuInfoByParams(spuInfoQuery);
         return MyResult.success(spuInfoMyPage);
+    }
+
+    /**
+     * 商品上架
+     *
+     * @return
+     */
+    @PostMapping("/{spuId}/up")
+    public MyResult upSpuBySpuId(@PathVariable("spuId") Long spuId) {
+        spuInfoService.upSpu(spuId);
+        return MyResult.success();
     }
 
     @PostMapping
