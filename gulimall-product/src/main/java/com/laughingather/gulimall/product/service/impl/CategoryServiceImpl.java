@@ -159,6 +159,15 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return catelogJSON;
     }
 
+    /**
+     * TODO：产生堆外内存溢出：OutOfDirectMemoryError
+     * springboot2.0以后使用lettuce作为操作redis的客户端。它使用netty进行网络通信
+     * lettuce的bug导致netty堆外内存溢出
+     * <p>
+     * 解决方案：1、升级lettuce客户端    2、使用jedis客户端
+     *
+     * @return
+     */
     @Override
     public Map<String, List<Category2VO>> getCatelogJSON() {
         String categoryJSON = redisTemplate.opsForValue().get(ProductConstants.categorys);
