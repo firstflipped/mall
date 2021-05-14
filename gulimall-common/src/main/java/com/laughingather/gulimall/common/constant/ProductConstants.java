@@ -6,6 +6,8 @@ public class ProductConstants {
 
     public static final Long categoryRootId = 0L;
 
+    public static final String categorys = "categorys";
+
     @Getter
     public enum AttrEnum {
         ATTR_TYPE_BASE(1, "base", "规格参数"),

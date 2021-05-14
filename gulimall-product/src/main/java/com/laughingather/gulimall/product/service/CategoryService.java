@@ -52,8 +52,10 @@ public interface CategoryService extends IService<CategoryEntity> {
      *
      * @return
      */
-    Map<String, List<Category2VO>> getCatelogJSON();
+    Map<String, List<Category2VO>> getCatelogJSONOld();
 
-    Map<String, List<Category2VO>> getCatelogJSONNew();
+    Map<String, List<Category2VO>> getCatelogJSONFromDb();
+
+    Map<String, List<Category2VO>> getCatelogJSON();
 }
 

@@ -2,7 +2,9 @@ package com.laughingather.gulimall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.laughingather.gulimall.common.constant.ProductConstants;
+import com.laughingather.gulimall.common.utils.JsonUtil;
 import com.laughingather.gulimall.product.dao.CategoryDao;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.Category2VO;
@@ -10,6 +12,9 @@ import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 import com.laughingather.gulimall.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +32,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Resource
     private CategoryDao categoryDao;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public List<CategoryTreeVO> listWithTree() {
@@ -75,7 +82,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public Map<String, List<Category2VO>> getCatelogJSON() {
+    public Map<String, List<Category2VO>> getCatelogJSONOld() {
         // 1、获取所有一级分类
         List<CategoryEntity> categoryList = listLevel1Categorys();
 
@@ -113,7 +120,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
 
     @Override
-    public Map<String, List<Category2VO>> getCatelogJSONNew() {
+    public Map<String, List<Category2VO>> getCatelogJSONFromDb() {
         // 先查询所有
         List<CategoryEntity> categorys = categoryDao.selectList(null);
 
@@ -150,6 +157,20 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         ));
 
         return catelogJSON;
+    }
+
+    @Override
+    public Map<String, List<Category2VO>> getCatelogJSON() {
+        String categoryJSON = redisTemplate.opsForValue().get(ProductConstants.categorys);
+        if (StringUtils.isBlank(categoryJSON)) {
+            Map<String, List<Category2VO>> catelogJSONFromDb = getCatelogJSONFromDb();
+            redisTemplate.opsForValue().set(ProductConstants.categorys, JsonUtil.obj2String(catelogJSONFromDb));
+            return catelogJSONFromDb;
+        }
+
+        Map<String, List<Category2VO>> category = JsonUtil.string2Obj(categoryJSON, new TypeReference<Map<String, List<Category2VO>>>() {
+        });
+        return category;
     }
 
 
