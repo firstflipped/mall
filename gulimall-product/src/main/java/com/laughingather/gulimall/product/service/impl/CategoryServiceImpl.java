@@ -121,7 +121,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public Map<String, List<Category2VO>> getCatelogJSONFromDb() {
-        // 先查询所有
+
+        // 获得锁之后需要再去缓存中确定一次，如果没有数据再查询数据库
+        String categoryJSON = redisTemplate.opsForValue().get(ProductConstants.categorys);
+        if (StringUtils.isNotBlank(categoryJSON)) {
+            Map<String, List<Category2VO>> category = JsonUtil.string2Obj(categoryJSON, new TypeReference<Map<String, List<Category2VO>>>() {
+            });
+            return category;
+        }
+
+        // 先查询所有分类信息
         List<CategoryEntity> categorys = categoryDao.selectList(null);
 
         // 1、获取所有一级分类
@@ -164,12 +173,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * springboot2.0以后使用lettuce作为操作redis的客户端。它使用netty进行网络通信
      * lettuce的bug导致netty堆外内存溢出
      * <p>
-     * 解决方案：1、升级lettuce客户端    2、使用jedis客户端
+     * 解决方案：1、升级lettuce客户端（现版本已解决）    2、使用jedis客户端
      *
      * @return
      */
     @Override
     public Map<String, List<Category2VO>> getCatelogJSON() {
+        /**
+         * 1、空结果缓存：解决缓存穿透问题（缓存穿透主要是查询一个一定不存在的数据造成的）
+         * 2、设置过期时间加随机值：解决缓存雪崩问题（缓存雪崩主要是在同一时间段大量缓存时间过期造成的）
+         * 3、加锁：解决缓存击穿问题（缓存击穿主要是有一个热点数据再大级别访问请求之前缓存刚好失效造成的）
+         *
+         */
         String categoryJSON = redisTemplate.opsForValue().get(ProductConstants.categorys);
         if (StringUtils.isBlank(categoryJSON)) {
             Map<String, List<Category2VO>> catelogJSONFromDb = getCatelogJSONFromDb();
