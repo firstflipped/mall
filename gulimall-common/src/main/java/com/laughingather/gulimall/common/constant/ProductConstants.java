@@ -6,7 +6,8 @@ public class ProductConstants {
 
     public static final Long categoryRootId = 0L;
 
-    public static final String categorys = "categorys";
+    public static final String CATEGORYS = "categorys";
+    public static final String CATEGORY_LOCK = "categorys_lock";
 
     @Getter
     public enum AttrEnum {

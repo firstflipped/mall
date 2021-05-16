@@ -11,6 +11,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
+  cache:
+    type: redis
 
 #mybatis
 mybatis-plus:
