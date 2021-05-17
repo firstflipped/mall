@@ -7,8 +7,8 @@
                id="categoryBrandRelationMap">
         <result property="id" column="id"/>
         <result property="brandId" column="brand_id"/>
-        <result property="catelogId" column="catelog_id"/>
+        <result property="catalogId" column="catalog_id"/>
         <result property="brandName" column="brand_name"/>
-        <result property="catelogName" column="catelog_name"/>
+        <result property="catalogName" column="catalog_name"/>
     </resultMap>
 </mapper>

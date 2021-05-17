@@ -17,5 +17,5 @@ public class CategoryBrandRelationDTO {
      * 分类id
      */
     @NotNull(message = "分类id不能为空", groups = {AddGroup.class})
-    private Long catelogId;
+    private Long catalogId;
 }

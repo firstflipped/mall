@@ -24,6 +24,6 @@ public interface CategoryDao extends BaseMapper<CategoryEntity> {
      */
     List<CategoryTreeVO> selectListWithTree();
 
-    @Select("SELECT name FROM pms_category WHERE show_status = 1 AND cat_id = #{catelogId}")
-    String getNameById(@Param("catelogId") Long catelogId);
+    @Select("SELECT name FROM pms_category WHERE show_status = 1 AND cat_id = #{catalogId}")
+    String getNameById(@Param("catalogId") Long catalogId);
 }

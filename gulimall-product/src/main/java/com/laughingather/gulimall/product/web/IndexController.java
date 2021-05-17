@@ -17,6 +17,8 @@ import java.util.Map;
  * 引入模板静态引擎后
  * 静态文件放在resources/static下可以直接访问
  * 页面放在resources/templates下可以直接访问
+ *
+ * @author WangJie
  */
 @Controller
 public class IndexController {
@@ -28,17 +30,17 @@ public class IndexController {
     public String indexPage(Model model) {
 
         // 查询所有一级分类
-        List<CategoryEntity> categorys = categoryService.listLevel1Categorys();
+        List<CategoryEntity> categorys = categoryService.listLevel1Category();
         model.addAttribute("categorys", categorys);
         return "index";
     }
 
 
-    @GetMapping("/index/catelog.json")
+    @GetMapping("/index/catalog.json")
     @ResponseBody
-    public Map<String, List<Category2VO>> getCatelogJSON() {
-        Map<String, List<Category2VO>> catelogJSON = categoryService.getCatelogJSON();
-        return catelogJSON;
+    public Map<String, List<Category2VO>> getCatalogJSON() {
+        Map<String, List<Category2VO>> catalogJSON = categoryService.getCatalogJSON();
+        return catalogJSON;
     }
 
 

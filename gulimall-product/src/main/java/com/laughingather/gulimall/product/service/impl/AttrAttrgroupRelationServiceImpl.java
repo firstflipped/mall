@@ -62,7 +62,7 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
     private MyPage<AttrEntity> getAttrMyPage(AttrAttrGroupQuery attrAttrGroupQuery, Long categoryId, List<Long> attrIds) {
         IPage page = new Page(attrAttrGroupQuery.getPageNumber(), attrAttrGroupQuery.getPageSize());
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(AttrEntity::getCatelogId, categoryId)
+        queryWrapper.lambda().eq(AttrEntity::getCatalogId, categoryId)
                 .eq(AttrEntity::getAttrType, ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode());
         if (CollectionUtils.isNotEmpty(attrIds)) {
             queryWrapper.lambda().notIn(AttrEntity::getAttrId, attrIds);
@@ -80,7 +80,7 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
     private List<Long> getNoMyCategoryAttrIds(Long categoryId) {
         // 查询当前分类下的其他分组属性
         List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().
-                eq(AttrGroupEntity::getCatelogId, categoryId));
+                eq(AttrGroupEntity::getCatalogId, categoryId));
         List<Long> attrGroupIds = attrGroups.stream().map(item -> item.getAttrGroupId()).collect(Collectors.toList());
 
         List<Long> attrIds = Collections.emptyList();

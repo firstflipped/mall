@@ -35,8 +35,8 @@
                 AND (sku_name LIKE CONCAT('%', #{params.key}, '%') OR
                      pms_sku_info.sku_desc LIKE CONCAT('%', #{params.key}, '%'))
             </if>
-            <if test="params.catelogId != null and params.catelogId != 0">
-                AND catalog_id = #{params.catelogId}
+            <if test="params.catalogId != null and params.catalogId != 0">
+                AND catalog_id = #{params.catalogId}
             </if>
             <if test="params.brandId != null and params.brandId != 0">
                 AND brand_id = #{params.brandId}

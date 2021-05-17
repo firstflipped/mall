@@ -19,6 +19,6 @@ public interface AttrGroupDao extends BaseMapper<AttrGroupEntity> {
 
     String getGroupNameByAttrId(@Param("attrId") Long attrId);
 
-    @Select("SELECT catelog_id FROM pms_attr_group WHERE attr_group_id = #{attrGroupId}")
+    @Select("SELECT catalog_id FROM pms_attr_group WHERE attr_group_id = #{attrGroupId}")
     Long selectCategoryIdByAttrGroupId(Long attrGroupId);
 }

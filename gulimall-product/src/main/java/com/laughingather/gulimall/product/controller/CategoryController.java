@@ -5,6 +5,7 @@ import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 import com.laughingather.gulimall.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -54,7 +55,13 @@ public class CategoryController {
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
+    /**
+     * @param category
+     * @return
+     * @CacheEvict：缓存失效模式，更新数据后会自动把缓存删掉
+     */
     @PutMapping("/update")
+    @CacheEvict(value = "category", key = "'level1Categorys'")
     public MyResult updateCategoryById(@RequestBody CategoryEntity category) {
         boolean isSuccess = categoryService.updateById(category);
         return isSuccess ? MyResult.success() : MyResult.failed();

@@ -15,8 +15,8 @@ public class Category2VO {
 
     private String id;
     private String name;
-    private String catelog1Id;
-    private List<Category3VO> catelog3List;
+    private String catalog1Id;
+    private List<Category3VO> catalog3List;
 
 
     @Data
@@ -26,7 +26,7 @@ public class Category2VO {
     public static class Category3VO {
         private String id;
         private String name;
-        private String catelog2Id;
+        private String catalog2Id;
     }
 
 }

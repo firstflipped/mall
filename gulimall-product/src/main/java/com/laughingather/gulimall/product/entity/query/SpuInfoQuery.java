@@ -8,5 +8,5 @@ public class SpuInfoQuery extends PageQuery {
     private Integer status;
     private String key;
     private Long brandId;
-    private Long catelogId;
+    private Long catalogId;
 }

@@ -34,20 +34,20 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
     @Override
     public List<CategoryBrandRelationEntity> listBrandsByCategoryId(Long categoryId) {
         List<CategoryBrandRelationEntity> categoryBrandRelations = categoryBrandRelationDao.selectList(new QueryWrapper<CategoryBrandRelationEntity>()
-                .lambda().eq(CategoryBrandRelationEntity::getCatelogId, categoryId));
+                .lambda().eq(CategoryBrandRelationEntity::getCatalogId, categoryId));
         return categoryBrandRelations;
     }
 
     @Override
     public void saveCategoryBrandRelation(CategoryBrandRelationEntity categoryBrandRelation) {
         Long brandId = categoryBrandRelation.getBrandId();
-        Long catelogId = categoryBrandRelation.getCatelogId();
+        Long catalogId = categoryBrandRelation.getCatalogId();
 
         // 查询品牌名称和分类名称
         String brandName = brandDao.getNameById(brandId);
-        String categoryName = categoryDao.getNameById(catelogId);
+        String categoryName = categoryDao.getNameById(catalogId);
         categoryBrandRelation.setBrandName(brandName);
-        categoryBrandRelation.setCatelogName(categoryName);
+        categoryBrandRelation.setCatalogName(categoryName);
 
         categoryBrandRelationDao.insert(categoryBrandRelation);
     }

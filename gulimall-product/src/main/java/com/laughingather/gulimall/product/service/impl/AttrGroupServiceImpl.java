@@ -55,7 +55,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
         // 表示需要根据catId进行查询
         if (catId != 0) {
-            queryWrapper.lambda().eq(AttrGroupEntity::getCatelogId, catId);
+            queryWrapper.lambda().eq(AttrGroupEntity::getCatalogId, catId);
         }
 
         IPage<AttrGroupEntity> attrGroupEntityIPage = attrGroupDao.selectPage(page, queryWrapper);
@@ -67,14 +67,14 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     public AttrGroupVO getAttrGroupById(Long attrGroupId) {
         AttrGroupVO attrGroupVO = attrGroupDao.getAttrGroupById(attrGroupId);
         // 设置分类路径
-        attrGroupVO.setCatelogPath(categoryService.getCatelogPath(attrGroupVO.getCatelogId()));
+        attrGroupVO.setCatalogPath(categoryService.getCatalogPath(attrGroupVO.getCatalogId()));
         return attrGroupVO;
     }
 
     @Override
     public List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId) {
         // 先根据分类id查询所有分组
-        List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().eq(AttrGroupEntity::getCatelogId, categoryId));
+        List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().eq(AttrGroupEntity::getCatalogId, categoryId));
 
         if (CollectionUtils.isEmpty(attrGroups)) {
             return Collections.emptyList();

@@ -64,7 +64,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
             );
         }
         if (catId != 0) {
-            queryWrapper.lambda().eq(AttrEntity::getCatelogId, catId);
+            queryWrapper.lambda().eq(AttrEntity::getCatalogId, catId);
         }
 
         IPage<AttrEntity> iPage = attrDao.selectPage(page, queryWrapper);
@@ -103,11 +103,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     private AttrVO getAttrOtherInfoById(AttrEntity attr) {
         // 设置分类和分组的名字
-        Long[] catelogPath = categoryService.getCatelogPath(attr.getCatelogId());
-        String categoryName = categoryDao.getNameById(attr.getCatelogId());
+        Long[] catalogPath = categoryService.getCatalogPath(attr.getCatalogId());
+        String categoryName = categoryDao.getNameById(attr.getCatalogId());
         Long groupId = attrAttrgroupRelationDao.getGroupIdByAttrId(attr.getAttrId());
         String groupName = attrGroupDao.getGroupNameByAttrId(attr.getAttrId());
-        AttrVO attrVO = AttrVO.builder().catelogPath(catelogPath).catelogName(categoryName)
+        AttrVO attrVO = AttrVO.builder().catalogPath(catalogPath).catalogName(categoryName)
                 .attrGroupId(groupId).groupName(groupName).build();
         return attrVO;
     }

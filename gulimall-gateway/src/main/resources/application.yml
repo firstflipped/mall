@@ -47,4 +47,9 @@ spring:
         - id: gulimall-product-web
           uri: lb://gulimall-product
           predicates:
-            - Host=**.gulimall.com
+            - Host=gulimall.com
+
+        - id: gulimall-search-web
+          uri: lb://gulimall-search
+          predicates:
+            - Host=search.gulimall.com

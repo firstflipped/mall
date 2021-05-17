@@ -9,11 +9,11 @@
         <result property="sort" column="sort"/>
         <result property="descript" column="descript"/>
         <result property="icon" column="icon"/>
-        <result property="catelogId" column="catelog_id"/>
+        <result property="catalogId" column="catalog_id"/>
     </resultMap>
 
     <select id="getAttrGroupById" resultType="com.laughingather.gulimall.product.entity.vo.AttrGroupVO">
-        SELECT attr_group_id, attr_group_name, sort, descript, icon, catelog_id
+        SELECT attr_group_id, attr_group_name, sort, descript, icon, catalog_id
         FROM pms_attr_group
         WHERE attr_group_id = #{attrGroupId};
     </select>

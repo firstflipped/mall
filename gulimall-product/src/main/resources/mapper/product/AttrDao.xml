@@ -11,7 +11,7 @@
         <result property="valueSelect" column="value_select"/>
         <result property="attrType" column="attr_type"/>
         <result property="enable" column="enable"/>
-        <result property="catelogId" column="catelog_id"/>
+        <result property="catalogId" column="catalog_id"/>
         <result property="showDesc" column="show_desc"/>
     </resultMap>
 

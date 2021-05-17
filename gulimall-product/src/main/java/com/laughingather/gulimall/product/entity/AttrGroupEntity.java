@@ -55,6 +55,6 @@ public class AttrGroupEntity implements Serializable {
      * 所属分类id
      */
     @NotNull(message = "属性分组所属分类id字段不能为空", groups = {AddGroup.class, UpdateGroup.class})
-    private Long catelogId;
+    private Long catalogId;
 
 }
