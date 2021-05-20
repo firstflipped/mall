@@ -77,6 +77,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     /**
      * 商品上架
+     * TODO：保存到es的时候如果发生异常应该怎么处理
      *
      * @param spuId
      */

@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author WangJie
+ */
 @Service
 public class ProductSaveServiceImpl implements ProductSaveService {
     @Autowired

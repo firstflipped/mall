@@ -95,17 +95,15 @@
             </b>
             <ul>
                 <li>
-                    <a href="/static//登录页面\index.html">你好，请登录</a>
+                    <a href="http://auth.gulimall.com/login.html">你好，请登录</a>
                 </li>
                 <li>
-                    <a href="/static//注册页面\index.html" class="li_2">免费注册</a>
+                    <a href="http://auth.gulimall.com/register.html" class="li_2">免费注册</a>
                 </li>
                 <span>|</span>
                 <li>
                     <a href="/static/#">我的订单</a>
                 </li>
-
-
             </ul>
         </div>
     </div>
@@ -115,7 +113,7 @@
             <input id="searchText" type="text" placeholder=""/>
             <span style="background: url(../static/index/img/img_12.png) 0 -1px;"></span>
             <!--<button><i class="glyphicon"></i></button>-->
-            <a href="/static/#"><img src="/static/index/img/img_09.png" onclick="search()"/></a>
+            <a href="javascript:search();"><img src="/static/index/img/img_09.png"/></a>
         </div>
         <div class="header_ico">
             <div class="header_gw">
@@ -611,7 +609,7 @@
 <script type="text/javascript">
   function search() {
       var keyword=$("#searchText").val()
-      window.location.href="/static/http://search.gulimall.com/search.html?keyword="+keyword;
+      window.location.href="http://search.gulimall.com/list.html?keyword="+keyword;
   }
 
 

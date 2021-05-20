@@ -1,7 +1,7 @@
 server:
-  port: 100
+  port: 199
   servlet:
-    context-path: /gulimall-search
+    context-path: /gulimall-auth
 
 spring:
   profiles:
