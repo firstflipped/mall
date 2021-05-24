@@ -11,6 +11,10 @@ import java.util.List;
 public class SearchQuery {
 
     private String keyword;
+
+    /**
+     * 分类id
+     */
     private Long catalog3Id;
 
     /**
@@ -36,6 +40,7 @@ public class SearchQuery {
 
     /**
      * 属性 可以多选
+     * 1_A13
      */
     private List<String> attrs;
 

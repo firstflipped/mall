@@ -31,7 +31,8 @@ public class SearchVO {
     /**
      * 总页码
      */
-    private Integer totalPage;
+    private Long totalPage;
+    private List<Long> pageNavs;
 
     /**
      * 当前查询结果涉及到品牌的信息

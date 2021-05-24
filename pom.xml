@@ -21,6 +21,7 @@
         <!-- <spring-boot.version>2.4.3</spring-boot.version> -->
         <!-- <spring-cloud.version>2020.0.2</spring-cloud.version> -->
         <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
+        <spring-boot-alibaba.version>1.0.0</spring-boot-alibaba.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.5.RELEASE</spring-cloud-alibaba.version>
         <elasticsearch.version>7.11.2</elasticsearch.version>
@@ -47,12 +48,14 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.elasticsearch.client</groupId>
-                        <artifactId>elasticsearch-rest-high-level-client</artifactId>
-                    </exclusion>
-                </exclusions>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>aliyun-spring-boot-dependencies</artifactId>
+                <version>${spring-boot-alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

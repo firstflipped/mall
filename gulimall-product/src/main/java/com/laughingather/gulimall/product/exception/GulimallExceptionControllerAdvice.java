@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author WangJie
+ */
 @Slf4j
 @RestControllerAdvice(basePackages = "com.laughingather.gulimall.product.controller")
 public class GulimallExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public MyResult<Map<String, String>> handleVaildException(MethodArgumentNotValidException e) {
+    public MyResult<Map<String, String>> handleValidException(MethodArgumentNotValidException e) {
         log.error("数据校验出现问题{}，异常类型{}", e.getMessage(), e.getClass());
-        Map<String, String> errorMap = new HashMap<>();
+        Map<String, String> errorMap = new HashMap<>(8);
 
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {

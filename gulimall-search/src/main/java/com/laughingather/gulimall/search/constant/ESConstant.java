@@ -21,6 +21,6 @@ public class ESConstant {
      * 高亮部分的前后置标签
      */
     public static final String PRE_TAGS = "<b style='color:red'>";
-    public static final String POST_TAGS = "</b>>";
+    public static final String POST_TAGS = "</b>";
 
 }
