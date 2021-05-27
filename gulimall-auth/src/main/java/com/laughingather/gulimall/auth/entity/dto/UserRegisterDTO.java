@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.auth.feign.entity;
+package com.laughingather.gulimall.auth.entity.dto;
 
 import lombok.Data;
 import lombok.ToString;

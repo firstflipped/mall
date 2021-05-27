@@ -17,5 +17,7 @@
         <result property="note" column="note"/>
     </resultMap>
 
-
+    <select id="getDefaultLevel" resultMap="memberLevelMap">
+        SELECT * FROM ums_member_level WHERE default_status = 1
+    </select>
 </mapper>
