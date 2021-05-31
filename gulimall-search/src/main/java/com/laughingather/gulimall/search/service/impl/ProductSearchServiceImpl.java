@@ -294,7 +294,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         if (StringUtils.isNotBlank(searchQuery.getSort())) {
             // 排序字段格式   字段名_排序方式
             String[] sort = searchQuery.getSort().split("_");
-            SortOrder sortOrder = sort[1].equalsIgnoreCase("ASC") ? SortOrder.ASC : SortOrder.DESC;
+            SortOrder sortOrder = "ASC".equalsIgnoreCase(sort[1]) ? SortOrder.ASC : SortOrder.DESC;
             searchSourceBuilder.sort(sort[0], sortOrder);
         }
     }
