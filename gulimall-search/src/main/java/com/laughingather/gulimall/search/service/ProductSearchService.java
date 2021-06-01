@@ -12,6 +12,7 @@ public interface ProductSearchService {
      * 根据条件返回检索结果集
      *
      * @param searchQuery
+     * @return
      */
     SearchVO search(SearchQuery searchQuery);
 }

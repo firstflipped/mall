@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * @author WangJie
+ */
 @RestController
 @RequestMapping("/openapi/search")
-public class ESSaveOpenApi {
+public class EsSaveOpenApi {
 
     @Autowired
     private ProductSaveService productSaveService;

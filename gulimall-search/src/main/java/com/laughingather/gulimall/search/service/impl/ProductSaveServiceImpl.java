@@ -2,7 +2,7 @@ package com.laughingather.gulimall.search.service.impl;
 
 import com.laughingather.gulimall.common.utils.JsonUtil;
 import com.laughingather.gulimall.search.config.ElasticSearchConfig;
-import com.laughingather.gulimall.search.constant.ESConstant;
+import com.laughingather.gulimall.search.constant.EsConstant;
 import com.laughingather.gulimall.search.entity.SkuESModel;
 import com.laughingather.gulimall.search.service.ProductSaveService;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -35,7 +35,7 @@ public class ProductSaveServiceImpl implements ProductSaveService {
         BulkRequest bulkRequest = new BulkRequest();
         for (SkuESModel skuESModel : skuESModels) {
             // 构造保存请求
-            IndexRequest indexRequest = new IndexRequest(ESConstant.PRODUCT_INDEX);
+            IndexRequest indexRequest = new IndexRequest(EsConstant.PRODUCT_INDEX);
             indexRequest.id(skuESModel.getSkuId().toString());
             indexRequest.source(JsonUtil.obj2String(skuESModel), XContentType.JSON);
 

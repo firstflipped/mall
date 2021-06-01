@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author WangJie
  */
@@ -19,7 +21,9 @@ public class SearchController {
     private ProductSearchService productSearchService;
 
     @GetMapping("/list.html")
-    public String listPage(@ModelAttribute SearchQuery searchQuery, Model model) {
+    public String listPage(HttpServletRequest request, @ModelAttribute SearchQuery searchQuery, Model model) {
+        searchQuery.set_queryUrl(request.getQueryString());
+
         // 查询数据
         SearchVO search = productSearchService.search(searchQuery);
         model.addAttribute("result", search);

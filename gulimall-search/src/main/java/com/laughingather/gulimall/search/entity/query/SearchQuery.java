@@ -49,4 +49,9 @@ public class SearchQuery {
      */
     private Integer pageNum;
 
+    /**
+     * 原始url
+     */
+    private String _queryUrl;
+
 }

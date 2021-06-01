@@ -7,11 +7,13 @@ import com.laughingather.gulimall.common.valid.UpdateGroup;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.query.BrandQuery;
 import com.laughingather.gulimall.product.service.BrandService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -39,6 +41,17 @@ public class BrandController {
         BrandEntity brand = brandService.getById(brandId);
 
         return brand == null ? MyResult.failed() : MyResult.success(brand);
+    }
+
+    @GetMapping("/list")
+    public MyResult<List<BrandEntity>> listBrandsByIds(@RequestParam(value = "brandIds", required = false) List<Long> brandIds) {
+        List<BrandEntity> brands;
+        if (CollectionUtils.isNotEmpty(brandIds)) {
+            brands = brandService.listByIds(brandIds);
+        } else {
+            brands = brandService.list();
+        }
+        return MyResult.success(brands);
     }
 
     @PostMapping

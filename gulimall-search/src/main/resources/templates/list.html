@@ -765,6 +765,11 @@
                 <a href="/static/search/#">游戏手机</a>
             </div>
         </div>
+        <div class="JD_ipone_one c">
+            <!-- 遍历面包屑 -->
+            <a th:href="${nav.link}" th:each="nav:${result.navs}"><span th:text="${nav.navName}"></span> ： <span
+                    th:text="${nav.navValue}"> x</span></a>
+        </div>
         <i><img src="/static/search/image/right-@1x.png" alt=""></i>
     </div>
 </div>
@@ -778,9 +783,9 @@
                 <h3><b>手机</b><em>商品筛选</em></h3>
                 <div class="st-ext">共&nbsp;<span>10135</span>个商品</div>
             </div>
-            <div class="JD_nav_logo">
+            <div class="JD_nav_logo" th:with="brandId = ${param.brandId}">
                 <!--品牌-->
-                <div class="JD_nav_wrap">
+                <div th:if="${!#strings.isEmpty(brandId)}" class="JD_nav_wrap">
                     <div class="sl_key">
                         <span>品牌：</span>
                     </div>
@@ -1037,7 +1042,7 @@
                 <div class="filter">
                     <!--综合排序-->
                     <div class="filter_top">
-                        <div class="filter_top_left" th:with="p = ${param.sort}">
+                        <div class="filter_top_left" th:with="p = ${param.sort}, priceRange = ${param.skuPrice}">
                             <a th:class="${(!#strings.isEmpty(p) && #strings.startsWith(p, 'hotScore') && #strings.endsWith(p, 'desc')) ? 'sort_a desc' : 'sort_a asc'}"
                                sort="hotScore"
                                th:attr="style=${(#strings.isEmpty(p) || #strings.startsWith(p, 'hotScore')) ? 'border-color: #e4393c; color: #FFF; background: #e4393c' : 'border-color: #CCC; color: #333; background: #fff'}">
@@ -1058,6 +1063,12 @@
                             </a>
                             <a class="sort_a">评论分</a>
                             <a class="sort_a">上架时间</a>
+                            <input id="skuPriceFrom" type="number" style="width: 100px; margin-left: 20px;"
+                                   th:value="${#strings.isEmpty(priceRange) ? '' : #strings.substringBefore(priceRange, '-')}">
+                            -
+                            <input id="skuPriceTo" type="number" style="width: 100px;"
+                                   th:value="${#strings.isEmpty(priceRange) ? '' : #strings.substringAfter(priceRange, '-')}">
+                            <button id="skuPriceSearchBtn">确认</button>
                         </div>
                         <div class="filter_top_right">
                             <span class="fp-text">
@@ -1166,8 +1177,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/static/search/#">
-                                        <i></i>
+                                    <a href="/static/search/#" th:with="check=${param.hasStock}">
+                                        <input id="showHasStock" type="checkbox"
+                                               th:checked="${#strings.equals(check, '1')}">
                                         仅显示有货
                                     </a>
                                 </li>
@@ -2063,7 +2075,55 @@
 
         // 禁用默认行为
         return false;
-    })
+    });
+
+    $("#skuPriceSearchBtn").click(function () {
+        let from = $("#skuPriceFrom").val();
+        let to = $("#skuPriceTo").val();
+
+        let query = from + "-" + to;
+        location.href = replaceParamVal(location.href, "skuPrice", query);
+    });
+
+    $("#showHasStock").change(function () {
+        if ($(this).prop("checked")) {
+            location.href = replaceParamVal(location.href, "hasStock", 1);
+        } else {
+            let re = eval('/(hasStock=)([^&]*)/gi');
+            location.href = location.href.replace(re, '');
+        }
+        return false;
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 </body>

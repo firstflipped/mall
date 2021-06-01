@@ -32,6 +32,9 @@ public class SearchVO {
      * 总页码
      */
     private Long totalPage;
+    /**
+     * 页面导航条
+     */
     private List<Long> pageNavs;
 
     /**
@@ -48,6 +51,18 @@ public class SearchVO {
      * 当前查询结果涉及到分类的信息
      */
     private List<CatalogVO> catalogs;
+
+    /**
+     * 面包屑
+     */
+    private List<NavVO> navs;
+
+    @Data
+    public static class NavVO {
+        private String navName;
+        private String navValue;
+        private String link;
+    }
 
     @Data
     public static class BrandVO {
