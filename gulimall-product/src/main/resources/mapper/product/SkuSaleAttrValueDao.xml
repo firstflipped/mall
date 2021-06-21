@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.product.dao.SkuSaleAttrValueDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.product.entity.SkuSaleAttrValueEntity" id="skuSaleAttrValueMap">
         <result property="id" column="id"/>
         <result property="skuId" column="sku_id"/>
@@ -14,4 +13,24 @@
     </resultMap>
 
 
+    <resultMap id="saleAttrsVOMap" type="com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO">
+        <id property="attrId" column="attr_id"/>
+        <result property="attrName" column="attr_name"/>
+        <collection property="attrValues" ofType="com.laughingather.gulimall.product.entity.vo.AttrValueWithSkuIdVO">
+            <result property="attrValue" column="attr_value" />
+            <result property="skuIds" column="sku_ids" />
+        </collection>
+    </resultMap>
+    <select id="getSaleAttrsBySpuId" resultMap="saleAttrsVOMap">
+        SELECT pssav.attr_id,
+               pssav.attr_name,
+               pssav.attr_value,
+               GROUP_CONCAT(DISTINCT psi.sku_id) AS sku_ids
+        FROM pms_sku_info psi
+                     LEFT JOIN pms_sku_sale_attr_value pssav USING (sku_id)
+        WHERE psi.spu_id = #{spuId}
+        GROUP BY pssav.attr_id,
+                 pssav.attr_name,
+                 pssav.attr_value
+    </select>
 </mapper>

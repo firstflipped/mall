@@ -2,7 +2,6 @@ package com.laughingather.gulimall.search;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -51,22 +50,34 @@ public class CompletableFutureTest {
 //        Integer integer = future.get();
 //        log.info("stop.........{}", integer);
 
-        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+//        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+//            log.info("当前线程:{}", Thread.currentThread().getId());
+//            int i = 10 / 4;
+//            log.info("运行结果:{}", i);
+//            return i;
+//        }, executorService).handle((result, exception) -> {
+//            if (Objects.nonNull(result)) {
+//                return result * 2;
+//            }
+//            if (Objects.nonNull(exception)) {
+//                return 0;
+//            }
+//            return 0;
+//        });
+//        Integer integer = future.get();
+//        log.info("stop.........{}", integer);
+
+
+        CompletableFuture.supplyAsync(() -> {
             log.info("当前线程:{}", Thread.currentThread().getId());
             int i = 10 / 4;
             log.info("运行结果:{}", i);
             return i;
-        }, executorService).handle((result, exception) -> {
-            if (Objects.nonNull(result)) {
-                return result * 2;
-            }
-            if (Objects.nonNull(exception)) {
-                return 0;
-            }
-            return 0;
-        });
-        Integer integer = future.get();
-        log.info("stop.........{}", integer);
+        }, executorService).thenAcceptAsync(result -> {
+            log.info("任务2启动了{}", result);
+        }, executorService);
+
+        log.info("stop.........");
 
     }
 

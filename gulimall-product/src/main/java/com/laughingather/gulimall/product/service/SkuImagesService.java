@@ -3,6 +3,8 @@ package com.laughingather.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.SkuImagesEntity;
 
+import java.util.List;
+
 /**
  * sku图片
  *
@@ -12,5 +14,12 @@ import com.laughingather.gulimall.product.entity.SkuImagesEntity;
  */
 public interface SkuImagesService extends IService<SkuImagesEntity> {
 
+    /**
+     * 根据skuId获取
+     *
+     * @param skuId
+     * @return
+     */
+    List<SkuImagesEntity> listImagesBySkuId(Long skuId);
 }
 

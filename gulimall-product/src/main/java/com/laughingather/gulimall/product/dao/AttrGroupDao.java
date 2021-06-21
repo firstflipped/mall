@@ -3,8 +3,11 @@ package com.laughingather.gulimall.product.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.laughingather.gulimall.product.entity.AttrGroupEntity;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
+import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 属性分组
@@ -21,4 +24,6 @@ public interface AttrGroupDao extends BaseMapper<AttrGroupEntity> {
 
     @Select("SELECT catalog_id FROM pms_attr_group WHERE attr_group_id = #{attrGroupId}")
     Long selectCategoryIdByAttrGroupId(Long attrGroupId);
+
+    List<SpuItemGroupAttrVO> getAttrGroupWithAttrsBySpuId(@Param("catalogId") Long catalogId, @Param("spuId") Long spuId);
 }

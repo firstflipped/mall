@@ -13,6 +13,7 @@ import com.laughingather.gulimall.product.entity.AttrGroupEntity;
 import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
+import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
 import com.laughingather.gulimall.product.service.AttrAttrgroupRelationService;
 import com.laughingather.gulimall.product.service.AttrGroupService;
 import com.laughingather.gulimall.product.service.CategoryService;
@@ -28,6 +29,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ * @author WangJie
+ */
 @Service("attrGroupService")
 public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
 
@@ -71,6 +75,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         return attrGroupVO;
     }
 
+
     @Override
     public List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId) {
         // 先根据分类id查询所有分组
@@ -93,5 +98,16 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }).collect(Collectors.toList());
 
         return attrGroupWithAttrsVOs;
+    }
+
+
+    @Override
+    public List<SpuItemGroupAttrVO> getAttrGroupWithAttrsBySpuId(Long catalogId, Long spuId) {
+        // 先根据分类id查询所有分组
+        List<SpuItemGroupAttrVO> attrGroupWithAttrs = attrGroupDao.getAttrGroupWithAttrsBySpuId(catalogId, spuId);
+
+
+        // 查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
+        return null;
     }
 }

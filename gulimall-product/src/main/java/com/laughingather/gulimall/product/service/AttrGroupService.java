@@ -6,6 +6,7 @@ import com.laughingather.gulimall.product.entity.AttrGroupEntity;
 import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
+import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
 
 import java.util.List;
 
@@ -18,10 +19,38 @@ import java.util.List;
  */
 public interface AttrGroupService extends IService<AttrGroupEntity> {
 
+    /**
+     * 根据条件获取属性分组列表
+     *
+     * @param catId
+     * @param attrGroupQuery
+     * @return
+     */
     MyPage<AttrGroupEntity> pageAttrGroupsByParams(Long catId, AttrGroupQuery attrGroupQuery);
 
+    /**
+     * 根据id获取属性分组详细信息
+     *
+     * @param attrGroupId
+     * @return
+     */
     AttrGroupVO getAttrGroupById(Long attrGroupId);
 
+    /**
+     * 根据分类id获取属性分组及属性值
+     *
+     * @param categoryId
+     * @return
+     */
     List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId);
+
+    /**
+     * 根据skuId获取属性分组及属性值
+     *
+     * @param catalogId
+     * @param spuId
+     * @return
+     */
+    List<SpuItemGroupAttrVO> getAttrGroupWithAttrsBySpuId(Long catalogId, Long spuId);
 }
 
