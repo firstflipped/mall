@@ -4,27 +4,38 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.laughingather.gulimall.common.constant.AuthConstants;
+import com.laughingather.gulimall.common.constant.MemberConstants;
 import com.laughingather.gulimall.member.dao.MemberDao;
 import com.laughingather.gulimall.member.dao.MemberLevelDao;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
 import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.member.entity.dto.SocialUser;
+import com.laughingather.gulimall.member.entity.dto.WeiboUserInfo;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
 import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
 import com.laughingather.gulimall.member.service.MemberService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-
+/**
+ * @author WangJie
+ */
 @Service("memberService")
 public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> implements MemberService {
 
+    @Autowired
+    private RestTemplate restTemplate;
     @Autowired
     private MemberDao memberDao;
     @Autowired
@@ -65,11 +76,20 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         memberEntity.setPassword(bCryptPassword);
 
         // 查询默认的会员等级
-        MemberLevelEntity defaultLevel = memberLevelDao.getDefaultLevel();
-        memberEntity.setLevelId(defaultLevel != null ? defaultLevel.getId() : null);
+        memberEntity.setLevelId(getDefaultLevel() != null ? getDefaultLevel() : null);
         memberEntity.setCreateTime(LocalDateTime.now());
-
         memberDao.insert(memberEntity);
+    }
+
+
+    /**
+     * 查询默认等级
+     *
+     * @return
+     */
+    private Long getDefaultLevel() {
+        MemberLevelEntity defaultLevel = memberLevelDao.getDefaultLevel();
+        return defaultLevel.getId();
     }
 
     @Override
@@ -111,6 +131,42 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         if (count > 0) {
             throw new UsernameExistException();
         }
+    }
+
+    @Override
+    public MemberEntity login(SocialUser socialUser) {
+        // 判断当前社交用户是否登陆过本系统
+        MemberEntity member = memberDao.getMemberBySocialUid(socialUser.getUid());
+        if (member != null) {
+            // 更新令牌和令牌过期时间
+            MemberEntity updateMember = new MemberEntity();
+            updateMember.setId(member.getId());
+            updateMember.setAccessToken(socialUser.getAccess_token());
+            updateMember.setExpiresIn(socialUser.getExpires_in());
+            updateById(updateMember);
+
+            member.setAccessToken(socialUser.getAccess_token());
+            member.setExpiresIn(socialUser.getExpires_in());
+            return member;
+        }
+
+        // 如果没有该用户，则调用第三方社交接口获取用户唯一信息，进行注册
+        // 获取密码加密
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String sendUrl = String.format(AuthConstants.WEIBO_INFO_API_URL, socialUser.getAccess_token(), socialUser.getUid());
+        ResponseEntity<WeiboUserInfo> result = restTemplate.getForEntity(sendUrl, WeiboUserInfo.class);
+        if (result.getStatusCode() == HttpStatus.OK) {
+            WeiboUserInfo weiboUserInfo = result.getBody();
+            MemberEntity register = MemberEntity.builder().socialUid(weiboUserInfo.getId()).accessToken(socialUser.getAccess_token()).expiresIn(socialUser.getExpires_in())
+                    .levelId(getDefaultLevel() != null ? getDefaultLevel() : null).nickname(weiboUserInfo.getScreen_name())
+                    .password(bCryptPasswordEncoder.encode(MemberConstants.DEFAULT_MEMBER_PASSWORD)).header(weiboUserInfo.getProfile_image_url())
+                    .gender(Objects.equals("m", weiboUserInfo.getGender()) ? 1 : 2).city(weiboUserInfo.getCity()).createTime(LocalDateTime.now()).build();
+
+            memberDao.insert(register);
+            return register;
+        }
+
+        return null;
     }
 
 }

@@ -1,7 +1,5 @@
-package com.laughingather.gulimall.member.entity;
+package com.laughingather.gulimall.auth.feign.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * 会员
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -22,14 +20,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("ums_member")
 public class MemberEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * id
 	 */
-	@TableId
 	private Long id;
 
 	/**
@@ -107,29 +103,29 @@ public class MemberEntity implements Serializable {
 	 */
 	private Integer growth;
 
-    /**
-     * 启用状态
-     */
-    private Integer status;
+	/**
+	 * 启用状态
+	 */
+	private Integer status;
 
-    /**
-     * 注册时间
-     */
-    private LocalDateTime createTime;
+	/**
+	 * 注册时间
+	 */
+	private LocalDateTime createTime;
 
-    /**
-     * 社交帐号唯一id
-     */
-    private Long socialUid;
+	/**
+	 * 社交帐号唯一id
+	 */
+	private Long socialUid;
 
-    /**
-     * 社交账号令牌
-     */
-    private String accessToken;
+	/**
+	 * 社交账号令牌
+	 */
+	private String accessToken;
 
-    /**
-     * 社交令牌有效时间
-     */
-    private Long expiresIn;
+	/**
+	 * 社交令牌有效时间
+	 */
+	private Long expiresIn;
 
 }

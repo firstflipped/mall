@@ -12,7 +12,8 @@ public enum ErrorCodeEnum {
 
     USERNAME_EXIST_EXCEPTION(15000, "用户名存在异常"),
     MOBILE_EXIST_EXCEPTION(15001, "手机号已存在异常"),
-    ACCOUNT_PASSWORD_INVAILD_EXCEPTION(15002, "账号或密码错误");
+    ACCOUNT_PASSWORD_INVAILD_EXCEPTION(15002, "账号或密码错误"),
+    OAUTH_LOGIN_EXCEPTION(15003, "社交帐号登录异常");
 
 
     private Integer code;

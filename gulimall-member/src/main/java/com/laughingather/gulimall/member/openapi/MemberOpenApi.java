@@ -1,10 +1,11 @@
-package com.laughingather.gulimall.member.openApi;
+package com.laughingather.gulimall.member.openapi;
 
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
 import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.member.entity.dto.SocialUser;
 import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
 import com.laughingather.gulimall.member.service.MemberService;
@@ -48,10 +49,18 @@ public class MemberOpenApi {
 
     @PostMapping("/login")
     public MyResult memberLogin(@RequestBody MemberLoginDTO memberLoginDTO) {
-
         MemberEntity member = memberService.checkLogin(memberLoginDTO);
         return member == null ? MyResult.builder().code(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getCode())
                 .message(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getMessage()).build() : MyResult.success();
     }
+
+
+    @PostMapping("/oauth2/login")
+    public MyResult<MemberEntity> oauth2Login(@RequestBody SocialUser socialUser) {
+        MemberEntity member = memberService.login(socialUser);
+        return member == null ? MyResult.<MemberEntity>builder().code(ErrorCodeEnum.OAUTH_LOGIN_EXCEPTION.getCode())
+                .message(ErrorCodeEnum.OAUTH_LOGIN_EXCEPTION.getMessage()).build() : MyResult.success(member);
+    }
+
 
 }

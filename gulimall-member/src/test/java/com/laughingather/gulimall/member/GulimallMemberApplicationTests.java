@@ -1,15 +1,23 @@
 package com.laughingather.gulimall.member;
 
+import com.laughingather.gulimall.common.constant.AuthConstants;
+import com.laughingather.gulimall.member.entity.dto.WeiboUserInfo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
 
-
+@SpringBootTest
 class GulimallMemberApplicationTests {
 
+    @Resource
+    private RestTemplate restTemplate;
 
     /**
      * 最终方案
@@ -49,6 +57,21 @@ class GulimallMemberApplicationTests {
 
         System.out.println(matches1);
         System.out.println(matches2);
+
+    }
+
+
+    /**
+     * 最终方案
+     */
+    @Test
+    public void weiboInfo() {
+        String sendUrl = String.format(AuthConstants.WEIBO_INFO_API_URL, "2.00Qu2VOGppkbeC8f7ac62209LyPwxD", "5711138076");
+        ResponseEntity<WeiboUserInfo> result = restTemplate.getForEntity(sendUrl, WeiboUserInfo.class);
+        if (result.getStatusCode() == HttpStatus.OK) {
+            WeiboUserInfo weiboUserInfo = result.getBody();
+            System.out.println(weiboUserInfo);
+        }
 
     }
 

@@ -1,5 +1,7 @@
 package com.laughingather.gulimall.auth.feign.service;
 
+import com.laughingather.gulimall.auth.entity.SocialUser;
+import com.laughingather.gulimall.auth.feign.entity.MemberEntity;
 import com.laughingather.gulimall.auth.feign.entity.MemberLoginDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberRegisterDTO;
 import com.laughingather.gulimall.common.api.MyResult;
@@ -33,5 +35,14 @@ public interface MemberFeignService {
      */
     @PostMapping("/gulimall-member/openapi/member/login")
     MyResult memberLogin(@RequestBody MemberLoginDTO memberLoginDTO);
+
+    /**
+     * oauth2登录接口
+     *
+     * @param socialUser
+     * @return
+     */
+    @PostMapping("/gulimall-member/openapi/member/oauth2/login")
+    MyResult<MemberEntity> oauth2Login(@RequestBody SocialUser socialUser);
 
 }

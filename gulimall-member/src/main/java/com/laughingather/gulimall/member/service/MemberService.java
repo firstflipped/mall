@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
 import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.member.entity.dto.SocialUser;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
 import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
@@ -63,6 +64,13 @@ public interface MemberService extends IService<MemberEntity> {
      */
     void checkUsernameUnique(String username) throws UsernameExistException;
 
-
+    /**
+     * 第三方社交帐号登录
+     * 具备登录与注册合并逻辑
+     *
+     * @param socialUser
+     * @return
+     */
+    MemberEntity login(SocialUser socialUser);
 }
 

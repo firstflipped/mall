@@ -57,29 +57,41 @@ DROP TABLE IF EXISTS `ums_member`;
 
 CREATE TABLE `ums_member`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `level_id`    bigint(20)   DEFAULT NULL COMMENT '会员等级id',
-    `username`    char(64)     DEFAULT NULL COMMENT '用户名',
-    `password`    varchar(64)  DEFAULT NULL COMMENT '密码',
-    `nickname`    varchar(64)  DEFAULT NULL COMMENT '昵称',
-    `mobile`      varchar(20)  DEFAULT NULL COMMENT '手机号码',
-    `email`       varchar(64)  DEFAULT NULL COMMENT '邮箱',
-    `header`      varchar(500) DEFAULT NULL COMMENT '头像',
-    `gender`      tinyint(4)   DEFAULT NULL COMMENT '性别',
-    `birth`       date         DEFAULT NULL COMMENT '生日',
-    `city`        varchar(500) DEFAULT NULL COMMENT '所在城市',
-    `job`         varchar(255) DEFAULT NULL COMMENT '职业',
-    `sign`        varchar(255) DEFAULT NULL COMMENT '个性签名',
-    `source_type` tinyint(4)   DEFAULT NULL COMMENT '用户来源',
-    `integration` int(11)      DEFAULT NULL COMMENT '积分',
-    `growth`      int(11)      DEFAULT NULL COMMENT '成长值',
-    `status`      tinyint(4)   DEFAULT NULL COMMENT '启用状态',
-    `create_time` datetime     DEFAULT NULL COMMENT '注册时间',
+    `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `level_id`     bigint(20)   DEFAULT NULL COMMENT '会员等级id',
+    `username`     char(64)     DEFAULT NULL COMMENT '用户名',
+    `password`     varchar(64)  DEFAULT NULL COMMENT '密码',
+    `nickname`     varchar(64)  DEFAULT NULL COMMENT '昵称',
+    `mobile`       varchar(20)  DEFAULT NULL COMMENT '手机号码',
+    `email`        varchar(64)  DEFAULT NULL COMMENT '邮箱',
+    `header`       varchar(500) DEFAULT NULL COMMENT '头像',
+    `gender`       tinyint(4)   DEFAULT NULL COMMENT '性别',
+    `birth`        date         DEFAULT NULL COMMENT '生日',
+    `city`         varchar(500) DEFAULT NULL COMMENT '所在城市',
+    `job`          varchar(255) DEFAULT NULL COMMENT '职业',
+    `sign`         varchar(255) DEFAULT NULL COMMENT '个性签名',
+    `source_type`  tinyint(4)   DEFAULT NULL COMMENT '用户来源',
+    `integration`  int(11)      DEFAULT NULL COMMENT '积分',
+    `growth`       int(11)      DEFAULT NULL COMMENT '成长值',
+    `status`       tinyint(4)   DEFAULT NULL COMMENT '启用状态',
+    `create_time`  datetime     DEFAULT NULL COMMENT '注册时间',
+    `social_uid`   bigint(20)   DEFAULT NULL COMMENT '社交用户唯一id',
+    `access_token` varchar(255) DEFAULT NULL COMMENT '访问令牌',
+    `expires_in`   bigint(20)   DEFAULT NULL COMMENT '访问令牌的时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员';
 
 /*Data for the table `ums_member` */
+
+insert into `ums_member`(`id`, `level_id`, `username`, `password`, `nickname`, `mobile`, `email`, `header`, `gender`,
+                         `birth`, `city`, `job`, `sign`, `source_type`, `integration`, `growth`, `status`,
+                         `create_time`, `social_uid`, `access_token`, `expires_in`)
+values (2, 1, 'wangjie', '$2a$10$6gKu6vmpTFQUtEczpX5bdOItBTKuLLOnFpjc53sX1Zps7lCJ0.n82', NULL, '18763096838', NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:01:35', NULL, NULL, NULL),
+       (4, 1, 'admin', '$2a$10$ekdVeZ8K5cQg1dKSbaUyNudomVMex8KkPA8ztUAm8iNMNZxyxGVkm', NULL, '17515235623', NULL, NULL,
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:41:09', NULL, NULL, NULL);
 
 /*Table structure for table `ums_member_collect_spu` */
 
