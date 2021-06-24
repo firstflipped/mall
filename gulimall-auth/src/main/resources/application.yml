@@ -7,5 +7,9 @@ spring:
   profiles:
     active: dev
 
+  # spring session依赖实现方式
+  session:
+    store-type: redis
+
 
 

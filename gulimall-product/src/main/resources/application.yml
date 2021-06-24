@@ -13,6 +13,8 @@ spring:
     username: root
   cache:
     type: redis
+  session:
+    store-type: redis
 
 #mybatis
 mybatis-plus:

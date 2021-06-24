@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.product.config;
+package com.laughingather.gulimall.auth.config;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers;

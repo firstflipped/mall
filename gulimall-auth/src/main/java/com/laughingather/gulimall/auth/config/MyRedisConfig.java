@@ -39,4 +39,11 @@ public class MyRedisConfig {
         return redisTemplate;
     }
 
+
+    @Bean
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return new GenericJackson2JsonRedisSerializer();
+    }
+
+
 }

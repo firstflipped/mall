@@ -1,5 +1,7 @@
 package com.laughingather.gulimall.auth.feign.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -109,8 +111,12 @@ public class MemberEntity implements Serializable {
 	private Integer status;
 
 	/**
+	 * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	 * 用于解决feign远程调用序列化时间失败
+	 * <p>
 	 * 注册时间
 	 */
+	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDateTime createTime;
 
 	/**

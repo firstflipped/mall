@@ -62,7 +62,7 @@ class GulimallMemberApplicationTests {
 
 
     /**
-     * 最终方案
+     * 通过accessToken获取微博信息
      */
     @Test
     public void weiboInfo() {
