@@ -19,6 +19,7 @@ public class MySessionConfig {
     public CookieSerializer cookieSerializer() {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();
         serializer.setCookieName("JSESSIONID");
+        serializer.setCookiePath("/");
         serializer.setDomainName("gulimall.com");
         return serializer;
     }

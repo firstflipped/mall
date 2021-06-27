@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.auth.config;
+package com.laughingather.gulimall.search.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

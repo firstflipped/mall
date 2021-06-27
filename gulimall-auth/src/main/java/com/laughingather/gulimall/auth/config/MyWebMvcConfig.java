@@ -24,7 +24,6 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
          *     return "login";                  第二个参数
          * }
          */
-        registry.addViewController("/login.html").setViewName("login");
         registry.addViewController("/register.html").setViewName("register");
     }
 }

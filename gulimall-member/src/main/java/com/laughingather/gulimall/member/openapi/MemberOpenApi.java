@@ -48,10 +48,10 @@ public class MemberOpenApi {
 
 
     @PostMapping("/login")
-    public MyResult memberLogin(@RequestBody MemberLoginDTO memberLoginDTO) {
+    public MyResult<MemberEntity> memberLogin(@RequestBody MemberLoginDTO memberLoginDTO) {
         MemberEntity member = memberService.checkLogin(memberLoginDTO);
-        return member == null ? MyResult.builder().code(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getMessage()).build() : MyResult.success();
+        return member == null ? MyResult.<MemberEntity>builder().code(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getCode())
+                .message(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getMessage()).build() : MyResult.success(member);
     }
 
 

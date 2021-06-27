@@ -5,23 +5,26 @@ import com.laughingather.gulimall.auth.entity.dto.UserRegisterDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberLoginDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberRegisterDTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
-import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.AuthConstants;
+import com.laughingather.gulimall.common.entity.MemberEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -98,12 +101,13 @@ public class IndexController {
 
 
     @PostMapping("/login")
-    public String login(UserLoginDTO userLoginDTO, RedirectAttributes redirectAttributes) {
+    public String login(HttpSession session, RedirectAttributes redirectAttributes, UserLoginDTO userLoginDTO) {
         MemberLoginDTO memberLoginDTO = new MemberLoginDTO();
         BeanUtils.copyProperties(userLoginDTO, memberLoginDTO);
 
-        MyResult result = memberFeignService.memberLogin(memberLoginDTO);
+        MyResult<MemberEntity> result = memberFeignService.memberLogin(memberLoginDTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
+            session.setAttribute(AuthConstants.LOGIN_USER, result.getData());
             return "redirect:http://gulimall.com";
         }
 
@@ -112,6 +116,16 @@ public class IndexController {
         errors.put("message", result.getMessage());
         redirectAttributes.addFlashAttribute("errors", errors);
         return "redirect:http://auth.gulimall.com/login.html";
+    }
+
+    @GetMapping("/login.html")
+    public String loginPage(HttpSession session) {
+        Object loginUser = session.getAttribute(AuthConstants.LOGIN_USER);
+        if (Objects.isNull(loginUser)) {
+            return "login";
+        }
+
+        return "redirect:http://gulimall.com";
     }
 
 }

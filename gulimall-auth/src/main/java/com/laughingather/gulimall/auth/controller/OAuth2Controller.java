@@ -1,11 +1,11 @@
 package com.laughingather.gulimall.auth.controller;
 
 import com.laughingather.gulimall.auth.entity.SocialUser;
-import com.laughingather.gulimall.auth.feign.entity.MemberEntity;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.AuthConstants;
+import com.laughingather.gulimall.common.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -61,7 +61,7 @@ public class OAuth2Controller {
             if (Objects.equals(ResultCodeEnum.SUCCESS.getCode(), myResult.getCode())) {
                 MemberEntity data = myResult.getData();
                 log.info("用户名：{}", data.getNickname());
-                session.setAttribute("loginUser", data);
+                session.setAttribute(AuthConstants.LOGIN_USER, data);
                 return "redirect:http://gulimall.com";
             }
         }

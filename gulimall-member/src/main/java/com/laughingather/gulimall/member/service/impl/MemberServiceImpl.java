@@ -68,6 +68,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         checkUsernameUnique(memberRegisterDTO.getUsername());
         checkMobileUnique(memberRegisterDTO.getMobile());
         memberEntity.setUsername(memberRegisterDTO.getUsername());
+        memberEntity.setNickname(memberRegisterDTO.getUsername());
         memberEntity.setMobile(memberRegisterDTO.getMobile());
 
         // 密码加密（利用算法规则把盐值加到密文中，然后比对的时候按照算法规则取出来）
