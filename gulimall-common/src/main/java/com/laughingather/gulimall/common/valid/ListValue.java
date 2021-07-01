@@ -12,7 +12,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * 自定义校验注解
  *
- * @Constraint 可以关联多个不同的校验器
+ * @Constraint： 可以关联多个不同的校验器
+ * @author：laughingather
  */
 @Documented
 @Constraint(validatedBy = {ListValueConstraintValidator.class})
