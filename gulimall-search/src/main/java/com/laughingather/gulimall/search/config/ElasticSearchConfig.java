@@ -7,6 +7,11 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * es配置
+ *
+ * @author laughingather
+ */
 @Configuration
 public class ElasticSearchConfig {
 
@@ -24,7 +29,7 @@ public class ElasticSearchConfig {
     @Bean
     public RestHighLevelClient restHighLevelClient() {
         RestHighLevelClient restHighLevelClient = new RestHighLevelClient(RestClient.builder(
-                new HttpHost("192.168.1.12", 9200, "http")
+                new HttpHost("127.0.0.1", 9200, "http")
         ));
 
         return restHighLevelClient;
