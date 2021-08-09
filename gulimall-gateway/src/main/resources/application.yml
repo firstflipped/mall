@@ -37,6 +37,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: gulimall-cart
+          uri: lb://gulimall-cart
+          predicates:
+            - Path=/api/gulimall-cart/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-admin
           uri: lb://gulimall-admin
           predicates:
@@ -59,3 +66,7 @@ spring:
           predicates:
             - Host=auth.gulimall.com
 
+        - id: gulimall-cart-web
+          uri: lb://gulimall-cart
+          predicates:
+            - Host=cart.gulimall.com

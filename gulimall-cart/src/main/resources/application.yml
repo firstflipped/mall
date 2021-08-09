@@ -1,0 +1,12 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /gulimall-cart
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+
+

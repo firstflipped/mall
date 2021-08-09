@@ -1,0 +1,10 @@
+# 如果配置中心和当前应用的配置文件中都配置了相同的项，优先使用配置中心的配置（其实就是配置中心的配置把当前应用的配置给覆盖了）
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+      config:
+        server-addr: http://localhost:8848
+        file-extension: yaml
+        group: GULIMALL-CART
