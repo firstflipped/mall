@@ -1,4 +1,4 @@
-PUT product
+PUT http://localhost:9200/gulimall_product
 {
   "mappings": {
     "properties": {
@@ -39,12 +39,12 @@ PUT product
       "brandImg": {
         "type": "keyword",
         "index": false,
-        "doc_values": false
+        "doc_values": true
       },
       "catalogName": {
         "type": "keyword",
         "index": false,
-        "doc_values": false
+        "doc_values": true
       },
       "attrs": {
         "type": "nested",
@@ -57,6 +57,12 @@ PUT product
           },
           "attrValue": {
             "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}
           }
         }
       }

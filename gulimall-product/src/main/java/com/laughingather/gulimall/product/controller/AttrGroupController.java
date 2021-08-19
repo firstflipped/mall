@@ -26,7 +26,7 @@ import java.util.List;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/attrgroup")
+@RequestMapping("/product/attrgroup")
 public class AttrGroupController {
 
     @Autowired

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/attr")
+@RequestMapping("/product/attr")
 public class AttrController {
 
     @Autowired

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
@@ -46,7 +45,7 @@ public class OAuth2Controller {
     private String callbackUrl;
 
     @GetMapping("/weibo/success")
-    public String getAccessToken(HttpSession session, HttpServletResponse response, @RequestParam("code") String code) {
+    public String getAccessToken(HttpSession session, @RequestParam("code") String code) {
         String sendUrl = String.format(AuthConstants.WEIBO_OAUTH_API_URL, appKey, appSecret, code, callbackUrl);
         log.info("请求获取凭证信息地址{}", sendUrl);
         ResponseEntity<SocialUser> result = restTemplate.postForEntity(sendUrl, null, SocialUser.class);
