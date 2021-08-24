@@ -1,8 +1,13 @@
 package com.laughingather.gulimall.cart.web;
 
+import com.laughingather.gulimall.cart.pojo.vo.CartItemVO;
+import com.laughingather.gulimall.cart.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 购物车路由层
@@ -13,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
+
+    @Autowired
+    private CartService cartService;
 
     @GetMapping("/cart.html")
     public String cartListPage() {
@@ -26,7 +34,9 @@ public class CartController {
      * @return
      */
     @GetMapping("/add-to-cart")
-    public String addToCart() {
+    public String addToCart(@RequestParam("skuId") Long skuId, @RequestParam("num") Integer num, Model model) {
+        CartItemVO cartItemVO = cartService.addToCart(skuId, num);
+        model.addAttribute("item", cartItemVO);
         return "success";
     }
 

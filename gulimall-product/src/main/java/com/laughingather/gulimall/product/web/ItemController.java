@@ -26,6 +26,7 @@ public class ItemController {
     public String itemPage(@PathVariable("skuId") Long skuId, Model model) {
         log.info("商品id是{}", skuId);
         SkuItemVO skuItemVO = skuInfoService.getSkuItemById(skuId);
+        log.info("商品详情{}", skuItemVO);
         model.addAttribute("skuItemVO", skuItemVO);
         return "item";
     }

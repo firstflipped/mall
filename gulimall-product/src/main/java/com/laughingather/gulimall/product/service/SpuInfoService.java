@@ -22,6 +22,12 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
      */
     void saveSpuInfo(SpuSaveDTO spuSaveDTO);
 
+    /**
+     * 分页查询spu信息
+     *
+     * @param spuInfoQuery
+     * @return
+     */
     MyPage<SpuInfoEntity> pageSpuInfoByParams(SpuInfoQuery spuInfoQuery);
 
     /**

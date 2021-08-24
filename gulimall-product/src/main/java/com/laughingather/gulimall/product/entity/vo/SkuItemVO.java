@@ -23,6 +23,11 @@ public class SkuItemVO {
     private SkuInfoEntity info;
 
     /**
+     * 是否有货
+     */
+    private Boolean hasStock;
+
+    /**
      * 图片
      */
     private List<SkuImagesEntity> images;

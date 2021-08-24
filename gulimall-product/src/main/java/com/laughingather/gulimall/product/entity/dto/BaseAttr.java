@@ -2,6 +2,9 @@ package com.laughingather.gulimall.product.entity.dto;
 
 import lombok.Data;
 
+/**
+ * @author laughingather
+ */
 @Data
 public class BaseAttr {
     private Long attrId;

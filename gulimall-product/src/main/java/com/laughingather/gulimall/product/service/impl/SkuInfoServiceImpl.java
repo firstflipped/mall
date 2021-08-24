@@ -73,6 +73,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         List<SpuItemGroupAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(catalogId, spuId);
         skuItemVO.setGroupAttrs(groupAttrVO);
 
+        // 默认有货
+        skuItemVO.setHasStock(true);
+
         return skuItemVO;
     }
 }
