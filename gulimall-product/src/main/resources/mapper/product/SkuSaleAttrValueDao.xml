@@ -17,8 +17,8 @@
         <id property="attrId" column="attr_id"/>
         <result property="attrName" column="attr_name"/>
         <collection property="attrValues" ofType="com.laughingather.gulimall.product.entity.vo.AttrValueWithSkuIdVO">
-            <result property="attrValue" column="attr_value" />
-            <result property="skuIds" column="sku_ids" />
+            <result property="attrValue" column="attr_value"/>
+            <result property="skuIds" column="sku_ids"/>
         </collection>
     </resultMap>
     <select id="getSaleAttrsBySpuId" resultMap="saleAttrsVOMap">

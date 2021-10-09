@@ -7,6 +7,7 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.ProductConstants;
+import com.laughingather.gulimall.common.utils.JsonUtil;
 import com.laughingather.gulimall.product.dao.SpuInfoDao;
 import com.laughingather.gulimall.product.entity.*;
 import com.laughingather.gulimall.product.entity.dto.*;
@@ -19,7 +20,7 @@ import com.laughingather.gulimall.product.feign.service.CouponFeignService;
 import com.laughingather.gulimall.product.feign.service.SearchFeignService;
 import com.laughingather.gulimall.product.feign.service.WareFeignService;
 import com.laughingather.gulimall.product.service.*;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Slf4j
+@Log4j2
 @Service("spuInfoService")
 public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> implements SpuInfoService {
 
@@ -202,8 +203,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param spuSaveDTO
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void saveSpuInfo(SpuSaveDTO spuSaveDTO) {
+
+        log.info(JsonUtil.obj2String(spuSaveDTO));
+
         // 保存spu基本信息
         SpuInfoEntity spuInfo = saveSpuBaseInfo(spuSaveDTO);
         Long spuInfoId = spuInfo.getId();
@@ -284,7 +288,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 saveSkuImages(skuId, images);
 
                 // 保存sku销售属性信息
-                List<Attr> attrs = sku.getAttrs();
+                List<Attr> attrs = sku.getAttr();
                 saveSkuAttrs(skuId, attrs);
 
                 // 保存sku优惠、满减等信息

@@ -7,6 +7,7 @@ import com.laughingather.gulimall.product.entity.query.SkuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * sku信息
@@ -39,6 +40,6 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
      * @param skuId
      * @return
      */
-    SkuItemVO getSkuItemById(Long skuId);
+    SkuItemVO getSkuItemById(Long skuId) throws ExecutionException, InterruptedException;
 }
 

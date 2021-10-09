@@ -5,6 +5,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @author laughingather
+ */
 @Data
 public class Sku {
 
@@ -22,5 +25,5 @@ public class Sku {
 
     private List<Image> images;
     private List<String> descar;
-    private List<Attr> attrs;
+    private List<Attr> attr;
 }

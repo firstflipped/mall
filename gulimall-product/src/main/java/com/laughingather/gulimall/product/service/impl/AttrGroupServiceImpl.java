@@ -106,8 +106,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         // 先根据分类id查询所有分组
         List<SpuItemGroupAttrVO> attrGroupWithAttrs = attrGroupDao.getAttrGroupWithAttrsBySpuId(catalogId, spuId);
 
-
         // 查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
-        return null;
+        return attrGroupWithAttrs;
     }
 }

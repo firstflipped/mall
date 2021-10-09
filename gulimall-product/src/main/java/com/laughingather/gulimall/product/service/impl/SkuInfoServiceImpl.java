@@ -14,10 +14,14 @@ import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
 import com.laughingather.gulimall.product.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 @Service("skuInfoService")
@@ -34,6 +38,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     @Resource
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
+
     @Override
     public MyPage<SkuInfoEntity> pageSkuInfoByParams(SkuInfoQuery skuInfoQuery) {
         IPage<SkuInfoEntity> page = new Page<>(skuInfoQuery.getPageNumber(), skuInfoQuery.getPageSize());
@@ -48,30 +55,49 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     }
 
     @Override
-    public SkuItemVO getSkuItemById(Long skuId) {
+    public SkuItemVO getSkuItemById(Long skuId) throws ExecutionException, InterruptedException {
         SkuItemVO skuItemVO = new SkuItemVO();
-        // 查询sku基本信息
-        SkuInfoEntity skuInfo = getById(skuId);
-        skuItemVO.setInfo(skuInfo);
 
-        Long catalogId = skuInfo.getCatalogId();
-        Long spuId = skuInfo.getSpuId();
+        // 开启异步编排任务
+        CompletableFuture<SkuInfoEntity> skuInfoCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            // 查询sku基本信息
+            SkuInfoEntity skuInfo = getById(skuId);
+            skuItemVO.setInfo(skuInfo);
+            return skuInfo;
+        }, threadPoolExecutor);
 
-        // 查询sku的图片信息
-        List<SkuImagesEntity> skuImages = skuImagesService.listImagesBySkuId(skuId);
-        skuItemVO.setImages(skuImages);
+        // 需要依赖skuInfo信息的结果
+        CompletableFuture<Void> saleAttrsCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync((skuInfo) -> {
+            // 当前spu的销售属性组合
+            List<ItemSaleAttrVO> saleAttrs = skuSaleAttrValueService.getSaleAttrsBySpuId(skuInfo.getSpuId());
+            skuItemVO.setSaleAttrs(saleAttrs);
+        }, threadPoolExecutor);
 
-        // 当前spu的销售属性组合
-        List<ItemSaleAttrVO> saleAttrs = skuSaleAttrValueService.getSaleAttrsBySpuId(spuId);
-        skuItemVO.setSaleAttrs(saleAttrs);
+        CompletableFuture<Void> descCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(skuInfo -> {
+            // 获取spu的描述
+            SpuInfoDescEntity spuInfoDesc = spuInfoDescService.getById(skuInfo.getSpuId());
+            skuItemVO.setDesc(spuInfoDesc);
+        }, threadPoolExecutor);
 
-        // 获取spu的描述
-        SpuInfoDescEntity spuInfoDesc = spuInfoDescService.getById(skuInfo.getSpuId());
-        skuItemVO.setDesc(spuInfoDesc);
+        CompletableFuture<Void> groupAttrsCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(skuInfo -> {
+            // 获取sku的规格参数信息
+            List<SpuItemGroupAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(skuInfo.getCatalogId(), skuInfo.getSpuId());
+            skuItemVO.setGroupAttrs(groupAttrVO);
+        }, threadPoolExecutor);
 
-        // 获取sku的规格参数信息
-        List<SpuItemGroupAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(catalogId, spuId);
-        skuItemVO.setGroupAttrs(groupAttrVO);
+
+        // 不需要依赖skuInfo信息结果，开启一个新的异步
+        CompletableFuture<Void> skuImagesCompletableFuture = CompletableFuture.runAsync(() -> {
+            // 查询sku的图片信息
+            List<SkuImagesEntity> skuImages = skuImagesService.listImagesBySkuId(skuId);
+            skuItemVO.setImages(skuImages);
+        }, threadPoolExecutor);
+
+
+        // 等待所有线程执行完成   skuInfoCompletableFuture可以省略，因为其他异步执行会依赖他的结果
+        CompletableFuture.allOf(skuInfoCompletableFuture, saleAttrsCompletableFuture, descCompletableFuture,
+                groupAttrsCompletableFuture, skuImagesCompletableFuture).get();
+
 
         // 默认有货
         skuItemVO.setHasStock(true);

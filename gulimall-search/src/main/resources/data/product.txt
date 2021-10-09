@@ -63,9 +63,3 @@ PUT http://localhost:9200/gulimall_product
     }
   }
 }
-          }
-        }
-      }
-    }
-  }
-}

@@ -74,6 +74,13 @@
             <version>3.15.5</version>
         </dependency>
 
+        <!-- 读取配置文件参数 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -85,6 +92,12 @@
                     <mainClass>com.laughingather.gulimall.product.GulimallProductApplication</mainClass>
                     <!-- 需要加上该配置才能使dev-tools生效 -->
                     <fork>true</fork>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
