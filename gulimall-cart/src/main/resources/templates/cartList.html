@@ -21,8 +21,13 @@
 
             </ul>
             <ul class="header-right">
-                <li><a href="http://auth.gulimall.com/login.html" style="color: red;">你好，请登录</a></li>
-                <li><a href="http://auth.gulimall.com/register.html">免费注册</a></li>
+                <li>
+                    <a th:if="${session.loginUser != null}">欢迎： [[${session.loginUser.nickname}]]</a>
+                    <a href="http://auth.gulimall.com/login.html" th:if="${session.loginUser == null}">欢迎，请登录 </a>
+                </li>
+                <li>
+                    <a href="http://auth.gulimall.com/register.html" th:if="${session.loginUser == null}" class="li_2">免费注册</a>
+                </li>
                 <li class="spacer"></li>
                 <li><a href="">我的订单</a></li>
                 <li class="spacer"></li>
@@ -47,7 +52,7 @@
                 <input type="button" value="搜索" class="one_right_btn">
             </div>
         </div>
-        <div class="one_search_load" th:if="${userId}==null">
+        <div class="one_search_load" th:if="${session.loginUser==null}">
             <img src="/static/cart/./img/shop_07.jpg" class="one_load_wraing">
             <span>您还没有登录！登录后购物车的商品将保存到您账号中</span>
             <a href="http://auth.gulimall.com/login.html"><input type="button" onclick="login()" value="立即登录"
@@ -74,38 +79,46 @@
         </div>
 
         <div class="One_ShopCon">
-            <ul>
-                <li th:each="cartInfo:${cartList}">
+            <h1 th:if="${cart.items == null}">
+                购物车中还没有商品，<a href="http://gulimall.com">去购物</a>
+            </h1>
+            <ul th:if="${cart.items != null}">
+                <li th:each="cartItem:${cart.items}">
                     <div></div>
                     <div>
                         <ol>
-                            <li><input type="checkbox" class="check" th:value="${cartInfo.skuId}"
+                            <li><input type="checkbox" class="itemCheck" th:attr="skuId=${cartItem.skuId}"
+                                       th:value="${cartItem.skuId}"
                                        onchange="checkSku(this)"
-                                       th:checked="(${cartInfo.isChecked}==1)?'true':'false'"/></li>
+                                       th:checked="${cartItem.check}"/></li>
                             <li>
-                                <dt><img th:src="/static/cart/${cartInfo.imgUrl}" src="/static/cart/img\shop1.jpg"
+                                <dt><img th:src="${cartItem.image}"
                                          alt=""></dt>
-                                <dd th:onclick="'toItem('+${cartInfo.skuId}+')'">
+                                <dd style="width: 300px" th:onclick="'toItem('+${cartItem.skuId}+')'">
                                     <p>
-                                        <span th:text="${cartInfo.skuName}">TCL 55A950C 55英寸32核</span>
+                                        <span th:text="${cartItem.title}">TCL 55A950C 55英寸32核</span>
+                                        <br/>
+                                        <span th:each="attr:${cartItem.skuAttr}" th:text="${attr}"></span>
                                     </p>
                                 </dd>
                             </li>
                             <li>
-                                <p class="dj" th:text="'￥'+${cartInfo.skuPrice}">4599.00</p>
+                                <p class="dj" th:text="'￥' + ${#numbers.formatDecimal(cartItem.price, 3, 2)}">
+                                    4599.00</p>
                             </li>
                             <li>
-                                <p>
-                                    <span>-</span>
-                                    <span th:text="${cartInfo.skuNum}">5</span>
-                                    <span>+</span>
+                                <p th:attr="skuId=${cartItem.skuId}">
+                                    <span class="countOpsBtn">-</span>
+                                    <span class="countOpsNum" th:text="${cartItem.count}">5</span>
+                                    <span class="countOpsBtn">+</span>
                                 </p>
                             </li>
                             <li style="font-weight:bold">
-                                <p class="zj" th:text="'￥'+${cartInfo.totalPrice}">￥22995.00</p>
+                                <p class="zj" th:text="'￥' + ${#numbers.formatDecimal(cartItem.totalPrice, 3, 2)}">
+                                    ￥22995.00</p>
                             </li>
                             <li>
-                                <p>删除</p>
+                                <p class="deleteItemBtn" th:attr="skuId=${cartItem.skuId}">删除</p>
                             </li>
                         </ol>
                     </div>
@@ -122,8 +135,6 @@
                 </ul>
             </div>
             <div>
-                <font style="color:#e64346;font-weight:bold;" class="sumNum"> </font>&nbsp;
-
                 <ul>
                     <li><img src="/static/cart/img/buyNumleft.png" alt=""></li>
                     <li><img src="/static/cart/img/buyNumright.png" alt=""></li>
@@ -131,8 +142,10 @@
             </div>
             <div>
                 <ol>
-                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">￥0.00</span></li>
-
+                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">￥[[${#numbers.formatDecimal(cart.totalAmount, 3, 2)}]]</span>
+                    </li>
+                    <li>优惠:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt">￥[[${#numbers.formatDecimal(cart.reduce, 1, 2)}]]</span>
+                    </li>
                 </ol>
             </div>
             <div>
@@ -156,7 +169,7 @@
         </dl>
     </div>
     <div>
-        <button type="button">删除</button>
+        <button type="button" onclick="deleteItem()">删除</button>
 
     </div>
 </div>
@@ -205,26 +218,26 @@
 <script src="/static/cart/./js/index.js" charset="utf-8"></script>
 <script type="text/javascript">
     function toTrade() {
-        window.location.href = "http://cart.gmall.com:8087/toTrade";
+        window.location.href = "http://cart.gulimall.com/toTrade";
     }
 
     function toItem(skuId) {
-        window.location.href = "http://item.gmall.com:8084/" + skuId + ".html";
+        window.location.href = "http://item.gulimall.com" + skuId + ".html";
     }
 
     function login() {
-        var s = encodeURIComponent("http://cart.gmall.com:8087/cartList");
+        let s = encodeURIComponent("http://cart.gulimall.com/cartList");
         window.location.href = "http://passport.atguigu.com/index?originUrl=" + s;
     }
 
     function checkSku(chkbox) {
-        var skuId = $(chkbox).attr("value");
-        var checked = $(chkbox).prop("checked");
-        var isCheckedFlag = "0";
+        let skuId = $(chkbox).attr("value");
+        let checked = $(chkbox).prop("checked");
+        let isCheckedFlag = "0";
         if (checked) {
             isCheckedFlag = "1";
         }
-        var param = "isChecked=" + isCheckedFlag + "&" + "skuId=" + skuId;
+        let param = "isChecked=" + isCheckedFlag + "&" + "skuId=" + skuId;
         $.post("checkCart", param, function (data) {
             sumSumPrice();
         });
@@ -528,27 +541,27 @@
     })
     //+
     $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span:last-child").click(function () {
-        var add = $(this).prev("span").html();
+        let add = $(this).prev("span").html();
         add++;
         $(this).prev("span").html(add);
         //总价
-        var dj = $(this).parent().parent().prev().children(".dj").html().substring(1);
-        var sl = $(this).prev("span").html();
+        let dj = $(this).parent().parent().prev().children(".dj").html().substring(1);
+        let sl = $(this).prev("span").html();
         $(this).parent().parent().parent().children("li:nth-child(5)").children(".zj").html("￥" + dj * sl + ".00")
         sumSumPrice();
 
     })
     //-
     $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span:first-child").click(function () {
-        var jian = $(this).next("span").html();
+        let jian = $(this).next("span").html();
         jian--;
         if (jian <= 0) {
             jian = 0;
         }
         $(this).next("span").html(jian);
         //总价
-        var dj = $(this).parent().parent().prev().children(".dj").html().substring(1);
-        var sl = $(this).next("span").html();
+        let dj = $(this).parent().parent().prev().children(".dj").html().substring(1);
+        let sl = $(this).next("span").html();
         $(this).parent().parent().parent().children("li:nth-child(5)").children(".zj").html("￥" + dj * sl + ".00")
         sumSumPrice();
 
@@ -594,7 +607,7 @@
     $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(6) p:first-child").click(function () {
         $(".One_mb").show();
         $(".One_isDel").show();
-        var that = $(this);
+        let that = $(this);
         //确定删除
         /*        $(".One_isDel>div:last-child button:first-child").click(function(){
                     $(".One_mb").hide();
@@ -636,7 +649,7 @@
     //封装总价钱函数
     function sumSumPrice() {
         console.log("计算总价");
-        var zzj = 0;
+        let zzj = 0;
         $(".check").each(function () {
 
 
@@ -657,7 +670,7 @@
 
     //封装总数量函数
     function sumSumNum() {
-        var kong = 0;
+        let kong = 0;
         $(".One_ShopCon ul li>div:nth-child(2) ol>li:nth-child(4) p:first-child span:nth-child(2)").each(function () {
             kong += parseFloat($(this).html())
         })
@@ -675,7 +688,7 @@
     //更多促销下拉
     $(".One_ShopCon ul li>div:nth-child(2) ol li:nth-child(3) p:nth-child(2)").click(function () {
         $(this).parent().children(".nmbd").slideToggle(300);
-        var dis = $(this).parent().children(".nmbd").css("display");
+        let dis = $(this).parent().children(".nmbd").css("display");
         console.log(dis);
         // if(dis=="block"){
         // 	$(".hahaha").css("transform","rotateX(-180deg)")
@@ -703,10 +716,10 @@
 
     $(function () {
         //声明变量记录索引
-        var index = 0;
+        let index = 0;
         //点击右边按钮
         //忽略重复点击开关
-        var toggle = true
+        let toggle = true
         $(".arrow-right").click(function () {
 
             if (toggle == false) {
@@ -737,7 +750,7 @@
         });
         //点击分页器
         $('.pagination ul li').mouseover(function () {
-            var paging = $(this).index()
+            let paging = $(this).index()
             //变颜色
             $(this).addClass('active').siblings().removeClass('active')
             //与图片关联
@@ -749,6 +762,31 @@
         $(this).children("p").children("img").attr("src", "img/one_mian_gwc2.png")
     }).mouseout(function () {
         $(this).children("p").children("img").attr("src", "img/one_mian_gwc1.png")
+    })
+
+    // 勾选购物项
+    $(".itemCheck").click(function () {
+        let skuId = $(this).attr("skuId");
+        let check = $(this).prop("checked");
+        location.href = "http://cart.gulimall.com/cart/check-item?skuId=" + skuId + "&check=" + (check ? 1 : 0);
+    })
+
+    // 商品数量修改
+    $(".countOpsBtn").click(function () {
+        let skuId = $(this).parent().attr("skuId");
+        let num = $(this).parent().find(".countOpsNum").text();
+        location.href = "http://cart.gulimall.com/cart/count-item?skuId=" + skuId + "&count=" + num;
+    })
+
+    // 删除购物项
+    let skuId = 0;
+
+    function deleteItem() {
+        location.href = "http://cart.gulimall.com/cart/delete-item?skuId=" + skuId;
+    }
+
+    $(".deleteItemBtn").click(function () {
+        skuId = $(this).attr("skuId");
     })
 </script>
 </html>

@@ -36,7 +36,7 @@ public class CartInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         UserInfoVO userInfoVO = new UserInfoVO();
 
         HttpSession session = request.getSession();
@@ -70,6 +70,7 @@ public class CartInterceptor implements HandlerInterceptor {
 
     /**
      * 目标方法执行之后，执行该方法
+     * 分配临时用户，让浏览器保存
      *
      * @param request
      * @param response
@@ -78,9 +79,9 @@ public class CartInterceptor implements HandlerInterceptor {
      * @throws Exception
      */
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         UserInfoVO userInfoVO = threadLocal.get();
-        // 如果是临时用户
+        // 如果是临时用户一定保存一个临时用户
         if (!userInfoVO.getTempUser()) {
             Cookie cookie = new Cookie(CartConstants.TEMP_USER_COOKIE_NAME, userInfoVO.getUserKey());
             cookie.setDomain("gulimall.com");

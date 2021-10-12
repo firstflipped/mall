@@ -1,6 +1,9 @@
 package com.laughingather.gulimall.cart.service;
 
 import com.laughingather.gulimall.cart.pojo.vo.CartItemVO;
+import com.laughingather.gulimall.cart.pojo.vo.CartVO;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * 购物车逻辑层接口
@@ -17,5 +20,45 @@ public interface CartService {
      * @param num   数量
      * @return
      */
-    CartItemVO addToCart(Long skuId, Integer num);
+    CartItemVO addToCart(Long skuId, Integer num) throws ExecutionException, InterruptedException;
+
+    /**
+     * 获取购物车项
+     *
+     * @param skuId
+     * @return
+     */
+    CartItemVO getCartItem(Long skuId);
+
+    /**
+     * 获取购物车
+     *
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    CartVO getCart() throws ExecutionException, InterruptedException;
+
+    /**
+     * 选中购物项
+     *
+     * @param skuId
+     * @param check
+     */
+    void checkItem(Long skuId, Integer check);
+
+    /**
+     * 修改购物项数量
+     *
+     * @param skuId
+     * @param count
+     */
+    void changeItemCount(Long skuId, Integer count);
+
+    /**
+     * 删除购物车项
+     *
+     * @param skuId
+     */
+    void deleteItem(Long skuId);
 }

@@ -43,11 +43,4 @@ public class IndexController {
         return catalogJSON;
     }
 
-
-    @GetMapping("/hello")
-    @ResponseBody
-    public String hello() {
-        return "hello";
-    }
-
 }

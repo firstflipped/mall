@@ -64,11 +64,13 @@
         </b>
         <ul>
             <li>
-                <a th:if="${session.loginUser != null}">欢迎： [[${session.loginUser == null ? '' :
-                    session.loginUser.nickname}]]</a>
+                <a th:if="${session.loginUser != null}">欢迎： [[${session.loginUser.nickname}]]</a>
                 <a href="http://auth.gulimall.com/login.html" th:if="${session.loginUser == null}">欢迎，请登录 </a>
             </li>
-            <a href="http://auth.gulimall.com/register.html" th:if="${session.loginUser == null}" class="li_2">免费注册</a>
+            <li>
+                <a href="http://auth.gulimall.com/register.html" th:if="${session.loginUser == null}"
+                   class="li_2">免费注册</a>
+            </li>
             <span>|</span>
             <li>
                 <a href="/static/search/#">我的订单</a>
@@ -1873,77 +1875,76 @@
 </div>
 
 <script>
-    $(".sl_ext a:nth-child(1)").hover(function(){
-        $(this).children("b").stop(true).animate({top:"3px"},50);
-        $(this).children("i").stop(true).animate({top:"-23px"},50)
-    },function(){
-        $(this).children("b").stop(true).animate({top:"24px"},50);
-        $(this).children("i").stop(true).animate({top:"3px"},50)
+    $(".sl_ext a:nth-child(1)").hover(function () {
+        $(this).children("b").stop(true).animate({top: "3px"}, 50);
+        $(this).children("i").stop(true).animate({top: "-23px"}, 50)
+    }, function () {
+        $(this).children("b").stop(true).animate({top: "24px"}, 50);
+        $(this).children("i").stop(true).animate({top: "3px"}, 50)
     });
-    $(".sl_ext a:nth-child(2)").hover(function(){
-        $(this).children("span").stop(true).animate({top:"-1px"},100);
-        $(this).children("i").stop(true).animate({top:"-14px"},100).css({display:"none"})
-    },function(){
-        $(this).children("span").stop(true).animate({top:"14px"},100);
-        $(this).children("i").stop(true).animate({top:"-1px"},100).css({display:"block"})
+    $(".sl_ext a:nth-child(2)").hover(function () {
+        $(this).children("span").stop(true).animate({top: "-1px"}, 100);
+        $(this).children("i").stop(true).animate({top: "-14px"}, 100).css({display: "none"})
+    }, function () {
+        $(this).children("span").stop(true).animate({top: "14px"}, 100);
+        $(this).children("i").stop(true).animate({top: "-1px"}, 100).css({display: "block"})
     });
-    $('.tab_im img').hover(function(){
-        var a=$(this).prop('src');
-        var index=$(this).parents('li').index();
-        $(this).parents('li').css('border','2px solid red').siblings('li').css('border','1px solid #ccc');
-        $(this).parents('ul').prev().find('img').prop('src',a);
-        $(this).parents('ul').siblings('.tab_JE').find('a').eq(index).css('display','block').siblings('a').css('display','none');
-        $(this).parents('ul').siblings('.tab_R').find('span').eq(index).css('display','block').siblings('span').css('display','none')
-    });
-
-    $(".JD_ipone_one").hover(function(){
-        $(this).children("div").css({display:"block"})
-    },function(){
-        $(this).children("div").css({display:"none"})
+    $('.tab_im img').hover(function () {
+        var a = $(this).prop('src');
+        var index = $(this).parents('li').index();
+        $(this).parents('li').css('border', '2px solid red').siblings('li').css('border', '1px solid #ccc');
+        $(this).parents('ul').prev().find('img').prop('src', a);
+        $(this).parents('ul').siblings('.tab_JE').find('a').eq(index).css('display', 'block').siblings('a').css('display', 'none');
+        $(this).parents('ul').siblings('.tab_R').find('span').eq(index).css('display', 'block').siblings('span').css('display', 'none')
     });
 
-    $("#tab>li").click(function() {
+    $(".JD_ipone_one").hover(function () {
+        $(this).children("div").css({display: "block"})
+    }, function () {
+        $(this).children("div").css({display: "none"})
+    });
+
+    $("#tab>li").click(function () {
         var i = $(this).index();
         $("#container>div").hide().eq(i).show()
     });
-    $(".dizhi_show").hover(function(){
-        $(".dizhi_con").css({display:"block"})
-    },function(){
-        $(".dizhi_con").css({display:"none"})
+    $(".dizhi_show").hover(function () {
+        $(".dizhi_con").css({display: "block"})
+    }, function () {
+        $(".dizhi_con").css({display: "none"})
     });
-    $(".dizhi_con").hover(function(){
-        $(this).css({display:"block"})
-    },function(){
-        $(this).css({display:"none"})
+    $(".dizhi_con").hover(function () {
+        $(this).css({display: "block"})
+    }, function () {
+        $(this).css({display: "none"})
     });
     //显示隐藏
     var $li = $(".JD_nav_logo>div:gt(3)").hide();
-      $('.JD_show span').click(function(){
-          if($li.is(':hidden')){
-              $li.show();
-              $(this).css({width:"86px"}).text('收起 ^');
-          }else{
-              $li.hide();
-              $('.JD_show span').css({width:"291px"}).text('更多选项（ CPU核数、网络、机身颜色 等）');
-          }
-          return false;
-      });
-
-
-
-    $(".rig_tab>div").hover(function(){
-        var i = $(this).index();
-        $(this).find('.ico').css({display:'block'}).stop(true).animate({top:"190px"},300)
-    },function(){
-        var i = $(this).index();
-        $(this).find('.ico').css({display:'none'}).stop(true).animate({top:"230px"})
+    $('.JD_show span').click(function () {
+        if ($li.is(':hidden')) {
+            $li.show();
+            $(this).css({width: "86px"}).text('收起 ^');
+        } else {
+            $li.hide();
+            $('.JD_show span').css({width: "291px"}).text('更多选项（ CPU核数、网络、机身颜色 等）');
+        }
+        return false;
     });
 
-    $('.header_main_left>ul>li').hover(function() {
+
+    $(".rig_tab>div").hover(function () {
+        var i = $(this).index();
+        $(this).find('.ico').css({display: 'block'}).stop(true).animate({top: "190px"}, 300)
+    }, function () {
+        var i = $(this).index();
+        $(this).find('.ico').css({display: 'none'}).stop(true).animate({top: "230px"})
+    });
+
+    $('.header_main_left>ul>li').hover(function () {
         $(this).css({
             background: "#f0f0f0"
         }).find('.header_main_left_main').stop(true).fadeIn(300)
-    }, function() {
+    }, function () {
         $(this).css({
             background: "#fff"
         }).find(".header_main_left_a").css({
@@ -1951,31 +1952,31 @@
         });
         $(this).find('.header_main_left_main').stop(true).fadeOut(100)
     });
-    $(".header_sj a").hover(function() {
+    $(".header_sj a").hover(function () {
         $(this).css({
             background: "#444"
         })
-    }, function() {
+    }, function () {
         $(this).css({
             background: "#6e6568"
         })
     });
 
 
-    $(".nav_li1 a").hover(function(){
+    $(".nav_li1 a").hover(function () {
         $(".header_main_left").stop(true).fadeIn()
-    },function(){
+    }, function () {
         $(".header_main_left").stop(true).fadeOut()
     });
-    $(".header_main_left").hover(function(){
+    $(".header_main_left").hover(function () {
         $(this).stop(true).fadeIn()
-    },function(){
+    }, function () {
         $(this).stop(true).fadeOut()
     });
 
 
     //右侧侧边栏
-    $(".header_bar_box ul li").hover(function() {
+    $(".header_bar_box ul li").hover(function () {
         $(this).css({
             background: "#7A6E6E"
         }).children(".div").css({
@@ -1983,7 +1984,7 @@
         }).stop(true).animate({
             left: "-60px"
         }, 300)
-    }, function() {
+    }, function () {
         $(this).css({
             background: "#7A6E6E"
         }).children(".div").css({
@@ -1995,8 +1996,8 @@
 
 
     //底部
-    $(".footer_foot .p1 a").hover(function(){
-        $(this).css("color","#D70B1C")
+    $(".footer_foot .p1 a").hover(function () {
+        $(this).css("color", "#D70B1C")
     }, function () {
         $(this).css("color", "#727272")
     });
@@ -2094,35 +2095,6 @@
         }
         return false;
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </script>

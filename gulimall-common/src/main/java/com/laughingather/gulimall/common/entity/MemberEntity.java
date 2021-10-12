@@ -97,44 +97,41 @@ public class MemberEntity implements Serializable {
 	 */
 	private Integer sourceType;
 
-	/**
-	 * 积分
-	 */
-	private Integer integration;
+    /**
+     * 积分
+     */
+    private Integer integration;
 
-	/**
-	 * 成长值
-	 */
-	private Integer growth;
+    /**
+     * 成长值
+     */
+    private Integer growth;
 
-	/**
-	 * 启用状态
-	 */
-	private Integer status;
+    /**
+     * 启用状态
+     */
+    private Integer status;
 
-	/**
-	 * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	 * 用于解决feign远程调用序列化时间失败
-	 * <p>
-	 * 注册时间
-	 */
+    /**
+     * 注册时间
+     */
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
-	/**
-	 * 社交帐号唯一id
-	 */
-	private Long socialUid;
+    /**
+     * 社交帐号唯一id
+     */
+    private Long socialUid;
 
-	/**
-	 * 社交账号令牌
-	 */
-	private String accessToken;
+    /**
+     * 社交账号令牌
+     */
+    private String accessToken;
 
-	/**
-	 * 社交令牌有效时间
-	 */
-	private Long expiresIn;
+    /**
+     * 社交令牌有效时间
+     */
+    private Long expiresIn;
 
 }

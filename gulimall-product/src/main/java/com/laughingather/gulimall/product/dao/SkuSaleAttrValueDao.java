@@ -3,6 +3,7 @@ package com.laughingather.gulimall.product.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.laughingather.gulimall.product.entity.SkuSaleAttrValueEntity;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,5 +22,13 @@ public interface SkuSaleAttrValueDao extends BaseMapper<SkuSaleAttrValueEntity> 
      * @param spuId
      * @return
      */
-    List<ItemSaleAttrVO> getSaleAttrsBySpuId(Long spuId);
+    List<ItemSaleAttrVO> getSaleAttrsBySpuId(@Param("spuId") Long spuId);
+
+    /**
+     * 根据sku获取销售属性
+     *
+     * @param skuId
+     * @return
+     */
+    List<String> getSkuSaleAttrValuesAsString(@Param("skuId") Long skuId);
 }

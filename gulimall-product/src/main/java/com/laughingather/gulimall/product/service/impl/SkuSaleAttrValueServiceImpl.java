@@ -23,8 +23,13 @@ public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueDao
 
     @Override
     public List<ItemSaleAttrVO> getSaleAttrsBySpuId(Long spuId) {
-        // 先根据spuId查询所有skuId
         List<ItemSaleAttrVO> saleAttrs = skuSaleAttrValueDao.getSaleAttrsBySpuId(spuId);
         return saleAttrs;
+    }
+
+    @Override
+    public List<String> getSkuSaleAttrValuesAsString(Long skuId) {
+        List<String> skuSaleAttrValues = skuSaleAttrValueDao.getSkuSaleAttrValuesAsString(skuId);
+        return skuSaleAttrValues;
     }
 }
