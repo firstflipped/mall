@@ -422,7 +422,6 @@ a {
     text-align: center;
     position: relative;
 }
-
 /*.One_ShopCon ul li>div:nth-child(2) ol li:nth-child(3):hover img{
   transform: rotateX(180deg);
 }*/
@@ -432,7 +431,6 @@ a {
     width: 20px;
     height: 20px;
 }
-
 /*.One_ShopCon ul li>div:nth-child(2) ol li:nth-child(4){
   padding:0 40px;
 }*/
@@ -898,7 +896,6 @@ html, body {
     background: #DBDBDB;
     padding: 10px;
 }
-
 /*.One_DengLu div:nth-child(3) ol>li:last-child table tr:nth-child(2) td span:first-child{
   margin-left:3px;
 }*/

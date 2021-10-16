@@ -846,7 +846,6 @@
 
             if (el) el.innerHTML = html
         }
-
         $('#hotwords').delegate('[data-id]', 'click', function () {
             var $this = $(this);
             window.log && window.log('hotWord', 'cmsPortal',
@@ -882,7 +881,6 @@
                     }
                 })
             }
-
             function getCount() {
                 $.ajax({
                     url: '//printing.jd.com/printingBag/getPrintingBagCount',

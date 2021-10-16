@@ -3,7 +3,6 @@
     padding: 0;
     list-style: none;
 }
-
 /*
 KISSY CSS Reset
 理念：1. reset 的目的不是清除浏览器的默认样式，这仅是部分工作。清除和重置是紧密不可分的。
@@ -97,7 +96,6 @@ table {
     height: 0;
     clear: both;
 }
-
 .ks-clear, .clear {
     *zoom: 1;
 }
@@ -155,6 +153,7 @@ table {
 .icon_lists .icon:hover {
     font-size: 100px;
 }
+
 
 
 .markdown {

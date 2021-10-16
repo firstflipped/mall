@@ -10,6 +10,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
+/**
+ * @author laughingather
+ */
 @Configuration
 @EnableCaching    // 开启缓存
 public class MyCacheConfig {

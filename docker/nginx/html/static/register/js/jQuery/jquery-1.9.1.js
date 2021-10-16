@@ -8278,7 +8278,6 @@
 
         return {state: "success", data: response};
     }
-
 // Install script dataType
     jQuery.ajaxSetup({
         accepts: {
@@ -9555,7 +9554,6 @@
                 elem.defaultView || elem.parentWindow :
                 false;
     }
-
 // Create innerHeight, innerWidth, height, width, outerHeight and outerWidth methods
     jQuery.each({Height: "height", Width: "width"}, function (name, type) {
         jQuery.each({padding: "inner" + name, content: type, "": "outer" + name}, function (defaultExtra, funcName) {

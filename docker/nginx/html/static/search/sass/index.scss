@@ -18,25 +18,21 @@ html {
   background: #fff;
   position: relative;
 }
-
 //头部
 .header_head {
   background: #E3E4E5;
   height: 30px;
   line-height: 30px;
   position: relative;
-
   .header_head_box {
     width: 1210px;
     margin: 0 auto;
-
     .img {
       float: left;
       display: block;
       width: 190px;
       height: 170px;
     }
-
     .header_head_p {
       font-size: 12px;
       float: left;
@@ -59,7 +55,6 @@ html {
         color: red;
       }
     }
-
     .header_head_p_cs {
       position: absolute;
       width: 340px;
@@ -69,7 +64,6 @@ html {
       background: #fff;
       z-index: 200;
       display: none;
-
       a {
         color: #999;
         display: block;
@@ -80,34 +74,27 @@ html {
         font-weight: 100;
         text-decoration: none;
       }
-
       a:hover {
         color: #C81623;
       }
     }
-
     ul {
       float: right;
-
       li {
         float: left;
         padding: 0 10px;
-
         a {
           text-decoration: none;
           color: #999;
           font-size: 12px;
         }
-
         .li_2 {
           color: red;
         }
       }
-
       a:hover {
         color: #C81623;
       }
-
       .header_wdjd {
         width: 60px;
         position: relative;
@@ -132,20 +119,17 @@ html {
           background: #fff;
           z-index: 10;
           display: none;
-
           ul:nth-child(2) {
             margin-top: 15px;
             padding-top: 10px;
             border-top: 1px solid #ccc;
           }
-
           li {
             width: 84px;
             height: 25px;
           }
         }
       }
-
       .header_wdjd1 {
         width: 60px;
         position: relative;
@@ -166,28 +150,23 @@ html {
           background: #fff;
           z-index: 10;
           display: none;
-
           p {
             color: #666;
             font-size: 14px;
             padding: 0 20px 0 10px;
           }
-
           ul:nth-child(2) {
             margin-top: 10px;
             border-top: 1px solid #ccc;
           }
-
           li {
             width: 70px;
             height: 27px;
           }
         }
       }
-
       .header_sjjd {
         position: relative;
-
         .header_sjjd_div {
           position: absolute;
           top: 30px;
@@ -197,10 +176,8 @@ html {
           padding: 3px 3px 0;
         }
       }
-
       .header_wzdh {
         position: relative;
-
         .header_wzdh_txt {
           position: absolute;
           top: 30px;
@@ -210,26 +187,22 @@ html {
           width: 1210px;
           height: 190px;
           display: none;
-
           ul {
             padding: 10px;
             float: left;
             width: 25%;
             height: 100%;
             border-right: 1px solid #eee;
-
             p {
               margin-left: 10px;
               margin-bottom: -5px;
             }
-
             li {
               height: 25px;
             }
           }
         }
       }
-
       span {
         font-size: 12px;
         color: #ccc;
@@ -238,7 +211,6 @@ html {
     }
   }
 }
-
 //搜索导航
 .header_sous {
   width: 1210px;
@@ -266,7 +238,6 @@ html {
     height: 35px;
     border: 2px solid #f10215;
     float: left;
-
     input {
       padding: 4px;
       width: 460px;
@@ -293,7 +264,6 @@ html {
       text-decoration: none;
     }
   }
-
   .header_ico {
     position: absolute;
     right: 107px;
@@ -311,16 +281,13 @@ html {
       zoom: 1;
       z-index: 10;
       float: left;
-
       span:nth-child(1) {
         font-size: 13px;
-
         a {
           color: #F10214;
           text-decoration: none;
         }
       }
-
       span:nth-child(3) {
         background: #F10214;
         color: #fff;
@@ -370,7 +337,6 @@ html {
 
     }
   }
-
   .header_form_nav {
     overflow: hidden;
     position: absolute;
@@ -379,24 +345,20 @@ html {
     width: 550px;
     height: 20px;
     line-height: 20px;
-
     ul {
       li {
         float: left;
         margin-right: 10px;
         white-space: nowrap;
-
         a {
           color: #666;
           font-size: 12px;
           text-decoration: none;
         }
-
         .aaaaa {
           color: #f10215;
         }
       }
-
       li:hover {
         a {
           color: #f10215;
@@ -404,7 +366,6 @@ html {
       }
     }
   }
-
   nav {
     overflow: hidden;
     position: absolute;
@@ -414,13 +375,10 @@ html {
     height: 40px;
     line-height: 40px;
     float: left;
-
     ul {
       float: left;
-
       li {
         float: left;
-
         a {
           height: 33px;
           padding: 0 22px;
@@ -451,14 +409,12 @@ html {
           text-align: center;
         }
       }
-
       .nav_li:hover {
         a {
           color: red;
         }
       }
     }
-
     .spacer {
       overflow: hidden;
       margin: 10px 0;
@@ -490,22 +446,18 @@ html {
         line-height: 28px;
         font-size: 0;
         position: relative;
-
         a {
           font-size: 12px;
           text-decoration: none;
-
           b {
             font-weight: 700;
           }
-
           b:hover {
             color: #C81623;
           }
         }
       }
     }
-
     .header_li2 {
       .header_main_left_main {
         position: absolute;
@@ -517,11 +469,9 @@ html {
         z-index: 200;
         padding: 20px;
         display: none;
-
         .header_sj {
           width: 800px;
           overflow: hidden;
-
           .header_sj_a {
             display: block;
             background: #6e6568;
@@ -531,22 +481,18 @@ html {
           }
         }
       }
-
       .header_ol {
         margin-top: 10px;
         width: 730px;
         overflow: hidden;
-
         .aaa {
           float: left;
           width: 70px;
           font-size: 8px;
         }
-
         li {
           border-bottom: 1px solid #eee;
           margin-left: 70px;
-
           a {
             border-left: 1px solid #999;
             font-size: 12px;
@@ -555,18 +501,15 @@ html {
           }
         }
       }
-
       .header_r {
         position: absolute;
         width: 220px;
         height: 480px;
         top: 0;
         right: 45px;
-
         .header_r_tu {
           width: 220px;
           margin-top: 20px;
-
           a {
             display: block;
             float: left;
@@ -576,12 +519,10 @@ html {
             border: 1px solid #f0f0f0;
           }
         }
-
         .header_r_tu1 {
           position: absolute;
           bottom: 0;
           right: 20px;
-
           a {
             display: block;
             border: 1px solid #fff;
@@ -591,7 +532,6 @@ html {
     }
   }
 }
-
 //右侧侧边栏
 .header_bar {
   position: fixed;
@@ -601,7 +541,6 @@ html {
   height: 100%;
   background: #7A6E6E;
   z-index: 999;
-
   ul:nth-child(1) {
     position: fixed;
     right: 8px;
@@ -610,7 +549,6 @@ html {
     width: 34px;
     background: #7A6E6E;
     z-index: 999;
-
     li {
       text-align: center;
       width: 42px;
@@ -619,7 +557,6 @@ html {
       background: #7A6E6E;
       position: relative;
       border-bottom: 1px solid #fff;
-
       div {
         position: absolute;
         left: 0;
@@ -631,7 +568,6 @@ html {
         height: 35px;
         display: none;
         z-index: -999;
-
         a {
           color: #fff;
           text-decoration: none;
@@ -639,7 +575,6 @@ html {
       }
     }
   }
-
   ul:nth-child(2) {
     position: fixed;
     right: 8px;
@@ -648,7 +583,6 @@ html {
     width: 34px;
     background: #7A6E6E;
     z-index: 200;
-
     li {
       text-align: center;
       width: 42px;
@@ -657,7 +591,6 @@ html {
       //background: #7A6E6E;
       position: relative;
       border-bottom: 1px solid #fff;
-
       .div {
         position: absolute;
         left: 0;
@@ -669,7 +602,6 @@ html {
         height: 35px;
         display: none;
         z-index: -999;
-
         a {
           color: #fff;
           text-decoration: none;
@@ -679,7 +611,6 @@ html {
 
   }
 }
-
 //热卖促销
 .JD_temai {
   width: 1210px;
@@ -845,7 +776,6 @@ html {
     }
   }
 }
-
 //手机
 .JD_ipone {
   width: 1210px;
@@ -930,7 +860,6 @@ html {
     }
   }
 }
-
 //商品筛选和排序
 .JD_banner {
   margin-top: 15px;
@@ -1471,7 +1400,6 @@ html {
                     border: 1px solid #ddd;
                   }
                 }
-
                 #content1, #content2, #content3 {
                   width: 500px;
                   background: #fff;
@@ -1580,7 +1508,6 @@ html {
               }
             }
           }
-
           .rig_tab {
             padding: 15px 10px;
             overflow: hidden;
@@ -1724,7 +1651,6 @@ html {
               .tab_CP {
                 line-height: 25px;
                 margin-bottom: 5px;
-
                 a {
                   font-size: 12px;
                   color: #999999;
@@ -1754,7 +1680,6 @@ html {
                   background: #e23a3a;
                   color: #FFF;
                 }
-
                 p:last-child {
                   border: 1px solid #e23a3a;
                   color: #e23a3a;
@@ -1904,7 +1829,6 @@ html {
     }
   }
 }
-
 //精选商品
 .JD_jx {
   width: 1210px;
@@ -2017,7 +1941,6 @@ html {
   }
 
 }
-
 //猜你喜欢
 .JD_cnxh {
   width: 1210px;
@@ -2117,7 +2040,6 @@ html {
     }
   }
 }
-
 //我的足迹
 .JD_zuji {
   width: 1210px;
@@ -2189,38 +2111,32 @@ html {
     }
   }
 }
-
 //底部
 .footer {
   width: 100%;
   background: #EAEAEA;
   padding: 0 79.5px;
   box-sizing: border-box;
-
   * {
     box-sizing: border-box;
   }
-
   .footer_top {
     width: 1190px;
     height: 103px;
     border-bottom: 1px solid #DEDEDE;
     padding-top: 32px;
-
     ul {
       li {
         width: 297px;
         height: 42px;
         float: left;
         padding: 0 30px;
-
         span {
           width: 42px;
           height: 42px;
           display: block;
           float: left;
         }
-
         h3 {
           float: left;
           height: 42px;
@@ -2228,25 +2144,21 @@ html {
           color: #444444;
         }
       }
-
       li:first-child {
         span {
           background: url("../img/foot (2).png") no-repeat 0 0;
         }
       }
-
       li:nth-child(2) {
         span {
           background: url("../img/foot (2).png") no-repeat 0 -43px;
         }
       }
-
       li:nth-child(3) {
         span {
           background: url("../img/foot (2).png") no-repeat 0 -86px;
         }
       }
-
       li:nth-child(4) {
         span {
           background: url("../img/foot (2).png") no-repeat 0 -129px;
@@ -2254,27 +2166,22 @@ html {
       }
     }
   }
-
   .footer_center {
     height: 200px;
     padding-top: 30px;
     background: #EAEAEA;
     border-bottom: 1px solid #DEDEDE;
-
     ol {
       width: 198px;
       float: left;
-
       li {
         font-size: 12px;
         line-height: 20px;
-
         a {
           text-decoration: none;
           color: #727272;
         }
       }
-
       li:first-child {
         font-weight: bold;
         font-size: 14px;
@@ -2282,37 +2189,30 @@ html {
         color: #6A7272;
       }
     }
-
     ol:last-child {
       width: 200px;
       height: 150px;
       padding-left: 20px;
       background: url("../img/foot (1).png") no-repeat 0 0;
-
       li:first-child {
         text-align: center;
         margin-bottom: 10px;
       }
-
       li:nth-child(2) {
         color: #727272;
       }
-
       li:last-child {
         text-align: right;
       }
     }
   }
-
   .footer_foot {
     height: 200px;
     background: #EAEAEA;
     padding-top: 20px;
-
     .footer_p {
       height: 25px;
       padding: 0 50px;
-
       a {
         text-decoration: none;
         color: #999999;
@@ -2320,7 +2220,6 @@ html {
         float: left;
         padding: 0 10px;
       }
-
       span {
         width: 1px;
         height: 15px;
@@ -2329,58 +2228,45 @@ html {
         float: left;
       }
     }
-
     p:first-child {
       a {
         color: #666666;
       }
     }
-
     p:nth-child(2) {
       padding: 0 180px;
     }
-
     p:nth-child(3) {
       padding: 0 140px;
     }
-
     p:nth-child(4) {
       padding: 0 310px;
     }
-
     p:nth-child(5) {
       padding: 0 480px;
     }
-
     ul {
       padding: 0 270px;
-
       li {
         width: 103px;
         height: 37px;
         float: left;
       }
-
       li:first-child {
         background: url("../img/foot (1).png") no-repeat 0 -145px;
       }
-
       li:nth-child(2) {
         background: url("../img/foot (1).png") no-repeat -100px -145px;
       }
-
       li:nth-child(3) {
         background: url("../img/foot (1).png") no-repeat 0 -181px;
       }
-
       li:nth-child(4) {
         background: url("../img/foot (1).png") no-repeat -100px -181px;
       }
-
       li:nth-child(5) {
         background: url("../img/foot (1).png") no-repeat 0 -215px;
       }
-
       li:nth-child(6) {
         background: url("../img/foot (1).png") no-repeat -100px -215px;
       }
