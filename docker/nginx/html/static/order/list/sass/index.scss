@@ -1,5 +1,5 @@
 * {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
 }
@@ -191,7 +191,6 @@ nav {
 #big {
   width: 1210px;
   margin-top: 30px;
-  margin-left: 70px;
 
   #bigLeft {
     float: left;
@@ -262,7 +261,6 @@ nav {
           text-decoration: underline;
           font-weight: 600;
         }
-
         font-size: 13px;
 
         > li {
@@ -348,7 +346,6 @@ nav {
             }
           }
         }
-
         background: #F3F3F3;
 
         > li {

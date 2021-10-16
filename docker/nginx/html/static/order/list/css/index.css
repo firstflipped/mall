@@ -1,5 +1,5 @@
 * {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
 }
@@ -188,7 +188,6 @@ nav .right .shop {
 #big {
     width: 1210px;
     margin-top: 30px;
-    margin-left: 70px;
 }
 
 #big #bigLeft {

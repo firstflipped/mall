@@ -536,7 +536,6 @@
         function round(a) {
             return Math.floor(a);
         }
-
         /*=========================
           Set grab cursor
           ===========================*/
@@ -564,7 +563,6 @@
             function onReady() {
                 if (callback) callback();
             }
-
             if (!imgElement.complete || !checkForComplete) {
                 if (src) {
                     image = new window.Image();
@@ -589,7 +587,6 @@
         };
         s.preloadImages = function () {
             s.imagesToLoad = s.container.find('img');
-
             function _onReady() {
                 if (typeof s === 'undefined' || s === null || !s) return;
                 if (s.imagesLoaded !== undefined) s.imagesLoaded++;
@@ -598,7 +595,6 @@
                     s.emit('onImagesReady', s);
                 }
             }
-
             for (var i = 0; i < s.imagesToLoad.length; i++) {
                 s.loadImage(s.imagesToLoad[i], (s.imagesToLoad[i].currentSrc || s.imagesToLoad[i].getAttribute('src')), (s.imagesToLoad[i].srcset || s.imagesToLoad[i].getAttribute('srcset')), s.imagesToLoad[i].sizes || s.imagesToLoad[i].getAttribute('sizes'), true, _onReady);
             }
@@ -610,7 +606,6 @@
         s.autoplayTimeoutId = undefined;
         s.autoplaying = false;
         s.autoplayPaused = false;
-
         function autoplay() {
             var autoplayDelay = s.params.autoplay;
             var activeSlide = s.slides.eq(s.activeIndex);
@@ -637,7 +632,6 @@
                 }
             }, autoplayDelay);
         }
-
         s.startAutoplay = function () {
             if (typeof s.autoplayTimeoutId !== 'undefined') return false;
             if (!s.params.autoplay) return false;
@@ -1207,7 +1201,6 @@
                 s.scrollbar.set();
             }
             var newTranslate;
-
             function forceSetTranslate() {
                 var translate = s.rtl ? -s.translate : s.translate;
                 newTranslate = Math.min(Math.max(s.translate, s.maxTranslate()), s.minTranslate());
@@ -1215,7 +1208,6 @@
                 s.updateActiveIndex();
                 s.updateClasses();
             }
-
             if (updateTranslate) {
                 var translated;
                 if (s.controller && s.controller.spline) {
@@ -1430,7 +1422,6 @@
             }
             return el[0];
         }
-
         s.updateClickedSlide = function (e) {
             var slide = findElementInEvent(e, '.' + s.params.slideClass);
             var slideFound = false;
@@ -2266,7 +2257,6 @@
           Observer
           ===========================*/
         s.observers = [];
-
         function initObserver(target, options) {
             options = options || {};
             // create an observer instance
@@ -2286,7 +2276,6 @@
 
             s.observers.push(observer);
         }
-
         s.initObservers = function () {
             if (s.params.observeParents) {
                 var containerParents = s.container.parents();
@@ -3116,7 +3105,6 @@
             setTransition: function (duration, byController) {
                 var controlled = s.params.control;
                 var i;
-
                 function setControlledTransition(c) {
                     c.setWrapperTransition(duration, s);
                     if (duration !== 0) {
@@ -3329,7 +3317,6 @@
             }
             s.emit('onKeyPress', s, kc);
         }
-
         s.disableKeyboardControl = function () {
             s.params.keyboardControl = false;
             $(document).off('keydown', handleKeyboard);
@@ -3347,7 +3334,6 @@
             event: false,
             lastScrollTime: (new window.Date()).getTime()
         };
-
         function isEventSupported() {
             var eventName = 'onwheel';
             var isSupported = eventName in document;
@@ -3370,7 +3356,6 @@
 
             return isSupported;
         }
-
         /**
          * Mouse wheel (and 2-finger trackpad) support on the web sucks.  It is
          * complicated, thus this doc is long and (hopefully) detailed enough to answer
@@ -3535,7 +3520,6 @@
                 pixelY: pY
             };
         }
-
         if (s.params.mousewheelControl) {
             /**
              * The best combination if you prefer spinX + spinY normalization.  It favors
@@ -3547,7 +3531,6 @@
                 isEventSupported() ?
                     'wheel' : 'mousewheel';
         }
-
         function handleMousewheel(e) {
             if (e.originalEvent) e = e.originalEvent; //jquery fix
             var delta = 0;
@@ -3629,7 +3612,6 @@
             else e.returnValue = false;
             return false;
         }
-
         s.disableMousewheelControl = function () {
             if (!s.mousewheel.event) return false;
             var target = s.container;
@@ -3690,7 +3672,6 @@
 
             el.transform('translate3d(' + pX + ', ' + pY + ',0px)');
         }
-
         s.parallax = {
             setTranslate: function () {
                 s.container.children('[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y]').each(function () {
@@ -4674,7 +4655,6 @@
                         }
                     }
                 }
-
                 var events = eventName.split(' ');
                 var i, j;
                 for (i = 0; i < this.length; i++) {
@@ -4731,12 +4711,10 @@
                     listener = arguments[1];
                     capture = arguments[2];
                 }
-
                 function proxy(e) {
                     listener(e);
                     dom.off(eventName, targetSelector, proxy, capture);
                 }
-
                 dom.on(eventName, targetSelector, proxy, capture);
             },
             trigger: function (eventName, eventData) {
@@ -4756,7 +4734,6 @@
             transitionEnd: function (callback) {
                 var events = ['webkitTransitionEnd', 'transitionend', 'oTransitionEnd', 'MSTransitionEnd', 'msTransitionEnd'],
                     i, j, dom = this;
-
                 function fireCallBack(e) {
                     /*jshint validthis:true */
                     if (e.target !== this) return;
@@ -4765,7 +4742,6 @@
                         dom.off(events[i], fireCallBack);
                     }
                 }
-
                 if (callback) {
                     for (i = 0; i < events.length; i++) {
                         dom.on(events[i], fireCallBack);
@@ -5169,7 +5145,6 @@
             domLib.fn.transitionEnd = function (callback) {
                 var events = ['webkitTransitionEnd', 'transitionend', 'oTransitionEnd', 'MSTransitionEnd', 'msTransitionEnd'],
                     i, j, dom = this;
-
                 function fireCallBack(e) {
                     /*jshint validthis:true */
                     if (e.target !== this) return;
@@ -5178,7 +5153,6 @@
                         dom.off(events[i], fireCallBack);
                     }
                 }
-
                 if (callback) {
                     for (i = 0; i < events.length; i++) {
                         dom.on(events[i], fireCallBack);
