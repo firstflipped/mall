@@ -4,11 +4,11 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
+import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,9 +45,9 @@ public class WareInfoController {
     }
 
     @GetMapping("/fare")
-    public MyResult<BigDecimal> getFare(@RequestParam("aid") Long addressId) {
-        BigDecimal fare = wareInfoService.getFare(addressId);
-        return MyResult.success(fare);
+    public MyResult<FareVO> getFare(@RequestParam("aid") Long addressId) {
+        FareVO fareVO = wareInfoService.getFare(addressId);
+        return MyResult.success(fareVO);
     }
 
     @PostMapping

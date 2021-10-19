@@ -9,6 +9,7 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.ware.dao.WareInfoDao;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
+import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddress;
 import com.laughingather.gulimall.ware.feign.service.MemberFeignService;
 import com.laughingather.gulimall.ware.service.WareInfoService;
@@ -45,16 +46,21 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
     }
 
     @Override
-    public BigDecimal getFare(Long addressId) {
+    public FareVO getFare(Long addressId) {
+        FareVO fareVO = new FareVO();
+
         MyResult<MemberReceiveAddress> addressInfoResult = memberFeignService.getAddressInfoById(addressId);
         MemberReceiveAddress address = addressInfoResult.getData();
 
         // TODO：模拟运费计算
         if (address == null) {
-            return new BigDecimal("0");
+            fareVO.setAddress(null);
+            fareVO.setFare(new BigDecimal("0"));
+            return fareVO;
         }
 
-        int i = RandomUtils.nextInt(5, 20);
-        return new BigDecimal(String.valueOf(i));
+        fareVO.setAddress(address);
+        fareVO.setFare(new BigDecimal(String.valueOf(RandomUtils.nextInt(5, 20))));
+        return fareVO;
     }
 }

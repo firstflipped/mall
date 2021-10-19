@@ -730,6 +730,7 @@
     <div class="yfze">
         <p class="yfze_a"><span class="z">应付总额：</span><span class="hq">￥<b id="payPriceEle">[[${#numbers.formatDecimal(orderConfirm.payPrice, 3, 2)}]]</b></span>
         </p>
+        <p class="yfze_b">寄送至：<span id="recieveAddressEle"></span> 收货人：<span id="recieveEle"></span></p>
     </div>
     <button class="tijiao">提交订单</button>
 </div>
@@ -987,9 +988,11 @@
 
     function getFare(addressId) {
         $.get("http://gulimall.com:88/api/gulimall-ware/ware/wareinfo/fare?aid=" + addressId, function (result) {
-            $("#fareEle").text(result.data)
+            $("#fareEle").text(result.data.fare)
             let totalPrice = [[${orderConfirm.totalPrice}]];
-            $("#payPriceEle").text(totalPrice * 1 + result.data * 1);
+            $("#payPriceEle").text(totalPrice * 1 - result.data.fare * 1);
+            $("#recieveAddressEle").text(result.data.address.province + " " + result.data.address.detailAddress);
+            $("#recieveEle").text(result.data.address.name);
         });
     }
     

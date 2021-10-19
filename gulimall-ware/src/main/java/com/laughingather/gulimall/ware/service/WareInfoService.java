@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
+import com.laughingather.gulimall.ware.entity.vo.FareVO;
 
 import java.math.BigDecimal;
 
@@ -30,6 +31,6 @@ public interface WareInfoService extends IService<WareInfoEntity> {
      * @param addressId
      * @return
      */
-    BigDecimal getFare(Long addressId);
+    FareVO getFare(Long addressId);
 }
 
