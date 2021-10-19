@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.cart.interceptor;
 
-import com.laughingather.gulimall.cart.pojo.vo.UserInfoVO;
+import com.laughingather.gulimall.cart.entity.vo.UserInfoVO;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.constant.CartConstants;
 import com.laughingather.gulimall.common.entity.MemberEntity;

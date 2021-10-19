@@ -3,9 +3,9 @@ package com.laughingather.gulimall.cart.service.impl;
 import com.laughingather.gulimall.cart.feign.entity.SkuInfoEntity;
 import com.laughingather.gulimall.cart.feign.service.ProductFeignService;
 import com.laughingather.gulimall.cart.interceptor.CartInterceptor;
-import com.laughingather.gulimall.cart.pojo.vo.CartItemVO;
-import com.laughingather.gulimall.cart.pojo.vo.CartVO;
-import com.laughingather.gulimall.cart.pojo.vo.UserInfoVO;
+import com.laughingather.gulimall.cart.entity.vo.CartItemVO;
+import com.laughingather.gulimall.cart.entity.vo.CartVO;
+import com.laughingather.gulimall.cart.entity.vo.UserInfoVO;
 import com.laughingather.gulimall.cart.service.CartService;
 import com.laughingather.gulimall.common.api.MyResult;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 /**
  * 购物车逻辑层实现类
@@ -152,10 +153,33 @@ public class CartServiceImpl implements CartService {
         getCartOps().put(skuId.toString(), cartItem);
     }
 
+
     @Override
     public void deleteItem(Long skuId) {
         // 删除指定项
         getCartOps().delete(skuId.toString());
+    }
+
+    @Override
+    public List<CartItemVO> getCurrentUserCartItems() {
+        UserInfoVO userInfoVO = CartInterceptor.threadLocal.get();
+        // 如果当前用户为空，则直接返回null
+        if (userInfoVO == null) {
+            return null;
+        }
+
+        // 获取购物车项
+        String cartKey = CART_PREFIX + userInfoVO.getUserId();
+        List<CartItemVO> cartItemVOList = getCartItemVOList(cartKey);
+
+        // 过滤掉没选中的购物项
+        List<CartItemVO> result = cartItemVOList.stream().filter(CartItemVO::getCheck).map(item -> {
+            // 更新价格为当前最新价格（需要调用第三方服务）
+            BigDecimal skuPrice = productFeignService.getSkuPriceBySkuId(item.getSkuId());
+            item.setPrice(skuPrice);
+            return item;
+        }).collect(Collectors.toList());
+        return result;
     }
 
 
@@ -171,8 +195,10 @@ public class CartServiceImpl implements CartService {
 
         List<CartItemVO> items = cartVO.getItems();
         for (CartItemVO item : items) {
-            cartVO.setCountNum(cartVO.getCountNum() + item.getCount());
-            cartVO.setTotalAmount(cartVO.getTotalAmount().add(item.getTotalPrice()));
+            if (item.getCheck()) {
+                cartVO.setCountNum(cartVO.getCountNum() + item.getCount());
+                cartVO.setTotalAmount(cartVO.getTotalAmount().add(item.getTotalPrice()));
+            }
         }
     }
 

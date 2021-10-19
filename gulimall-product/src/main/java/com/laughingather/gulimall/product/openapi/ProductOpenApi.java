@@ -9,6 +9,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -39,6 +40,22 @@ public class ProductOpenApi {
             return byId.getSkuName();
         }
         return "";
+    }
+
+
+    /**
+     * 根据skuId查询商品价格
+     *
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/{sku-id}/sku-price")
+    BigDecimal getSkuPriceBySkuId(@PathVariable("sku-id") Long skuId) {
+        SkuInfoEntity byId = skuInfoService.getById(skuId);
+        if (byId != null) {
+            return byId.getPrice();
+        }
+        return null;
     }
 
 

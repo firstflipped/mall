@@ -5,14 +5,20 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.ware.dao.WareInfoDao;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
+import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddress;
+import com.laughingather.gulimall.ware.feign.service.MemberFeignService;
 import com.laughingather.gulimall.ware.service.WareInfoService;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 
 
 @Service("wareInfoService")
@@ -20,6 +26,9 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
 
     @Resource
     private WareInfoDao wareInfoDao;
+
+    @Autowired
+    private MemberFeignService memberFeignService;
 
     @Override
     public MyPage<WareInfoEntity> pageWareInfoByParams(WareInfoQuery wareInfoQuery) {
@@ -33,5 +42,19 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
         }
         IPage<WareInfoEntity> wareInfoIPage = wareInfoDao.selectPage(page, queryWrapper);
         return MyPage.restPage(wareInfoIPage);
+    }
+
+    @Override
+    public BigDecimal getFare(Long addressId) {
+        MyResult<MemberReceiveAddress> addressInfoResult = memberFeignService.getAddressInfoById(addressId);
+        MemberReceiveAddress address = addressInfoResult.getData();
+
+        // TODO：模拟运费计算
+        if (address == null) {
+            return new BigDecimal("0");
+        }
+
+        int i = RandomUtils.nextInt(5, 20);
+        return new BigDecimal(String.valueOf(i));
     }
 }

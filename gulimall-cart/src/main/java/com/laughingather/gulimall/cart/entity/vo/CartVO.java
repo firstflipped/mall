@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.cart.pojo.vo;
+package com.laughingather.gulimall.cart.entity.vo;
 
 import lombok.Data;
 

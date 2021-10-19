@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.cart.pojo.vo;
+package com.laughingather.gulimall.order.entity.vo;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @create：2021-08-16 2021/8/16
  */
 @Data
-public class CartItemVO {
+public class ItemVO {
 
     /**
      * skuId
@@ -54,5 +54,14 @@ public class CartItemVO {
      */
     private BigDecimal totalPrice;
 
-}
+    /**
+     * 是否有货
+     */
+    private Boolean hasStock = true;
 
+    /**
+     * 商品重量
+     */
+    private BigDecimal weight;
+
+}

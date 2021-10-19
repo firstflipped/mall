@@ -1,8 +1,9 @@
 package com.laughingather.gulimall.cart.service;
 
-import com.laughingather.gulimall.cart.pojo.vo.CartItemVO;
-import com.laughingather.gulimall.cart.pojo.vo.CartVO;
+import com.laughingather.gulimall.cart.entity.vo.CartItemVO;
+import com.laughingather.gulimall.cart.entity.vo.CartVO;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -16,9 +17,11 @@ public interface CartService {
     /**
      * 添加商品到购物车
      *
-     * @param skuId skuId
+     * @param skuId
      * @param num   数量
      * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
      */
     CartItemVO addToCart(Long skuId, Integer num) throws ExecutionException, InterruptedException;
 
@@ -61,4 +64,11 @@ public interface CartService {
      * @param skuId
      */
     void deleteItem(Long skuId);
+
+    /**
+     * 获取当前用户的购物车项
+     *
+     * @return
+     */
+    List<CartItemVO> getCurrentUserCartItems();
 }

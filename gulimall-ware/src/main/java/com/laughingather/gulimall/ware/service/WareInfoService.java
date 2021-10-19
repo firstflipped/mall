@@ -5,6 +5,8 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
 
+import java.math.BigDecimal;
+
 /**
  * 仓库信息
  *
@@ -14,6 +16,20 @@ import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
  */
 public interface WareInfoService extends IService<WareInfoEntity> {
 
+    /**
+     * 分页查询
+     *
+     * @param wareInfoQuery
+     * @return
+     */
     MyPage<WareInfoEntity> pageWareInfoByParams(WareInfoQuery wareInfoQuery);
+
+    /**
+     * 获取运费
+     *
+     * @param addressId
+     * @return
+     */
+    BigDecimal getFare(Long addressId);
 }
 

@@ -79,8 +79,9 @@
         </div>
 
         <div class="One_ShopCon">
-            <h1 th:if="${cart.items == null}">
-                购物车中还没有商品，<a href="http://gulimall.com">去购物</a>
+            <h1 th:if="${cart.items == null || cart.items.size() <= 0}">
+                <br>
+                <a href="http://gulimall.com" style="color: red">购物车中还没有商品，去购物</a>
             </h1>
             <ul th:if="${cart.items != null}">
                 <li th:each="cartItem:${cart.items}">
@@ -218,7 +219,7 @@
 <script src="/static/cart/./js/index.js" charset="utf-8"></script>
 <script type="text/javascript">
     function toTrade() {
-        window.location.href = "http://cart.gulimall.com/toTrade";
+        window.location.href = "http://order.gulimall.com/order/to-trade";
     }
 
     function toItem(skuId) {

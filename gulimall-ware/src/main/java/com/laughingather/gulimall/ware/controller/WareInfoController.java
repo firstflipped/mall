@@ -8,6 +8,7 @@ import com.laughingather.gulimall.ware.service.WareInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +42,12 @@ public class WareInfoController {
     public MyResult<WareInfoEntity> getWareInfoById(@PathVariable("id") Long id) {
         WareInfoEntity wareInfo = wareInfoService.getById(id);
         return MyResult.success(wareInfo);
+    }
+
+    @GetMapping("/fare")
+    public MyResult<BigDecimal> getFare(@RequestParam("aid") Long addressId) {
+        BigDecimal fare = wareInfoService.getFare(addressId);
+        return MyResult.success(fare);
     }
 
     @PostMapping

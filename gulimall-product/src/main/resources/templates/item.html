@@ -58,12 +58,12 @@
                 </li>
             </ul>
             <ul class="header_ul_right">
-                <li>
+                <li style="width: 150px">
                     <a th:if="${session.loginUser != null}">欢迎： [[${session.loginUser.nickname}]]</a>
                     <a href="http://auth.gulimall.com/login.html" th:if="${session.loginUser == null}">欢迎，请登录 </a>
                 </li>
-                <li><a href="http://auth.gulimall.com/register.html" th:if="${session.loginUser == null}"
-                       class="li_2">免费注册</a>
+                <li th:if="${session.loginUser == null}"><a href="http://auth.gulimall.com/register.html">
+                    class="li_2">免费注册</a>
                 </li>
                 <li><a href="/static/item/javascript:;" class="aa">我的订单</a> |</li>
                 <li class="jingdong"><a href="/static/item/javascript:;">我的京东</a><span

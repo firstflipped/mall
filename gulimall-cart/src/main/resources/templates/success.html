@@ -25,12 +25,11 @@
 
         <ul class="hd_wrap_right">
             <li>
-                <a th:if="${session.loginUser != null}">欢迎： [[${session.loginUser.nickname}]]</a>
+                <a style="width: 150px" th:if="${session.loginUser != null}">欢迎： [[${session.loginUser.nickname}]]</a>
                 <a href="http://auth.gulimall.com/login.html" th:if="${session.loginUser == null}">欢迎，请登录 </a>
             </li>
-            <li>
-                <a href="http://auth.gulimall.com/register.html" th:if="${session.loginUser == null}"
-                   class="li_2">免费注册</a>
+            <li th:if="${session.loginUser == null}">
+                <a href="http://auth.gulimall.com/register.html" class="li_2">免费注册</a>
             </li>
             <li class="spacer"></li>
             <li>

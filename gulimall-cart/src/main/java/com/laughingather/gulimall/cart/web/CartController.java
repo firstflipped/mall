@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.cart.web;
 
-import com.laughingather.gulimall.cart.pojo.vo.CartItemVO;
-import com.laughingather.gulimall.cart.pojo.vo.CartVO;
+import com.laughingather.gulimall.cart.entity.vo.CartItemVO;
+import com.laughingather.gulimall.cart.entity.vo.CartVO;
 import com.laughingather.gulimall.cart.service.CartService;
 import com.laughingather.gulimall.common.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
