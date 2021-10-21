@@ -46,7 +46,23 @@
     <update id="updateSpuStatus">
         UPDATE pms_spu_info
         SET publish_status = #{status},
-            update_time = NOW()
+            update_time    = NOW()
         WHERE id = #{spuId}
     </update>
+
+
+    <select id="getSpuInfoBySkuId" resultType="com.laughingather.gulimall.product.entity.vo.SpuInfoVO">
+        SELECT spu.id,
+               spu.spu_name,
+               spu.spu_description,
+               spu.catalog_id,
+               brand.name    AS brand_name,
+               image.img_url AS image
+        FROM pms_spu_info spu
+                     INNER JOIN pms_sku_info sku ON spu.id = sku.spu_id
+                     INNER JOIN pms_brand brand ON spu.brand_id = brand.brand_id
+                     INNER JOIN pms_spu_images image ON spu.id = image.spu_id
+        WHERE sku.sku_id = #{skuId}
+        AND image.default_img = 1
+    </select>
 </mapper>

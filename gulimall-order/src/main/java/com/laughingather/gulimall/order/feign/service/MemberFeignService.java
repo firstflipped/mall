@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.order.feign;
+package com.laughingather.gulimall.order.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.order.entity.vo.MemberReceiveAddressVO;

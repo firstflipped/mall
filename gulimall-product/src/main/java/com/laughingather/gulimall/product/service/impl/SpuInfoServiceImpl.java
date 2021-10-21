@@ -15,6 +15,7 @@ import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.entity.to.SkuESModel;
 import com.laughingather.gulimall.product.entity.to.SkuOtherInfoTO;
 import com.laughingather.gulimall.product.entity.to.SpuBoundTO;
+import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 import com.laughingather.gulimall.product.feign.entity.SkuHasStockVO;
 import com.laughingather.gulimall.product.feign.service.CouponFeignService;
 import com.laughingather.gulimall.product.feign.service.SearchFeignService;
@@ -99,6 +100,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         // 发送给es服务进行保存
         saveSpu2ES(spuId, skuESModels);
+    }
+
+
+    @Override
+    public SpuInfoVO getSpuInfoBySkuId(Long skuId) {
+        SpuInfoVO spuInfo = spuInfoDao.getSpuInfoBySkuId(skuId);
+        return spuInfo;
     }
 
 

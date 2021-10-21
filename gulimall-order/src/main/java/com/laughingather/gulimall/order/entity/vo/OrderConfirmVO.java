@@ -29,7 +29,7 @@ public class OrderConfirmVO {
      */
     @Getter
     @Setter
-    private List<ItemVO> items;
+    private List<OrderItemVO> items;
 
     /**
      * 发票信息
@@ -44,6 +44,13 @@ public class OrderConfirmVO {
     private Integer integration;
 
     /**
+     * 防重令牌
+     */
+    @Getter
+    @Setter
+    private String orderToken;
+
+    /**
      * 订单总金额
      */
     private BigDecimal totalPrice;
@@ -53,18 +60,13 @@ public class OrderConfirmVO {
      */
     private BigDecimal payPrice;
 
-    /**
-     * 防重令牌
-     */
-    private String orderToken;
-
     private Integer totalCount;
 
     public BigDecimal getTotalPrice() {
         BigDecimal sum = new BigDecimal("0");
 
         if (CollectionUtils.isNotEmpty(items)) {
-            for (ItemVO item : items) {
+            for (OrderItemVO item : items) {
                 BigDecimal multiply = item.getPrice().multiply(new BigDecimal(item.getCount()));
                 sum = sum.add(multiply);
             }
@@ -80,7 +82,7 @@ public class OrderConfirmVO {
         Integer count = 0;
 
         if (CollectionUtils.isNotEmpty(items)) {
-            for (ItemVO item : items) {
+            for (OrderItemVO item : items) {
                 count += item.getCount();
             }
         }

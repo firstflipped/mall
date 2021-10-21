@@ -2,8 +2,10 @@ package com.laughingather.gulimall.product.openapi;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
+import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 import com.laughingather.gulimall.product.service.SkuInfoService;
 import com.laughingather.gulimall.product.service.SkuSaleAttrValueService;
+import com.laughingather.gulimall.product.service.SpuInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,8 @@ public class ProductOpenApi {
 
     @Resource
     private SkuInfoService skuInfoService;
+    @Resource
+    private SpuInfoService spuInfoService;
     @Resource
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
@@ -84,6 +88,19 @@ public class ProductOpenApi {
         List<String> skuSaleAttrValues = skuSaleAttrValueService.getSkuSaleAttrValuesAsString(skuId);
         return CollectionUtils.isNotEmpty(skuSaleAttrValues) ? MyResult.success(skuSaleAttrValues) :
                 MyResult.failed();
+    }
+
+
+    /**
+     * 获取spu信息
+     *
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/spu-info")
+    public MyResult<SpuInfoVO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId) {
+        SpuInfoVO spuInfo = spuInfoService.getSpuInfoBySkuId(skuId);
+        return MyResult.success(spuInfo);
     }
 
 }

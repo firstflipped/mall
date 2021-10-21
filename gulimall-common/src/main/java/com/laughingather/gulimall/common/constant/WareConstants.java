@@ -2,6 +2,11 @@ package com.laughingather.gulimall.common.constant;
 
 import lombok.Getter;
 
+/**
+ * 库存常量类
+ *
+ * @author laughingather
+ */
 public class WareConstants {
 
     @Getter

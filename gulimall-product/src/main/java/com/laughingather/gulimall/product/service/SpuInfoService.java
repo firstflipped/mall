@@ -5,6 +5,7 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.SpuInfoEntity;
 import com.laughingather.gulimall.product.entity.dto.SpuSaveDTO;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
+import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 
 /**
  * spu信息
@@ -36,5 +37,13 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
      * @param spuId
      */
     void upSpu(Long spuId);
+
+    /**
+     * 获取spu信息
+     *
+     * @param skuId
+     * @return
+     */
+    SpuInfoVO getSpuInfoBySkuId(Long skuId);
 }
 
