@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.7.32 : Database - gulimall_pms
+SQLyog Community v13.1.6 (64 bit)
+MySQL - 5.7.34 : Database - gulimall_pms
 *********************************************************************
 */
 
@@ -9,6 +9,7 @@ MySQL - 5.7.32 : Database - gulimall_pms
 /*!40101 SET SQL_MODE = ''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_pms` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
@@ -33,21 +34,24 @@ CREATE TABLE `pms_attr`
     PRIMARY KEY (`attr_id`),
     KEY `idx_catalog_id` (`catalog_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 15
+  AUTO_INCREMENT = 18
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品属性';
 
 /*Data for the table `pms_attr` */
 
 insert into `pms_attr`(`attr_id`, `attr_name`, `search_type`, `icon`, `value_select`, `attr_type`, `enable`,
                        `catalog_id`, `show_desc`)
-values (7, '产品名称', 0, 'xxx', '小米10', 1, 1, 225, 0),
-       (8, '上市年份', 1, 'xxx', '2021年', 1, 1, 225, 1),
-       (9, '品牌', 1, 'xxx', '小米', 1, 1, 225, 1),
-       (10, '机身宽度（mm）', 1, 'xxx', '75mm', 1, 1, 225, 1),
-       (11, '机身长度（mm）', 0, 'xxx', '162mm', 1, 1, 225, 0),
+values (7, '产品名称', 1, 'xxx', '小米10;华为Mate40;苹果12', 1, 1, 225, 1),
+       (8, '上市年份', 1, 'xxx', '2021年;2020年', 1, 1, 225, 1),
+       (9, '品牌', 1, 'xxx', '小米;华为;苹果', 1, 1, 225, 1),
+       (10, '机身宽度（mm）', 1, 'xxx', '75mm;80mm;85mm', 1, 1, 225, 1),
+       (11, '机身长度（mm）', 0, 'xxx', '162mm;163mm;164mm;165mm', 1, 1, 225, 0),
        (12, '颜色', 0, 'xxx', '黑色;白色;蓝色;绿色', 0, 1, 225, 0),
        (13, '内存', 0, 'xxx', '4G;6G;8G;10G', 0, 1, 225, 0),
-       (14, '机身厚度（mm）', 0, 'xxx', '19mm', 1, 1, 225, 0);
+       (14, '机身厚度（mm）', 0, 'xxx', '19mm;20mm', 1, 1, 225, 0),
+       (15, '芯片规格', 1, 'xxx', '骁龙840;骁龙850;A13;A12;麒麟950;麒麟960', 1, 1, 225, 1),
+       (16, '主屏幕尺寸', 0, 'xxx', '其他尺寸', 1, 1, 225, 0),
+       (17, '屏幕材质类型', 0, 'xxx', 'LED;OLED', 1, 1, 225, 0);
 
 /*Table structure for table `pms_attr_attrgroup_relation` */
 
@@ -63,7 +67,7 @@ CREATE TABLE `pms_attr_attrgroup_relation`
     KEY `idx_attr_id` (`attr_id`),
     KEY `idx_attr_group_id` (`attr_group_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 13
+  AUTO_INCREMENT = 16
   DEFAULT CHARSET = utf8mb4 COMMENT ='属性&属性分组关联';
 
 /*Data for the table `pms_attr_attrgroup_relation` */
@@ -74,7 +78,10 @@ values (7, 7, 1, NULL),
        (9, 9, 1, NULL),
        (10, 10, 2, NULL),
        (11, 11, 2, NULL),
-       (12, 14, NULL, NULL);
+       (12, 14, 2, NULL),
+       (13, 15, 3, NULL),
+       (14, 16, 4, NULL),
+       (15, 17, 4, NULL);
 
 /*Table structure for table `pms_attr_group` */
 
@@ -91,7 +98,7 @@ CREATE TABLE `pms_attr_group`
     PRIMARY KEY (`attr_group_id`),
     KEY `idx_catalog_id` (`catalog_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
+  AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='属性分组';
 
 /*Data for the table `pms_attr_group` */
@@ -99,7 +106,8 @@ CREATE TABLE `pms_attr_group`
 insert into `pms_attr_group`(`attr_group_id`, `attr_group_name`, `sort`, `descript`, `icon`, `catalog_id`)
 values (1, '主体', 0, '主体', 'xxx', 225),
        (2, '基本信息', 1, '基本信息', 'xxx', 225),
-       (3, '主芯片', 0, '芯片处理器', 'xxx', 225);
+       (3, '主芯片', 0, '芯片处理器', 'xxx', 225),
+       (4, '屏幕', 1, '屏幕参数', 'xxx', 225);
 
 /*Table structure for table `pms_brand` */
 
@@ -1594,14 +1602,15 @@ CREATE TABLE `pms_category_brand_relation`
     `catalog_name` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='品牌分类关联';
 
 /*Data for the table `pms_category_brand_relation` */
 
 insert into `pms_category_brand_relation`(`id`, `brand_id`, `catalog_id`, `brand_name`, `catalog_name`)
 values (1, 1, 225, '华为', '手机'),
-       (2, 5, 225, '小米', '手机');
+       (2, 5, 225, '小米', '手机'),
+       (3, 6, 225, '苹果', '手机');
 
 /*Table structure for table `pms_comment_replay` */
 
@@ -1633,17 +1642,30 @@ CREATE TABLE `pms_product_attr_value`
     `quick_show` tinyint(4)   DEFAULT NULL COMMENT '快速展示【是否展示在介绍上；0-否 1-是】',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 16
+  AUTO_INCREMENT = 70
   DEFAULT CHARSET = utf8mb4 COMMENT ='spu属性值';
 
 /*Data for the table `pms_product_attr_value` */
 
 insert into `pms_product_attr_value`(`id`, `spu_id`, `attr_id`, `attr_name`, `attr_value`, `attr_sort`, `quick_show`)
-values (11, 7, 7, '产品名称', '华为 HUAWEI Mate 30 Pro ', NULL, 0),
-       (12, 7, 8, '上市年份', '2019年', NULL, 1),
-       (13, 7, 9, '品牌', '华为', NULL, 1),
-       (14, 7, 10, '机身宽度（mm）', '75mm', NULL, 1),
-       (15, 7, 11, '机身长度（mm）', '162mm', NULL, 0);
+values (52, 17, 7, '产品名称', '苹果12', NULL, 1),
+       (53, 17, 8, '上市年份', '2020年', NULL, 1),
+       (54, 17, 9, '品牌', '苹果', NULL, 1),
+       (55, 17, 10, '机身宽度（mm）', '80mm', NULL, 1),
+       (56, 17, 11, '机身长度（mm）', '163mm', NULL, 0),
+       (57, 17, 14, '机身厚度（mm）', '19mm', NULL, 0),
+       (58, 17, 15, '芯片规格', 'A13', NULL, 1),
+       (59, 17, 16, '主屏幕尺寸', '其他尺寸', NULL, 0),
+       (60, 17, 17, '屏幕材质类型', 'OLED', NULL, 0),
+       (61, 18, 7, '产品名称', '华为Mate40', NULL, 1),
+       (62, 18, 8, '上市年份', '2020年', NULL, 1),
+       (63, 18, 9, '品牌', '华为', NULL, 1),
+       (64, 18, 10, '机身宽度（mm）', '75mm', NULL, 1),
+       (65, 18, 11, '机身长度（mm）', '165mm', NULL, 0),
+       (66, 18, 14, '机身厚度（mm）', '19mm', NULL, 0),
+       (67, 18, 15, '芯片规格', '麒麟960', NULL, 1),
+       (68, 18, 16, '主屏幕尺寸', '其他尺寸', NULL, 0),
+       (69, 18, 17, '屏幕材质类型', 'OLED', NULL, 0);
 
 /*Table structure for table `pms_sku_images` */
 
@@ -1658,35 +1680,95 @@ CREATE TABLE `pms_sku_images`
     `default_img` int(11)      DEFAULT NULL COMMENT '默认图[0 - 不是默认图，1 - 是默认图]',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 9
+  AUTO_INCREMENT = 66
   DEFAULT CHARSET = utf8mb4 COMMENT ='sku图片';
 
 /*Data for the table `pms_sku_images` */
 
 insert into `pms_sku_images`(`id`, `sku_id`, `img_url`, `img_sort`, `default_img`)
-values (1, 1,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/31b7ff1e-7755-4d26-80d9-3ef248bbbb13_2b1837c6c50add30.jpg',
+values (38, 41,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
         NULL, 0),
-       (2, 1,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/6d198500-0e9d-489a-8977-d88d16ebf04e_8bf441260bffa42f.jpg',
+       (39, 41,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
         NULL, 1),
-       (3, 2,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/2c46a40a-40d4-4178-8eae-17820741787b_0d40c24b264aa511.jpg',
+       (40, 41,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0151439e-3cfc-479f-8da0-84b19042b462_149503bc9026d922.jpg',
         NULL, 0),
-       (4, 2,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/998b4153-1f43-49e1-89a5-eb189f176da4_1f15cdbcf9e1273c.jpg',
+       (41, 42,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
         NULL, 0),
-       (5, 3,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/2c46a40a-40d4-4178-8eae-17820741787b_0d40c24b264aa511.jpg',
+       (42, 42,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
+        NULL, 1),
+       (43, 42,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0151439e-3cfc-479f-8da0-84b19042b462_149503bc9026d922.jpg',
         NULL, 0),
-       (6, 3,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/97a1ff4a-6e48-4555-8905-dcdb5617b9aa_23d9fbb256ea5d4a.jpg',
+       (44, 43,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0467dacf-7cae-4e23-896b-50c5d861abb7_a0d21aabf860fbf0.jpg',
         NULL, 0),
-       (7, 4,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/2c46a40a-40d4-4178-8eae-17820741787b_0d40c24b264aa511.jpg',
+       (45, 43,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/c2c33938-9c91-4059-8f51-5a82f535238e_4297977df96064cf.jpg',
+        NULL, 1),
+       (46, 43,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/4bc68ed0-3137-4a55-80fb-c41646b19511_ab5c2d05f879a2f5.jpg',
         NULL, 0),
-       (8, 4,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/998b4153-1f43-49e1-89a5-eb189f176da4_1f15cdbcf9e1273c.jpg',
+       (47, 44,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0467dacf-7cae-4e23-896b-50c5d861abb7_a0d21aabf860fbf0.jpg',
+        NULL, 0),
+       (48, 44,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/c2c33938-9c91-4059-8f51-5a82f535238e_4297977df96064cf.jpg',
+        NULL, 1),
+       (49, 44,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/4bc68ed0-3137-4a55-80fb-c41646b19511_ab5c2d05f879a2f5.jpg',
+        NULL, 0),
+       (50, 45,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/409d29d2-4833-4563-8c60-0312b01a9eeb_b88c0485ca234e0d.jpg',
+        NULL, 1),
+       (51, 45,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/f4d406f6-813f-4040-8bdf-f031dfc9eedc_3f23d4c4d2e4059b.jpg',
+        NULL, 0),
+       (52, 45,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/3ef65c15-c6c2-455c-8010-305b441b183f_18d985bbf3b262c2 (1).jpg',
+        NULL, 0),
+       (53, 45,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/7650638d-9ac6-4283-82d0-b2463066c2ee_c9724e0156ac1b06 (1).jpg',
+        NULL, 0),
+       (54, 46,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/409d29d2-4833-4563-8c60-0312b01a9eeb_b88c0485ca234e0d.jpg',
+        NULL, 1),
+       (55, 46,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/f4d406f6-813f-4040-8bdf-f031dfc9eedc_3f23d4c4d2e4059b.jpg',
+        NULL, 0),
+       (56, 46,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/3ef65c15-c6c2-455c-8010-305b441b183f_18d985bbf3b262c2 (1).jpg',
+        NULL, 0),
+       (57, 46,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/7650638d-9ac6-4283-82d0-b2463066c2ee_c9724e0156ac1b06 (1).jpg',
+        NULL, 0),
+       (58, 47,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/b7862c2f-79e9-4759-8542-1c7acdf06a59_3c778f0a77663104.jpg',
+        NULL, 1),
+       (59, 47,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/03254867-2bd8-4361-895f-8d5dab893d83_2ea0d42461080748.jpg',
+        NULL, 0),
+       (60, 47,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/968a4a88-6a2c-40e9-8a3c-b0b82f0bf31b_38b474cd090ec30d.jpg',
+        NULL, 0),
+       (61, 47,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/6cd24900-8f18-433f-8ad7-68358217ef70_10397bb3059ab4dd.jpg',
+        NULL, 0),
+       (62, 48,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/b7862c2f-79e9-4759-8542-1c7acdf06a59_3c778f0a77663104.jpg',
+        NULL, 1),
+       (63, 48,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/03254867-2bd8-4361-895f-8d5dab893d83_2ea0d42461080748.jpg',
+        NULL, 0),
+       (64, 48,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/968a4a88-6a2c-40e9-8a3c-b0b82f0bf31b_38b474cd090ec30d.jpg',
+        NULL, 0),
+       (65, 48,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/6cd24900-8f18-433f-8ad7-68358217ef70_10397bb3059ab4dd.jpg',
         NULL, 0);
 
 /*Table structure for table `pms_sku_info` */
@@ -1708,22 +1790,45 @@ CREATE TABLE `pms_sku_info`
     `sale_count`      bigint(20)     DEFAULT NULL COMMENT '销量',
     PRIMARY KEY (`sku_id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 5
+  AUTO_INCREMENT = 49
   DEFAULT CHARSET = utf8mb4 COMMENT ='sku信息';
 
 /*Data for the table `pms_sku_info` */
 
 insert into `pms_sku_info`(`sku_id`, `spu_id`, `sku_name`, `sku_desc`, `catalog_id`, `brand_id`, `sku_default_img`,
                            `sku_title`, `sku_subtitle`, `price`, `sale_count`)
-values (1, 7, '华为 HUAWEI Mate 30 Pro 5G 黑色 6G', NULL, 225, 1,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/6d198500-0e9d-489a-8977-d88d16ebf04e_8bf441260bffa42f.jpg',
-        '华为 HUAWEI Mate 30 Pro 5G 黑色 6G', '【Mate40Pro稀缺爆品】麒麟9000芯片，稀缺货源限量抢购！猛戳》》》华为手机热销爆款，限量抢购查看>', 5799.0000, 0),
-       (2, 7, '华为 HUAWEI Mate 30 Pro 5G 黑色 8G', NULL, 225, 1, '', '华为 HUAWEI Mate 30 Pro 5G 黑色 8G',
-        '【Mate40Pro稀缺爆品】麒麟9000芯片，稀缺货源限量抢购！猛戳》》》华为手机热销爆款，限量抢购查看>', 6299.0000, 0),
-       (3, 7, '华为 HUAWEI Mate 30 Pro 5G 白色 6G', NULL, 225, 1, '', '华为 HUAWEI Mate 30 Pro 5G 白色 6G',
-        '【Mate40Pro稀缺爆品】麒麟9000芯片，稀缺货源限量抢购！猛戳》》》华为手机热销爆款，限量抢购查看>', 5799.0000, 0),
-       (4, 7, '华为 HUAWEI Mate 30 Pro 5G 白色 8G', NULL, 225, 1, '', '华为 HUAWEI Mate 30 Pro 5G 白色 8G',
-        '【Mate40Pro稀缺爆品】麒麟9000芯片，稀缺货源限量抢购！猛戳》》》华为手机热销爆款，限量抢购查看>', 6299.0000, 0);
+values (41, 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', NULL, 225, 6,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', 4799.0000, 0),
+       (42, 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G', NULL, 225, 6,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G', 5299.0000, 0),
+       (43, 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 4G', NULL, 225, 6,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/c2c33938-9c91-4059-8f51-5a82f535238e_4297977df96064cf.jpg',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 4G',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 4G', 4799.0000, 0),
+       (44, 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 6G', NULL, 225, 6,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/c2c33938-9c91-4059-8f51-5a82f535238e_4297977df96064cf.jpg',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 6G',
+        'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 6G', 5299.0000, 0),
+       (45, 18, '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 黑色 6G', NULL, 225, 1,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/409d29d2-4833-4563-8c60-0312b01a9eeb_b88c0485ca234e0d.jpg',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 黑色 6G',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 黑色 6G', 6299.0000, 0),
+       (46, 18, '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 黑色 8G', NULL, 225, 1,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/409d29d2-4833-4563-8c60-0312b01a9eeb_b88c0485ca234e0d.jpg',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 黑色 8G',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 黑色 8G', 6799.0000, 0),
+       (47, 18, '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 白色 6G', NULL, 225, 1,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/b7862c2f-79e9-4759-8542-1c7acdf06a59_3c778f0a77663104.jpg',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 白色 6G',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 白色 6G', 6299.0000, 0),
+       (48, 18, '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 白色 8G', NULL, 225, 1,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/b7862c2f-79e9-4759-8542-1c7acdf06a59_3c778f0a77663104.jpg',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 白色 8G',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】 白色 8G', 6799.0000, 0);
 
 /*Table structure for table `pms_sku_sale_attr_value` */
 
@@ -1739,20 +1844,28 @@ CREATE TABLE `pms_sku_sale_attr_value`
     `attr_sort`  int(11)      DEFAULT NULL COMMENT '顺序',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 9
+  AUTO_INCREMENT = 17
   DEFAULT CHARSET = utf8mb4 COMMENT ='sku销售属性&值';
 
 /*Data for the table `pms_sku_sale_attr_value` */
 
 insert into `pms_sku_sale_attr_value`(`id`, `sku_id`, `attr_id`, `attr_name`, `attr_value`, `attr_sort`)
-values (1, 1, 12, '颜色', '黑色', NULL),
-       (2, 1, 13, '内存', '6G', NULL),
-       (3, 2, 12, '颜色', '黑色', NULL),
-       (4, 2, 13, '内存', '8G', NULL),
-       (5, 3, 12, '颜色', '白色', NULL),
-       (6, 3, 13, '内存', '6G', NULL),
-       (7, 4, 12, '颜色', '白色', NULL),
-       (8, 4, 13, '内存', '8G', NULL);
+values (1, 41, 12, '颜色', '黑色', NULL),
+       (2, 41, 13, '内存', '4G', NULL),
+       (3, 42, 12, '颜色', '黑色', NULL),
+       (4, 42, 13, '内存', '6G', NULL),
+       (5, 43, 12, '颜色', '白色', NULL),
+       (6, 43, 13, '内存', '4G', NULL),
+       (7, 44, 12, '颜色', '白色', NULL),
+       (8, 44, 13, '内存', '6G', NULL),
+       (9, 45, 12, '颜色', '黑色', NULL),
+       (10, 45, 13, '内存', '6G', NULL),
+       (11, 46, 12, '颜色', '黑色', NULL),
+       (12, 46, 13, '内存', '8G', NULL),
+       (13, 47, 12, '颜色', '白色', NULL),
+       (14, 47, 13, '内存', '6G', NULL),
+       (15, 48, 12, '颜色', '白色', NULL),
+       (16, 48, 13, '内存', '8G', NULL);
 
 /*Table structure for table `pms_spu_comment` */
 
@@ -1796,26 +1909,53 @@ CREATE TABLE `pms_spu_images`
     `default_img` tinyint(4)   DEFAULT NULL COMMENT '是否默认图',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 16
+  AUTO_INCREMENT = 69
   DEFAULT CHARSET = utf8mb4 COMMENT ='spu图片';
 
 /*Data for the table `pms_spu_images` */
 
 insert into `pms_spu_images`(`id`, `spu_id`, `img_name`, `img_url`, `img_sort`, `default_img`)
-values (11, 7, NULL,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/2c46a40a-40d4-4178-8eae-17820741787b_0d40c24b264aa511.jpg',
+values (55, 17, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
+        NULL, 1),
+       (56, 17, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
         NULL, NULL),
-       (12, 7, NULL,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/998b4153-1f43-49e1-89a5-eb189f176da4_1f15cdbcf9e1273c.jpg',
+       (57, 17, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0151439e-3cfc-479f-8da0-84b19042b462_149503bc9026d922.jpg',
         NULL, NULL),
-       (13, 7, NULL,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/31b7ff1e-7755-4d26-80d9-3ef248bbbb13_2b1837c6c50add30.jpg',
+       (58, 17, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0467dacf-7cae-4e23-896b-50c5d861abb7_a0d21aabf860fbf0.jpg',
         NULL, NULL),
-       (14, 7, NULL,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/6d198500-0e9d-489a-8977-d88d16ebf04e_8bf441260bffa42f.jpg',
+       (59, 17, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/c2c33938-9c91-4059-8f51-5a82f535238e_4297977df96064cf.jpg',
         NULL, NULL),
-       (15, 7, NULL,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/97a1ff4a-6e48-4555-8905-dcdb5617b9aa_23d9fbb256ea5d4a.jpg',
+       (60, 17, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/4bc68ed0-3137-4a55-80fb-c41646b19511_ab5c2d05f879a2f5.jpg',
+        NULL, NULL),
+       (61, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/b7862c2f-79e9-4759-8542-1c7acdf06a59_3c778f0a77663104.jpg',
+        NULL, NULL),
+       (62, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/03254867-2bd8-4361-895f-8d5dab893d83_2ea0d42461080748.jpg',
+        NULL, NULL),
+       (63, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/968a4a88-6a2c-40e9-8a3c-b0b82f0bf31b_38b474cd090ec30d.jpg',
+        NULL, NULL),
+       (64, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/6cd24900-8f18-433f-8ad7-68358217ef70_10397bb3059ab4dd.jpg',
+        NULL, NULL),
+       (65, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/409d29d2-4833-4563-8c60-0312b01a9eeb_b88c0485ca234e0d.jpg',
+        NULL, 1),
+       (66, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/f4d406f6-813f-4040-8bdf-f031dfc9eedc_3f23d4c4d2e4059b.jpg',
+        NULL, NULL),
+       (67, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/3ef65c15-c6c2-455c-8010-305b441b183f_18d985bbf3b262c2 (1).jpg',
+        NULL, NULL),
+       (68, 18, NULL,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/7650638d-9ac6-4283-82d0-b2463066c2ee_c9724e0156ac1b06 (1).jpg',
         NULL, NULL);
 
 /*Table structure for table `pms_spu_info` */
@@ -1835,15 +1975,19 @@ CREATE TABLE `pms_spu_info`
     `update_time`     datetime       DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 8
+  AUTO_INCREMENT = 19
   DEFAULT CHARSET = utf8mb4 COMMENT ='spu信息';
 
 /*Data for the table `pms_spu_info` */
 
 insert into `pms_spu_info`(`id`, `spu_name`, `spu_description`, `catalog_id`, `brand_id`, `weight`, `publish_status`,
                            `create_time`, `update_time`)
-values (7, '华为 HUAWEI Mate 30 Pro 5G', '华为 HUAWEI Mate 30 Pro 5G', 225, 1, 0.2000, 1, '2021-04-28 21:21:45',
-        '2021-05-11 12:42:57');
+values (17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机',
+        '【iPhone12抢券至高立减600元】限时限量+9元可得价值510元Apple原厂精选配件！立即选购！', 225, 6, 1.0000, 1, '2021-09-14 10:09:18',
+        '2021-09-14 02:27:50'),
+       (18, '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】',
+        '【搭载HarmonyOS 2】华为 HUAWEI Mate 40 Pro 4G 全网通 麒麟9000旗舰芯片 8GB+256GB秘银色手机【秒杀版】', 225, 1, 1.0000, 1,
+        '2021-09-14 10:27:32', '2021-09-14 02:27:54');
 
 /*Table structure for table `pms_spu_info_desc` */
 
@@ -1860,9 +2004,34 @@ CREATE TABLE `pms_spu_info_desc`
 /*Data for the table `pms_spu_info_desc` */
 
 insert into `pms_spu_info_desc`(`spu_id`, `decript`)
-values (7,
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/56e9c409-419e-40b4-82dc-c6bec5427988_73366cc235d68202.jpg,https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-04-28/d6b36869-a8f7-4944-8cb3-105ea8e7d54f_b094601548ddcb1b.jpg');
+values (17,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/1bc5f67a-72c1-4c39-8684-668e7bc7ceaf_8d8a7aaed36e0041.jpg,https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8f14d85b-8789-43e4-81ad-96592d10ae51_8dd1a6a0582f7603.jpg'),
+       (18,
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/4fa479e0-cc30-4499-84c3-c4b7b827f202_7d0a85a02ad7a261.jpg,https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/0793a2f9-d507-4ad1-8760-a41b2348dcf8_feac6e42af4eca15.jpg');
+
+/*Table structure for table `undo_log` */
+
+DROP TABLE IF EXISTS `undo_log`;
+
+CREATE TABLE `undo_log`
+(
+    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
+    `branch_id`     bigint(20)   NOT NULL,
+    `xid`           varchar(100) NOT NULL,
+    `context`       varchar(128) NOT NULL,
+    `rollback_info` longblob     NOT NULL,
+    `log_status`    int(11)      NOT NULL,
+    `log_created`   datetime     NOT NULL,
+    `log_modified`  datetime     NOT NULL,
+    `ext`           varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+/*Data for the table `undo_log` */
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;

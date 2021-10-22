@@ -6,13 +6,19 @@ server:
 spring:
   profiles:
     active: dev
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
     username: root
-    # url: jdbc:mysql://101.200.147.195:3306/gulimall_oms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    # password: root
+
   session:
     store-type: redis
+
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: gulimall-order-fescar-service-group
 
 #mybatis
 mybatis-plus:

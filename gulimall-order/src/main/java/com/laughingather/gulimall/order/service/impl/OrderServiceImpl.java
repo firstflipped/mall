@@ -25,6 +25,7 @@ import com.laughingather.gulimall.order.feign.service.WareFeignService;
 import com.laughingather.gulimall.order.interceptor.LoginUserInterceptor;
 import com.laughingather.gulimall.order.service.OrderItemService;
 import com.laughingather.gulimall.order.service.OrderService;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -134,7 +135,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     }
 
 
+    /**
+     * 订单提交
+     *
+     * @param orderSubmitDTO
+     * @return
+     * @@Transactional：本地事务，在分布式事务下只能控制自己的回滚，不能控制远程调用的回滚
+     */
     @Override
+    @GlobalTransactional
     public OrderSubmitVO submitOrder(OrderSubmitDTO orderSubmitDTO) {
         orderSubmitDTOThreadLocal.set(orderSubmitDTO);
         MemberEntity member = LoginUserInterceptor.loginUser.get();
@@ -187,6 +196,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             orderSubmitVO.setMessage(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage());
             return orderSubmitVO;
         }
+
+        int i = 1 / 0;
 
         // 全部成功
         orderSubmitVO.setCode(ResultCodeEnum.SUCCESS.getCode());

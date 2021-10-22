@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.7.32 : Database - gulimall_wms
+SQLyog Community v13.1.6 (64 bit)
+MySQL - 5.7.34 : Database - gulimall_wms
 *********************************************************************
 */
 
@@ -9,11 +9,34 @@ MySQL - 5.7.32 : Database - gulimall_wms
 /*!40101 SET SQL_MODE = ''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_wms` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `gulimall_wms`;
+
+/*Table structure for table `undo_log` */
+
+DROP TABLE IF EXISTS `undo_log`;
+
+CREATE TABLE `undo_log`
+(
+    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
+    `branch_id`     bigint(20)   NOT NULL,
+    `xid`           varchar(100) NOT NULL,
+    `context`       varchar(128) NOT NULL,
+    `rollback_info` longblob     NOT NULL,
+    `log_status`    int(11)      NOT NULL,
+    `log_created`   datetime     NOT NULL,
+    `log_modified`  datetime     NOT NULL,
+    `ext`           varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+/*Data for the table `undo_log` */
 
 /*Table structure for table `wms_purchase` */
 
@@ -144,19 +167,21 @@ CREATE TABLE `wms_ware_sku`
     `ware_id`      bigint(20)   DEFAULT NULL COMMENT '仓库id',
     `stock`        int(11)      DEFAULT NULL COMMENT '库存数',
     `sku_name`     varchar(200) DEFAULT NULL COMMENT 'sku_name',
-    `stock_locked` int(11)      DEFAULT NULL COMMENT '锁定库存',
+    `stock_locked` int(11)      DEFAULT '0' COMMENT '锁定库存',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
+  AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品库存';
 
 /*Data for the table `wms_ware_sku` */
 
 insert into `wms_ware_sku`(`id`, `sku_id`, `ware_id`, `stock`, `sku_name`, `stock_locked`)
-values (1, 1, 3, 188, '华为 HUAWEI Mate 30 Pro 5G 黑色 6G', 0),
-       (2, 2, 3, 100, '华为 HUAWEI Mate 30 Pro 5G 黑色 8G', NULL),
-       (3, 4, 3, 100, '华为 HUAWEI Mate 30 Pro 5G 白色 8G', NULL);
+values (1, 41, 3, 10, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', 6),
+       (2, 42, 3, 0, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G', 0),
+       (3, 42, 4, 20, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G', 0),
+       (4, 43, 4, 100, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 4G', 0);
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;

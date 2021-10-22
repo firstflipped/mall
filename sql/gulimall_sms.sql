@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.7.32 : Database - gulimall_sms
+SQLyog Community v13.1.6 (64 bit)
+MySQL - 5.7.34 : Database - gulimall_sms
 *********************************************************************
 */
 
@@ -9,6 +9,7 @@ MySQL - 5.7.32 : Database - gulimall_sms
 /*!40101 SET SQL_MODE = ''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_sms` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
@@ -318,14 +319,45 @@ CREATE TABLE `sms_spu_bounds`
     `work`        tinyint(1)     DEFAULT NULL COMMENT '优惠生效情况[1111（四个状态位，从右到左）;0 - 无优惠，成长积分是否赠送;1 - 无优惠，购物积分是否赠送;2 - 有优惠，成长积分是否赠送;3 - 有优惠，购物积分是否赠送【状态位0：不赠送，1：赠送】]',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 5
+  AUTO_INCREMENT = 13
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品spu积分设置';
 
 /*Data for the table `sms_spu_bounds` */
 
 insert into `sms_spu_bounds`(`id`, `spu_id`, `grow_bounds`, `buy_bounds`, `work`)
-values (4, 7, 5000.0000, 5000.0000, NULL);
+values (4, 7, 5000.0000, 5000.0000, NULL),
+       (5, 8, 9.0000, 9.0000, NULL),
+       (6, 12, 9.0000, 9.0000, NULL),
+       (7, 13, 9.0000, 9.0000, NULL),
+       (8, 14, 10.0000, 10.0000, NULL),
+       (9, 15, 10.0000, 10.0000, NULL),
+       (10, 16, 1.0000, 1.0000, NULL),
+       (11, 17, 1000.0000, 1000.0000, NULL),
+       (12, 18, 1000.0000, 1000.0000, NULL);
+
+/*Table structure for table `undo_log` */
+
+DROP TABLE IF EXISTS `undo_log`;
+
+CREATE TABLE `undo_log`
+(
+    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
+    `branch_id`     bigint(20)   NOT NULL,
+    `xid`           varchar(100) NOT NULL,
+    `context`       varchar(128) NOT NULL,
+    `rollback_info` longblob     NOT NULL,
+    `log_status`    int(11)      NOT NULL,
+    `log_created`   datetime     NOT NULL,
+    `log_modified`  datetime     NOT NULL,
+    `ext`           varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+/*Data for the table `undo_log` */
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;

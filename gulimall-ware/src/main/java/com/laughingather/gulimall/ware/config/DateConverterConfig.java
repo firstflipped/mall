@@ -25,6 +25,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+/**
+ * 日期转换类
+ *
+ * @author laughingather
+ */
 @Configuration
 public class DateConverterConfig {
 

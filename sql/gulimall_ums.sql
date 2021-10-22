@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v13.1.1 (64 bit)
-MySQL - 5.7.32 : Database - gulimall_ums
+SQLyog Community v13.1.6 (64 bit)
+MySQL - 5.7.34 : Database - gulimall_ums
 *********************************************************************
 */
 
@@ -9,6 +9,7 @@ MySQL - 5.7.32 : Database - gulimall_ums
 /*!40101 SET SQL_MODE = ''*/;
 
 /*!40014 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_ums` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
@@ -80,7 +81,7 @@ CREATE TABLE `ums_member`
     `expires_in`   bigint(20)   DEFAULT NULL COMMENT '访问令牌的时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 5
+  AUTO_INCREMENT = 6
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员';
 
 /*Data for the table `ums_member` */
@@ -91,7 +92,11 @@ insert into `ums_member`(`id`, `level_id`, `username`, `password`, `nickname`, `
 values (2, 1, 'wangjie', '$2a$10$6gKu6vmpTFQUtEczpX5bdOItBTKuLLOnFpjc53sX1Zps7lCJ0.n82', NULL, '18763096838', NULL,
         NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:01:35', NULL, NULL, NULL),
        (4, 1, 'admin', '$2a$10$ekdVeZ8K5cQg1dKSbaUyNudomVMex8KkPA8ztUAm8iNMNZxyxGVkm', NULL, '17515235623', NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:41:09', NULL, NULL, NULL);
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:41:09', NULL, NULL, NULL),
+       (5, 1, NULL, '$2a$10$WHcNFkpxhOQer.UHE4FT6uyyUZxmDFP895BnJjy8w7.tJ0dRgjkB.', '心有猛虎的杰爷', NULL, NULL,
+        'https://tva4.sinaimg.cn/crop.0.0.1080.1080.50/006evlUgjw8fbuphxbojoj30u00u0jrs.jpg?KID=imgbed,tva&Expires=1629309063&ssig=JnKnMHkqmm',
+        1, NULL, '16', NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-18 22:51:04', 5711138076,
+        '2.00Qu2VOGppkbeC8f7ac62209LyPwxD', 157679999);
 
 /*Table structure for table `ums_member_collect_spu` */
 
@@ -146,7 +151,7 @@ CREATE TABLE `ums_member_level`
     `note`                    varchar(255)   DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
+  AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员等级';
 
 /*Data for the table `ums_member_level` */
@@ -196,9 +201,16 @@ CREATE TABLE `ums_member_receive_address`
     `default_status` tinyint(1)   DEFAULT NULL COMMENT '是否默认',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员收货地址';
 
 /*Data for the table `ums_member_receive_address` */
+
+insert into `ums_member_receive_address`(`id`, `member_id`, `name`, `phone`, `post_code`, `province`, `city`, `region`,
+                                         `detail_address`, `areacode`, `default_status`)
+values (1, 5, '山东舞王小阿靠', '17515235623', '0000', '山东省', '济南市', '历下区', '舜华路街道草山岭小区', NULL, 1),
+       (2, 5, '山东舞王小阿靠', '17515235623', '9999', '北京市', '北京市', '东城区', '长安街1号', NULL, 0),
+       (3, 5, '山东舞王小阿靠', '17515235623', '2222', '山东省', '青岛市', '市南区', '济南路66号', NULL, 0);
 
 /*Table structure for table `ums_member_statistics_info` */
 
@@ -227,6 +239,29 @@ CREATE TABLE `ums_member_statistics_info`
 
 /*Data for the table `ums_member_statistics_info` */
 
+/*Table structure for table `undo_log` */
+
+DROP TABLE IF EXISTS `undo_log`;
+
+CREATE TABLE `undo_log`
+(
+    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
+    `branch_id`     bigint(20)   NOT NULL,
+    `xid`           varchar(100) NOT NULL,
+    `context`       varchar(128) NOT NULL,
+    `rollback_info` longblob     NOT NULL,
+    `log_status`    int(11)      NOT NULL,
+    `log_created`   datetime     NOT NULL,
+    `log_modified`  datetime     NOT NULL,
+    `ext`           varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+/*Data for the table `undo_log` */
+
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES = @OLD_SQL_NOTES */;
