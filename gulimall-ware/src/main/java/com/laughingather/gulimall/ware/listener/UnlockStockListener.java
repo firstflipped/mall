@@ -1,9 +1,10 @@
-package com.laughingather.gulimall.ware.consumer;
+package com.laughingather.gulimall.ware.listener;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.OrderConstants;
 import com.laughingather.gulimall.common.constant.WareConstants;
+import com.laughingather.gulimall.common.entity.OrderDTO;
 import com.laughingather.gulimall.common.entity.StockDetailDTO;
 import com.laughingather.gulimall.common.entity.StockLockedDTO;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
@@ -15,13 +16,16 @@ import com.laughingather.gulimall.ware.service.WareOrderTaskService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import com.rabbitmq.client.Channel;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,7 +37,7 @@ import java.util.Objects;
 @Log4j2
 @Component
 @RabbitListener(queues = "stock.release.stock.queue")
-public class UnlockStockService {
+public class UnlockStockListener {
 
     @Autowired
     private WareOrderTaskService wareOrderTaskService;
@@ -47,6 +51,8 @@ public class UnlockStockService {
 
     /**
      * 解锁锁定库存
+     * 收到库存锁定消息
+     *
      * <p>
      * 拿到消息后去数据库查询是否存在该库存锁定清单
      * 如果存在则证明库存锁定没有问题，还需要判断订单状态
@@ -58,7 +64,9 @@ public class UnlockStockService {
      * @param channel
      */
     @RabbitHandler
-    public void releaseStockLock(StockLockedDTO stockLockedDTO, Message message, Channel channel) throws IOException {
+    public void handleStockLockRelease(StockLockedDTO stockLockedDTO, Message message, Channel channel) throws IOException {
+
+        log.info("定时补偿机制解锁库存");
 
         try {
             unlockStock(stockLockedDTO);
@@ -72,7 +80,34 @@ public class UnlockStockService {
 
 
     /**
-     * 解锁库存
+     * 解锁锁定库存
+     * 收到订单取消消息
+     * <p>
+     * 订单取消完成后立即向该队列发送一条消息，以避免由于订单系统网络延时造成的库存锁定消息提前消费的事故
+     *
+     * @param orderDTO
+     * @param message
+     * @param channel
+     * @throws IOException
+     */
+    @RabbitHandler
+    public void handleOrderCloseRelease(OrderDTO orderDTO, Message message, Channel channel) throws IOException {
+
+        log.info("订单关闭主动解锁库存");
+
+        try {
+            unlockStock(orderDTO);
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (Exception e) {
+            log.error(e);
+            channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
+        }
+
+    }
+
+
+    /**
+     * 解锁库存锁定
      *
      * @param stockLockedDTO
      */
@@ -112,6 +147,33 @@ public class UnlockStockService {
             wareSkuService.unlockStock(detail.getSkuId(), detail.getWareId(), detail.getSkuNum(), detail.getId());
         }
     }
+
+
+    /**
+     * 解锁库存锁定
+     *
+     * @param orderDTO
+     */
+    @Transactional(rollbackFor = {RuntimeException.class, Exception.class})
+    public void unlockStock(OrderDTO orderDTO) {
+        WareOrderTaskEntity wareOrderTask = wareOrderTaskService.getWareOrderTaskByOrderSn(orderDTO.getOrderSn());
+        if (wareOrderTask == null) {
+            return;
+        }
+
+        List<WareOrderTaskDetailEntity> wareOrderTaskDetails = wareOrderTaskDetailService.listLockerWareOrderTaskDetailByTaskId(wareOrderTask.getId());
+        if (CollectionUtils.isEmpty(wareOrderTaskDetails)) {
+            return;
+        }
+
+        // 解锁库存
+        for (WareOrderTaskDetailEntity wareOrderTaskDetail : wareOrderTaskDetails) {
+            wareSkuService.unlockStock(wareOrderTaskDetail.getSkuId(), wareOrderTaskDetail.getWareId(),
+                    wareOrderTaskDetail.getSkuNum(), wareOrderTaskDetail.getId());
+        }
+
+    }
+
 
 }
 

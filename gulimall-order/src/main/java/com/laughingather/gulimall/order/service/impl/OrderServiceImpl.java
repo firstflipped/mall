@@ -10,6 +10,7 @@ import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.Constants;
 import com.laughingather.gulimall.common.constant.OrderConstants;
 import com.laughingather.gulimall.common.entity.MemberEntity;
+import com.laughingather.gulimall.common.entity.OrderDTO;
 import com.laughingather.gulimall.order.dao.OrderDao;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.entity.OrderItemEntity;
@@ -27,6 +28,8 @@ import com.laughingather.gulimall.order.interceptor.LoginUserInterceptor;
 import com.laughingather.gulimall.order.service.OrderItemService;
 import com.laughingather.gulimall.order.service.OrderService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -76,6 +79,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public OrderConfirmVO confirmOrder() throws ExecutionException, InterruptedException {
@@ -178,6 +183,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         // 4、保存订单
         saveOrder(orderCreateBO);
 
+
         // 5、锁定库存
         WareSkuLockDTO wareSkuLockDTO = new WareSkuLockDTO();
         List<OrderItemVO> orderItemVOList = orderCreateBO.getOrderItems().stream().map(item -> {
@@ -198,6 +204,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             return orderSubmitVO;
         }
 
+        // 6、发送消息到消息队列
+        rabbitTemplate.convertAndSend(OrderConstants.EXCHANGE, OrderConstants.CREATE_ROUTING_KEY, orderCreateBO.getOrder());
+
         // 全部成功
         orderSubmitVO.setCode(ResultCodeEnum.SUCCESS.getCode());
         orderSubmitVO.setMessage(ResultCodeEnum.SUCCESS.getMessage());
@@ -205,12 +214,32 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         return orderSubmitVO;
     }
 
+
     @Override
     public OrderEntity getOrderByOrderSn(String orderSn) {
         QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(OrderEntity::getOrderSn, orderSn);
 
         return orderDao.selectOne(queryWrapper);
+    }
+
+
+    @Override
+    public void closeOrder(Long orderId) {
+        OrderEntity order = orderDao.selectById(orderId);
+
+        if (order != null && Objects.equals(OrderConstants.OrderStatusEnum.CREATE_NEW.getCode(), order.getStatus())) {
+            // 更新订单状态为已取消状态
+            OrderEntity updateOrder = new OrderEntity();
+            updateOrder.setId(orderId);
+            updateOrder.setStatus(OrderConstants.OrderStatusEnum.CANCLED.getCode());
+            orderDao.updateById(updateOrder);
+
+            // 立即发送一个消息
+            OrderDTO orderDTO = new OrderDTO();
+            BeanUtils.copyProperties(order, orderDTO);
+            rabbitTemplate.convertAndSend(OrderConstants.EXCHANGE, OrderConstants.OTHER_ROUTING_KEY, orderDTO);
+        }
     }
 
 

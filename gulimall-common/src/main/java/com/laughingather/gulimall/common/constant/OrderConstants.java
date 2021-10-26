@@ -9,6 +9,12 @@ package com.laughingather.gulimall.common.constant;
 public class OrderConstants {
 
     public static final String USER_ORDER_TOKEN_PREFIX = "order:token:";
+    public static final String EXCHANGE = "order.event.exchange";
+    public static final String DELAY_QUEUE = "order.delay.queue";
+    public static final String RELEASE_QUEUE = "order.release.order.queue";
+    public static final String CREATE_ROUTING_KEY = "order.create.order";
+    public static final String RELEASE_ROUTING_KEY = "order.release.order";
+    public static final String OTHER_ROUTING_KEY = "order.release.other";
 
     /**
      * 差价

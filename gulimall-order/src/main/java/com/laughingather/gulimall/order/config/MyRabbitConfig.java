@@ -1,11 +1,14 @@
 package com.laughingather.gulimall.order.config;
 
+import com.laughingather.gulimall.common.constant.OrderConstants;
+import com.laughingather.gulimall.common.constant.WareConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +25,12 @@ import java.util.Map;
 @Configuration
 public class MyRabbitConfig {
 
+    /**
+     * 自定义化rabbitTemplate
+     *
+     * @param connectionFactory
+     * @return
+     */
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
@@ -37,10 +46,8 @@ public class MyRabbitConfig {
              */
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-                if (ack) {
-                    log.info("消息发送到服务器成功");
-                } else {
-                    log.info("消息发送到服务器失败");
+                if (!ack) {
+                    log.info("消息发送到服务器失败，消息内容为：" + correlationData.getReturnedMessage());
                 }
             }
         });
@@ -56,13 +63,19 @@ public class MyRabbitConfig {
          * @param routingKey
          */
         rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
-            log.info("消息发送到队列失败");
+            log.info("消息发送到队列失败，消息内容为：" + message);
         });
 
         // 设置消息转换器
-        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        rabbitTemplate.setMessageConverter(messageConverter());
 
         return rabbitTemplate;
+    }
+
+
+    @Bean
+    public MessageConverter messageConverter() {
+        return new Jackson2JsonMessageConverter();
     }
 
 
@@ -77,11 +90,11 @@ public class MyRabbitConfig {
     public Queue orderDelayQueue() {
         // 自定义参数
         Map<String, Object> arguments = new HashMap<>(4);
-        arguments.put("x-dead-letter-exchange", "order.event.exchange");
-        arguments.put("x-dead-letter-routing-key", "order.release.order");
+        arguments.put("x-dead-letter-exchange", OrderConstants.EXCHANGE);
+        arguments.put("x-dead-letter-routing-key", OrderConstants.RELEASE_ROUTING_KEY);
         arguments.put("x-message-ttl", 60000);
 
-        return new Queue("order.delay.queue", true, false, false, arguments);
+        return new Queue(OrderConstants.DELAY_QUEUE, true, false, false, arguments);
     }
 
     /**
@@ -91,7 +104,7 @@ public class MyRabbitConfig {
      */
     @Bean
     public Queue orderReleaseOrderQueue() {
-        return QueueBuilder.durable("order.release.order.queue").build();
+        return QueueBuilder.durable(OrderConstants.RELEASE_QUEUE).build();
     }
 
     /**
@@ -101,7 +114,7 @@ public class MyRabbitConfig {
      */
     @Bean
     public Exchange orderEventExchange() {
-        return new TopicExchange("order.event.exchange", true, false);
+        return new TopicExchange(OrderConstants.EXCHANGE, true, false);
     }
 
     /**
@@ -111,8 +124,8 @@ public class MyRabbitConfig {
      */
     @Bean
     public Binding orderCreateOrderBinding() {
-        return new Binding("order.delay.queue", Binding.DestinationType.QUEUE, "order.event.exchange",
-                "order.create.order", null);
+        return new Binding(OrderConstants.DELAY_QUEUE, Binding.DestinationType.QUEUE, OrderConstants.EXCHANGE,
+                OrderConstants.CREATE_ROUTING_KEY, null);
     }
 
     /**
@@ -122,7 +135,22 @@ public class MyRabbitConfig {
      */
     @Bean
     public Binding orderReleaseOrderBinding() {
-        return BindingBuilder.bind(orderReleaseOrderQueue()).to(orderEventExchange()).with("order.release.order").noargs();
+        return BindingBuilder.bind(orderReleaseOrderQueue()).to(orderEventExchange()).with(OrderConstants.RELEASE_ROUTING_KEY).noargs();
+    }
+
+
+    /**
+     * 订单释放队列直接和库存释放队列绑定关系
+     *
+     * @return
+     */
+    @Bean
+    public Binding orderReleaseOtherBinding() {
+        return new Binding(WareConstants.MQEnum.RELEASE_QUEUE.getName(),
+                Binding.DestinationType.QUEUE,
+                OrderConstants.EXCHANGE,
+                "order.release.other.#",
+                null);
     }
 
 }

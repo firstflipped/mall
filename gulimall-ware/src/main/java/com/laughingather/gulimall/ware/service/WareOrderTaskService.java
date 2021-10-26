@@ -12,5 +12,12 @@ import com.laughingather.gulimall.ware.entity.WareOrderTaskEntity;
  */
 public interface WareOrderTaskService extends IService<WareOrderTaskEntity> {
 
+    /**
+     * 根据订单号获取锁定库存清单
+     *
+     * @param orderSn
+     * @return
+     */
+    WareOrderTaskEntity getWareOrderTaskByOrderSn(String orderSn);
 }
 

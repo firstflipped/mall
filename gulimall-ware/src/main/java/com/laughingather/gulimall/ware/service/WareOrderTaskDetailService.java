@@ -3,6 +3,8 @@ package com.laughingather.gulimall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 
+import java.util.List;
+
 /**
  * 库存工作单
  *
@@ -19,5 +21,15 @@ public interface WareOrderTaskDetailService extends IService<WareOrderTaskDetail
      * @param status
      */
     void updateStatusById(Long detailId, Integer status);
+
+
+    /**
+     * 获取锁定库存清单列表（状态为已锁定的）
+     *
+     * @param taskId
+     * @return
+     */
+    List<WareOrderTaskDetailEntity> listLockerWareOrderTaskDetailByTaskId(Long taskId);
+
 }
 
