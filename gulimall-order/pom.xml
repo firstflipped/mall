@@ -63,14 +63,6 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-data-redis</artifactId>
 		</dependency>
-
-		<!-- 分布式事务 -->
-		<!-- 下载的服务端版本必须与seata-all版本一致 -->
-		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<build>

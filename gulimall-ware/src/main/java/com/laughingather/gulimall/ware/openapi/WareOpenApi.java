@@ -5,7 +5,6 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.ware.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
-import com.laughingather.gulimall.ware.exception.NoStockException;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +64,7 @@ public class WareOpenApi {
         try {
             Boolean result = wareSkuService.orderLockStock(wareSkuLockDTO);
             return result ? MyResult.success() : MyResult.failed();
-        } catch (NoStockException e) {
+        } catch (Exception e) {
             return MyResult.<Boolean>builder().code(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode()).message(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage()).build();
         }
     }

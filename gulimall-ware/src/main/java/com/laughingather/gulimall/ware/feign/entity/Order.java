@@ -1,7 +1,5 @@
-package com.laughingather.gulimall.order.entity;
+package com.laughingather.gulimall.ware.feign.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -14,43 +12,51 @@ import java.time.LocalDateTime;
 
 /**
  * 订单
- * 
+ * <p>
+ * 时间类型转换报错需要加上以下注解
+ *
  * @author laughingather
+ * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+ * @JsonSerialize(using = LocalDateTimeSerializer.class)
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:17:55
  */
 @Data
-@TableName("oms_order")
-public class OrderEntity implements Serializable {
+public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * id
 	 */
-	@TableId
 	private Long id;
+
 	/**
 	 * member_id
 	 */
 	private Long memberId;
+
 	/**
 	 * 订单号
 	 */
 	private String orderSn;
+
 	/**
 	 * 使用的优惠券
 	 */
 	private Long couponId;
+
 	/**
 	 * create_time
 	 */
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime createTime;
+
 	/**
 	 * 用户名
 	 */
 	private String memberUsername;
+
 	/**
 	 * 订单总额
 	 */

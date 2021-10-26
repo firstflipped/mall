@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.order.config;
+package com.laughingather.gulimall.product.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import io.seata.rm.datasource.DataSourceProxy;
@@ -11,6 +11,9 @@ import javax.sql.DataSource;
 
 /**
  * seata控制分布式事务
+ *
+ * AT模式：该模式仅适用于并发较小的后台管理类场景，不适用于高并发场景
+ *
  * <p>
  * <p>
  * 1、每一个想要使用分布式事务的微服务数据库都需要创建 undo_log 表;

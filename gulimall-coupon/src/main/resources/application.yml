@@ -6,11 +6,18 @@ server:
 spring:
   profiles:
     active: dev
+
   main:
     allow-bean-definition-overriding: true
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
+
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: gulimall-coupon-fescar-service-group
 
 #mybatis
 mybatis-plus:

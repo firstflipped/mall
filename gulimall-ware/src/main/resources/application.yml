@@ -12,10 +12,14 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
 
-  cloud:
-    alibaba:
-      seata:
-        tx-service-group: gulimall-ware-fescar-service-group
+  rabbitmq:
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual
 
 #mybatis
 mybatis-plus:

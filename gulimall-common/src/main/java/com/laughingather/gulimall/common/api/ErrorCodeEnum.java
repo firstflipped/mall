@@ -17,7 +17,8 @@ public enum ErrorCodeEnum {
 
     NO_STOCK_EXCEPTION(16000, "商品库存不足"),
     PRICE_VERIFICATION_EXCEPTION(16001, "验价失败"),
-    TOKEN_VERIFICATION_EXCEPTION(16002, "提交订单令牌校验失败");
+    TOKEN_VERIFICATION_EXCEPTION(16002, "提交订单令牌校验失败"),
+    SEND_MESSAGE_EXCEPTION(16003, "发送消息到MQ失败");
 
 
     private Integer code;

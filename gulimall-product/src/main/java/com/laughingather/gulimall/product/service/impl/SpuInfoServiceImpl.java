@@ -21,13 +21,13 @@ import com.laughingather.gulimall.product.feign.service.CouponFeignService;
 import com.laughingather.gulimall.product.feign.service.SearchFeignService;
 import com.laughingather.gulimall.product.feign.service.WareFeignService;
 import com.laughingather.gulimall.product.service.*;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -207,11 +207,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     /**
      * 保存spu的基本信息
+     * <p>
+     * 开启分布式全局事务，保证事务一致性
      *
      * @param spuSaveDTO
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @GlobalTransactional
     public void saveSpuInfo(SpuSaveDTO spuSaveDTO) {
 
         log.info(JsonUtil.obj2String(spuSaveDTO));

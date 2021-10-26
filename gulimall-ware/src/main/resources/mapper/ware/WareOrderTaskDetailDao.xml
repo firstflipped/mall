@@ -10,7 +10,12 @@
         <result property="skuName" column="sku_name"/>
         <result property="skuNum" column="sku_num"/>
         <result property="taskId" column="task_id"/>
+        <result property="wareId" column="ware_id"/>
+        <result property="lockStatus" column="lock_status"/>
     </resultMap>
 
-
+    <update id="updateStatusById">
+        UPDATE wms_ware_order_task_detail SET lock_status = #{status}
+        WHERE id = #{detailId}
+    </update>
 </mapper>

@@ -6,15 +6,24 @@ server:
 spring:
   profiles:
     active: dev
+
   main:
     allow-bean-definition-overriding: true
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
+
   cache:
     type: redis
+
   session:
     store-type: redis
+
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: gulimall-product-fescar-service-group
 
 #mybatis
 mybatis-plus:

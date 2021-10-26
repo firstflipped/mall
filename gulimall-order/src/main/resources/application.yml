@@ -15,10 +15,18 @@ spring:
   session:
     store-type: redis
 
-  cloud:
-    alibaba:
-      seata:
-        tx-service-group: gulimall-order-fescar-service-group
+  rabbitmq:
+    # 确认消息已发送到交换机
+    publisher-confirm-type: correlated
+    # 确认消息已发送到队列
+    publisher-returns: true
+    # 只要发送到队列，以异步方式优先回调returns
+    template:
+      mandatory: true
+    # 消费端确认消息类型  manual是手动确认模式
+    listener:
+      simple:
+        acknowledge-mode: manual
 
 #mybatis
 mybatis-plus:

@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.order.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
@@ -25,12 +26,12 @@ import com.laughingather.gulimall.order.feign.service.WareFeignService;
 import com.laughingather.gulimall.order.interceptor.LoginUserInterceptor;
 import com.laughingather.gulimall.order.service.OrderItemService;
 import com.laughingather.gulimall.order.service.OrderService;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
@@ -143,7 +144,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      * @@Transactional：本地事务，在分布式事务下只能控制自己的回滚，不能控制远程调用的回滚
      */
     @Override
-    @GlobalTransactional
+    @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
     public OrderSubmitVO submitOrder(OrderSubmitDTO orderSubmitDTO) {
         orderSubmitDTOThreadLocal.set(orderSubmitDTO);
         MemberEntity member = LoginUserInterceptor.loginUser.get();
@@ -197,13 +198,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             return orderSubmitVO;
         }
 
-        int i = 1 / 0;
-
         // 全部成功
         orderSubmitVO.setCode(ResultCodeEnum.SUCCESS.getCode());
         orderSubmitVO.setMessage(ResultCodeEnum.SUCCESS.getMessage());
         orderSubmitVO.setOrder(orderCreateBO.getOrder());
         return orderSubmitVO;
+    }
+
+    @Override
+    public OrderEntity getOrderByOrderSn(String orderSn) {
+        QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(OrderEntity::getOrderSn, orderSn);
+
+        return orderDao.selectOne(queryWrapper);
     }
 
 

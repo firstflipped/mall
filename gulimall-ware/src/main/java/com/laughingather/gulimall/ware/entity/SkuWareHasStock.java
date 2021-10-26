@@ -15,6 +15,8 @@ public class SkuWareHasStock {
 
     private Long skuId;
 
+    private String skuName;
+
     private Integer count;
 
     private List<Long> wareIds;

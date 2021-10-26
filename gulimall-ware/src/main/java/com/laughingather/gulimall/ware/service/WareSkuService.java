@@ -64,5 +64,15 @@ public interface WareSkuService extends IService<WareSkuEntity> {
      * @return
      */
     Boolean orderLockStock(WareSkuLockDTO wareSkuLockDTO);
+
+    /**
+     * 解锁库存锁定
+     *
+     * @param skuId
+     * @param wareId
+     * @param skuNum
+     * @param detailId
+     */
+    void unlockStock(Long skuId, Long wareId, Integer skuNum, Long detailId);
 }
 

@@ -1,7 +1,6 @@
 package com.laughingather.gulimall.order.web;
 
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
-import com.laughingather.gulimall.common.utils.JsonUtil;
 import com.laughingather.gulimall.order.entity.dto.OrderSubmitDTO;
 import com.laughingather.gulimall.order.entity.vo.OrderConfirmVO;
 import com.laughingather.gulimall.order.entity.vo.OrderSubmitVO;
@@ -49,7 +48,6 @@ public class OrderWebController {
     @PostMapping("/submit-order")
     public String submitOrder(OrderSubmitDTO orderSubmitDTO, Model model, RedirectAttributes redirectAttributes) {
         OrderSubmitVO orderSubmitVO = orderService.submitOrder(orderSubmitDTO);
-        System.out.println(JsonUtil.obj2String(orderSubmitVO));
 
         // 下单成功来到支付选择页
         if (orderSubmitVO.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {

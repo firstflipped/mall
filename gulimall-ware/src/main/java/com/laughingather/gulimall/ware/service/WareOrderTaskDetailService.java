@@ -12,5 +12,12 @@ import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
  */
 public interface WareOrderTaskDetailService extends IService<WareOrderTaskDetailEntity> {
 
+    /**
+     * 更新库存工作单状态
+     *
+     * @param detailId
+     * @param status
+     */
+    void updateStatusById(Long detailId, Integer status);
 }
 

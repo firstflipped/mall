@@ -2,6 +2,7 @@ package com.laughingather.gulimall.order.interceptor;
 
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.entity.MemberEntity;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,14 @@ public class LoginUserInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        // 供第三方系统调用对外开放接口不需要进行校验登录状态
+        String uri = request.getRequestURI();
+        boolean match = new AntPathMatcher().matchStart("/gulimall-order/openapi/order/**/**", uri);
+        if (match) {
+            return true;
+        }
+
         HttpSession session = request.getSession();
         MemberEntity member = (MemberEntity) session.getAttribute(AuthConstants.LOGIN_USER);
         if (member != null) {
