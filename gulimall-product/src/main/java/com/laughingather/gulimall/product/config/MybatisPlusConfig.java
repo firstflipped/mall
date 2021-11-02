@@ -7,11 +7,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * mybatis-plus配置
+ * @EnableTransactionManagement:开启事务
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mark laughingather@gmail.com
  */
 @Configuration
-@EnableTransactionManagement    // 开启事务
+@EnableTransactionManagement
 @MapperScan(basePackages = "com.laughingather.gulimall.product.dao")
 public class MybatisPlusConfig extends BaseMybatisPlusConfig {
 }
