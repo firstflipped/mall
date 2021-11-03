@@ -16,27 +16,25 @@ CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_wms` /*!40100 DEFAULT CHARACT
 
 USE `gulimall_wms`;
 
-/*Table structure for table `undo_log` */
+/*Table structure for table `mq_message` */
 
-DROP TABLE IF EXISTS `undo_log`;
+DROP TABLE IF EXISTS `mq_message`;
 
-CREATE TABLE `undo_log`
+CREATE TABLE `mq_message`
 (
-    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
-    `branch_id`     bigint(20)   NOT NULL,
-    `xid`           varchar(100) NOT NULL,
-    `context`       varchar(128) NOT NULL,
-    `rollback_info` longblob     NOT NULL,
-    `log_status`    int(11)      NOT NULL,
-    `log_created`   datetime     NOT NULL,
-    `log_modified`  datetime     NOT NULL,
-    `ext`           varchar(100) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
+    `message_id`     bigint(20) NOT NULL AUTO_INCREMENT,
+    `content`        text,
+    `to_exchange`    varchar(255) DEFAULT NULL,
+    `routing_key`    varchar(255) DEFAULT NULL,
+    `class_type`     varchar(255) DEFAULT NULL,
+    `message_status` tinyint(4)   DEFAULT '0' COMMENT '0-新建 1-已发送 2-错误抵达 3-已抵达',
+    `create_time`    datetime     DEFAULT NULL,
+    `update_time`    datetime     DEFAULT NULL,
+    PRIMARY KEY (`message_id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
-/*Data for the table `undo_log` */
+/*Data for the table `mq_message` */
 
 /*Table structure for table `wms_purchase` */
 
@@ -135,9 +133,18 @@ CREATE TABLE `wms_ware_order_task`
     `task_comment`     varchar(500) DEFAULT NULL COMMENT '工作单备注',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='库存工作单';
 
 /*Data for the table `wms_ware_order_task` */
+
+insert into `wms_ware_order_task`(`id`, `order_id`, `order_sn`, `consignee`, `consignee_tel`, `delivery_address`,
+                                  `order_comment`, `payment_way`, `task_status`, `order_body`, `tracking_no`,
+                                  `create_time`, `ware_id`, `task_comment`)
+values (12, NULL, '202110262154408461452997109169709058', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL),
+       (13, NULL, '202110262317075141453017856931966978', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+        NULL);
 
 /*Table structure for table `wms_ware_order_task_detail` */
 
@@ -145,16 +152,23 @@ DROP TABLE IF EXISTS `wms_ware_order_task_detail`;
 
 CREATE TABLE `wms_ware_order_task_detail`
 (
-    `id`       bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `sku_id`   bigint(20)   DEFAULT NULL COMMENT 'sku_id',
-    `sku_name` varchar(255) DEFAULT NULL COMMENT 'sku_name',
-    `sku_num`  int(11)      DEFAULT NULL COMMENT '购买个数',
-    `task_id`  bigint(20)   DEFAULT NULL COMMENT '工作单id',
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `sku_id`      bigint(20)   DEFAULT NULL COMMENT 'sku_id',
+    `sku_name`    varchar(255) DEFAULT NULL COMMENT 'sku_name',
+    `sku_num`     int(11)      DEFAULT NULL COMMENT '购买个数',
+    `task_id`     bigint(20)   DEFAULT NULL COMMENT '工作单id',
+    `ware_id`     bigint(20)   DEFAULT NULL COMMENT '仓库id',
+    `lock_status` tinyint(1)   DEFAULT NULL COMMENT '0-锁定 1-解锁 2-扣减',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='库存工作单';
 
 /*Data for the table `wms_ware_order_task_detail` */
+
+insert into `wms_ware_order_task_detail`(`id`, `sku_id`, `sku_name`, `sku_num`, `task_id`, `ware_id`, `lock_status`)
+values (12, 41, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', 2, 12, 3, 1),
+       (13, 41, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', 2, 13, 3, 1);
 
 /*Table structure for table `wms_ware_sku` */
 
@@ -176,7 +190,7 @@ CREATE TABLE `wms_ware_sku`
 /*Data for the table `wms_ware_sku` */
 
 insert into `wms_ware_sku`(`id`, `sku_id`, `ware_id`, `stock`, `sku_name`, `stock_locked`)
-values (1, 41, 3, 10, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', 6),
+values (1, 41, 3, 10, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G', 0),
        (2, 42, 3, 0, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G', 0),
        (3, 42, 4, 20, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 6G', 0),
        (4, 43, 4, 100, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 白色 4G', 0);

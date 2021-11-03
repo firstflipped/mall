@@ -33,8 +33,8 @@ public class GulimallExceptionControllerAdvice {
                 errorMap.put(field, message);
             });
         }
-        return MyResult.<Map<String, String>>builder().code(ErrorCodeEnum.VAILD_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.VAILD_EXCEPTION.getMessage())
+        return MyResult.<Map<String, String>>builder().code(ErrorCodeEnum.VERIFY_EXCEPTION.getCode())
+                .message(ErrorCodeEnum.VERIFY_EXCEPTION.getMessage())
                 .data(errorMap)
                 .build();
     }
@@ -42,8 +42,8 @@ public class GulimallExceptionControllerAdvice {
     @ExceptionHandler(value = Throwable.class)
     public MyResult handleThrowable(Throwable throwable) {
         log.error("出现异常{}，异常类型{}", throwable.getMessage(), throwable.getClass());
-        return MyResult.builder().code(ErrorCodeEnum.UNKNOW_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.UNKNOW_EXCEPTION.getMessage())
+        return MyResult.builder().code(ErrorCodeEnum.UNKNOWN_EXCEPTION.getCode())
+                .message(ErrorCodeEnum.UNKNOWN_EXCEPTION.getMessage())
                 .data(throwable.getMessage())
                 .build();
     }

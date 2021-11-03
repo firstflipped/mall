@@ -2,10 +2,16 @@ package com.laughingather.gulimall.common.api;
 
 import lombok.Getter;
 
+/**
+ * 自定义异常枚举类
+ *
+ * @author laughingather
+ */
+
 @Getter
 public enum ErrorCodeEnum {
-    UNKNOW_EXCEPTION(10000, "系统未知异常"),
-    VAILD_EXCEPTION(10001, "参数校验异常"),
+    UNKNOWN_EXCEPTION(10000, "系统未知异常"),
+    VERIFY_EXCEPTION(10001, "参数校验异常"),
     REQUEST_METHOD_EXCEPTION(10002, "请求类型异常"),
 
     PRODUCT_UP_EXCEPTION(11000, "商品上架异常"),

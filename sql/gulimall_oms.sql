@@ -16,6 +16,26 @@ CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_oms` /*!40100 DEFAULT CHARACT
 
 USE `gulimall_oms`;
 
+/*Table structure for table `mq_message` */
+
+DROP TABLE IF EXISTS `mq_message`;
+
+CREATE TABLE `mq_message`
+(
+    `message_id`     bigint(20) NOT NULL AUTO_INCREMENT,
+    `content`        text,
+    `to_exchange`    varchar(255) DEFAULT NULL,
+    `routing_key`    varchar(255) DEFAULT NULL,
+    `class_type`     varchar(255) DEFAULT NULL,
+    `message_status` tinyint(4)   DEFAULT '0' COMMENT '0-新建 1-已发送 2-错误抵达 3-已抵达',
+    `create_time`    datetime     DEFAULT NULL,
+    `update_time`    datetime     DEFAULT NULL,
+    PRIMARY KEY (`message_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+/*Data for the table `mq_message` */
+
 /*Table structure for table `oms_order` */
 
 DROP TABLE IF EXISTS `oms_order`;
@@ -67,10 +87,27 @@ CREATE TABLE `oms_order`
     PRIMARY KEY (`id`),
     UNIQUE KEY `uni_order_sn` (`order_sn`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 5
+  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单';
 
 /*Data for the table `oms_order` */
+
+insert into `oms_order`(`id`, `member_id`, `order_sn`, `coupon_id`, `create_time`, `member_username`, `total_amount`,
+                        `pay_amount`, `freight_amount`, `promotion_amount`, `integration_amount`, `coupon_amount`,
+                        `discount_amount`, `pay_type`, `source_type`, `status`, `delivery_company`, `delivery_sn`,
+                        `auto_confirm_day`, `integration`, `growth`, `bill_type`, `bill_header`, `bill_content`,
+                        `bill_receiver_phone`, `bill_receiver_email`, `receiver_name`, `receiver_phone`,
+                        `receiver_post_code`, `receiver_province`, `receiver_city`, `receiver_region`,
+                        `receiver_detail_address`, `note`, `confirm_status`, `delete_status`, `use_integration`,
+                        `payment_time`, `delivery_time`, `receive_time`, `comment_time`, `modify_time`)
+values (12, 5, '202110262154408461452997109169709058', NULL, '2021-10-26 21:54:41', '心有猛虎的杰爷', 9598.0000, 9614.0000,
+        16.0000, 0.0000, 0.0000, 0.0000, NULL, NULL, NULL, 4, NULL, NULL, 15, 9598, 9598, NULL, NULL, NULL, NULL, NULL,
+        '山东舞王小阿靠', '17515235623', '0000', '山东省', '济南市', '历下区', '舜华路街道草山岭小区', NULL, NULL, 0, NULL, NULL, NULL, NULL,
+        NULL, '2021-10-26 21:54:41'),
+       (13, 5, '202110262317075141453017856931966978', NULL, '2021-10-26 23:17:08', '心有猛虎的杰爷', 9598.0000, 9616.0000,
+        18.0000, 0.0000, 0.0000, 0.0000, NULL, NULL, NULL, 4, NULL, NULL, 15, 9598, 9598, NULL, NULL, NULL, NULL, NULL,
+        '山东舞王小阿靠', '17515235623', '9999', '北京市', '北京市', '东城区', '长安街1号', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL,
+        '2021-10-26 23:17:08');
 
 /*Table structure for table `oms_order_item` */
 
@@ -100,10 +137,25 @@ CREATE TABLE `oms_order_item`
     `gift_growth`        int(11)        DEFAULT NULL COMMENT '赠送成长值',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
+  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单项信息';
 
 /*Data for the table `oms_order_item` */
+
+insert into `oms_order_item`(`id`, `order_id`, `order_sn`, `spu_id`, `spu_name`, `spu_pic`, `spu_brand`, `category_id`,
+                             `sku_id`, `sku_name`, `sku_pic`, `sku_price`, `sku_quantity`, `sku_attrs_vals`,
+                             `promotion_amount`, `coupon_amount`, `integration_amount`, `real_amount`,
+                             `gift_integration`, `gift_growth`)
+values (12, NULL, '202110262154408461452997109169709058', 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机',
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
+        '苹果', 225, 41, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G',
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
+        4799.0000, 2, NULL, 0.0000, 0.0000, 0.0000, 9598.0000, 9598, 9598),
+       (13, NULL, '202110262317075141453017856931966978', 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机',
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
+        '苹果', 225, 41, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G',
+        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
+        4799.0000, 2, NULL, 0.0000, 0.0000, 0.0000, 9598.0000, 9598, 9598);
 
 /*Table structure for table `oms_order_operate_history` */
 
@@ -240,28 +292,6 @@ CREATE TABLE `oms_refund_info`
   DEFAULT CHARSET = utf8mb4 COMMENT ='退款信息';
 
 /*Data for the table `oms_refund_info` */
-
-/*Table structure for table `undo_log` */
-
-DROP TABLE IF EXISTS `undo_log`;
-
-CREATE TABLE `undo_log`
-(
-    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
-    `branch_id`     bigint(20)   NOT NULL,
-    `xid`           varchar(100) NOT NULL,
-    `context`       varchar(128) NOT NULL,
-    `rollback_info` longblob     NOT NULL,
-    `log_status`    int(11)      NOT NULL,
-    `log_created`   datetime     NOT NULL,
-    `log_modified`  datetime     NOT NULL,
-    `ext`           varchar(100) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-/*Data for the table `undo_log` */
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
