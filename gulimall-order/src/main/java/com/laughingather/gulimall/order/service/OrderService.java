@@ -3,6 +3,7 @@ package com.laughingather.gulimall.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.entity.dto.OrderSubmitDTO;
+import com.laughingather.gulimall.order.entity.dto.PayDTO;
 import com.laughingather.gulimall.order.entity.vo.OrderConfirmVO;
 import com.laughingather.gulimall.order.entity.vo.OrderSubmitVO;
 
@@ -48,5 +49,13 @@ public interface OrderService extends IService<OrderEntity> {
      * @param orderId
      */
     void closeOrder(Long orderId);
+
+    /**
+     * 获取订单支付所需信息
+     *
+     * @param orderSn 订单号
+     * @return
+     */
+    PayDTO getPayOrderInfo(String orderSn);
 }
 

@@ -1,6 +1,9 @@
 package com.laughingather.gulimall.order.entity.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 支付传输类
@@ -8,6 +11,9 @@ import lombok.Data;
  * @author laughingather
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PayDTO {
     /**
      * 商户订单号 必填

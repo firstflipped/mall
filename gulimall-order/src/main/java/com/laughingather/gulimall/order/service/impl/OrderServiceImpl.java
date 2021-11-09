@@ -16,6 +16,7 @@ import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.entity.OrderItemEntity;
 import com.laughingather.gulimall.order.entity.bo.OrderCreateBO;
 import com.laughingather.gulimall.order.entity.dto.OrderSubmitDTO;
+import com.laughingather.gulimall.order.entity.dto.PayDTO;
 import com.laughingather.gulimall.order.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.order.entity.vo.*;
 import com.laughingather.gulimall.order.feign.entity.FareVO;
@@ -240,6 +241,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             BeanUtils.copyProperties(order, orderDTO);
             rabbitTemplate.convertAndSend(OrderConstants.EXCHANGE, OrderConstants.OTHER_ROUTING_KEY, orderDTO);
         }
+    }
+
+    @Override
+    public PayDTO getPayOrderInfo(String orderSn) {
+        OrderEntity order = getOrderByOrderSn(orderSn);
+
+        String payAmount = order.getPayAmount().setScale(2, BigDecimal.ROUND_UP).toString();
+        PayDTO payDTO = PayDTO.builder().out_trade_no(orderSn).subject("谷粒商城支付").total_amount(payAmount).body("测试").build();
+        return payDTO;
     }
 
 
