@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 /**
  * @author WangJie
  * <p>
@@ -37,9 +39,18 @@ public class MyResult<T> {
                 .message(ResultCodeEnum.FAILED.getMessage()).data(null).build();
     }
 
-    public static <T> MyResult<T> failed(T data) {
-        return MyResult.<T>builder().code(ResultCodeEnum.FAILED.getCode())
-                .message(ResultCodeEnum.FAILED.getMessage()).data(data).build();
+    public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum) {
+        return MyResult.<T>builder().code(errorCodeEnum.getCode())
+                .message(errorCodeEnum.getMessage()).data(null).build();
+    }
+
+    /**
+     * 是否成功
+     *
+     * @return
+     */
+    public boolean isSuccess() {
+        return Objects.equals(ResultCodeEnum.SUCCESS.getCode(), code);
     }
 
 }
