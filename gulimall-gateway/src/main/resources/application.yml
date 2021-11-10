@@ -44,6 +44,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: gulimall-coupon
+          uri: lb://gulimall-coupon
+          predicates:
+            - Path=/api/gulimall-coupon/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-admin
           uri: lb://gulimall-admin
           predicates:
