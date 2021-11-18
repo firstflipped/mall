@@ -51,6 +51,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: gulimall-seckill
+          uri: lb://gulimall-seckill
+          predicates:
+            - Path=/api/gulimall-seckill/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-admin
           uri: lb://gulimall-admin
           predicates:
@@ -82,3 +89,8 @@ spring:
           uri: lb://gulimall-order
           predicates:
             - Host=order.gulimall.com
+
+        - id: gulimall-seckill-web
+          uri: lb://gulimall-seckill
+          predicates:
+            - Host=seckill.gulimall.com

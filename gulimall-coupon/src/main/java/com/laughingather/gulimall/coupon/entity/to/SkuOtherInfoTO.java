@@ -5,6 +5,11 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * sku信息传输类
+ *
+ * @author laughingather
+ */
 @Data
 public class SkuOtherInfoTO {
     private Long skuId;
@@ -14,5 +19,5 @@ public class SkuOtherInfoTO {
     private BigDecimal fullPrice;
     private BigDecimal reducePrice;
     private Integer priceStatus;
-    private List<MemberPrice> memberPrice;
+    private List<MemberPriceTO> memberPriceTO;
 }

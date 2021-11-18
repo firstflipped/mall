@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * 库存服务第三方调用接口
+ *
+ * @author laughingather
+ */
 @FeignClient("gulimall-ware")
 public interface WareFeignService {
 

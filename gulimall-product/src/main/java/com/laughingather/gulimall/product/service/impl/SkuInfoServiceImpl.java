@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.dao.SkuInfoDao;
 import com.laughingather.gulimall.product.entity.SkuImagesEntity;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
@@ -13,6 +14,8 @@ import com.laughingather.gulimall.product.entity.query.SkuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
+import com.laughingather.gulimall.product.feign.entity.SeckillSkuRedisTO;
+import com.laughingather.gulimall.product.feign.service.SeckillFeignService;
 import com.laughingather.gulimall.product.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     private AttrGroupService attrGroupService;
     @Resource
     private SkuSaleAttrValueService skuSaleAttrValueService;
+
+    @Resource
+    private SeckillFeignService seckillFeignService;
 
     @Autowired
     private ThreadPoolExecutor threadPoolExecutor;
@@ -93,10 +99,19 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVO.setImages(skuImages);
         }, threadPoolExecutor);
 
+        // 不需要依赖skuInfo信息结果，开启一个新的异步
+        CompletableFuture<Void> skuSeckillCompletableFuture = CompletableFuture.runAsync(() -> {
+            // 查询sku的秒杀信息
+            MyResult<SeckillSkuRedisTO> seckillSkuResult = seckillFeignService.getSeckillSkuInfo(skuId);
+            if (seckillSkuResult.isSuccess()) {
+                skuItemVO.setSeckill(seckillSkuResult.getData());
+            }
+        }, threadPoolExecutor);
+
 
         // 等待所有线程执行完成   skuInfoCompletableFuture可以省略，因为其他异步执行会依赖他的结果
         CompletableFuture.allOf(skuInfoCompletableFuture, saleAttrsCompletableFuture, descCompletableFuture,
-                groupAttrsCompletableFuture, skuImagesCompletableFuture).get();
+                groupAttrsCompletableFuture, skuImagesCompletableFuture, skuSeckillCompletableFuture).get();
 
 
         // 默认有货

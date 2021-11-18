@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 登陆路由
+ * 登录路由
  *
  * @author：laughingather
  * @create：2021-06-21 23:55

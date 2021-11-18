@@ -72,7 +72,6 @@ public class ProductOpenApi {
     @GetMapping("/{skuId}/info")
     public MyResult<SkuInfoEntity> getSkuInfoBySkuId(@PathVariable("skuId") Long skuId) {
         SkuInfoEntity byId = skuInfoService.getById(skuId);
-
         return MyResult.success(byId);
     }
 

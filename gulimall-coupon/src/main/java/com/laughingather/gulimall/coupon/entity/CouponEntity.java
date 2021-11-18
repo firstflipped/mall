@@ -2,6 +2,7 @@ package com.laughingather.gulimall.coupon.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -49,22 +50,24 @@ public class CouponEntity implements Serializable {
 	 * 每人限领张数
 	 */
 	private Integer perLimit;
-	/**
-	 * 使用门槛
-	 */
-	private BigDecimal minPoint;
-	/**
-	 * 开始时间
-	 */
-	private LocalDateTime startTime;
-	/**
-	 * 结束时间
-	 */
-	private LocalDateTime endTime;
-	/**
-	 * 使用类型[0->全场通用；1->指定分类；2->指定商品]
-	 */
-	private Integer useType;
+    /**
+     * 使用门槛
+     */
+    private BigDecimal minPoint;
+    /**
+     * 开始时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime startTime;
+    /**
+     * 结束时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime endTime;
+    /**
+     * 使用类型[0->全场通用；1->指定分类；2->指定商品]
+     */
+    private Integer useType;
 	/**
 	 * 备注
 	 */
@@ -77,21 +80,23 @@ public class CouponEntity implements Serializable {
 	 * 已使用数量
 	 */
 	private Integer useCount;
-	/**
-	 * 领取数量
-	 */
-	private Integer receiveCount;
-	/**
-	 * 可以领取的开始日期
-	 */
-	private LocalDateTime enableStartTime;
-	/**
-	 * 可以领取的结束日期
-	 */
-	private LocalDateTime enableEndTime;
-	/**
-	 * 优惠码
-	 */
+    /**
+     * 领取数量
+     */
+    private Integer receiveCount;
+    /**
+     * 可以领取的开始日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime enableStartTime;
+    /**
+     * 可以领取的结束日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime enableEndTime;
+    /**
+     * 优惠码
+     */
 	private String code;
 	/**
 	 * 可以领取的会员等级[0->不限等级，其他-对应等级]

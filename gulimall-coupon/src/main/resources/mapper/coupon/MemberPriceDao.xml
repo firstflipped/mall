@@ -9,7 +9,7 @@
         <result property="skuId" column="sku_id"/>
         <result property="memberLevelId" column="member_level_id"/>
         <result property="memberLevelName" column="member_level_name"/>
-        <result property="memberPrice" column="member_price"/>
+        <result property="memberPriceTO" column="member_price"/>
         <result property="addOther" column="add_other"/>
     </resultMap>
 

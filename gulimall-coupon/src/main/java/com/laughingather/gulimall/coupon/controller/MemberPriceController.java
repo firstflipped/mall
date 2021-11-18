@@ -1,7 +1,13 @@
 package com.laughingather.gulimall.coupon.controller;
 
+import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
+import com.laughingather.gulimall.coupon.entity.query.MemberPriceQuery;
 import com.laughingather.gulimall.coupon.service.MemberPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/memberprice")
 public class MemberPriceController {
+
     @Autowired
     private MemberPriceService memberPriceService;
+
+    @GetMapping("/page")
+    public MyResult<MyPage<MemberPriceEntity>> pageMemberPrice(@ModelAttribute MemberPriceQuery memberPriceQuery) {
+        MyPage<MemberPriceEntity> memberPricePage = memberPriceService.pageMemberPrice(memberPriceQuery);
+        return MyResult.success(memberPricePage);
+    }
 
 }

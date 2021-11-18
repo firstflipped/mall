@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: gulimall-seckill
+  profiles:
+    active: dev

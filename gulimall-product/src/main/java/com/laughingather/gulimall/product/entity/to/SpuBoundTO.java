@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * 传输类
+ *
+ * @author laughingather
+ */
 @Data
 @Builder
 @NoArgsConstructor

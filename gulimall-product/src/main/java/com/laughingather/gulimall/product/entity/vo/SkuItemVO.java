@@ -3,6 +3,7 @@ package com.laughingather.gulimall.product.entity.vo;
 import com.laughingather.gulimall.product.entity.SkuImagesEntity;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
 import com.laughingather.gulimall.product.entity.SpuInfoDescEntity;
+import com.laughingather.gulimall.product.feign.entity.SeckillSkuRedisTO;
 import lombok.Data;
 
 import java.util.List;
@@ -46,5 +47,10 @@ public class SkuItemVO {
      * 规格参数信息
      */
     private List<SpuItemGroupAttrVO> groupAttrs;
+
+    /**
+     * 秒杀信息
+     */
+    private SeckillSkuRedisTO seckill;
 
 }

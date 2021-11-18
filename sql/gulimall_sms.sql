@@ -202,9 +202,13 @@ CREATE TABLE `sms_seckill_promotion`
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '创建人',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动';
 
 /*Data for the table `sms_seckill_promotion` */
+
+insert into `sms_seckill_promotion`(`id`, `title`, `start_time`, `end_time`, `status`, `create_time`, `user_id`)
+values (3, 'ceshi', '2021-11-11 00:00:00', '2021-12-01 00:00:00', 1, '2021-11-10 10:55:34', NULL);
 
 /*Table structure for table `sms_seckill_session` */
 
@@ -220,9 +224,13 @@ CREATE TABLE `sms_seckill_session`
     `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 2
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动场次';
 
 /*Data for the table `sms_seckill_session` */
+
+insert into `sms_seckill_session`(`id`, `name`, `start_time`, `end_time`, `status`, `create_time`)
+values (1, 'xxx', '2021-11-10 16:00:00', '2021-11-10 18:00:00', 1, '2021-11-10 16:10:25');
 
 /*Table structure for table `sms_seckill_sku_notice` */
 
@@ -254,14 +262,19 @@ CREATE TABLE `sms_seckill_sku_relation`
     `promotion_session_id` bigint(20)     DEFAULT NULL COMMENT '活动场次id',
     `sku_id`               bigint(20)     DEFAULT NULL COMMENT '商品id',
     `seckill_price`        decimal(10, 0) DEFAULT NULL COMMENT '秒杀价格',
-    `seckill_count`        decimal(10, 0) DEFAULT NULL COMMENT '秒杀总量',
-    `seckill_limit`        decimal(10, 0) DEFAULT NULL COMMENT '每人限购数量',
+    `seckill_count`        int(11)        DEFAULT NULL COMMENT '秒杀总量',
+    `seckill_limit`        int(11)        DEFAULT NULL COMMENT '每人限购数量',
     `seckill_sort`         int(11)        DEFAULT NULL COMMENT '排序',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动商品关联';
 
 /*Data for the table `sms_seckill_sku_relation` */
+
+insert into `sms_seckill_sku_relation`(`id`, `promotion_id`, `promotion_session_id`, `sku_id`, `seckill_price`,
+                                       `seckill_count`, `seckill_limit`, `seckill_sort`)
+values (2, NULL, 1, 41, 3999, 1, 1, 0);
 
 /*Table structure for table `sms_sku_full_reduction` */
 

@@ -37,20 +37,20 @@ public class SeckillSkuRelationEntity implements Serializable {
 	 */
 	private Long skuId;
 	/**
-	 * 秒杀价格
-	 */
-	private BigDecimal seckillPrice;
-	/**
-	 * 秒杀总量
-	 */
-	private BigDecimal seckillCount;
-	/**
-	 * 每人限购数量
-	 */
-	private BigDecimal seckillLimit;
-	/**
-	 * 排序
-	 */
-	private Integer seckillSort;
+     * 秒杀价格
+     */
+    private BigDecimal seckillPrice;
+    /**
+     * 秒杀总量
+     */
+    private Integer seckillCount;
+    /**
+     * 每人限购数量
+     */
+    private Integer seckillLimit;
+    /**
+     * 排序
+     */
+    private Integer seckillSort;
 
 }
