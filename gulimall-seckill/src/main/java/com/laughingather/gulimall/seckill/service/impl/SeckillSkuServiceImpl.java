@@ -88,6 +88,8 @@ public class SeckillSkuServiceImpl implements SeckillSkuService {
     public SeckillSkuRedisTO getSeckillSkuInfo(Long skuId) {
         BoundHashOperations<String, String, SeckillSkuRedisTO> skuOperations = redisTemplate.boundHashOps(SeckillConstants.SESSION_SKUS_CACHE_PREFIX);
         Set<String> keys = skuOperations.keys();
+
+        // TODO:此处需要处理同一商品处于不同秒杀场次下的问题
         if (CollectionUtils.isNotEmpty(keys)) {
             String regx = "\\d-" + skuId;
             for (String key : keys) {
@@ -95,8 +97,13 @@ public class SeckillSkuServiceImpl implements SeckillSkuService {
                     SeckillSkuRedisTO seckillSkuRedisTO = skuOperations.get(key);
 
                     long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+                    // 如果已经过了秒杀时间段则直接进行下一次遍历
+                    if (now >= seckillSkuRedisTO.getEndTime()) {
+                        continue;
+                    }
+
                     // 如果不在秒杀时间内则需要把随机码置空
-                    if (now < seckillSkuRedisTO.getStartTime() || now >= seckillSkuRedisTO.getEndTime()) {
+                    if (now < seckillSkuRedisTO.getStartTime()) {
                         seckillSkuRedisTO.setRandomCode(null);
                     }
                     return seckillSkuRedisTO;

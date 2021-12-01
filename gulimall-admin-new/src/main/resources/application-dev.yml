@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/gulimall_admin_new?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+  # 打印sql
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    root: info
+    com.laughingather.gulimall.adminnew.mapper: debug

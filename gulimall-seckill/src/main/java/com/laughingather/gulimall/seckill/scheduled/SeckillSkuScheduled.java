@@ -47,5 +47,21 @@ public class SeckillSkuScheduled {
     }
 
 
+    /**
+     * 秒杀商品定时下架清理
+     * 需要保证幂等性处理
+     * <p>
+     * 秒杀时间结束的
+     * <p>
+     * TODO:秒杀时间结束的商品从缓存中清理
+     */
+    @Async
+    @Scheduled(cron = "*/10 * * * * ?")
+    public void shelvesSeckillSku() {
+        log.info("下架秒杀产品");
+
+    }
+
+
 }
 

@@ -1,0 +1,22 @@
+package com.laughingather.gulimall.adminnew;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+
+/**
+ * 启动类
+ *
+ * @author：laughingather
+ * @create：2021-11-24 2021/11/24
+ */
+@SpringBootApplication
+@EnableConfigurationProperties
+public class GulimallAdminNewApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GulimallAdminNewApplication.class, args);
+    }
+
+}
+

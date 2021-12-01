@@ -42,6 +42,7 @@
         <module>gulimall-auth</module>
         <module>gulimall-cart</module>
         <module>gulimall-seckill</module>
+        <module>gulimall-admin-new</module>
     </modules>
 
     <dependencyManagement>

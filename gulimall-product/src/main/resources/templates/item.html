@@ -521,7 +521,12 @@
                             <span th:text="${#numbers.formatDecimal(skuItemVO.info.price, 3, 2)}">4499.00</span>
                         </li>
                         <li style="color: red" th:if="${skuItemVO.seckill != null}">
-                            [[${new java.util.Date(skuItemVO.seckill.startTime)}]]
+                            <span th:if="${#dates.createNow().getTime() < skuItemVO.seckill.startTime}">
+                                商品将在 [[${#dates.format(new java.util.Date(skuItemVO.seckill.startTime), "yyyy-MM-dd HH:mm:ss")}]] 进行秒杀
+                            </span>
+                            <span th:if="${#dates.createNow().getTime()>=skuItemVO.seckill.startTime && #dates.createNow().getTime()<skuItemVO.seckill.endTime}">
+                                秒杀价：[[${#numbers.formatDecimal(skuItemVO.seckill.seckillPrice, 3, 2)}]]
+                            </span>
                         </li>
                         <li>
                             <a href="/static/item/">
@@ -641,7 +646,14 @@
 
                         </div>
                     </div>
-                    <div class="box-btns-two">
+                    <div class="box-btns-two"
+                         th:if="${#dates.createNow().getTime()>=skuItemVO.seckill.startTime && #dates.createNow().getTime()<skuItemVO.seckill.endTime}">
+                        <a href="#" id="seckillToCart" th:attr="skuId=${skuItemVO.info.skuId}">
+                            抢购
+                        </a>
+                    </div>
+                    <div class="box-btns-two"
+                         th:if="${#dates.createNow().getTime()<skuItemVO.seckill.startTime || #dates.createNow().getTime()>=skuItemVO.seckill.endTime}">
                         <a href="#" id="addToCart" th:attr="skuId=${skuItemVO.info.skuId}">
                             加入购物车
                         </a>

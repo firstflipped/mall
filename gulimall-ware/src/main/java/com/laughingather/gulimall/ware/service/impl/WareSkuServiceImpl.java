@@ -79,7 +79,6 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         }
         // 如果没有当前的sku和仓库信息，则表示新增
         else {
-            // TODO 根据skuId查询下skuName（远程服务调用）
             String skuName = productFeignService.getSkuNameBuSkuId(skuId);
             if (StringUtils.isBlank(skuName)) {
                 log.info("当前sku不存在，skuId：{}", skuId);
