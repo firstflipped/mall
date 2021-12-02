@@ -9,8 +9,10 @@ spring:
   profiles:
     active: dev
 
-#mybatis
+  main:
+    allow-bean-definition-overriding: true
+
+# mybatis
 mybatis-plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
-  #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.laughingather.gulimall.adminnew.entity
+  mapper-locations: classpath:/mapper/adminnew/*.xml
+  type-aliases-package: com.laughingather.gulimall.adminnew.entity

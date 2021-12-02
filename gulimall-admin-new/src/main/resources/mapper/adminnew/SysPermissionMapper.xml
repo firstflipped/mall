@@ -2,16 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.adminnew.mapper.SysPermissionMapper">
-    
     <resultMap id="permissionsWithTreeVOMap" type="com.laughingather.gulimall.adminnew.entity.vo.PermissionsWithTreeVO">
-
+        <id property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
     </resultMap>
 
     <!-- 更新权限删除标志位 -->
     <update id="batchUpdatePermissionDelete">
         UPDATE sys_permission
         <set>
-            is_delete = #{status}
+            `delete` = #{status}
         </set>
         <where>
             <if test="permissionIds != null and permissionIds.size() != 0">
@@ -26,12 +27,13 @@
     <update id="updatePermissionDelete">
         UPDATE sys_permission
         <set>
-            is_delete = #{status}
+            `delete` = #{status}
         </set>
         WHERE id = #{permissionId}
     </update>
-    
+
     <select id="selectPermissionsVO" resultMap="permissionsWithTreeVOMap">
-        SELECT id, parent_id, name FROM sys_permission
+        SELECT id, parent_id, name
+        FROM sys_permission
     </select>
 </mapper>

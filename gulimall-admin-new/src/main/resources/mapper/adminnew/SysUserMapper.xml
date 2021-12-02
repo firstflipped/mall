@@ -5,7 +5,7 @@
 
     <!-- 更新用户删除标志位 -->
     <update id="updateUserDeleteById">
-        UPDATE sys_user SET is_delete = #{delete} WHERE id = #{userId}
+        UPDATE sys_user SET `delete` = #{delete} WHERE id = #{userId}
     </update>
 
 </mapper>

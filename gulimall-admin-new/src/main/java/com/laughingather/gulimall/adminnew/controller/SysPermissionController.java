@@ -61,11 +61,12 @@ public class SysPermissionController {
     }
 
 
-    @GetMapping("/page")
+    @GetMapping("/tree")
     public MyResult<List<PermissionsWithTreeVO>> listPermissionsWithTree() {
         List<PermissionsWithTreeVO> permissionsWithTree = sysPermissionService.listPermissionsWithTree();
         return MyResult.success(permissionsWithTree);
     }
+
 
 }
 

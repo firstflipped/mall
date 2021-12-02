@@ -1,15 +1,14 @@
 package com.laughingather.gulimall.adminnew.service.impl;
 
 import cn.hutool.core.lang.Snowflake;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.adminnew.entity.SysPermissionEntity;
 import com.laughingather.gulimall.adminnew.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.adminnew.mapper.SysPermissionMapper;
-import com.laughingather.gulimall.adminnew.repository.SysPermissionRepository;
 import com.laughingather.gulimall.adminnew.service.SysPermissionService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.constant.AdminConstants;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,8 +27,6 @@ import java.util.stream.Collectors;
 public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Resource
-    private SysPermissionRepository sysPermissionRepository;
-    @Resource
     private SysPermissionMapper sysPermissionMapper;
     @Resource
     private Snowflake snowflake;
@@ -37,10 +34,12 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Override
     public void savePermission(SysPermissionEntity sysPermissionEntity) {
+        // 填入默认值
         sysPermissionEntity.setId(snowflake.nextId());
+        sysPermissionEntity.setDelete(AdminConstants.NO);
         sysPermissionEntity.setCreateTime(LocalDateTime.now());
 
-        sysPermissionRepository.save(sysPermissionEntity);
+        sysPermissionMapper.insert(sysPermissionEntity);
     }
 
     @Override
@@ -57,27 +56,21 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     @Override
     public void updatePermission(SysPermissionEntity sysPermissionEntity) {
         sysPermissionEntity.setUpdateTime(LocalDateTime.now());
-        sysPermissionRepository.save(sysPermissionEntity);
+
+        sysPermissionMapper.updateById(sysPermissionEntity);
     }
 
     @Override
     public List<SysPermissionEntity> listPermissions() {
-        return sysPermissionRepository.findAll();
+        return sysPermissionMapper.selectList(null);
     }
 
     @Override
     public MyPage<SysPermissionEntity> listPermissionsWithPage(Integer pageNum, Integer pageSize) {
         // 数据库查询从0开始
-        pageNum -= 1;
-        Page<SysPermissionEntity> permissionsWithPage = sysPermissionRepository.findAll(PageRequest.of(pageNum, pageSize));
+        IPage<SysPermissionEntity> permissionsWithPage = sysPermissionMapper.selectPage(new Page<>(pageNum, pageSize), null);
 
-        MyPage<SysPermissionEntity> permissionsWithMyPage = MyPage.<SysPermissionEntity>builder()
-                .pages(permissionsWithPage.getTotalPages())
-                .total(permissionsWithPage.getTotalElements())
-                .pageNumber(pageNum)
-                .pageSize(pageSize)
-                .list(permissionsWithPage.getContent())
-                .build();
+        MyPage<SysPermissionEntity> permissionsWithMyPage = MyPage.restPage(permissionsWithPage);
         return permissionsWithMyPage;
     }
 

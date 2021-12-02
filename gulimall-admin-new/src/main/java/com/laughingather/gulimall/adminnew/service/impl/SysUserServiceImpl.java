@@ -1,13 +1,12 @@
 package com.laughingather.gulimall.adminnew.service.impl;
 
 import cn.hutool.core.lang.Snowflake;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.adminnew.entity.SysUserEntity;
 import com.laughingather.gulimall.adminnew.mapper.SysUserMapper;
-import com.laughingather.gulimall.adminnew.repository.SysUserRepository;
 import com.laughingather.gulimall.adminnew.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyPage;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,14 +25,13 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     private Snowflake snowflake;
     @Resource
-    private SysUserRepository sysUserRepository;
-    @Resource
     private SysUserMapper sysUserMapper;
 
     @Override
     public void saveUser(SysUserEntity sysUserEntity) {
         sysUserEntity.setId(snowflake.nextId());
-        sysUserRepository.save(sysUserEntity);
+        sysUserEntity.setCreateTime(LocalDateTime.now());
+        sysUserMapper.insert(sysUserEntity);
     }
 
 
@@ -45,28 +43,26 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updateUserById(SysUserEntity sysUserEntity) {
         sysUserEntity.setUpdateTime(LocalDateTime.now());
-        sysUserRepository.save(sysUserEntity);
+        sysUserMapper.updateById(sysUserEntity);
     }
 
     @Override
     public SysUserEntity getUserById(Long userId) {
-        return sysUserRepository.getOne(userId);
+        return sysUserMapper.selectById(userId);
     }
 
     @Override
     public List<SysUserEntity> listUsers() {
-        return sysUserRepository.findAll();
+        return sysUserMapper.selectList(null);
     }
 
     @Override
     public MyPage<SysUserEntity> listUserWithPage(Integer pageNum, Integer pageSize) {
         // 数据库分页是从0开始的
-        pageNum -= 1;
-        Page<SysUserEntity> usersWithPage = sysUserRepository.findAll(PageRequest.of(pageNum, pageSize));
+        IPage<SysUserEntity> usersWithPage = sysUserMapper.selectPage(new Page<>(pageNum, pageSize), null);
 
         // 组装成自己的分页信息
-        MyPage<SysUserEntity> usersWithMyPage = MyPage.<SysUserEntity>builder().pages(usersWithPage.getTotalPages()).total(usersWithPage.getTotalElements())
-                .pageNumber(pageNum).pageSize(pageSize).list(usersWithPage.getContent()).build();
+        MyPage<SysUserEntity> usersWithMyPage = MyPage.restPage(usersWithPage);
         return usersWithMyPage;
     }
 
