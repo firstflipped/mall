@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.product.feign.service;
 
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.to.SkuOtherInfoTO;
 import com.laughingather.gulimall.product.entity.to.SpuBoundTO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -22,7 +23,7 @@ public interface CouponFeignService {
      * @return
      */
     @PostMapping("/gulimall-coupon/openapi/coupon/spubounds")
-    Boolean saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
+    MyResult saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
 
     /**
      * 保存sku的其他信息
@@ -31,7 +32,7 @@ public interface CouponFeignService {
      * @return
      */
     @PostMapping("/gulimall-coupon/openapi/coupon/skuOtherInfo")
-    Boolean saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);
+    MyResult saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);
 
 }
 

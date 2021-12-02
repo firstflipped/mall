@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.product;
 
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
 import com.laughingather.gulimall.product.entity.to.SpuBoundTO;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
@@ -30,8 +31,9 @@ class GulimallProductApplicationTests {
     @Test
     public void testFeign() {
         SpuBoundTO build = SpuBoundTO.builder().spuId(1L).growBounds(BigDecimal.ONE).buyBounds(BigDecimal.TEN).build();
-        Boolean aBoolean = couponFeignService.saveSpuBounds(build);
-        System.out.println("执行结果" + aBoolean);
+        MyResult myResult = couponFeignService.saveSpuBounds(build);
+
+        System.out.println("执行结果" + myResult);
     }
 
 

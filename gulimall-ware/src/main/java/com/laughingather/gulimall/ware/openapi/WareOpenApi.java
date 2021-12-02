@@ -8,9 +8,10 @@ import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -24,9 +25,9 @@ import java.util.List;
 @RequestMapping("/openapi/ware")
 public class WareOpenApi {
 
-    @Autowired
+    @Resource
     private WareSkuService wareSkuService;
-    @Autowired
+    @Resource
     private WareInfoService wareInfoService;
 
     /**
@@ -36,9 +37,11 @@ public class WareOpenApi {
      * @return
      */
     @PostMapping("/hasStock")
-    public List<SkuHasStockVO> getSkusHasStock(@RequestBody List<Long> skuIds) {
-        List<SkuHasStockVO> skuHasStockVOS = wareSkuService.getSkusHasStock(skuIds);
-        return skuHasStockVOS;
+    public MyResult<List<SkuHasStockVO>> getSkusHasStock(@RequestBody List<Long> skuIds) {
+        List<SkuHasStockVO> skuHasStockVOList = wareSkuService.getSkusHasStock(skuIds);
+        return CollectionUtils.isNotEmpty(skuHasStockVOList) ? MyResult.success(skuHasStockVOList) :
+                MyResult.failed();
+
     }
 
     /**
@@ -50,6 +53,9 @@ public class WareOpenApi {
     @GetMapping("/fare")
     public MyResult<FareVO> getFare(@RequestParam("aid") Long addressId) {
         FareVO fare = wareInfoService.getFare(addressId);
+        if (fare == null) {
+            return MyResult.failed();
+        }
         return MyResult.success(fare);
     }
 
@@ -60,12 +66,12 @@ public class WareOpenApi {
      * @return
      */
     @PostMapping("/lock/order")
-    public MyResult<Boolean> orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO) {
+    public MyResult orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO) {
         try {
             Boolean result = wareSkuService.orderLockStock(wareSkuLockDTO);
             return result ? MyResult.success() : MyResult.failed();
         } catch (Exception e) {
-            return MyResult.<Boolean>builder().code(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode()).message(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage()).build();
+            return MyResult.builder().code(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode()).message(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage()).build();
         }
     }
 

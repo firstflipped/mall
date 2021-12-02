@@ -1,20 +1,20 @@
 package com.laughingather.gulimall.cart.service.impl;
 
-import com.laughingather.gulimall.cart.feign.entity.SkuInfoEntity;
-import com.laughingather.gulimall.cart.feign.service.ProductFeignService;
-import com.laughingather.gulimall.cart.interceptor.CartInterceptor;
 import com.laughingather.gulimall.cart.entity.vo.CartItemVO;
 import com.laughingather.gulimall.cart.entity.vo.CartVO;
 import com.laughingather.gulimall.cart.entity.vo.UserInfoVO;
+import com.laughingather.gulimall.cart.feign.entity.SkuInfoEntity;
+import com.laughingather.gulimall.cart.feign.service.ProductFeignService;
+import com.laughingather.gulimall.cart.interceptor.CartInterceptor;
 import com.laughingather.gulimall.cart.service.CartService;
 import com.laughingather.gulimall.common.api.MyResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -34,11 +34,11 @@ public class CartServiceImpl implements CartService {
 
     public static final String CART_PREFIX = "gulimall:cart:";
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
-    @Autowired
+    @Resource
     private ProductFeignService productFeignService;
-    @Autowired
+    @Resource
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Override
@@ -175,8 +175,10 @@ public class CartServiceImpl implements CartService {
         // 过滤掉没选中的购物项
         List<CartItemVO> result = cartItemVOList.stream().filter(CartItemVO::getCheck).map(item -> {
             // 更新价格为当前最新价格（需要调用第三方服务）
-            BigDecimal skuPrice = productFeignService.getSkuPriceBySkuId(item.getSkuId());
-            item.setPrice(skuPrice);
+            MyResult<BigDecimal> skuPriceBySkuId = productFeignService.getSkuPriceBySkuId(item.getSkuId());
+            if (skuPriceBySkuId.isSuccess()) {
+                item.setPrice(skuPriceBySkuId.getData());
+            }
             return item;
         }).collect(Collectors.toList());
         return result;

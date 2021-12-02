@@ -115,11 +115,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             List<OrderItemVO> items = orderConfirmVO.getItems();
             if (CollectionUtils.isNotEmpty(items)) {
                 List<Long> skuIds = items.stream().map(OrderItemVO::getSkuId).collect(Collectors.toList());
-                List<SkuHashStockVO> skusHasStock = wareFeignService.getSkusHasStock(skuIds);
-                for (OrderItemVO item : items) {
-                    for (SkuHashStockVO skuHashStockVO : skusHasStock) {
-                        if (item.getSkuId().equals(skuHashStockVO.getSkuId())) {
-                            item.setHasStock(skuHashStockVO.getHasStock());
+                MyResult<List<SkuHashStockVO>> skusHasStockResult = wareFeignService.getSkusHasStock(skuIds);
+                if (skusHasStockResult.isSuccess()) {
+                    for (OrderItemVO item : items) {
+                        for (SkuHashStockVO skuHashStockVO : skusHasStockResult.getData()) {
+                            if (item.getSkuId().equals(skuHashStockVO.getSkuId())) {
+                                item.setHasStock(skuHashStockVO.getHasStock());
+                            }
                         }
                     }
                 }
@@ -197,9 +199,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         wareSkuLockDTO.setOrderSn(orderCreateBO.getOrder().getOrderSn());
         wareSkuLockDTO.setLocks(orderItemVOList);
 
-        MyResult<Boolean> lockStockResult = wareFeignService.orderLockStock(wareSkuLockDTO);
+        MyResult lockStockResult = wareFeignService.orderLockStock(wareSkuLockDTO);
         // 如果锁定库存失败，则返回错误
-        if (!Objects.equals(ResultCodeEnum.SUCCESS.getCode(), lockStockResult.getCode())) {
+        if (!lockStockResult.isSuccess()) {
             orderSubmitVO.setCode(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode());
             orderSubmitVO.setMessage(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage());
             return orderSubmitVO;

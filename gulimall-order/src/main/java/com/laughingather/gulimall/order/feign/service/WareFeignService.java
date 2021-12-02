@@ -26,7 +26,7 @@ public interface WareFeignService {
      * @return
      */
     @PostMapping("/hasStock")
-    List<SkuHashStockVO> getSkusHasStock(@RequestBody List<Long> skuIds);
+    MyResult<List<SkuHashStockVO>> getSkusHasStock(@RequestBody List<Long> skuIds);
 
     /**
      * 获取收货地址信息及运费信息
@@ -44,6 +44,6 @@ public interface WareFeignService {
      * @return
      */
     @PostMapping("/lock/order")
-    MyResult<Boolean> orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO);
+    MyResult orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO);
 
 }

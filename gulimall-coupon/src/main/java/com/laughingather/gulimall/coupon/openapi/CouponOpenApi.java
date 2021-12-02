@@ -32,15 +32,15 @@ public class CouponOpenApi {
     private SeckillSessionService seckillSessionService;
 
     @PostMapping("/spubounds")
-    public Boolean saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO) {
+    public MyResult saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO) {
         spuBoundsService.saveSpuBounds(spuBoundTO);
-        return true;
+        return MyResult.success();
     }
 
     @PostMapping("/skuOtherInfo")
-    public Boolean saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO) {
+    public MyResult saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO) {
         couponOpenService.saveSkuOtherInfo(skuOtherInfoTO);
-        return true;
+        return MyResult.success();
     }
 
     @GetMapping("/last-3days-session")

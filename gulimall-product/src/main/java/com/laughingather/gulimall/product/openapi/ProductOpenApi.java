@@ -38,12 +38,13 @@ public class ProductOpenApi {
      * @return
      */
     @GetMapping("/skuInfo/getSkuName")
-    public String getSkuNameBySkuId(@RequestParam("skuId") Long skuId) {
-        SkuInfoEntity byId = skuInfoService.getById(skuId);
-        if (byId != null) {
-            return byId.getSkuName();
+    public MyResult<String> getSkuNameBySkuId(@RequestParam("skuId") Long skuId) {
+        SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+
+        if (skuInfo != null) {
+            return MyResult.success(skuInfo.getSkuName());
         }
-        return "";
+        return MyResult.failed();
     }
 
 
@@ -54,12 +55,13 @@ public class ProductOpenApi {
      * @return
      */
     @GetMapping("/{sku-id}/sku-price")
-    BigDecimal getSkuPriceBySkuId(@PathVariable("sku-id") Long skuId) {
-        SkuInfoEntity byId = skuInfoService.getById(skuId);
-        if (byId != null) {
-            return byId.getPrice();
+    public MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sku-id") Long skuId) {
+        SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+
+        if (skuInfo != null) {
+            return MyResult.success(skuInfo.getPrice());
         }
-        return null;
+        return MyResult.failed();
     }
 
 
@@ -71,8 +73,12 @@ public class ProductOpenApi {
      */
     @GetMapping("/{skuId}/info")
     public MyResult<SkuInfoEntity> getSkuInfoBySkuId(@PathVariable("skuId") Long skuId) {
-        SkuInfoEntity byId = skuInfoService.getById(skuId);
-        return MyResult.success(byId);
+        SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
+
+        if (skuInfo != null) {
+            return MyResult.success(skuInfo);
+        }
+        return MyResult.failed();
     }
 
 
@@ -99,7 +105,11 @@ public class ProductOpenApi {
     @GetMapping("/spu-info")
     public MyResult<SpuInfoVO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId) {
         SpuInfoVO spuInfo = spuInfoService.getSpuInfoBySkuId(skuId);
-        return MyResult.success(spuInfo);
+
+        if (spuInfo != null) {
+            return MyResult.success(spuInfo);
+        }
+        return MyResult.failed();
     }
 
 }

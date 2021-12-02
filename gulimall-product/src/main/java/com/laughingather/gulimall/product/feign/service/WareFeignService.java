@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.product.feign.service;
 
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.feign.entity.SkuHasStockVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,5 +23,5 @@ public interface WareFeignService {
      * @return
      */
     @PostMapping("/gulimall-ware/openapi/ware/hasStock")
-    List<SkuHasStockVO> getSkusHasStock(@RequestBody List<Long> skuIds);
+    MyResult<List<SkuHasStockVO>> getSkusHasStock(@RequestBody List<Long> skuIds);
 }

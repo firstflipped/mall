@@ -26,7 +26,6 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,23 +44,23 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Resource
     private SpuInfoDao spuInfoDao;
 
-    @Autowired
+    @Resource
     private SpuInfoDescService spuInfoDescService;
-    @Autowired
+    @Resource
     private SpuImagesService spuImagesService;
-    @Autowired
+    @Resource
     private AttrService attrService;
-    @Autowired
+    @Resource
     private ProductAttrValueService productAttrValueService;
-    @Autowired
+    @Resource
     private SkuInfoService skuInfoService;
-    @Autowired
+    @Resource
     private SkuImagesService skuImagesService;
-    @Autowired
+    @Resource
     private SkuSaleAttrValueService skuSaleAttrValueService;
-    @Autowired
+    @Resource
     private BrandService brandService;
-    @Autowired
+    @Resource
     private CategoryService categoryService;
     @Resource
     private CouponFeignService couponFeignService;
@@ -175,8 +174,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // TODO 发送远程调用，查询库存系统是否有库存
         Map<Long, Boolean> stockMap = null;
         try {
-            List<SkuHasStockVO> skusHasStock = wareFeignService.getSkusHasStock(skuIds);
-            stockMap = skusHasStock.stream().collect(Collectors.toMap(SkuHasStockVO::getSkuId, item -> item.getHasStock()));
+            MyResult<List<SkuHasStockVO>> skusHasStockResult = wareFeignService.getSkusHasStock(skuIds);
+            if (skusHasStockResult.isSuccess()) {
+                stockMap = skusHasStockResult.getData().stream().collect(Collectors.toMap(SkuHasStockVO::getSkuId, item -> item.getHasStock()));
+            }
         } catch (Exception e) {
             log.error("库存查询服务异常", e);
         }
@@ -280,8 +281,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     private void saveSpuBounds(Long spuInfoId, Bound bound) {
         SpuBoundTO spuBoundTO = SpuBoundTO.builder().spuId(spuInfoId)
                 .buyBounds(bound.getBuyBounds()).growBounds(bound.getGrowBounds()).build();
-        Boolean isSuccess = couponFeignService.saveSpuBounds(spuBoundTO);
-        if (!isSuccess) {
+        MyResult myResult = couponFeignService.saveSpuBounds(spuBoundTO);
+        if (!myResult.isSuccess()) {
             log.error("远程调用服务失败，保存spu的积分信息");
         }
     }
@@ -357,8 +358,8 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         BeanUtils.copyProperties(sku, skuOtherInfoTO);
         skuOtherInfoTO.setSkuId(skuId);
         if (skuOtherInfoTO.getFullCount() > 0 || (skuOtherInfoTO.getFullPrice().compareTo(BigDecimal.ZERO) == 1)) {
-            Boolean isSuccess = couponFeignService.saveSkuOtherInfo(skuOtherInfoTO);
-            if (!isSuccess) {
+            MyResult myResult = couponFeignService.saveSkuOtherInfo(skuOtherInfoTO);
+            if (!myResult.isSuccess()) {
                 log.error("远程调用服务失败，保存sku优惠、满减等信息");
             }
         }

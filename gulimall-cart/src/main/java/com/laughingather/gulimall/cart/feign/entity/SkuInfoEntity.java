@@ -2,7 +2,6 @@ package com.laughingather.gulimall.cart.feign.entity;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -13,9 +12,7 @@ import java.math.BigDecimal;
  * @date 2021-04-11 15:12:49
  */
 @Data
-public class SkuInfoEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class SkuInfoEntity {
     /**
      * skuId
      */
@@ -60,5 +57,4 @@ public class SkuInfoEntity implements Serializable {
      * 销量
      */
     private Long saleCount;
-
 }
