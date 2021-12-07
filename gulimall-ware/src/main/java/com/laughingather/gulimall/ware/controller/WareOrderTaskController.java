@@ -1,10 +1,10 @@
 package com.laughingather.gulimall.ware.controller;
 
 import com.laughingather.gulimall.ware.service.WareOrderTaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ware/wareordertask")
 public class WareOrderTaskController {
-    @Autowired
+    @Resource
     private WareOrderTaskService wareOrderTaskService;
 
 }

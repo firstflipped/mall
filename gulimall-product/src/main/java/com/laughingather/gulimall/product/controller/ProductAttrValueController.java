@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * spu属性值
  *
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("product/productattrvalue")
 public class ProductAttrValueController {
-    @Autowired
+    @Resource
     private ProductAttrValueService productAttrValueService;
 
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("order/orderoperatehistory")
 public class OrderOperateHistoryController {
-    @Autowired
+    @Resource
     private OrderOperateHistoryService orderOperateHistoryService;
 
 }

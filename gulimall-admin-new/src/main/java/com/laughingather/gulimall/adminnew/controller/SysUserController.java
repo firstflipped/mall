@@ -16,7 +16,7 @@ import java.util.List;
  * @create：2021-11-24 2021/11/24
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class SysUserController {
 
     @Resource

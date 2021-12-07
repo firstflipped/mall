@@ -5,9 +5,9 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.ware.entity.PurchaseDetailEntity;
 import com.laughingather.gulimall.ware.entity.query.PurchaseDetailQuery;
 import com.laughingather.gulimall.ware.service.PurchaseDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -19,7 +19,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/ware/purchasedetail")
 public class PurchaseDetailController {
-    @Autowired
+    @Resource
     private PurchaseDetailService purchaseDetailService;
 
     @GetMapping("/page")

@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.auth.feign.service;
 
 import com.laughingather.gulimall.auth.entity.SocialUser;
-import com.laughingather.gulimall.auth.feign.entity.MemberLoginDTO;
-import com.laughingather.gulimall.auth.feign.entity.MemberRegisterDTO;
+import com.laughingather.gulimall.auth.entity.dto.MemberLoginDTO;
+import com.laughingather.gulimall.auth.entity.dto.MemberRegisterDTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.entity.MemberEntity;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -25,7 +25,7 @@ public interface MemberFeignService {
      * @return MyResult
      */
     @PostMapping("/gulimall-member/openapi/member/register")
-    MyResult memberRegister(@RequestBody MemberRegisterDTO memberRegisterDTO);
+    MyResult register(@RequestBody MemberRegisterDTO memberRegisterDTO);
 
     /**
      * 远程登录接口
@@ -36,7 +36,7 @@ public interface MemberFeignService {
      * @return
      */
     @PostMapping("/gulimall-member/openapi/member/login")
-    MyResult<MemberEntity> memberLogin(@RequestBody MemberLoginDTO memberLoginDTO);
+    MyResult<MemberEntity> login(@RequestBody MemberLoginDTO memberLoginDTO);
 
     /**
      * oauth2登录接口

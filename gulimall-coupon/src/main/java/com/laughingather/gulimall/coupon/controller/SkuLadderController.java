@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/skuladder")
 public class SkuLadderController {
-    @Autowired
+    @Resource
     private SkuLadderService skuLadderService;
 }

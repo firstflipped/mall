@@ -23,7 +23,7 @@ import java.io.IOException;
 @RabbitListener(queues = "order.release.order.queue")
 public class OrderCloseListener {
 
-    @Autowired
+    @Resource
     private OrderService orderService;
 
     @RabbitHandler

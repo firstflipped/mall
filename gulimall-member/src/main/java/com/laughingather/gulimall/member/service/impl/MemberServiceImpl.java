@@ -34,11 +34,11 @@ import java.util.Objects;
 @Service("memberService")
 public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> implements MemberService {
 
-    @Autowired
+    @Resource
     private RestTemplate restTemplate;
-    @Autowired
+    @Resource
     private MemberDao memberDao;
-    @Autowired
+    @Resource
     private MemberLevelDao memberLevelDao;
 
     @Override

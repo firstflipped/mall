@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CouponOpenServiceImpl implements CouponOpenService {
 
-    @Autowired
+    @Resource
     private SkuFullReductionService skuFullReductionService;
-    @Autowired
+    @Resource
     private SkuLadderService skuLadderService;
-    @Autowired
+    @Resource
     private MemberPriceService memberPriceService;
 
     @Override

@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/homesubject")
 public class HomeSubjectController {
-    @Autowired
+    @Resource
     private HomeSubjectService homeSubjectService;
 }

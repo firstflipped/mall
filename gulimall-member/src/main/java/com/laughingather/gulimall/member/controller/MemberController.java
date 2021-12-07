@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/member/member")
 public class MemberController {
-    @Autowired
+    @Resource
     private MemberService memberService;
 
     @GetMapping("/list")

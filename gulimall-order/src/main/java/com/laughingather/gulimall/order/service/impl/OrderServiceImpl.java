@@ -61,26 +61,26 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
     private ThreadLocal<OrderSubmitDTO> orderSubmitDTOThreadLocal = new ThreadLocal<>();
 
-    @Autowired
+    @Resource
     private OrderDao orderDao;
-    @Autowired
+    @Resource
     private OrderItemService orderItemService;
 
-    @Autowired
+    @Resource
     private MemberFeignService memberFeignService;
-    @Autowired
+    @Resource
     private CartFeignService cartFeignService;
-    @Autowired
+    @Resource
     private WareFeignService wareFeignService;
-    @Autowired
+    @Resource
     private ProductFeignService productFeignService;
 
-    @Autowired
+    @Resource
     private ThreadPoolExecutor threadPoolExecutor;
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
-    @Autowired
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
     @Override

@@ -5,9 +5,9 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.SeckillSkuRelationEntity;
 import com.laughingather.gulimall.coupon.entity.query.SeckillSkuRelationQuery;
 import com.laughingather.gulimall.coupon.service.SeckillSkuRelationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/coupon/seckillskurelation")
 public class SeckillSkuRelationController {
-    @Autowired
+    @Resource
     private SeckillSkuRelationService seckillSkuRelationService;
 
     @GetMapping("/page")

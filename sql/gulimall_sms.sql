@@ -224,13 +224,15 @@ CREATE TABLE `sms_seckill_session`
     `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动场次';
 
 /*Data for the table `sms_seckill_session` */
 
 insert into `sms_seckill_session`(`id`, `name`, `start_time`, `end_time`, `status`, `create_time`)
-values (1, 'xxx', '2021-11-10 16:00:00', '2021-11-10 18:00:00', 1, '2021-11-10 16:10:25');
+values (1, 'xxx', '2021-11-16 16:00:00', '2021-11-16 18:00:00', 1, '2021-11-10 16:10:25'),
+       (2, 'yyy', '2021-11-17 03:30:00', '2021-11-17 08:00:00', 1, '2021-11-16 09:35:40'),
+       (3, 'jjj', '2021-11-22 08:30:00', '2021-11-22 23:00:00', 1, '2021-11-16 10:52:43');
 
 /*Table structure for table `sms_seckill_sku_notice` */
 
@@ -267,14 +269,16 @@ CREATE TABLE `sms_seckill_sku_relation`
     `seckill_sort`         int(11)        DEFAULT NULL COMMENT '排序',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
+  AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动商品关联';
 
 /*Data for the table `sms_seckill_sku_relation` */
 
 insert into `sms_seckill_sku_relation`(`id`, `promotion_id`, `promotion_session_id`, `sku_id`, `seckill_price`,
                                        `seckill_count`, `seckill_limit`, `seckill_sort`)
-values (2, NULL, 1, 41, 3999, 1, 1, 0);
+values (2, NULL, 1, 41, 3999, 1, 1, 0),
+       (3, NULL, 2, 41, 4999, 10, 1, 0),
+       (4, NULL, 3, 41, 4299, 100, 1, 0);
 
 /*Table structure for table `sms_sku_full_reduction` */
 

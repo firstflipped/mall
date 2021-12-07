@@ -26,6 +26,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
+ * Java8日期转换类
+ *
  * @author WangJie
  */
 @Configuration

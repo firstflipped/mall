@@ -8,10 +8,10 @@ import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.query.BrandQuery;
 import com.laughingather.gulimall.product.service.BrandService;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("product/brand")
 public class BrandController {
-    @Autowired
+    @Resource
     private BrandService brandService;
 
     @GetMapping("/page")

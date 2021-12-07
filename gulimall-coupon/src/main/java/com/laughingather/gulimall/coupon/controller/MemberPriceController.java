@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/coupon/memberprice")
 public class MemberPriceController {
 
-    @Autowired
+    @Resource
     private MemberPriceService memberPriceService;
 
     @GetMapping("/page")

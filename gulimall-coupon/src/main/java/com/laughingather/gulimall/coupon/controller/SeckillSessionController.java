@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/coupon/seckillsession")
 public class SeckillSessionController {
-    @Autowired
+    @Resource
     private SeckillSessionService seckillSessionService;
 
     @GetMapping("/page")

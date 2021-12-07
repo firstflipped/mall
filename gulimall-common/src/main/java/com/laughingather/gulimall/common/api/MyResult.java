@@ -53,4 +53,10 @@ public class MyResult<T> {
         return Objects.equals(ResultCodeEnum.SUCCESS.getCode(), code);
     }
 
+    public static <T> MyResult<T> errMsg(String msg) {
+        return MyResult.<T>builder().code(ResultCodeEnum.FAILED.getCode())
+                .message(msg).data(null).build();
+    }
+
+
 }

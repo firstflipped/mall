@@ -17,7 +17,7 @@ import java.util.List;
  * @create：2021-12-01 2021/12/1
  */
 @RestController
-@RequestMapping("/api/permission")
+@RequestMapping("/permission")
 public class SysPermissionController {
 
     @Resource

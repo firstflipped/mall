@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/member/membercollectsubject")
 public class MemberCollectSubjectController {
-    @Autowired
+    @Resource
     private MemberCollectSubjectService memberCollectSubjectService;
 }

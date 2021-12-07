@@ -22,7 +22,7 @@ import com.laughingather.gulimall.order.service.OrderItemService;
 @RestController
 @RequestMapping("order/orderitem")
 public class OrderItemController {
-    @Autowired
+    @Resource
     private OrderItemService orderItemService;
 
 }

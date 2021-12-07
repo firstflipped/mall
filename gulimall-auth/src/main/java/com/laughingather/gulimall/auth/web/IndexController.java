@@ -1,16 +1,13 @@
 package com.laughingather.gulimall.auth.web;
 
-import com.laughingather.gulimall.auth.entity.dto.UserLoginDTO;
-import com.laughingather.gulimall.auth.entity.dto.UserRegisterDTO;
-import com.laughingather.gulimall.auth.feign.entity.MemberLoginDTO;
-import com.laughingather.gulimall.auth.feign.entity.MemberRegisterDTO;
+import com.laughingather.gulimall.auth.entity.dto.MemberLoginDTO;
+import com.laughingather.gulimall.auth.entity.dto.MemberRegisterDTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.entity.MemberEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -42,13 +39,13 @@ public class IndexController {
     /**
      * RedirectAttributes  重定向携带数据
      *
-     * @param userRegisterDTO
+     * @param memberRegisterDTO
      * @param bindingResult
      * @param redirectAttributes
      * @return
      */
     @PostMapping("/register")
-    public String register(@Valid UserRegisterDTO userRegisterDTO,
+    public String register(@Valid MemberRegisterDTO memberRegisterDTO,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
@@ -68,14 +65,14 @@ public class IndexController {
         }
 
         // 调用远程服务进行注册
-        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + userRegisterDTO.getMobile()).toString();
+        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterDTO.getMobile()).toString();
         if (StringUtils.isBlank(cacheCode)) {
             Map<String, String> errors = new HashMap<>(2);
             errors.put("code", "验证码过期");
             redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:http://auth.gulimall.com/register.html";
         } else {
-            if (!cacheCode.equalsIgnoreCase(userRegisterDTO.getCode())) {
+            if (!cacheCode.equalsIgnoreCase(memberRegisterDTO.getCode())) {
                 Map<String, String> errors = new HashMap<>(2);
                 errors.put("code", "验证码错误");
                 redirectAttributes.addFlashAttribute("errors", errors);
@@ -84,10 +81,9 @@ public class IndexController {
         }
 
         // 执行正确的逻辑（先删除缓存中的验证码）
-        redisTemplate.delete(AuthConstants.SMS_CODE_CACHE_PREFIX + userRegisterDTO.getMobile());
+        redisTemplate.delete(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterDTO.getMobile());
 
-        MemberRegisterDTO memberRegisterDTO = new MemberRegisterDTO();
-        BeanUtils.copyProperties(userRegisterDTO, memberRegisterDTO);
+
         MyResult result = memberFeignService.memberRegister(memberRegisterDTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
             return "redirect:http://auth.gulimall.com/login.html";
@@ -101,9 +97,7 @@ public class IndexController {
 
 
     @PostMapping("/login")
-    public String login(HttpSession session, RedirectAttributes redirectAttributes, UserLoginDTO userLoginDTO) {
-        MemberLoginDTO memberLoginDTO = new MemberLoginDTO();
-        BeanUtils.copyProperties(userLoginDTO, memberLoginDTO);
+    public String login(HttpSession session, RedirectAttributes redirectAttributes, MemberLoginDTO memberLoginDTO) {
 
         MyResult<MemberEntity> result = memberFeignService.memberLogin(memberLoginDTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {

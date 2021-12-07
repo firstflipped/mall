@@ -28,9 +28,9 @@ import java.util.List;
 @RequestMapping("/openapi/member")
 public class MemberOpenApi {
 
-    @Autowired
+    @Resource
     private MemberService memberService;
-    @Autowired
+    @Resource
     private MemberReceiveAddressService memberReceiveAddressService;
 
     /**
@@ -40,7 +40,7 @@ public class MemberOpenApi {
      * @return
      */
     @PostMapping("/register")
-    public MyResult memberRegister(@RequestBody MemberRegisterDTO memberRegisterDTO) {
+    public MyResult register(@RequestBody MemberRegisterDTO memberRegisterDTO) {
         try {
             memberService.registerMember(memberRegisterDTO);
         } catch (UsernameExistException e) {
@@ -62,7 +62,7 @@ public class MemberOpenApi {
      * @return
      */
     @PostMapping("/login")
-    public MyResult<MemberEntity> memberLogin(@RequestBody MemberLoginDTO memberLoginDTO) {
+    public MyResult<MemberEntity> login(@RequestBody MemberLoginDTO memberLoginDTO) {
         MemberEntity member = memberService.checkLogin(memberLoginDTO);
         return member == null ? MyResult.<MemberEntity>builder().code(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getCode())
                 .message(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getMessage()).build() : MyResult.success(member);

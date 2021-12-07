@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("order/paymentinfo")
 public class PaymentInfoController {
-    @Autowired
+    @Resource
     private PaymentInfoService paymentInfoService;
 
 }

@@ -4,12 +4,12 @@ import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.search.entity.SkuESModel;
 import com.laughingather.gulimall.search.service.ProductSaveService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/openapi/search")
 public class EsSaveOpenApi {
 
-    @Autowired
+    @Resource
     private ProductSaveService productSaveService;
 
     /**

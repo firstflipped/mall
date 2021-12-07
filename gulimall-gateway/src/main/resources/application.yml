@@ -16,6 +16,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: gulimall-admin-new
+          uri: lb://gulimall-admin-new
+          predicates:
+            - Path=/api/gulimall-admin-new/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-product
           uri: lb://gulimall-product
           predicates:

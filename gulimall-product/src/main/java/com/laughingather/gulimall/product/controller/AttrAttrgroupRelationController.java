@@ -9,6 +9,7 @@ import com.laughingather.gulimall.product.service.AttrAttrgroupRelationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -23,7 +24,7 @@ import java.util.List;
 @RequestMapping("product/attrattrgrouprelation")
 public class AttrAttrgroupRelationController {
 
-    @Autowired
+    @Resource
     private AttrAttrgroupRelationService attrAttrgroupRelationService;
 
     @GetMapping("/list/attr/{attrGroupId}")

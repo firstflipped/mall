@@ -135,7 +135,7 @@ CREATE TABLE `QRTZ_SCHEDULER_STATE`
 /*Data for the table `QRTZ_SCHEDULER_STATE` */
 
 insert into `QRTZ_SCHEDULER_STATE`(`SCHED_NAME`, `INSTANCE_NAME`, `LAST_CHECKIN_TIME`, `CHECKIN_INTERVAL`)
-values ('RenrenScheduler', 'Flipped1634776745194', 1634816212820, 15000);
+values ('RenrenScheduler', 'Flipped1638427707853', 1638438099174, 15000);
 
 /*Table structure for table `QRTZ_TRIGGERS` */
 
@@ -178,6 +178,26 @@ CREATE TABLE `QRTZ_TRIGGERS`
   DEFAULT CHARSET = utf8;
 
 /*Data for the table `QRTZ_TRIGGERS` */
+
+/*Table structure for table `mq_message` */
+
+DROP TABLE IF EXISTS `mq_message`;
+
+CREATE TABLE `mq_message`
+(
+    `message_id`     bigint(20) NOT NULL AUTO_INCREMENT,
+    `content`        text,
+    `to_exchange`    varchar(255) DEFAULT NULL,
+    `routing_key`    varchar(255) DEFAULT NULL,
+    `class_type`     varchar(255) DEFAULT NULL,
+    `message_status` tinyint(4)   DEFAULT '0' COMMENT '0-新建 1-已发送 2-错误抵达 3-已抵达',
+    `create_time`    datetime     DEFAULT NULL,
+    `update_time`    datetime     DEFAULT NULL,
+    PRIMARY KEY (`message_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
+
+/*Data for the table `mq_message` */
 
 /*Table structure for table `schedule_job` */
 
@@ -237,6 +257,7 @@ CREATE TABLE `sys_captcha`
 insert into `sys_captcha`(`uuid`, `code`, `expire_time`)
 values ('5ef59ed5-7455-4f7e-8820-f951c1ada3ee', 'fw7cw', '2021-09-13 09:09:18'),
        ('70103c8c-9a18-47f0-8db7-03050ba26e5d', 'mxgy8', '2021-08-23 13:55:39'),
+       ('82fd01ce-c71a-461d-81b1-0a518c0dcb3b', '34ncw', '2021-12-02 14:54:11'),
        ('ce329760-105a-494a-8b52-58d906793dbf', 'a2eax', '2021-08-23 13:55:26');
 
 /*Table structure for table `sys_config` */
@@ -506,7 +527,7 @@ CREATE TABLE `sys_user_token`
 /*Data for the table `sys_user_token` */
 
 insert into `sys_user_token`(`user_id`, `token`, `expire_time`, `update_time`)
-values (1, '66c153d8509a4914a5444c71e6a37e5b', '2021-10-21 20:48:39', '2021-10-21 08:48:39');
+values (1, 'dd080f7b8defaba4f3ead2e210d01762', '2021-12-03 02:49:33', '2021-12-02 14:49:33');
 
 /*Table structure for table `tb_user` */
 

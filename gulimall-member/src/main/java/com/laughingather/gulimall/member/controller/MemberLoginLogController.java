@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/member/memberloginlog")
 public class MemberLoginLogController {
-    @Autowired
+    @Resource
     private MemberLoginLogService memberLoginLogService;
 
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("order/refundinfo")
 public class RefundInfoController {
-    @Autowired
+    @Resource
     private RefundInfoService refundInfoService;
 
 }

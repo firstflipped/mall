@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/openapi/order")
 public class OrderOpenApi {
 
-    @Autowired
+    @Resource
     private OrderService orderService;
 
     /**

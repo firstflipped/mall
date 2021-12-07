@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/member/membercollectspu")
 public class MemberCollectSpuController {
-    @Autowired
+    @Resource
     private MemberCollectSpuService memberCollectSpuService;
 }

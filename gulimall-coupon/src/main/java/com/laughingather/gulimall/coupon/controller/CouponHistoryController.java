@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/couponhistory")
 public class CouponHistoryController {
-    @Autowired
+    @Resource
     private CouponHistoryService couponHistoryService;
 
 }

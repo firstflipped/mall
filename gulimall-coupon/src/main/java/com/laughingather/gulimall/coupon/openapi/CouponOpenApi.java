@@ -24,11 +24,11 @@ import java.util.List;
 @RequestMapping("/openapi/coupon")
 public class CouponOpenApi {
 
-    @Autowired
+    @Resource
     private SpuBoundsService spuBoundsService;
-    @Autowired
+    @Resource
     private CouponOpenService couponOpenService;
-    @Autowired
+    @Resource
     private SeckillSessionService seckillSessionService;
 
     @PostMapping("/spubounds")

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("order/orderreturnapply")
 public class OrderReturnApplyController {
-    @Autowired
+    @Resource
     private OrderReturnApplyService orderReturnApplyService;
 
 }

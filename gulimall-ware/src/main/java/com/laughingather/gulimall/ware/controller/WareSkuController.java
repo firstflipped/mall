@@ -5,9 +5,9 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
 import com.laughingather.gulimall.ware.service.WareSkuService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 
@@ -21,7 +21,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/ware/waresku")
 public class WareSkuController {
-    @Autowired
+    @Resource
     private WareSkuService wareSkuService;
 
     @GetMapping("/page")

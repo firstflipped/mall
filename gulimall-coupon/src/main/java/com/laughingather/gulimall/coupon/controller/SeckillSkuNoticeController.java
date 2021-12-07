@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/seckillskunotice")
 public class SeckillSkuNoticeController {
-    @Autowired
+    @Resource
     private SeckillSkuNoticeService seckillSkuNoticeService;
 
 }

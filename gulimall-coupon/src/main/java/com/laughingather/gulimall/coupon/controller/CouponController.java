@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/coupon/coupon")
 public class CouponController {
-    @Autowired
+    @Resource
     private CouponService couponService;
 
     @GetMapping("/list")

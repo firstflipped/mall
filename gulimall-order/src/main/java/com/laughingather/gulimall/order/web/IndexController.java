@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class IndexController {
 
-    @Autowired
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
     @GetMapping("/{page}.html")

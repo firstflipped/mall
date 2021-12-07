@@ -10,4 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @create：2021-11-24 2021/11/24
  */
 public interface SysUserRepository extends JpaRepository<SysUserEntity, Long> {
+
+    SysUserEntity getByUsernameEquals(String username);
+
 }

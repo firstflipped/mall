@@ -10,10 +10,10 @@ import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
 import com.laughingather.gulimall.product.service.AttrGroupService;
 import com.laughingather.gulimall.product.service.AttrService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,9 +29,9 @@ import java.util.List;
 @RequestMapping("/product/attrgroup")
 public class AttrGroupController {
 
-    @Autowired
+    @Resource
     private AttrGroupService attrGroupService;
-    @Autowired
+    @Resource
     private AttrService attrService;
 
     @GetMapping("/page/{catId}")

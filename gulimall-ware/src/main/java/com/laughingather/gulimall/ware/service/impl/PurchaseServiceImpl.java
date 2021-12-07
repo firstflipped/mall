@@ -18,7 +18,6 @@ import com.laughingather.gulimall.ware.service.PurchaseService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,9 +33,9 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
 
     @Resource
     private PurchaseDao purchaseDao;
-    @Autowired
+    @Resource
     private PurchaseDetailService purchaseDetailService;
-    @Autowired
+    @Resource
     private WareSkuService wareSkuService;
 
     @Override

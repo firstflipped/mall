@@ -8,13 +8,13 @@ import com.aliyuncs.http.MethodType;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.thirdparty.listener.SmsReportMessageListener;
 import com.laughingather.gulimall.thirdparty.properties.SmsProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,14 +25,14 @@ import java.util.List;
 @RequestMapping("/sms")
 public class SmsController {
 
-    @Autowired
+    @Resource
     private Environment environment;
-    @Autowired
+    @Resource
     private SmsProperties smsProperties;
 
-    @Autowired
+    @Resource
     private ISmsService smsService;
-    @Autowired
+    @Resource
     private SmsReportMessageListener smsReportMessageListener;
 
     @RequestMapping("/sms-send.do")

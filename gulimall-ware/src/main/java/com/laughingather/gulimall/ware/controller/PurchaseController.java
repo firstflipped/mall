@@ -7,9 +7,9 @@ import com.laughingather.gulimall.ware.entity.dto.DonePurchaseDTO;
 import com.laughingather.gulimall.ware.entity.dto.MergePurchaseDTO;
 import com.laughingather.gulimall.ware.entity.query.PurchaseQuery;
 import com.laughingather.gulimall.ware.service.PurchaseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ware/purchase")
 public class PurchaseController {
-    @Autowired
+    @Resource
     private PurchaseService purchaseService;
 
     @GetMapping("/page")

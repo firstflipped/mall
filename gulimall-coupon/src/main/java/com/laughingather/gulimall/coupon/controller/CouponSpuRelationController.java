@@ -1,10 +1,10 @@
 package com.laughingather.gulimall.coupon.controller;
 
 import com.laughingather.gulimall.coupon.service.CouponSpuRelationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/couponspurelation")
 public class CouponSpuRelationController {
-    @Autowired
+    @Resource
     private CouponSpuRelationService couponSpuRelationService;
 
 

@@ -21,7 +21,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/member/memberlevel")
 public class MemberLevelController {
-    @Autowired
+    @Resource
     private MemberLevelService memberLevelService;
 
     @GetMapping("/page")

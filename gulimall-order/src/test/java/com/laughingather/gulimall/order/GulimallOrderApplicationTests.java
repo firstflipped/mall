@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class GulimallOrderApplicationTests {
 
-    @Autowired
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
 

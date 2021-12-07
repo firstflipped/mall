@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/order")
 public class OrderWebController {
 
-    @Autowired
+    @Resource
     private OrderService orderService;
 
     /**

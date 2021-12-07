@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class CouponServiceImpl extends ServiceImpl<CouponDao, CouponEntity> implements CouponService {
 
-    @Autowired
+    @Resource
     private CouponDao couponDao;
 
     @Override

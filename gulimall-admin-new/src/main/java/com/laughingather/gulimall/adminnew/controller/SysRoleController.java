@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create：2021-11-25 2021/11/25
  */
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("/role")
 public class SysRoleController {
 
 

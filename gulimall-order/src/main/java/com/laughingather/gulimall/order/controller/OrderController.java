@@ -25,7 +25,7 @@ import com.laughingather.gulimall.order.service.OrderService;
 @RestController
 @RequestMapping("order/order")
 public class OrderController {
-    @Autowired
+    @Resource
     private OrderService orderService;
 
 }

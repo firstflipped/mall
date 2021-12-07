@@ -15,7 +15,6 @@ import com.laughingather.gulimall.ware.feign.service.MemberFeignService;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,7 +27,7 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
     @Resource
     private WareInfoDao wareInfoDao;
 
-    @Autowired
+    @Resource
     private MemberFeignService memberFeignService;
 
     @Override

@@ -1,10 +1,10 @@
 package com.laughingather.gulimall.product.controller;
 
 import com.laughingather.gulimall.product.service.SpuInfoDescService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -17,6 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("product/spuinfodesc")
 public class SpuInfoDescController {
-    @Autowired
+    @Resource
     private SpuInfoDescService spuInfoDescService;
 }

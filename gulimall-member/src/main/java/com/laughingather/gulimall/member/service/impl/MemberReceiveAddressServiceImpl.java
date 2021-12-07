@@ -20,7 +20,7 @@ import java.util.List;
 @Service("memberReceiveAddressService")
 public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAddressDao, MemberReceiveAddressEntity> implements MemberReceiveAddressService {
 
-    @Autowired
+    @Resource
     private MemberReceiveAddressDao memberReceiveAddressDao;
 
     @Override

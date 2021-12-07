@@ -20,10 +20,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -39,14 +39,14 @@ import java.util.Objects;
 @RabbitListener(queues = "stock.release.stock.queue")
 public class UnlockStockListener {
 
-    @Autowired
+    @Resource
     private WareOrderTaskService wareOrderTaskService;
-    @Autowired
+    @Resource
     private WareOrderTaskDetailService wareOrderTaskDetailService;
-    @Autowired
+    @Resource
     private WareSkuService wareSkuService;
 
-    @Autowired
+    @Resource
     public OrderFeignService orderFeignService;
 
     /**

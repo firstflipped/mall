@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/coupon/spubounds")
 public class SpuBoundsController {
-    @Autowired
+    @Resource
     private SpuBoundsService spuBoundsService;
 
 }

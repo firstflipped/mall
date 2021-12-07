@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/coupon/seckillpromotion")
 public class SeckillPromotionController {
 
-    @Autowired
+    @Resource
     private SeckillPromotionService seckillPromotionService;
 
     @GetMapping("/page")

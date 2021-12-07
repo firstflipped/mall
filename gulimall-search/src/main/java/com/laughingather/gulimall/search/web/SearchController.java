@@ -3,12 +3,12 @@ package com.laughingather.gulimall.search.web;
 import com.laughingather.gulimall.search.entity.query.SearchQuery;
 import com.laughingather.gulimall.search.entity.vo.SearchVO;
 import com.laughingather.gulimall.search.service.ProductSearchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class SearchController {
 
-    @Autowired
+    @Resource
     private ProductSearchService productSearchService;
 
     @GetMapping("/list.html")

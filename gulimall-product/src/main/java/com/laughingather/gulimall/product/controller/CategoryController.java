@@ -4,10 +4,10 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 import com.laughingather.gulimall.product.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/product/category")
 public class CategoryController {
 
-    @Autowired
+    @Resource
     private CategoryService categoryService;
 
     /**

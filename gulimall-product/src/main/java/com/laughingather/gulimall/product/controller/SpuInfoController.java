@@ -9,6 +9,8 @@ import com.laughingather.gulimall.product.service.SpuInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 
 /**
  * spu信息
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/product/spuinfo")
 public class SpuInfoController {
 
-    @Autowired
+    @Resource
     private SpuInfoService spuInfoService;
 
     @GetMapping("/page")
