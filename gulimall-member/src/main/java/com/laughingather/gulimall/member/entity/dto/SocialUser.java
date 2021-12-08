@@ -3,7 +3,7 @@ package com.laughingather.gulimall.member.entity.dto;
 import lombok.Data;
 
 /**
- * ouauth2返回实体
+ * oauth2返回实体
  *
  * @author：laughingather
  * @create：2021-06-22 22:27

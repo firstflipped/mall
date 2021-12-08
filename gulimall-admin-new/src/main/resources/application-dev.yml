@@ -9,8 +9,21 @@ spring:
   # 打印sql
   jpa:
     show-sql: true
+    open-in-view: false
 
 logging:
   level:
     root: info
-    com.laughingather.gulimall.adminnew.mapper: debug
+    com:
+      laughingather:
+        gulimall:
+          adminnew:
+            mapper: debug
+          common:
+            aspect: debug
+
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true

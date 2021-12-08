@@ -7,7 +7,7 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.ProductConstants;
-import com.laughingather.gulimall.common.utils.JsonUtil;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.product.dao.SpuInfoDao;
 import com.laughingather.gulimall.product.entity.*;
 import com.laughingather.gulimall.product.entity.dto.*;

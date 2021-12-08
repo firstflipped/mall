@@ -3,7 +3,7 @@ package com.laughingather.gulimall.cart.web;
 import com.laughingather.gulimall.cart.entity.vo.CartItemVO;
 import com.laughingather.gulimall.cart.entity.vo.CartVO;
 import com.laughingather.gulimall.cart.service.CartService;
-import com.laughingather.gulimall.common.utils.JsonUtil;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

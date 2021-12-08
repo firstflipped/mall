@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.common.utils;
+package com.laughingather.gulimall.common.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

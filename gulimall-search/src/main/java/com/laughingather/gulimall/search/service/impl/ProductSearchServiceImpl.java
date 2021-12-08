@@ -2,7 +2,7 @@ package com.laughingather.gulimall.search.service.impl;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
-import com.laughingather.gulimall.common.utils.JsonUtil;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.search.config.ElasticSearchConfig;
 import com.laughingather.gulimall.search.constant.EsConstant;
 import com.laughingather.gulimall.search.entity.SkuESModel;

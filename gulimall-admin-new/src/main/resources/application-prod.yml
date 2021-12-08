@@ -6,3 +6,17 @@ spring:
       url: jdbc:mysql://localhost:3306/gulimall_admin_new?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: 123456
+  # jpa
+  jpa:
+    show-sql: false
+    open-in-view: false
+
+logging:
+  level:
+    root: warn
+    com.laughingather.gulimall.adminnew.mapper: warn
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: false
