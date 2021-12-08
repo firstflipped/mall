@@ -16,39 +16,6 @@ CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_admin_new` /*!40100 DEFAULT C
 
 USE `gulimall_admin_new`;
 
-/*Table structure for table `sys_log` */
-
-DROP TABLE IF EXISTS `sys_log`;
-
-CREATE TABLE `sys_log`
-(
-    `id`            bigint(20) NOT NULL,
-    `log_type`      tinyint(1)    DEFAULT NULL COMMENT '日志类型（1登录日志，2操作日志）',
-    `log_content`   varchar(1000) DEFAULT NULL COMMENT '日志内容',
-    `operate_type`  int(2)        DEFAULT NULL COMMENT '操作类型',
-    `user_id`       bigint(20)    DEFAULT NULL COMMENT '操作用户账号',
-    `username`      varchar(100)  DEFAULT NULL COMMENT '操作用户名称',
-    `ip`            int(11)       DEFAULT NULL COMMENT 'IP',
-    `method`        varchar(500)  DEFAULT NULL COMMENT '请求java方法',
-    `request_url`   varchar(255)  DEFAULT NULL COMMENT '请求路径',
-    `request_param` longtext COMMENT '请求参数',
-    `request_type`  varchar(10)   DEFAULT NULL COMMENT '请求类型',
-    `cost_time`     bigint(20)    DEFAULT NULL COMMENT '耗时',
-    `create_by`     varchar(32)   DEFAULT NULL COMMENT '创建人',
-    `create_time`   datetime      DEFAULT NULL COMMENT '创建时间',
-    `update_by`     varchar(32)   DEFAULT NULL COMMENT '更新人',
-    `update_time`   datetime      DEFAULT NULL COMMENT '更新时间',
-    PRIMARY KEY (`id`) USING BTREE,
-    KEY `idx_sl_log_type` (`log_type`) USING BTREE,
-    KEY `idx_sl_operate_type` (`operate_type`) USING BTREE,
-    KEY `idx_sl_create_time` (`create_time`) USING BTREE,
-    KEY `idx_sl_userid` (`user_id`)
-) ENGINE = MyISAM
-  DEFAULT CHARSET = utf8
-  ROW_FORMAT = DYNAMIC COMMENT ='系统日志表';
-
-/*Data for the table `sys_log` */
-
 /*Table structure for table `sys_permission` */
 
 DROP TABLE IF EXISTS `sys_permission`;
@@ -121,6 +88,36 @@ CREATE TABLE `sys_permission_data_rule`
   ROW_FORMAT = DYNAMIC;
 
 /*Data for the table `sys_permission_data_rule` */
+
+/*Table structure for table `sys_platform_log` */
+
+DROP TABLE IF EXISTS `sys_platform_log`;
+
+CREATE TABLE `sys_platform_log`
+(
+    `id`                 bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `user_id`            bigint(20)               DEFAULT NULL COMMENT '操作用户账号',
+    `username`           varchar(100)             DEFAULT NULL COMMENT '操作用户名称',
+    `uri`                varchar(255)             DEFAULT NULL COMMENT 'uri',
+    `url`                varchar(255)             DEFAULT NULL COMMENT 'url',
+    `class_name`         varchar(255)             DEFAULT NULL COMMENT '请求类',
+    `method_name`        varchar(255)             DEFAULT NULL COMMENT '请求方法',
+    `method_type`        tinyint(4)               DEFAULT NULL COMMENT '请求类型 增1删2改3查4',
+    `method_params`      varchar(511)             DEFAULT NULL COMMENT '请求参数',
+    `method_description` varchar(255)             DEFAULT NULL COMMENT '操作描述',
+    `server_ip`          varchar(55)              DEFAULT NULL COMMENT '服务器地址',
+    `client_ip`          varchar(55)              DEFAULT NULL COMMENT '客户端地址',
+    `is_success`         tinyint(4)               DEFAULT NULL COMMENT '是否成功',
+    `spend_time`         bigint(20)               DEFAULT NULL COMMENT '耗时',
+    `is_login`           tinyint(4)               DEFAULT NULL COMMENT '是否为登录请求',
+    `create_time`        timestamp           NULL DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_sl_userid` (`user_id`)
+) ENGINE = MyISAM
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='系统日志表';
+
+/*Data for the table `sys_platform_log` */
 
 /*Table structure for table `sys_role` */
 
