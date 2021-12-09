@@ -5,6 +5,7 @@ import cn.hutool.core.net.NetUtil;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.entity.PlatformLog;
+import com.laughingather.gulimall.common.service.PlatformLogService;
 import com.laughingather.gulimall.common.util.HttpContextUtils;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.common.util.RequestUtils;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -45,8 +47,11 @@ public class PlatformLogAspect {
 
     private final static Logger logger = LoggerFactory.getLogger(PlatformLogAspect.class);
 
-    // @Pointcut("execution(public * com.laughingather.gulimall.*.controller.*.*(..))")
-    @Pointcut("@annotation(com.laughingather.gulimall.common.annotation.PlatformLogAnnotation)")
+    @Resource
+    private PlatformLogService platformLogService;
+
+    @Pointcut("execution(public * com.laughingather.gulimall.*.controller.*.*(..))")
+//    @Pointcut("@annotation(com.laughingather.gulimall.common.annotation.PlatformLogAnnotation)")
     public void platformLog() {
     }
 
@@ -125,7 +130,7 @@ public class PlatformLogAspect {
         // esSaveService.savePlatformLog2Es(platformLog);
 
         // 把日志放进数据库
-        // platformLogService.saveLog(platformLog);
+        platformLogService.saveLog(platformLog);
     }
 
     /**

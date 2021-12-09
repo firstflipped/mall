@@ -84,7 +84,7 @@ public class IndexController {
         redisTemplate.delete(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterDTO.getMobile());
 
 
-        MyResult result = memberFeignService.memberRegister(memberRegisterDTO);
+        MyResult result = memberFeignService.register(memberRegisterDTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
             return "redirect:http://auth.gulimall.com/login.html";
         } else {
@@ -99,7 +99,7 @@ public class IndexController {
     @PostMapping("/login")
     public String login(HttpSession session, RedirectAttributes redirectAttributes, MemberLoginDTO memberLoginDTO) {
 
-        MyResult<MemberEntity> result = memberFeignService.memberLogin(memberLoginDTO);
+        MyResult<MemberEntity> result = memberFeignService.login(memberLoginDTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
             session.setAttribute(AuthConstants.LOGIN_USER, result.getData());
             return "redirect:http://gulimall.com";

@@ -1,10 +1,10 @@
 package com.laughingather.gulimall.member.controller;
 
 import com.laughingather.gulimall.member.service.MemberStatisticsInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 
 
 /**

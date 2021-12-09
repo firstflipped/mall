@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service("seckillPromotionService")
 public class SeckillPromotionServiceImpl extends ServiceImpl<SeckillPromotionDao, SeckillPromotionEntity> implements SeckillPromotionService {
 
-
     @Override
     public MyPage<SeckillPromotionEntity> pageSeckillPromotion(SeckillPromotionQuery seckillPromotionQuery) {
         IPage<SeckillPromotionEntity> page = new Page<>(seckillPromotionQuery.getPageSize(), seckillPromotionQuery.getPageNumber());

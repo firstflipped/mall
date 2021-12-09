@@ -113,8 +113,8 @@ public class SysUserEntity {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
@@ -127,8 +127,8 @@ public class SysUserEntity {
      * 更新时间
      */
     @ApiModelProperty(value = "更新时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
 

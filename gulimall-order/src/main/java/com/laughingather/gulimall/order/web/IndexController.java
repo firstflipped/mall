@@ -1,7 +1,5 @@
 package com.laughingather.gulimall.order.web;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class IndexController {
-
-    @Resource
-    private RabbitTemplate rabbitTemplate;
 
     @GetMapping("/{page}.html")
     public String listPage(@PathVariable("page") String page) {

@@ -5,9 +5,9 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.CouponEntity;
 import com.laughingather.gulimall.coupon.entity.query.CouponQuery;
 import com.laughingather.gulimall.coupon.service.CouponService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 

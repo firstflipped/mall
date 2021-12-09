@@ -43,7 +43,6 @@
         <module>gulimall-cart</module>
         <module>gulimall-seckill</module>
         <module>gulimall-admin-new</module>
-        <module>gulimall-log</module>
     </modules>
 
     <dependencyManagement>

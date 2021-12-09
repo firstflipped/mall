@@ -24,20 +24,10 @@ public class SysRolePermissionEntity {
     private Long permissionId;
 
     /**
-     * 数据权限ids
-     */
-    private String dataRuleIds;
-
-    /**
      * 操作时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime operateDate;
-
-    /**
-     * 操作ip
-     */
-    private Integer operateIp;
 }
 

@@ -5,9 +5,9 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.laughingather.gulimall.member.entity.query.MemberLevelQuery;
 import com.laughingather.gulimall.member.service.MemberLevelService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 
 

@@ -4,8 +4,9 @@ import cn.hutool.core.util.IdUtil;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
 
 @SpringBootTest
 class GulimallOrderApplicationTests {

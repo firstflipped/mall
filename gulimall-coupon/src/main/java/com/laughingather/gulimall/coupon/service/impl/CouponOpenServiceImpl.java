@@ -5,8 +5,9 @@ import com.laughingather.gulimall.coupon.service.CouponOpenService;
 import com.laughingather.gulimall.coupon.service.MemberPriceService;
 import com.laughingather.gulimall.coupon.service.SkuFullReductionService;
 import com.laughingather.gulimall.coupon.service.SkuLadderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class CouponOpenServiceImpl implements CouponOpenService {

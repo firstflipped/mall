@@ -9,9 +9,9 @@ import com.laughingather.gulimall.coupon.entity.CouponEntity;
 import com.laughingather.gulimall.coupon.entity.query.CouponQuery;
 import com.laughingather.gulimall.coupon.service.CouponService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 

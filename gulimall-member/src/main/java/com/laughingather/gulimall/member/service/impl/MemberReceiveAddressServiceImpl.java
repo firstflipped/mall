@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.member.dao.MemberReceiveAddressDao;
 import com.laughingather.gulimall.member.entity.MemberReceiveAddressEntity;
 import com.laughingather.gulimall.member.service.MemberReceiveAddressService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 

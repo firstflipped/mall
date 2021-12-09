@@ -5,12 +5,12 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
 import com.laughingather.gulimall.coupon.entity.query.MemberPriceQuery;
 import com.laughingather.gulimall.coupon.service.MemberPriceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 
 
 /**

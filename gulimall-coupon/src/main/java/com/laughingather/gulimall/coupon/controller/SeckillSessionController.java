@@ -5,9 +5,9 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.SeckillSessionEntity;
 import com.laughingather.gulimall.coupon.entity.query.SeckillSessionQuery;
 import com.laughingather.gulimall.coupon.service.SeckillSessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
 
