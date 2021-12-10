@@ -14,10 +14,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-public class GulimallSeckillApplication {
+public class GulimallSecKillApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GulimallSeckillApplication.class, args);
+        SpringApplication.run(GulimallSecKillApplication.class, args);
     }
 
 }

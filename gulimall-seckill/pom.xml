@@ -68,7 +68,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.laughingather.gulimall.seckill.GulimallSeckillApplication</mainClass>
+                    <mainClass>com.laughingather.gulimall.seckill.GulimallSecKillApplication</mainClass>
                     <fork>true</fork>
                 </configuration>
             </plugin>

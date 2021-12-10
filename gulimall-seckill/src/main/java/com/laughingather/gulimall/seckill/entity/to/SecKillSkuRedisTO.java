@@ -27,22 +27,22 @@ public class SecKillSkuRedisTO {
     /**
      * 秒杀价格
      */
-    private BigDecimal seckillPrice;
+    private BigDecimal secKillPrice;
 
     /**
      * 秒杀总量
      */
-    private Integer seckillCount;
+    private Integer secKillCount;
 
     /**
      * 每人限购数量
      */
-    private Integer seckillLimit;
+    private Integer secKillLimit;
 
     /**
      * 排序
      */
-    private Integer seckillSort;
+    private Integer secKillSort;
 
 
     private SkuInfoTO skuInfo;

@@ -48,11 +48,11 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     public void uploadSecKillSkuLatest3Days() {
         MyResult<List<SeckillSessionTO>> last3DaysSession = couponFeignService.getLast3DaysSession();
         if (last3DaysSession.isSuccess()) {
-            List<SeckillSessionTO> seckillSessionTOList = last3DaysSession.getData();
+            List<SeckillSessionTO> secKillSessionTOList = last3DaysSession.getData();
 
             // 将秒杀商品添加到缓存中
-            saveSessionsInfo(seckillSessionTOList);
-            saveSessionSkusInfo(seckillSessionTOList);
+            saveSessionsInfo(secKillSessionTOList);
+            saveSessionSkusInfo(secKillSessionTOList);
         }
     }
 
@@ -118,18 +118,18 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     /**
      * 保存秒杀活动信息
      *
-     * @param seckillSessionTOList
+     * @param secKillSessionTOList
      */
-    private void saveSessionsInfo(List<SeckillSessionTO> seckillSessionTOList) {
-        seckillSessionTOList.stream().forEach(seckillSessionTO -> {
+    private void saveSessionsInfo(List<SeckillSessionTO> secKillSessionTOList) {
+        secKillSessionTOList.stream().forEach(secKillSessionTO -> {
             // 返回开始时间和结束时间的时间戳
-            long startTime = seckillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-            long endTime = seckillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            long startTime = secKillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            long endTime = secKillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
             String key = SeckillConstants.SESSION_CACHE_PREFIX + startTime + "-" + endTime;
             // 如果不存在当前的键才添加
             if (!redisTemplate.hasKey(key)) {
-                List<String> skuIds = seckillSessionTO.getSkuRelations().stream().map(skuRelationTO ->
+                List<String> skuIds = secKillSessionTO.getSkuRelations().stream().map(skuRelationTO ->
                         skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId()
                 ).collect(Collectors.toList());
                 redisTemplate.opsForList().leftPushAll(key, skuIds);
@@ -141,12 +141,12 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     /**
      * 保存秒杀活动商品信息
      *
-     * @param seckillSessionTOList
+     * @param secKillSessionTOList
      */
-    private void saveSessionSkusInfo(List<SeckillSessionTO> seckillSessionTOList) {
-        seckillSessionTOList.stream().forEach(seckillSessionTO -> {
+    private void saveSessionSkusInfo(List<SeckillSessionTO> secKillSessionTOList) {
+        secKillSessionTOList.stream().forEach(secKillSessionTO -> {
             BoundHashOperations skuOperations = redisTemplate.boundHashOps(SeckillConstants.SESSION_SKUS_CACHE_PREFIX);
-            seckillSessionTO.getSkuRelations().stream().forEach(skuRelationTO -> {
+            secKillSessionTO.getSkuRelations().stream().forEach(skuRelationTO -> {
                 // 判断是否存在该商品的信息
                 Boolean has = skuOperations.hasKey(skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId());
                 if (!has) {
@@ -162,8 +162,8 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
                     }
 
                     // 商品场次时间
-                    secKillSkuRedisTO.setStartTime(seckillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
-                    secKillSkuRedisTO.setEndTime(seckillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
+                    secKillSkuRedisTO.setStartTime(secKillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
+                    secKillSkuRedisTO.setEndTime(secKillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
 
                     // 商品随机码
                     String randomCode = UUID.randomUUID().toString().replace("-", "");

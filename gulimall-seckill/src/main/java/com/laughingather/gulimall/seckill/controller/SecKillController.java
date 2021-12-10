@@ -29,7 +29,7 @@ public class SecKillController {
      *
      * @return
      */
-    @GetMapping("/current-seckill-skus")
+    @GetMapping("/current-sec-kill-skus")
     public MyResult getCurrentSecKillSkus() {
         List<SecKillSkuRedisTO> secKillSkuRedisTO = secKillSkuService.getCurrentSecKillSkus();
         return CollectionUtils.isNotEmpty(secKillSkuRedisTO) ? MyResult.success(secKillSkuRedisTO) : MyResult.failed();
