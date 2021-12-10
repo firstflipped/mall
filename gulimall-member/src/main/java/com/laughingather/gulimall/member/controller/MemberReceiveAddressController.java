@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("/member/memberreceiveaddress")
+@RequestMapping("/member/member-receive-address")
 public class MemberReceiveAddressController {
     @Resource
     private MemberReceiveAddressService memberReceiveAddressService;

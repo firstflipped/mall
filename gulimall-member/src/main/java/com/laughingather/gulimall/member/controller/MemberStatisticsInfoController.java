@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("/member/memberstatisticsinfo")
+@RequestMapping("/member/member-statistics-info")
 public class MemberStatisticsInfoController {
     @Resource
     private MemberStatisticsInfoService memberStatisticsInfoService;

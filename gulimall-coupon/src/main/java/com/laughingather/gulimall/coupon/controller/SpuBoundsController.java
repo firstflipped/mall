@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("/coupon/spubounds")
+@RequestMapping("/coupon/spu-bounds")
 public class SpuBoundsController {
     @Resource
     private SpuBoundsService spuBoundsService;

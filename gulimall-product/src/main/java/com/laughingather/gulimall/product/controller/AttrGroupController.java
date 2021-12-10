@@ -26,7 +26,7 @@ import java.util.List;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("/product/attrgroup")
+@RequestMapping("/product/attr-group")
 public class AttrGroupController {
 
     @Resource
@@ -55,7 +55,7 @@ public class AttrGroupController {
      * @param categoryId
      * @return
      */
-    @GetMapping("/{categoryId}/withAttrs")
+    @GetMapping("/{categoryId}/with-attrs")
     public MyResult<List<AttrGroupWithAttrsVO>> getAttrGroupWithAttrsByCategoryId(@PathVariable("categoryId") Long categoryId) {
         List<AttrGroupWithAttrsVO> attrGroupWithAttrsVOList = attrGroupService.getAttrGroupWithAttrsByCategoryId(categoryId);
         return MyResult.success(attrGroupWithAttrsVOList);

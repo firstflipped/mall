@@ -37,7 +37,7 @@ public class ProductOpenApi {
      * @param skuId
      * @return
      */
-    @GetMapping("/skuInfo/getSkuName")
+    @GetMapping("/skuInfo/name")
     public MyResult<String> getSkuNameBySkuId(@RequestParam("skuId") Long skuId) {
         SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
@@ -54,7 +54,7 @@ public class ProductOpenApi {
      * @param skuId
      * @return
      */
-    @GetMapping("/{sku-id}/sku-price")
+    @GetMapping("/{sku-id}/price")
     public MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sku-id") Long skuId) {
         SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 

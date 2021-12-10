@@ -5,22 +5,21 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.product.dao.AttrAttrgroupRelationDao;
+import com.laughingather.gulimall.product.dao.AttrAttrGroupRelationDao;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
-import com.laughingather.gulimall.product.entity.AttrAttrgroupRelationEntity;
+import com.laughingather.gulimall.product.entity.AttrAttrGroupRelationEntity;
 import com.laughingather.gulimall.product.entity.AttrEntity;
 import com.laughingather.gulimall.product.entity.AttrGroupEntity;
 import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
-import com.laughingather.gulimall.product.service.AttrAttrgroupRelationService;
+import com.laughingather.gulimall.product.service.AttrAttrGroupRelationService;
 import com.laughingather.gulimall.product.service.AttrGroupService;
 import com.laughingather.gulimall.product.service.CategoryService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -38,11 +37,11 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Resource
     private AttrGroupDao attrGroupDao;
     @Resource
-    private AttrAttrgroupRelationDao attrAttrgroupRelationDao;
-    @Autowired
+    private AttrAttrGroupRelationDao attrAttrGroupRelationDao;
+    @Resource
     private CategoryService categoryService;
-    @Autowired
-    private AttrAttrgroupRelationService attrAttrgroupRelationService;
+    @Resource
+    private AttrAttrGroupRelationService attrAttrGroupRelationService;
 
 
     @Override
@@ -88,11 +87,11 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         List<AttrGroupWithAttrsVO> attrGroupWithAttrsVOs = attrGroups.stream().map(attrGroup -> {
             AttrGroupWithAttrsVO attrGroupWithAttrsVO = new AttrGroupWithAttrsVO();
             BeanUtils.copyProperties(attrGroup, attrGroupWithAttrsVO);
-            List<AttrAttrgroupRelationEntity> attrgroupRelations = attrAttrgroupRelationDao.selectList(
-                    new QueryWrapper<AttrAttrgroupRelationEntity>().lambda().eq(AttrAttrgroupRelationEntity::getAttrGroupId, attrGroup.getAttrGroupId()));
+            List<AttrAttrGroupRelationEntity> attrGroupRelations = attrAttrGroupRelationDao.selectList(
+                    new QueryWrapper<AttrAttrGroupRelationEntity>().lambda().eq(AttrAttrGroupRelationEntity::getAttrGroupId, attrGroup.getAttrGroupId()));
 
             // 根据分组id查询所有属性
-            List<AttrEntity> attrs = attrAttrgroupRelationService.listAttrsByAttrGroupId(attrGroup.getAttrGroupId());
+            List<AttrEntity> attrs = attrAttrGroupRelationService.listAttrsByAttrGroupId(attrGroup.getAttrGroupId());
             attrGroupWithAttrsVO.setAttrs(attrs);
             return attrGroupWithAttrsVO;
         }).collect(Collectors.toList());

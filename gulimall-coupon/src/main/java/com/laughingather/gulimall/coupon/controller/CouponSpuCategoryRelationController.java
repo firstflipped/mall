@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("/coupon/couponspucategoryrelation")
+@RequestMapping("/coupon/coupon-spu-category-relation")
 public class CouponSpuCategoryRelationController {
 
     @Resource

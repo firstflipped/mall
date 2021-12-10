@@ -36,8 +36,8 @@ public class BrandController {
         return MyResult.success(pageBrands);
     }
 
-    @GetMapping("/{brandId}")
-    public MyResult<BrandEntity> getBrandById(@PathVariable("brandId") Long brandId) {
+    @GetMapping("/{bid}")
+    public MyResult<BrandEntity> getBrandById(@PathVariable("bid") Long brandId) {
         BrandEntity brand = brandService.getById(brandId);
 
         return brand == null ? MyResult.failed() : MyResult.success(brand);

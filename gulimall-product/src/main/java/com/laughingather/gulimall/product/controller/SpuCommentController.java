@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/spucomment")
+@RequestMapping("product/spu-comment")
 public class SpuCommentController {
     @Resource
     private SpuCommentService spuCommentService;

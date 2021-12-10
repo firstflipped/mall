@@ -36,7 +36,7 @@ public class WareOpenApi {
      * @param skuIds
      * @return
      */
-    @PostMapping("/hasStock")
+    @PostMapping("/has-stock")
     public MyResult<List<SkuHasStockVO>> getSkusHasStock(@RequestBody List<Long> skuIds) {
         List<SkuHasStockVO> skuHasStockVOList = wareSkuService.getSkusHasStock(skuIds);
         return CollectionUtils.isNotEmpty(skuHasStockVOList) ? MyResult.success(skuHasStockVOList) :

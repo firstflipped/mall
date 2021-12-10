@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("/coupon/homesubject")
+@RequestMapping("/coupon/home-subject")
 public class HomeSubjectController {
     @Resource
     private HomeSubjectService homeSubjectService;

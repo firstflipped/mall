@@ -32,8 +32,8 @@ public class SysPermissionEntity {
     /**
      * 菜单标题
      */
-    @Column(name = "name")
-    private String name;
+    @Column(name = "permission_name")
+    private String permissionName;
 
     /**
      * 路径

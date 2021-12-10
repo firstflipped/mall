@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:17:55
  */
 @RestController
-@RequestMapping("order/refundinfo")
+@RequestMapping("order/refund-info")
 public class RefundInfoController {
     @Resource
     private RefundInfoService refundInfoService;

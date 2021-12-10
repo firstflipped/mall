@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("/coupon/memberprice")
+@RequestMapping("/coupon/member-price")
 public class MemberPriceController {
 
     @Resource

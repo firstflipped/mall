@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:52
  */
 @RestController
-@RequestMapping("/coupon/skuladder")
+@RequestMapping("/coupon/sku-ladder")
 public class SkuLadderController {
     @Resource
     private SkuLadderService skuLadderService;

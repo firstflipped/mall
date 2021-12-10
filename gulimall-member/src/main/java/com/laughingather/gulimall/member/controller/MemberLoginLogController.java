@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("/member/memberloginlog")
+@RequestMapping("/member/member-login-log")
 public class MemberLoginLogController {
     @Resource
     private MemberLoginLogService memberLoginLogService;

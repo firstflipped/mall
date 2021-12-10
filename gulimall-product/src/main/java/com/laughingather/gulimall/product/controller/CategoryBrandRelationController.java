@@ -22,7 +22,7 @@ import java.util.List;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/categorybrandrelation")
+@RequestMapping("product/category-brand-relation")
 public class CategoryBrandRelationController {
 
     @Resource

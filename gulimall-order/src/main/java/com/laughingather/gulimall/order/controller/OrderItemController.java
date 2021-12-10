@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:17:55
  */
 @RestController
-@RequestMapping("order/orderitem")
+@RequestMapping("order/order-item")
 public class OrderItemController {
     @Resource
     private OrderItemService orderItemService;

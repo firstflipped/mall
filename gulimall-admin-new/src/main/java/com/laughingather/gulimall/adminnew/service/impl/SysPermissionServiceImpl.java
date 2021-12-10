@@ -85,7 +85,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
         List<PermissionsWithTreeVO> permissionsWithTree = permissions1Level.stream().map(item -> {
             // 设置子类集合
-            item.setChild(getChild(permissionsWithTreeVOList, item.getId()));
+            item.setChildren(getChild(permissionsWithTreeVOList, item.getId()));
             return item;
         }).collect(Collectors.toList());
 
@@ -104,7 +104,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return permissionsWithTreeVOList.stream()
                 .filter(item -> Objects.equals(id, item.getParentId()))
                 .map(item -> {
-                            item.setChild(getChild(permissionsWithTreeVOList, item.getId()));
+                    item.setChildren(getChild(permissionsWithTreeVOList, item.getId()));
                             return item;
                         }
                 ).collect(Collectors.toList());

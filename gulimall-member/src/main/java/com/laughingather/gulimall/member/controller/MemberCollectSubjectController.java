@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("/member/membercollectsubject")
+@RequestMapping("/member/member-collect-subject")
 public class MemberCollectSubjectController {
     @Resource
     private MemberCollectSubjectService memberCollectSubjectService;

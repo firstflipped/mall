@@ -5,7 +5,8 @@
     <resultMap id="permissionsWithTreeVOMap" type="com.laughingather.gulimall.adminnew.entity.vo.PermissionsWithTreeVO">
         <id property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
-        <result property="name" column="name"/>
+        <result property="permissionName" column="permission_name"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <!-- 更新权限删除标志位 -->
@@ -33,7 +34,7 @@
     </update>
 
     <select id="selectPermissionsVO" resultMap="permissionsWithTreeVOMap">
-        SELECT id, parent_id, name
+        SELECT id, parent_id, permission_name, create_time
         FROM sys_permission
     </select>
 </mapper>

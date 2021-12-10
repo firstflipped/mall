@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:53
  */
 @RestController
-@RequestMapping("/coupon/couponhistory")
+@RequestMapping("/coupon/coupon-history")
 public class CouponHistoryController {
     @Resource
     private CouponHistoryService couponHistoryService;

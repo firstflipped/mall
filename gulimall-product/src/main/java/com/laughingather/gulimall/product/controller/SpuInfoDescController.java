@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-11 15:12:48
  */
 @RestController
-@RequestMapping("product/spuinfodesc")
+@RequestMapping("product/spu-info-desc")
 public class SpuInfoDescController {
     @Resource
     private SpuInfoDescService spuInfoDescService;

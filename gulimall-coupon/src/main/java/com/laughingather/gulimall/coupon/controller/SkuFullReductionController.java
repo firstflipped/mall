@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:49:53
  */
 @RestController
-@RequestMapping("/coupon/skufullreduction")
+@RequestMapping("/coupon/sku-full-reduction")
 public class SkuFullReductionController {
     @Resource
     private SkuFullReductionService skuFullReductionService;

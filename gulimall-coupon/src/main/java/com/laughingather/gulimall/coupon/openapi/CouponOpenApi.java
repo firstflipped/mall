@@ -1,11 +1,11 @@
 package com.laughingather.gulimall.coupon.openapi;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.coupon.entity.to.SeckillSessionTO;
+import com.laughingather.gulimall.coupon.entity.to.SecKillSessionTO;
 import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
 import com.laughingather.gulimall.coupon.entity.to.SpuBoundTO;
 import com.laughingather.gulimall.coupon.service.CouponOpenService;
-import com.laughingather.gulimall.coupon.service.SeckillSessionService;
+import com.laughingather.gulimall.coupon.service.SecKillSessionService;
 import com.laughingather.gulimall.coupon.service.SpuBoundsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,24 +29,24 @@ public class CouponOpenApi {
     @Resource
     private CouponOpenService couponOpenService;
     @Resource
-    private SeckillSessionService seckillSessionService;
+    private SecKillSessionService secKillSessionService;
 
-    @PostMapping("/spubounds")
+    @PostMapping("/spu-bounds")
     public MyResult saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO) {
         spuBoundsService.saveSpuBounds(spuBoundTO);
         return MyResult.success();
     }
 
-    @PostMapping("/skuOtherInfo")
+    @PostMapping("/sku-other-info")
     public MyResult saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO) {
         couponOpenService.saveSkuOtherInfo(skuOtherInfoTO);
         return MyResult.success();
     }
 
     @GetMapping("/last-3days-session")
-    public MyResult<List<SeckillSessionTO>> getLast3DaysSession() {
-        List<SeckillSessionTO> seckillSessionTOList = seckillSessionService.getLast3DaysSession();
-        return CollectionUtils.isNotEmpty(seckillSessionTOList) ? MyResult.success(seckillSessionTOList) :
+    public MyResult<List<SecKillSessionTO>> getLast3DaysSession() {
+        List<SecKillSessionTO> secKillSessionTOList = secKillSessionService.getLast3DaysSession();
+        return CollectionUtils.isNotEmpty(secKillSessionTOList) ? MyResult.success(secKillSessionTOList) :
                 MyResult.failed();
     }
 

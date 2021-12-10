@@ -19,7 +19,7 @@ import java.util.Arrays;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("/member/memberlevel")
+@RequestMapping("/member/member-level")
 public class MemberLevelController {
     @Resource
     private MemberLevelService memberLevelService;

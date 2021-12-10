@@ -15,8 +15,9 @@ import javax.annotation.Resource;
  * @date 2021-04-12 11:33:47
  */
 @RestController
-@RequestMapping("/member/integrationchangehistory")
+@RequestMapping("/member/integration-change-history")
 public class IntegrationChangeHistoryController {
+
     @Resource
     private IntegrationChangeHistoryService integrationChangeHistoryService;
 

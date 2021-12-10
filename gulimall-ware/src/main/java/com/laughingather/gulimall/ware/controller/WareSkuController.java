@@ -19,7 +19,7 @@ import java.util.Arrays;
  * @date 2021-04-12 11:57:24
  */
 @RestController
-@RequestMapping("/ware/waresku")
+@RequestMapping("/ware/ware-sku")
 public class WareSkuController {
     @Resource
     private WareSkuService wareSkuService;

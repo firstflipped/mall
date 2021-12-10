@@ -6,11 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.constant.ProductConstants;
-import com.laughingather.gulimall.product.dao.AttrAttrgroupRelationDao;
+import com.laughingather.gulimall.product.dao.AttrAttrGroupRelationDao;
 import com.laughingather.gulimall.product.dao.AttrDao;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
 import com.laughingather.gulimall.product.dao.CategoryDao;
-import com.laughingather.gulimall.product.entity.AttrAttrgroupRelationEntity;
+import com.laughingather.gulimall.product.entity.AttrAttrGroupRelationEntity;
 import com.laughingather.gulimall.product.entity.AttrEntity;
 import com.laughingather.gulimall.product.entity.dto.AttrDTO;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
@@ -19,7 +19,6 @@ import com.laughingather.gulimall.product.service.AttrService;
 import com.laughingather.gulimall.product.service.CategoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +40,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Resource
     private CategoryDao categoryDao;
     @Resource
-    private AttrAttrgroupRelationDao attrAttrgroupRelationDao;
+    private AttrAttrGroupRelationDao attrAttrGroupRelationDao;
 
-    @Autowired
+    @Resource
     private CategoryService categoryService;
 
     @Override
@@ -105,7 +104,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         // 设置分类和分组的名字
         Long[] catalogPath = categoryService.getCatalogPath(attr.getCatalogId());
         String categoryName = categoryDao.getNameById(attr.getCatalogId());
-        Long groupId = attrAttrgroupRelationDao.getGroupIdByAttrId(attr.getAttrId());
+        Long groupId = attrAttrGroupRelationDao.getGroupIdByAttrId(attr.getAttrId());
         String groupName = attrGroupDao.getGroupNameByAttrId(attr.getAttrId());
         AttrVO attrVO = AttrVO.builder().catalogPath(catalogPath).catalogName(categoryName)
                 .attrGroupId(groupId).groupName(groupName).build();
@@ -128,11 +127,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private void saveAttrOtherInfo(AttrDTO attrDTO, AttrEntity attr) {
         if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType()) &&
                 null != attrDTO.getAttrGroupId()) {
-            AttrAttrgroupRelationEntity attrAttrgroupRelation = AttrAttrgroupRelationEntity.builder()
+            AttrAttrGroupRelationEntity attrAttrGroupRelation = AttrAttrGroupRelationEntity.builder()
                     .attrId(attr.getAttrId())
                     .attrGroupId(attrDTO.getAttrGroupId())
                     .build();
-            attrAttrgroupRelationDao.insert(attrAttrgroupRelation);
+            attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
         }
     }
 
@@ -151,14 +150,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private void updateAttrOtherInfo(AttrDTO attrDTO) {
         if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType())
                 && null != attrDTO.getAttrGroupId()) {
-            AttrAttrgroupRelationEntity attrAttrgroupRelation = AttrAttrgroupRelationEntity.builder()
+            AttrAttrGroupRelationEntity attrAttrGroupRelation = AttrAttrGroupRelationEntity.builder()
                     .attrId(attrDTO.getAttrId()).attrGroupId(attrDTO.getAttrGroupId()).build();
-            Integer count = attrAttrgroupRelationDao.countAttrAttrGroupByAttrId(attrDTO.getAttrId());
+            Integer count = attrAttrGroupRelationDao.countAttrAttrGroupByAttrId(attrDTO.getAttrId());
             if (count > 0) {
                 // 更新关联信息
-                attrAttrgroupRelationDao.updateAttrAttrGroupByAttrId(attrAttrgroupRelation);
+                attrAttrGroupRelationDao.updateAttrAttrGroupByAttrId(attrAttrGroupRelation);
             } else {
-                attrAttrgroupRelationDao.insert(attrAttrgroupRelation);
+                attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
             }
         }
     }

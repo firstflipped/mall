@@ -2,6 +2,7 @@ package com.laughingather.gulimall.adminnew.entity.vo;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,9 +18,11 @@ public class PermissionsWithTreeVO {
 
     private Long parentId;
 
-    private String name;
+    private String permissionName;
 
-    private List<PermissionsWithTreeVO> child;
+    private LocalDateTime createTime;
+
+    private List<PermissionsWithTreeVO> children;
 
 }
 

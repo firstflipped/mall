@@ -6,7 +6,6 @@ import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.service.WareInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,7 +21,7 @@ import java.util.List;
  * @date 2021-04-12 11:57:23
  */
 @RestController
-@RequestMapping("/ware/wareinfo")
+@RequestMapping("/ware/ware-info")
 public class WareInfoController {
     @Resource
     private WareInfoService wareInfoService;

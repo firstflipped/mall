@@ -6,7 +6,6 @@ import com.laughingather.gulimall.product.entity.SpuInfoEntity;
 import com.laughingather.gulimall.product.entity.dto.SpuSaveDTO;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.service.SpuInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,7 +19,7 @@ import javax.annotation.Resource;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("/product/spuinfo")
+@RequestMapping("/product/spu-info")
 public class SpuInfoController {
 
     @Resource
