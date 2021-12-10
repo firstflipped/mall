@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.laughingather.gulimall.product.dao.AttrAttrgroupRelationDao">
+<mapper namespace="com.laughingather.gulimall.product.dao.AttrAttrGroupRelationDao">
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.laughingather.gulimall.product.entity.AttrAttrgroupRelationEntity"
+    <resultMap type="com.laughingather.gulimall.product.entity.AttrAttrGroupRelationEntity"
                id="attrAttrgroupRelationMap">
         <result property="id" column="id"/>
         <result property="attrId" column="attr_id"/>
@@ -17,7 +17,7 @@
         WHERE attr_id = #{attrId}
     </update>
 
-    <delete id="deleteAttrAttrgroupRelationByAttrIdAndAttrGroupId">
+    <delete id="deleteAttrAttrGroupRelationByAttrIdAndAttrGroupId">
         DELETE
         FROM pms_attr_attrgroup_relation WHERE
         <foreach collection="relations" item="relation" separator="OR">

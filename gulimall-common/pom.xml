@@ -16,6 +16,7 @@
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <druid.version>1.2.5</druid.version>
+        <swagger.version>3.0.0</swagger.version>
     </properties>
 
     <dependencies>
@@ -65,6 +66,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <dependency>

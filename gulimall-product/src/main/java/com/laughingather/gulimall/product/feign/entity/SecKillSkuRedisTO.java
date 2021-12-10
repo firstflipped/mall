@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * @create：2021-11-15 2021/11/15
  */
 @Data
-public class SeckillSkuRedisTO {
+public class SecKillSkuRedisTO {
 
     /**
      * 商品id
@@ -26,22 +26,22 @@ public class SeckillSkuRedisTO {
     /**
      * 秒杀价格
      */
-    private BigDecimal seckillPrice;
+    private BigDecimal secKillPrice;
 
     /**
      * 秒杀总量
      */
-    private Integer seckillCount;
+    private Integer secKillCount;
 
     /**
      * 每人限购数量
      */
-    private Integer seckillLimit;
+    private Integer secKillLimit;
 
     /**
      * 排序
      */
-    private Integer seckillSort;
+    private Integer secKillSort;
 
     /**
      * 活动的开始时间和结束时间

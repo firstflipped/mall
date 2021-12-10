@@ -14,10 +14,9 @@ import com.laughingather.gulimall.product.entity.query.SkuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
-import com.laughingather.gulimall.product.feign.entity.SeckillSkuRedisTO;
-import com.laughingather.gulimall.product.feign.service.SeckillFeignService;
+import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.product.feign.service.SecKillFeignService;
 import com.laughingather.gulimall.product.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -42,9 +41,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     private SkuSaleAttrValueService skuSaleAttrValueService;
 
     @Resource
-    private SeckillFeignService seckillFeignService;
+    private SecKillFeignService secKillFeignService;
 
-    @Autowired
+    @Resource
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Override
@@ -100,18 +99,18 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         }, threadPoolExecutor);
 
         // 不需要依赖skuInfo信息结果，开启一个新的异步
-        CompletableFuture<Void> skuSeckillCompletableFuture = CompletableFuture.runAsync(() -> {
+        CompletableFuture<Void> skuSecKillCompletableFuture = CompletableFuture.runAsync(() -> {
             // 查询sku的秒杀信息
-            MyResult<SeckillSkuRedisTO> seckillSkuResult = seckillFeignService.getSeckillSkuInfo(skuId);
-            if (seckillSkuResult.isSuccess()) {
-                skuItemVO.setSeckill(seckillSkuResult.getData());
+            MyResult<SecKillSkuRedisTO> secKillSkuResult = secKillFeignService.getSecKillSkuInfo(skuId);
+            if (secKillSkuResult.isSuccess()) {
+                skuItemVO.setSecKill(secKillSkuResult.getData());
             }
         }, threadPoolExecutor);
 
 
         // 等待所有线程执行完成   skuInfoCompletableFuture可以省略，因为其他异步执行会依赖他的结果
         CompletableFuture.allOf(skuInfoCompletableFuture, saleAttrsCompletableFuture, descCompletableFuture,
-                groupAttrsCompletableFuture, skuImagesCompletableFuture, skuSeckillCompletableFuture).get();
+                groupAttrsCompletableFuture, skuImagesCompletableFuture, skuSecKillCompletableFuture).get();
 
 
         // 默认有货
