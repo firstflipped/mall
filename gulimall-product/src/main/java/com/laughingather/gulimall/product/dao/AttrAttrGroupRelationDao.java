@@ -18,17 +18,17 @@ import java.util.List;
  */
 public interface AttrAttrGroupRelationDao extends BaseMapper<AttrAttrGroupRelationEntity> {
 
-    @Select("SELECT attr_group_id FROM pms_attr_attrgroup_relation WHERE attr_id = #{attrId}")
+    @Select("SELECT attr_group_id FROM pms_attr_attr_group_relation WHERE attr_id = #{attrId}")
     @ResultType(Long.class)
     Long getGroupIdByAttrId(@Param("attrId") Long attrId);
 
     void updateAttrAttrGroupByAttrId(AttrAttrGroupRelationEntity attrAttrgroupRelation);
 
-    @Select("SELECT COUNT(*) FROM pms_attr_attrgroup_relation WHERE attr_id = #{attrId}")
+    @Select("SELECT COUNT(*) FROM pms_attr_attr_group_relation WHERE attr_id = #{attrId}")
     @ResultType(Integer.class)
     Integer countAttrAttrGroupByAttrId(@Param("attrId") Long attrId);
 
-    @Select("SELECT attr_id FROM pms_attr_attrgroup_relation WHERE attr_group_id = #{attrGroupId}")
+    @Select("SELECT attr_id FROM pms_attr_attr_group_relation WHERE attr_group_id = #{attrGroupId}")
     @ResultType(Long.class)
     List<Long> selectAttrIdsByAttrGroupId(@Param("attrGroupId") Long attrGroupId);
 

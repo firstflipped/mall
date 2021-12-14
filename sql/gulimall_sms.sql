@@ -102,11 +102,11 @@ CREATE TABLE `sms_coupon_spu_relation`
 
 /*Data for the table `sms_coupon_spu_relation` */
 
-/*Table structure for table `sms_home_adv` */
+/*Table structure for table `sms_home_figure` */
 
-DROP TABLE IF EXISTS `sms_home_adv`;
+DROP TABLE IF EXISTS `sms_home_figure`;
 
-CREATE TABLE `sms_home_adv`
+CREATE TABLE `sms_home_figure`
 (
     `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `name`         varchar(100) DEFAULT NULL COMMENT '名字',
@@ -124,7 +124,7 @@ CREATE TABLE `sms_home_adv`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='首页轮播广告';
 
-/*Data for the table `sms_home_adv` */
+/*Data for the table `sms_home_figure` */
 
 /*Table structure for table `sms_home_subject` */
 
@@ -187,11 +187,11 @@ values (1, 1, 2, '白银会员', 5699.0000, NULL),
        (2, 1, 3, '黄金会员', 5599.0000, NULL),
        (3, 1, 4, '钻石会员', 5499.0000, NULL);
 
-/*Table structure for table `sms_seckill_promotion` */
+/*Table structure for table `sms_sec_kill_promotion` */
 
-DROP TABLE IF EXISTS `sms_seckill_promotion`;
+DROP TABLE IF EXISTS `sms_sec_kill_promotion`;
 
-CREATE TABLE `sms_seckill_promotion`
+CREATE TABLE `sms_sec_kill_promotion`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `title`       varchar(255) DEFAULT NULL COMMENT '活动标题',
@@ -205,16 +205,16 @@ CREATE TABLE `sms_seckill_promotion`
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动';
 
-/*Data for the table `sms_seckill_promotion` */
+/*Data for the table `sms_sec_kill_promotion` */
 
-insert into `sms_seckill_promotion`(`id`, `title`, `start_time`, `end_time`, `status`, `create_time`, `user_id`)
+insert into `sms_sec_kill_promotion`(`id`, `title`, `start_time`, `end_time`, `status`, `create_time`, `user_id`)
 values (3, 'ceshi', '2021-11-11 00:00:00', '2021-12-01 00:00:00', 1, '2021-11-10 10:55:34', NULL);
 
-/*Table structure for table `sms_seckill_session` */
+/*Table structure for table `sms_sec_kill_session` */
 
-DROP TABLE IF EXISTS `sms_seckill_session`;
+DROP TABLE IF EXISTS `sms_sec_kill_session`;
 
-CREATE TABLE `sms_seckill_session`
+CREATE TABLE `sms_sec_kill_session`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `name`        varchar(200) DEFAULT NULL COMMENT '场次名称',
@@ -227,18 +227,18 @@ CREATE TABLE `sms_seckill_session`
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动场次';
 
-/*Data for the table `sms_seckill_session` */
+/*Data for the table `sms_sec_kill_session` */
 
-insert into `sms_seckill_session`(`id`, `name`, `start_time`, `end_time`, `status`, `create_time`)
+insert into `sms_sec_kill_session`(`id`, `name`, `start_time`, `end_time`, `status`, `create_time`)
 values (1, 'xxx', '2021-11-16 16:00:00', '2021-11-16 18:00:00', 1, '2021-11-10 16:10:25'),
        (2, 'yyy', '2021-11-17 03:30:00', '2021-11-17 08:00:00', 1, '2021-11-16 09:35:40'),
        (3, 'jjj', '2021-11-22 08:30:00', '2021-11-22 23:00:00', 1, '2021-11-16 10:52:43');
 
-/*Table structure for table `sms_seckill_sku_notice` */
+/*Table structure for table `sms_sec_kill_sku_notice` */
 
-DROP TABLE IF EXISTS `sms_seckill_sku_notice`;
+DROP TABLE IF EXISTS `sms_sec_kill_sku_notice`;
 
-CREATE TABLE `sms_seckill_sku_notice`
+CREATE TABLE `sms_sec_kill_sku_notice`
 (
     `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `member_id`     bigint(20) DEFAULT NULL COMMENT 'member_id',
@@ -251,13 +251,13 @@ CREATE TABLE `sms_seckill_sku_notice`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀商品通知订阅';
 
-/*Data for the table `sms_seckill_sku_notice` */
+/*Data for the table `sms_sec_kill_sku_notice` */
 
-/*Table structure for table `sms_seckill_sku_relation` */
+/*Table structure for table `sms_sec_kill_sku_relation` */
 
-DROP TABLE IF EXISTS `sms_seckill_sku_relation`;
+DROP TABLE IF EXISTS `sms_sec_kill_sku_relation`;
 
-CREATE TABLE `sms_seckill_sku_relation`
+CREATE TABLE `sms_sec_kill_sku_relation`
 (
     `id`                   bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `promotion_id`         bigint(20)     DEFAULT NULL COMMENT '活动id',
@@ -272,10 +272,10 @@ CREATE TABLE `sms_seckill_sku_relation`
   AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀活动商品关联';
 
-/*Data for the table `sms_seckill_sku_relation` */
+/*Data for the table `sms_sec_kill_sku_relation` */
 
-insert into `sms_seckill_sku_relation`(`id`, `promotion_id`, `promotion_session_id`, `sku_id`, `seckill_price`,
-                                       `seckill_count`, `seckill_limit`, `seckill_sort`)
+insert into `sms_sec_kill_sku_relation`(`id`, `promotion_id`, `promotion_session_id`, `sku_id`, `seckill_price`,
+                                        `seckill_count`, `seckill_limit`, `seckill_sort`)
 values (2, NULL, 1, 41, 3999, 1, 1, 0),
        (3, NULL, 2, 41, 4999, 10, 1, 0),
        (4, NULL, 3, 41, 4299, 100, 1, 0);

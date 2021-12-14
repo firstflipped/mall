@@ -3,12 +3,12 @@ package com.laughingather.gulimall.product.web;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.Category2VO;
 import com.laughingather.gulimall.product.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +23,7 @@ import java.util.Map;
 @Controller
 public class IndexController {
 
-    @Autowired
+    @Resource
     private CategoryService categoryService;
 
     @GetMapping({"/", "/index.html"})
@@ -39,7 +39,7 @@ public class IndexController {
     @GetMapping("/index/catalog.json")
     @ResponseBody
     public Map<String, List<Category2VO>> getCatalogJSON() {
-        Map<String, List<Category2VO>> catalogJSON = categoryService.getCatalogJSON();
+        Map<String, List<Category2VO>> catalogJSON = categoryService.getCategoryJSON();
         return catalogJSON;
     }
 

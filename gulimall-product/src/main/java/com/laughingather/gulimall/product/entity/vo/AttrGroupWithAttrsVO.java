@@ -13,26 +13,31 @@ public class AttrGroupWithAttrsVO {
      * 分组id
      */
     private Long attrGroupId;
+
     /**
      * 组名
      */
     private String attrGroupName;
+
     /**
      * 排序
      */
     private Integer sort;
+
     /**
      * 描述
      */
-    private String descript;
+    private String description;
+
     /**
      * 组图标
      */
     private String icon;
+
     /**
      * 所属分类id
      */
-    private Long catalogId;
+    private Long categoryId;
 
     private List<AttrEntity> attrs;
 }

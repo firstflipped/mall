@@ -41,6 +41,7 @@ public class GulimallExceptionControllerAdvice {
 
     @ExceptionHandler(value = Throwable.class)
     public MyResult handleThrowable(Throwable throwable) {
+        throwable.printStackTrace();
         log.error("出现异常{}，异常类型{}", throwable.getMessage(), throwable.getClass());
         return MyResult.builder().code(ErrorCodeEnum.UNKNOWN_EXCEPTION.getCode())
                 .message(ErrorCodeEnum.UNKNOWN_EXCEPTION.getMessage())

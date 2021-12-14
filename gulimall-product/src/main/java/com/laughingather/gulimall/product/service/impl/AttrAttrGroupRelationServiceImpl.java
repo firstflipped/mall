@@ -55,43 +55,10 @@ public class AttrAttrGroupRelationServiceImpl extends ServiceImpl<AttrAttrGroupR
         // 查询选中的的属性id
         List<Long> attrIds = getNoMyCategoryAttrIds(categoryId);
 
-        MyPage<AttrEntity> attrsMyPage = getAttrMyPage(attrAttrGroupQuery, categoryId, attrIds);
+        MyPage<AttrEntity> attrsMyPage = getAttrsWithPage(attrAttrGroupQuery, categoryId, attrIds);
         return attrsMyPage;
     }
 
-    private MyPage<AttrEntity> getAttrMyPage(AttrAttrGroupQuery attrAttrGroupQuery, Long categoryId, List<Long> attrIds) {
-        IPage page = new Page(attrAttrGroupQuery.getPageNumber(), attrAttrGroupQuery.getPageSize());
-        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(AttrEntity::getCatalogId, categoryId)
-                .eq(AttrEntity::getAttrType, ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode());
-        if (CollectionUtils.isNotEmpty(attrIds)) {
-            queryWrapper.lambda().notIn(AttrEntity::getAttrId, attrIds);
-        }
-        if (StringUtils.isNotBlank(attrAttrGroupQuery.getKey())) {
-            queryWrapper.and(q -> q.lambda().eq(AttrEntity::getAttrId, attrAttrGroupQuery.getKey())
-                    .or().like(AttrEntity::getAttrName, attrAttrGroupQuery.getKey())
-            );
-        }
-
-        MyPage<AttrEntity> attrsMyPage = MyPage.restPage(attrDao.selectPage(page, queryWrapper));
-        return attrsMyPage;
-    }
-
-    private List<Long> getNoMyCategoryAttrIds(Long categoryId) {
-        // 查询当前分类下的其他分组属性
-        List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().
-                eq(AttrGroupEntity::getCatalogId, categoryId));
-        List<Long> attrGroupIds = attrGroups.stream().map(item -> item.getAttrGroupId()).collect(Collectors.toList());
-
-        List<Long> attrIds = Collections.emptyList();
-        // 根据查询结果查询其关联属性
-        if (CollectionUtils.isNotEmpty(attrGroupIds)) {
-            List<AttrAttrGroupRelationEntity> attrAttrGroupRelations = attrAttrGroupRelationDao.selectList(new QueryWrapper<AttrAttrGroupRelationEntity>().lambda()
-                    .in(AttrAttrGroupRelationEntity::getAttrGroupId, attrGroupIds));
-            attrIds = attrAttrGroupRelations.stream().map(item -> item.getAttrId()).collect(Collectors.toList());
-        }
-        return attrIds;
-    }
 
     @Override
     public void saveBatchAttrAttrGroupRelation(AttrGroupRelationDTO[] attrGroupRelationDTOs) {
@@ -106,6 +73,56 @@ public class AttrAttrGroupRelationServiceImpl extends ServiceImpl<AttrAttrGroupR
     public void deleteAttrAttrGroupRelationByAttrIdAndAttrGroupId(AttrGroupRelationDTO[] attrGroupRelationDTOs) {
         List<AttrGroupRelationDTO> attrGroupRelationDTOList = Arrays.asList(attrGroupRelationDTOs);
         attrAttrGroupRelationDao.deleteAttrAttrGroupRelationByAttrIdAndAttrGroupId(attrGroupRelationDTOList);
+    }
+
+
+    /**
+     * 分页查询属性列表
+     *
+     * @param attrAttrGroupQuery
+     * @param categoryId
+     * @param attrIds
+     * @return
+     */
+    private MyPage<AttrEntity> getAttrsWithPage(AttrAttrGroupQuery attrAttrGroupQuery, Long categoryId, List<Long> attrIds) {
+        IPage page = new Page(attrAttrGroupQuery.getPageNumber(), attrAttrGroupQuery.getPageSize());
+        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(AttrEntity::getCategoryId, categoryId)
+                .eq(AttrEntity::getAttrType, ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode());
+        if (CollectionUtils.isNotEmpty(attrIds)) {
+            queryWrapper.lambda().notIn(AttrEntity::getAttrId, attrIds);
+        }
+        if (StringUtils.isNotBlank(attrAttrGroupQuery.getKey())) {
+            queryWrapper.and(q -> q.lambda().eq(AttrEntity::getAttrId, attrAttrGroupQuery.getKey())
+                    .or().like(AttrEntity::getAttrName, attrAttrGroupQuery.getKey())
+            );
+        }
+
+        MyPage<AttrEntity> attrsMyPage = MyPage.restPage(attrDao.selectPage(page, queryWrapper));
+        return attrsMyPage;
+    }
+
+
+    /**
+     * 查询选中的属性id
+     *
+     * @param categoryId
+     * @return
+     */
+    private List<Long> getNoMyCategoryAttrIds(Long categoryId) {
+        // 查询当前分类下的其他分组属性
+        List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().
+                eq(AttrGroupEntity::getCategoryId, categoryId));
+        List<Long> attrGroupIds = attrGroups.stream().map(item -> item.getAttrGroupId()).collect(Collectors.toList());
+
+        List<Long> attrIds = Collections.emptyList();
+        // 根据查询结果查询其关联属性
+        if (CollectionUtils.isNotEmpty(attrGroupIds)) {
+            List<AttrAttrGroupRelationEntity> attrAttrGroupRelations = attrAttrGroupRelationDao.selectList(new QueryWrapper<AttrAttrGroupRelationEntity>().lambda()
+                    .in(AttrAttrGroupRelationEntity::getAttrGroupId, attrGroupIds));
+            attrIds = attrAttrGroupRelations.stream().map(item -> item.getAttrId()).collect(Collectors.toList());
+        }
+        return attrIds;
     }
 
 }

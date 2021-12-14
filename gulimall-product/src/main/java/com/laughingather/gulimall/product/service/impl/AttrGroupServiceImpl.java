@@ -45,7 +45,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
 
     @Override
-    public MyPage<AttrGroupEntity> pageAttrGroupsByParams(Long catId, AttrGroupQuery attrGroupQuery) {
+    public MyPage<AttrGroupEntity> listAttrGroupsWithPage(Long categoryId, AttrGroupQuery attrGroupQuery) {
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
         IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPageNumber(), attrGroupQuery.getPageSize());
 
@@ -56,9 +56,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
             );
         }
 
-        // 表示需要根据catId进行查询
-        if (catId != 0) {
-            queryWrapper.lambda().eq(AttrGroupEntity::getCatalogId, catId);
+        // 表示需要根据分类id进行查询
+        if (!categoryId.equals(0L)) {
+            queryWrapper.lambda().eq(AttrGroupEntity::getCategoryId, categoryId);
         }
 
         IPage<AttrGroupEntity> attrGroupEntityIPage = attrGroupDao.selectPage(page, queryWrapper);
@@ -70,7 +70,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     public AttrGroupVO getAttrGroupById(Long attrGroupId) {
         AttrGroupVO attrGroupVO = attrGroupDao.getAttrGroupById(attrGroupId);
         // 设置分类路径
-        attrGroupVO.setCatalogPath(categoryService.getCatalogPath(attrGroupVO.getCatalogId()));
+        attrGroupVO.setCategoryPath(categoryService.getCategoryPath(attrGroupVO.getCategoryId()));
         return attrGroupVO;
     }
 
@@ -78,7 +78,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Override
     public List<AttrGroupWithAttrsVO> getAttrGroupWithAttrsByCategoryId(Long categoryId) {
         // 先根据分类id查询所有分组
-        List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().eq(AttrGroupEntity::getCatalogId, categoryId));
+        List<AttrGroupEntity> attrGroups = attrGroupDao.selectList(new QueryWrapper<AttrGroupEntity>().lambda().eq(AttrGroupEntity::getCategoryId, categoryId));
 
         if (CollectionUtils.isEmpty(attrGroups)) {
             return Collections.emptyList();

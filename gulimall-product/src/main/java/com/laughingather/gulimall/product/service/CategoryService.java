@@ -35,10 +35,10 @@ public interface CategoryService extends IService<CategoryEntity> {
     /**
      * 根据子节点查询完整节点关系
      *
-     * @param catalogId
+     * @param categoryId
      * @return
      */
-    Long[] getCatalogPath(@NotNull Long catalogId);
+    Long[] getCategoryPath(@NotNull Long categoryId);
 
     /**
      * 查询所有一级分类
@@ -48,8 +48,8 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> listLevel1Category();
 
 
-    Map<String, List<Category2VO>> getCatalogJSONFromDb();
+    Map<String, List<Category2VO>> getCategoryJSONFromDb();
 
-    Map<String, List<Category2VO>> getCatalogJSON();
+    Map<String, List<Category2VO>> getCategoryJSON();
 }
 

@@ -7,22 +7,22 @@
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrGroupName" column="attr_group_name"/>
         <result property="sort" column="sort"/>
-        <result property="descript" column="descript"/>
+        <result property="description" column="description"/>
         <result property="icon" column="icon"/>
-        <result property="catalogId" column="catalog_id"/>
+        <result property="categoryId" column="category_id"/>
     </resultMap>
 
     <select id="getAttrGroupById" resultType="com.laughingather.gulimall.product.entity.vo.AttrGroupVO">
-        SELECT attr_group_id, attr_group_name, sort, descript, icon, catalog_id
+        SELECT attr_group_id, attr_group_name, sort, description, icon, category_id
         FROM pms_attr_group
         WHERE attr_group_id = #{attrGroupId};
     </select>
 
     <select id="getGroupNameByAttrId" resultType="java.lang.String">
-        SELECT ag.attr_group_name
-        FROM pms_attr_attrgroup_relation aar
-                     INNER JOIN pms_attr_group ag USING (attr_group_id)
-        WHERE aar.attr_id = #{attrId}
+        SELECT pag.attr_group_name
+        FROM pms_attr_attr_group_relation paagr
+                     INNER JOIN pms_attr_group pag USING (attr_group_id)
+        WHERE paagr.attr_id = #{attrId}
     </select>
 
     <!-- 索引并不一定是每个关联字段都加上好，具体要看执行解释器 -->
@@ -30,21 +30,21 @@
         <result property="groupName" column="attr_group_name" javaType="string"/>
         <collection property="attrs" ofType="com.laughingather.gulimall.product.entity.vo.SpuBaseAttrVO">
             <result property="attrName" column="attr_name" javaType="string"/>
-            <result property="attrValue" column="attr_value" javaType="string" />
+            <result property="attrValue" column="attr_value" javaType="string"/>
         </collection>
     </resultMap>
     <select id="getAttrGroupWithAttrsBySpuId" resultMap="attrGroupWithAttrsMap">
         SELECT ppav.spu_id,
                pag.attr_group_id,
                pag.attr_group_name,
-               paar.attr_id,
+               paagr.attr_id,
                pa.attr_name,
                ppav.attr_value
         FROM pms_attr_group pag
-                     LEFT JOIN pms_attr_attrgroup_relation paar USING (attr_group_id)
+                     LEFT JOIN pms_attr_attr_group_relation paagr USING (attr_group_id)
                      LEFT JOIN pms_attr pa USING (attr_id)
                      LEFT JOIN pms_product_attr_value ppav USING (attr_id)
-        WHERE pag.catalog_id = #{catalogId}
+        WHERE pag.category_id = #{catalogId}
           AND ppav.spu_id = #{spuId}
     </select>
 </mapper>

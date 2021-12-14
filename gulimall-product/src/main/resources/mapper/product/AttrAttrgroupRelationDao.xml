@@ -9,17 +9,18 @@
         <result property="attrId" column="attr_id"/>
         <result property="attrGroupId" column="attr_group_id"/>
         <result property="attrSort" column="attr_sort"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <update id="updateAttrAttrGroupByAttrId">
-        UPDATE pms_attr_attrgroup_relation
+        UPDATE pms_attr_attr_group_relation
         SET attr_group_id = #{attrGroupId}
         WHERE attr_id = #{attrId}
     </update>
 
     <delete id="deleteAttrAttrGroupRelationByAttrIdAndAttrGroupId">
         DELETE
-        FROM pms_attr_attrgroup_relation WHERE
+        FROM pms_attr_attr_group_relation WHERE
         <foreach collection="relations" item="relation" separator="OR">
             (attr_id = #{relation.attrId} AND attr_group_id = #{relation.attrGroupId})
         </foreach>

@@ -6,6 +6,10 @@ import com.laughingather.gulimall.product.entity.dto.AttrDTO;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.service.AttrService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,33 +24,50 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/product/attr")
+@Api(tags = "属性模块")
 public class AttrController {
 
     @Resource
     private AttrService attrService;
 
-    @GetMapping("/{attrType}/page/{catId}")
-    public MyResult<MyPage<AttrVO>> pageAttrsByCatId(@PathVariable("catId") Long catId,
-                                                     @PathVariable("attrType") String attrType,
-                                                     @ModelAttribute AttrQuery attrQuery) {
-        MyPage<AttrVO> attrEntityMyPage = attrService.pageAttrsByCatId(catId, attrType, attrQuery);
-        return MyResult.success(attrEntityMyPage);
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询属性列表")
+    public MyResult<MyPage<AttrVO>> listAttrsWithPage(@ModelAttribute AttrQuery attrQuery) {
+        MyPage<AttrVO> attrsWithPage = attrService.listAttrsWithPage(attrQuery);
+        return MyResult.success(attrsWithPage);
+    }
+
+
+    @GetMapping("/{categoryId}/page")
+    @ApiOperation("根据属性类型和属性分类分页查询属性列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "catId", value = "属性分类id", dataTypeClass = Long.class, example = "225"),
+            @ApiImplicitParam(name = "attrQuery", value = "属性查询过滤条件", dataTypeClass = AttrQuery.class)
+    })
+    public MyResult<MyPage<AttrVO>> listAttrsWithPageByCategoryId(@PathVariable("categoryId") Long categoryId,
+                                                                  @ModelAttribute AttrQuery attrQuery) {
+        MyPage<AttrVO> attrsWithPage = attrService.listAttrsWithPageByCategoryId(categoryId, attrQuery);
+        return MyResult.success(attrsWithPage);
     }
 
 
     @GetMapping("/{attrId}")
+    @ApiOperation(value = "根据属性id查询属性详情")
+    @ApiImplicitParam(name = "attrId", value = "属性id", dataTypeClass = Long.class, example = "7")
     public MyResult<AttrVO> getAttrVOById(@PathVariable Long attrId) {
         AttrVO attrVO = attrService.getAttrVOById(attrId);
         return MyResult.success(attrVO);
     }
 
     @PostMapping
+    @ApiOperation(value = "保存属性信息")
     public MyResult saveAttr(@RequestBody AttrDTO attrDTO) {
         attrService.saveAttr(attrDTO);
         return MyResult.success();
     }
 
     @PutMapping
+    @ApiOperation(value = "更新属性信息")
     public MyResult updateAttrById(@RequestBody AttrDTO attrDTO) {
         attrService.updateAttrById(attrDTO);
         return MyResult.success();

@@ -20,13 +20,13 @@ import java.util.List;
 public interface AttrGroupService extends IService<AttrGroupEntity> {
 
     /**
-     * 根据条件获取属性分组列表
+     * 根据条件分页获取属性分组列表
      *
-     * @param catId
+     * @param categoryId
      * @param attrGroupQuery
      * @return
      */
-    MyPage<AttrGroupEntity> pageAttrGroupsByParams(Long catId, AttrGroupQuery attrGroupQuery);
+    MyPage<AttrGroupEntity> listAttrGroupsWithPage(Long categoryId, AttrGroupQuery attrGroupQuery);
 
     /**
      * 根据id获取属性分组详细信息

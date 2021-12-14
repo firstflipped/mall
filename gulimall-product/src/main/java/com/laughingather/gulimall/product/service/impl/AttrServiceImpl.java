@@ -23,15 +23,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Service("attrService")
 public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements AttrService {
-
-    private static final String BASE_INFO = "base";
-    private static final Integer BASE_VALUE = 1;
 
     @Resource
     private AttrDao attrDao;
@@ -46,44 +44,40 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private CategoryService categoryService;
 
     @Override
-    public MyPage<AttrVO> pageAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery) {
-
+    public MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery) {
         // 拼接分页条件
-        IPage page = new Page(attrQuery.getPageNumber(), attrQuery.getPageSize());
+        IPage page = getPage(attrQuery);
+
+        // 拼接查询条件
+        IPage<AttrEntity> iPage = attrDao.selectPage(page, null);
+        return getAttrOtherInfo(iPage);
+    }
+
+    @Override
+    public MyPage<AttrVO> listAttrsWithPageByCategoryId(Long categoryId, AttrQuery attrQuery) {
+        IPage page = getPage(attrQuery);
 
         // 拼接查询条件
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(AttrEntity::getAttrType,
-                ProductConstants.AttrEnum.ATTR_TYPE_BASE.getType().equalsIgnoreCase(attrType) ?
-                        ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode() : ProductConstants.AttrEnum.ATTR_TYPE_SALE.getCode());
+        if (attrQuery.getAttrType() != null) {
+            queryWrapper.lambda().eq(AttrEntity::getAttrType, attrQuery.getAttrType());
+        }
         if (StringUtils.isNotBlank(attrQuery.getKey())) {
             queryWrapper.and(q ->
                     q.lambda().like(AttrEntity::getAttrName, attrQuery.getKey())
                             .or().eq(AttrEntity::getAttrId, attrQuery.getKey())
             );
         }
-        if (catId != 0) {
-            queryWrapper.lambda().eq(AttrEntity::getCatalogId, catId);
+
+        // 如果分类id为0的话表示查询所有，不为0的话作为一个过滤条件
+        if (!categoryId.equals(0L)) {
+            queryWrapper.lambda().eq(AttrEntity::getCategoryId, categoryId);
         }
 
         IPage<AttrEntity> iPage = attrDao.selectPage(page, queryWrapper);
         return getAttrOtherInfo(iPage);
     }
 
-    private MyPage<AttrVO> getAttrOtherInfo(IPage<AttrEntity> iPage) {
-
-        List<AttrVO> attrVOList = iPage.getRecords().stream().map(attr -> {
-            // 设置分类和分组的名字
-            AttrVO attrVO = getAttrOtherInfoById(attr);
-            BeanUtils.copyProperties(attr, attrVO);
-            return attrVO;
-        }).collect(Collectors.toList());
-
-        MyPage<AttrVO> myPage = MyPage.<AttrVO>builder().total(iPage.getTotal()).pages(iPage.getPages())
-                .pageNumber(iPage.getCurrent()).pageSize(iPage.getSize()).list(attrVOList).build();
-
-        return myPage;
-    }
 
     @Override
     public AttrVO getAttrVOById(Long attrId) {
@@ -100,17 +94,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         return attrDao.selectSearchAttrIds(attrIds);
     }
 
-    private AttrVO getAttrOtherInfoById(AttrEntity attr) {
-        // 设置分类和分组的名字
-        Long[] catalogPath = categoryService.getCatalogPath(attr.getCatalogId());
-        String categoryName = categoryDao.getNameById(attr.getCatalogId());
-        Long groupId = attrAttrGroupRelationDao.getGroupIdByAttrId(attr.getAttrId());
-        String groupName = attrGroupDao.getGroupNameByAttrId(attr.getAttrId());
-        AttrVO attrVO = AttrVO.builder().catalogPath(catalogPath).catalogName(categoryName)
-                .attrGroupId(groupId).groupName(groupName).build();
-        return attrVO;
-    }
-
 
     @Override
     @Transactional
@@ -119,21 +102,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         BeanUtils.copyProperties(attrDTO, attr);
 
         // 保存商品属性基本数据
+        attr.setCreateTime(LocalDateTime.now());
         attrDao.insert(attr);
         // 保存关联关系
         saveAttrOtherInfo(attrDTO, attr);
     }
 
-    private void saveAttrOtherInfo(AttrDTO attrDTO, AttrEntity attr) {
-        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType()) &&
-                null != attrDTO.getAttrGroupId()) {
-            AttrAttrGroupRelationEntity attrAttrGroupRelation = AttrAttrGroupRelationEntity.builder()
-                    .attrId(attr.getAttrId())
-                    .attrGroupId(attrDTO.getAttrGroupId())
-                    .build();
-            attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
-        }
-    }
 
     @Override
     @Transactional
@@ -147,6 +121,28 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         updateAttrOtherInfo(attrDTO);
     }
 
+    /**
+     * 保存属性关联信息
+     *
+     * @param attrDTO
+     * @param attr
+     */
+    private void saveAttrOtherInfo(AttrDTO attrDTO, AttrEntity attr) {
+        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType()) &&
+                null != attrDTO.getAttrGroupId()) {
+            AttrAttrGroupRelationEntity attrAttrGroupRelation = AttrAttrGroupRelationEntity.builder()
+                    .attrId(attr.getAttrId())
+                    .attrGroupId(attrDTO.getAttrGroupId())
+                    .build();
+            attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
+        }
+    }
+
+    /**
+     * 更新属性关联信息
+     *
+     * @param attrDTO
+     */
     private void updateAttrOtherInfo(AttrDTO attrDTO) {
         if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType())
                 && null != attrDTO.getAttrGroupId()) {
@@ -160,6 +156,61 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
                 attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
             }
         }
+    }
+
+    /**
+     * 获取属性的其他关联信息
+     *
+     * @param iPage
+     * @return
+     */
+    private MyPage<AttrVO> getAttrOtherInfo(IPage<AttrEntity> iPage) {
+
+        List<AttrVO> attrVOList = iPage.getRecords().stream().map(attr -> {
+            // 设置分类和分组的名字
+            AttrVO attrVO = getAttrOtherInfoById(attr);
+            BeanUtils.copyProperties(attr, attrVO);
+            return attrVO;
+        }).collect(Collectors.toList());
+
+        MyPage<AttrVO> myPage = MyPage.<AttrVO>builder().total(iPage.getTotal()).pages(iPage.getPages())
+                .pageNumber(iPage.getCurrent()).pageSize(iPage.getSize()).list(attrVOList).build();
+
+        return myPage;
+    }
+
+    /**
+     * 获取属性的分组名称和分类名称
+     *
+     * @param attr
+     * @return
+     */
+    private AttrVO getAttrOtherInfoById(AttrEntity attr) {
+        // 设置分类和分组的名字
+        Long[] categoryPath = categoryService.getCategoryPath(attr.getCategoryId());
+        String categoryName = categoryDao.getNameById(attr.getCategoryId());
+        Long attrGroupId = attrAttrGroupRelationDao.getGroupIdByAttrId(attr.getAttrId());
+        String attrGroupName = attrGroupDao.getGroupNameByAttrId(attr.getAttrId());
+        AttrVO attrVO = AttrVO.builder().categoryPath(categoryPath).categoryName(categoryName)
+                .attrGroupId(attrGroupId).attrGroupName(attrGroupName).build();
+        return attrVO;
+    }
+
+    /**
+     * 默认初始化分页数据
+     *
+     * @param attrQuery
+     * @return
+     */
+    private IPage getPage(AttrQuery attrQuery) {
+        // 拼接分页条件
+        if (attrQuery.getPageNumber() == null || attrQuery.getPageNumber() <= 0) {
+            attrQuery.setPageNumber(1);
+        }
+        if (attrQuery.getPageSize() == null || attrQuery.getPageSize() <= 0) {
+            attrQuery.setPageSize(10);
+        }
+        return new Page(attrQuery.getPageNumber(), attrQuery.getPageSize());
     }
 
 }

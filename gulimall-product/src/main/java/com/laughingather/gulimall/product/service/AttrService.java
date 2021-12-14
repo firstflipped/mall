@@ -18,14 +18,51 @@ import java.util.List;
  */
 public interface AttrService extends IService<AttrEntity> {
 
-    MyPage<AttrVO> pageAttrsByCatId(Long catId, String attrType, AttrQuery attrQuery);
+    /**
+     * 根据分类id分页查询属性列表
+     *
+     * @param categoryId 分类id
+     * @param attrQuery
+     * @return
+     */
+    MyPage<AttrVO> listAttrsWithPageByCategoryId(Long categoryId, AttrQuery attrQuery);
 
+    /**
+     * 保存属性信息
+     *
+     * @param attrDTO
+     */
     void saveAttr(AttrDTO attrDTO);
 
+    /**
+     * 更新属性信息
+     *
+     * @param attrDTO
+     */
     void updateAttrById(AttrDTO attrDTO);
 
+    /**
+     * 获取属性详情
+     *
+     * @param attrId 属性id
+     * @return
+     */
     AttrVO getAttrVOById(Long attrId);
 
+    /**
+     * 查询需要检索的属性id列表
+     *
+     * @param attrIds
+     * @return
+     */
     List<Long> selectSearchAttrIds(List<Long> attrIds);
+
+    /**
+     * 分页查询属性列表
+     *
+     * @param attrQuery
+     * @return
+     */
+    MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery);
 }
 

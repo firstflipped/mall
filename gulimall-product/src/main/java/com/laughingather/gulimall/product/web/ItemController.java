@@ -3,12 +3,12 @@ package com.laughingather.gulimall.product.web;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
 import com.laughingather.gulimall.product.service.SkuInfoService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.annotation.Resource;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 @Controller
 public class ItemController {
 
-    @Autowired
+    @Resource
     private SkuInfoService skuInfoService;
 
     @GetMapping("/{skuId}.html")

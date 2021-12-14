@@ -66,13 +66,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public Long[] getCatalogPath(@NotNull Long catalogId) {
-        List<Long> catalogPath = new ArrayList<>();
+    public Long[] getCategoryPath(@NotNull Long categoryId) {
+        List<Long> categoryPath = new ArrayList<>();
 
-        catalogPath = findParentById(catalogId, catalogPath);
-        Collections.reverse(catalogPath);
+        categoryPath = findParentById(categoryId, categoryPath);
+        Collections.reverse(categoryPath);
 
-        return catalogPath.toArray(new Long[catalogPath.size()]);
+        return categoryPath.toArray(new Long[categoryPath.size()]);
     }
 
     /**
@@ -95,7 +95,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
 
     @Override
-    public Map<String, List<Category2VO>> getCatalogJSONFromDb() {
+    public Map<String, List<Category2VO>> getCategoryJSONFromDb() {
         Map<String, List<Category2VO>> categoryJSON = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORYS);
         if (MapUtils.isNotEmpty(categoryJSON)) {
             return categoryJSON;
@@ -166,13 +166,13 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      *
      * @return
      */
-    private Map<String, List<Category2VO>> getCatalogJSONFromDbWithRedissonLock() {
+    private Map<String, List<Category2VO>> getCategoryJSONFromDbWithRedissonLock() {
         RLock categoryLock = redissonClient.getLock(ProductConstants.CATEGORY_LOCK);
         categoryLock.lock(30, TimeUnit.SECONDS);
         log.info("获取分布式锁成功");
         Map<String, List<Category2VO>> dataFromDb;
         try {
-            dataFromDb = getCatalogJSONFromDb();
+            dataFromDb = getCategoryJSONFromDb();
         } finally {
             categoryLock.unlock();
         }
@@ -192,7 +192,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * @return
      */
     @Override
-    public Map<String, List<Category2VO>> getCatalogJSON() {
+    public Map<String, List<Category2VO>> getCategoryJSON() {
         /**
          * redis自实现分布式锁
          * 1、空结果缓存：解决缓存穿透问题（缓存穿透主要是查询一个一定不存在的数据造成的）
@@ -202,7 +202,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
          */
         Map<String, List<Category2VO>> categoryJSON = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORYS);
         if (MapUtils.isEmpty(categoryJSON)) {
-            Map<String, List<Category2VO>> catalogJSONFromDb = getCatalogJSONFromDbWithRedissonLock();
+            Map<String, List<Category2VO>> catalogJSONFromDb = getCategoryJSONFromDbWithRedissonLock();
             return catalogJSONFromDb;
         }
 
@@ -323,7 +323,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
             log.info("获取分布式锁成功");
             Map<String, List<Category2VO>> dataFromDb;
             try {
-                dataFromDb = getCatalogJSONFromDb();
+                dataFromDb = getCategoryJSONFromDb();
             } finally {
                 String script = "if redis.call(\"get\",KEYS[1]) == ARGV[1] then\n" +
                         "    return redis.call(\"del\",KEYS[1])\n" +

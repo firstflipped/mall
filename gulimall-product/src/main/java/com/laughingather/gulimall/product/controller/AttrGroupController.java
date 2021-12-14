@@ -9,7 +9,10 @@ import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
 import com.laughingather.gulimall.product.service.AttrGroupService;
-import com.laughingather.gulimall.product.service.AttrService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,23 +30,30 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product/attr-group")
+@Api(tags = "属性分组模块")
 public class AttrGroupController {
 
     @Resource
     private AttrGroupService attrGroupService;
-    @Resource
-    private AttrService attrService;
 
-    @GetMapping("/page/{catId}")
-    public MyResult<MyPage<AttrGroupEntity>> pageAttrGroupsByParams(@PathVariable("catId") Long catId,
+
+    @GetMapping("/{catId}/page")
+    @ApiOperation(value = "根据分类id分页查询属性分组列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "catId", value = "属性分组分类id", dataTypeClass = Long.class),
+            @ApiImplicitParam(name = "attrGroupQuery", value = "属性分组过滤条件", dataTypeClass = AttrGroupQuery.class)
+    })
+    public MyResult<MyPage<AttrGroupEntity>> listAttrGroupsWithPage(@PathVariable("catId") Long categoryId,
                                                                     @ModelAttribute AttrGroupQuery attrGroupQuery) {
         MyPage<AttrGroupEntity> attrGroupEntityMyPage =
-                attrGroupService.pageAttrGroupsByParams(catId, attrGroupQuery);
+                attrGroupService.listAttrGroupsWithPage(categoryId, attrGroupQuery);
 
         return MyResult.success(attrGroupEntityMyPage);
     }
 
     @GetMapping("/{attrGroupId}")
+    @ApiOperation(value = "根据属性分组id查询属性分组详情")
+    @ApiImplicitParam(name = "attrGroupId", value = "属性分组id", dataTypeClass = Long.class)
     public MyResult<AttrGroupVO> getAttrGroupById(@PathVariable("attrGroupId") Long attrGroupId) {
         AttrGroupVO attrGroupVO = attrGroupService.getAttrGroupById(attrGroupId);
         return MyResult.success(attrGroupVO);
@@ -55,31 +65,38 @@ public class AttrGroupController {
      * @param categoryId
      * @return
      */
-    @GetMapping("/{categoryId}/with-attrs")
-    public MyResult<List<AttrGroupWithAttrsVO>> getAttrGroupWithAttrsByCategoryId(@PathVariable("categoryId") Long categoryId) {
+    @GetMapping("/{catId}/with-attrs")
+    @ApiOperation(value = "查询当前分类下的所有分组以及分组下的属性信息")
+    @ApiImplicitParam(name = "catId", value = "分类id", dataTypeClass = Long.class)
+    public MyResult<List<AttrGroupWithAttrsVO>> getAttrGroupWithAttrsByCategoryId(@PathVariable("catId") Long categoryId) {
         List<AttrGroupWithAttrsVO> attrGroupWithAttrsVOList = attrGroupService.getAttrGroupWithAttrsByCategoryId(categoryId);
         return MyResult.success(attrGroupWithAttrsVOList);
     }
 
     @PostMapping
+    @ApiOperation(value = "保存属性分组信息")
     public MyResult saveAttrGroup(@Validated(value = {AddGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
         attrGroupService.save(attrGroup);
         return MyResult.success();
     }
 
     @DeleteMapping("/{attrGroupId}")
+    @ApiOperation(value = "删除属性分组信息")
+    @ApiImplicitParam(name = "attrGroupId", value = "属性分组id", dataTypeClass = Long.class)
     public MyResult deleteAttrGroupById(@PathVariable("attrGroupId") Long attrGroupId) {
         attrGroupService.removeById(attrGroupId);
         return MyResult.success();
     }
 
     @DeleteMapping
+    @ApiOperation(value = "批量删除属性分组信息")
     public MyResult deleteAttrGroupsByIds(@RequestBody Long[] attrGroupIds) {
         attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
         return MyResult.success();
     }
 
     @PutMapping
+    @ApiOperation(value = "更新属性分组信息")
     public MyResult updateAttrGroupById(@Validated(value = {UpdateGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
         attrGroupService.updateById(attrGroup);
         return MyResult.success();

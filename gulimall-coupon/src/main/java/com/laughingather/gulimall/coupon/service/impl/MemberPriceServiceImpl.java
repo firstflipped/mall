@@ -49,8 +49,8 @@ public class MemberPriceServiceImpl extends ServiceImpl<MemberPriceDao, MemberPr
         if (memberPriceQuery.getPageNumber() == null || memberPriceQuery.getPageNumber() <= 0) {
             memberPriceQuery.setPageNumber(1);
         }
-        if (memberPriceQuery.getPageNumber() == null || memberPriceQuery.getPageNumber() <= 0) {
-            memberPriceQuery.setPageNumber(10);
+        if (memberPriceQuery.getPageSize() == null || memberPriceQuery.getPageSize() <= 0) {
+            memberPriceQuery.setPageSize(10);
         }
 
         IPage<MemberPriceEntity> page = new Page<>(memberPriceQuery.getPageNumber(), memberPriceQuery.getPageSize());

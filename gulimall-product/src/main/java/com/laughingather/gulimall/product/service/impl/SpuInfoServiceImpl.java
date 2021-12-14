@@ -251,7 +251,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     private void saveSpuInfoDesc(Long spuInfoId, List<String> descList) {
         String desc = String.join(",", descList);
-        SpuInfoDescEntity spuInfoDesc = SpuInfoDescEntity.builder().spuId(spuInfoId).decript(desc).build();
+        SpuInfoDescEntity spuInfoDesc = SpuInfoDescEntity.builder().spuId(spuInfoId).description(desc).build();
         spuInfoDescService.save(spuInfoDesc);
     }
 
