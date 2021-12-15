@@ -5,8 +5,24 @@ import lombok.Data;
 
 @Data
 public class SpuInfoQuery extends PageQuery {
+
+    /**
+     * 状态
+     */
     private Integer status;
+
+    /**
+     * 关键字
+     */
     private String key;
+
+    /**
+     * 品牌id
+     */
     private Long brandId;
-    private Long catalogId;
+
+    /**
+     * 分类id
+     */
+    private Long categoryId;
 }

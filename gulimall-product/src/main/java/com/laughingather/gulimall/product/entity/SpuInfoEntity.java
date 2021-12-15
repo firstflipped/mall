@@ -2,12 +2,11 @@ package com.laughingather.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.math.BigDecimal;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * spu信息
@@ -26,37 +25,44 @@ public class SpuInfoEntity implements Serializable {
 	 */
 	@TableId
 	private Long id;
+
 	/**
 	 * 商品名称
 	 */
 	private String spuName;
+
 	/**
 	 * 商品描述
 	 */
 	private String spuDescription;
-	/**
-	 * 所属分类id
-	 */
-	private Long catalogId;
-	/**
-	 * 品牌id
-	 */
-	private Long brandId;
+
 	/**
 	 * 
 	 */
 	private BigDecimal weight;
+
 	/**
 	 * 上架状态[0 - 下架，1 - 上架]
 	 */
 	private Integer publishStatus;
+
 	/**
-	 * 
+	 * 创建时间
 	 */
 	private LocalDateTime createTime;
+
 	/**
-	 * 
+	 * 更新时间
 	 */
 	private LocalDateTime updateTime;
 
+	/**
+	 * 所属分类id
+	 */
+	private Long categoryId;
+
+	/**
+	 * 品牌id
+	 */
+	private Long brandId;
 }
