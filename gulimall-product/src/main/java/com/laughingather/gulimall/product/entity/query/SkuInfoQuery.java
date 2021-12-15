@@ -7,9 +7,14 @@ import java.math.BigDecimal;
 
 @Data
 public class SkuInfoQuery extends PageQuery {
+
     private String key;
+
     private Long brandId;
-    private Long catalogId;
+
+    private Long categoryId;
+
     private BigDecimal min;
+
     private BigDecimal max;
 }
