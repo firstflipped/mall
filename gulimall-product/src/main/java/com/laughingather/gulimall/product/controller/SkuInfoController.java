@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 
 
 /**
- * sku信息
+ * sku路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -23,13 +23,14 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/sku-info")
 public class SkuInfoController {
+
     @Resource
     private SkuInfoService skuInfoService;
 
     @GetMapping("/page")
-    public MyResult<MyPage<SkuInfoEntity>> pageSpuInfoByParams(@ModelAttribute SkuInfoQuery skuInfoQuery) {
-        MyPage<SkuInfoEntity> skuInfoMyPage = skuInfoService.pageSkuInfoByParams(skuInfoQuery);
-        return MyResult.success(skuInfoMyPage);
+    public MyResult<MyPage<SkuInfoEntity>> listSkusWithPage(@ModelAttribute SkuInfoQuery skuInfoQuery) {
+        MyPage<SkuInfoEntity> skuInfoWithPage = skuInfoService.listSkusWithPage(skuInfoQuery);
+        return MyResult.success(skuInfoWithPage);
     }
 
 }

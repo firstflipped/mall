@@ -13,11 +13,11 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -35,9 +35,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Resource
     private CategoryDao categoryDao;
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     @Override
@@ -58,11 +58,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
     @Override
-    public boolean deleteCategoryByIds(List<Long> catIdList) {
+    @Transactional
+    public void deleteCategoryByIds(List<Long> catIdList) {
         // TODO:遍历需要被删除的id，确定在其他位置是否存在引用
 
-        int deleteCounts = categoryDao.deleteBatchIds(catIdList);
-        return deleteCounts > 0 ? true : false;
+        categoryDao.deleteBatchIds(catIdList);
     }
 
     @Override
@@ -86,46 +86,47 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * SpringCache的局限性在于并发时的读写锁的实现是应用锁，一个应用一把锁
      */
     @Override
-    @Cacheable(value = "category", key = "'level1Categorys'", sync = true)
+    @Cacheable(value = "category", key = "'level1Category'", sync = true)
     public List<CategoryEntity> listLevel1Category() {
-        log.info("执行了方法");
+        log.info("进行了查询操作，没有触发缓存");
+
         return categoryDao.selectList(new LambdaQueryWrapper<CategoryEntity>()
-                .eq(CategoryEntity::getCatLevel, 1));
+                .eq(CategoryEntity::getCategoryLevel, 1));
     }
 
 
     @Override
     public Map<String, List<Category2VO>> getCategoryJSONFromDb() {
-        Map<String, List<Category2VO>> categoryJSON = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORYS);
+        Map<String, List<Category2VO>> categoryJSON = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORY);
         if (MapUtils.isNotEmpty(categoryJSON)) {
             return categoryJSON;
         }
 
-        log.info("查询了数据库");
+        log.info("查询没有命中缓存，触发了数据库操作");
         // 先查询所有分类信息
-        List<CategoryEntity> categorys = categoryDao.selectList(null);
+        List<CategoryEntity> categories = categoryDao.selectList(null);
 
         // 1、获取所有一级分类
-        List<CategoryEntity> categoryList = listCategoryByParentId(categorys, 0L);
+        List<CategoryEntity> category1List = listCategoryByParentId(categories, ProductConstants.categoryRootId);
 
         // 2、把一级分类id当键， 二级分类及子类当值
-        Map<String, List<Category2VO>> catalogJSON = categoryList.stream().collect(Collectors.toMap(
-                k -> k.getCatId().toString(),
+        Map<String, List<Category2VO>> catalogJSON = category1List.stream().collect(Collectors.toMap(
+                k -> k.getCategoryId().toString(),
                 v -> {
-                    List<CategoryEntity> category2List = listCategoryByParentId(categorys, v.getCatId());
+                    List<CategoryEntity> category2List = listCategoryByParentId(categories, v.getCategoryId());
                     List<Category2VO> category2VOList = Collections.emptyList();
                     if (CollectionUtils.isNotEmpty(category2List)) {
-                        category2VOList = category2List.stream().map(categorg2 -> {
-                            Category2VO category2VO = Category2VO.builder().id(categorg2.getCatId().toString())
-                                    .name(categorg2.getName())
-                                    .catalog1Id(v.getCatId().toString()).build();
+                        category2VOList = category2List.stream().map(category2 -> {
+                            Category2VO category2VO = Category2VO.builder().id(category2.getCategoryId().toString())
+                                    .name(category2.getCategoryName())
+                                    .catalog1Id(v.getCategoryId().toString()).build();
 
-                            List<CategoryEntity> category3List = listCategoryByParentId(categorys, categorg2.getCatId());
+                            List<CategoryEntity> category3List = listCategoryByParentId(categories, category2.getCategoryId());
                             if (CollectionUtils.isNotEmpty(category3List)) {
-                                List<Category2VO.Category3VO> category3VOList = category3List.stream().map(categorg3 ->
-                                        Category2VO.Category3VO.builder().id(categorg3.getCatId().toString())
-                                                .name(categorg3.getName())
-                                                .catalog2Id(categorg2.getCatId().toString())
+                                List<Category2VO.Category3VO> category3VOList = category3List.stream().map(category3 ->
+                                        Category2VO.Category3VO.builder().id(category3.getCategoryId().toString())
+                                                .name(category3.getCategoryName())
+                                                .catalog2Id(category2.getCategoryId().toString())
                                                 .build()
                                 ).collect(Collectors.toList());
                                 category2VO.setCatalog3List(category3VOList);
@@ -137,7 +138,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 }
         ));
 
-        redisTemplate.opsForValue().set(ProductConstants.CATEGORYS, catalogJSON);
+        redisTemplate.opsForValue().set(ProductConstants.CATEGORY, catalogJSON);
         return catalogJSON;
     }
 
@@ -200,23 +201,31 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
          * 3、加锁：解决缓存击穿问题（缓存击穿主要是有一个热点数据再大级别访问请求之前缓存刚好失效造成的）
          *
          */
-        Map<String, List<Category2VO>> categoryJSON = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORYS);
+        Map<String, List<Category2VO>> categoryJSON = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORY);
         if (MapUtils.isEmpty(categoryJSON)) {
-            Map<String, List<Category2VO>> catalogJSONFromDb = getCategoryJSONFromDbWithRedissonLock();
-            return catalogJSONFromDb;
+            return getCategoryJSONFromDbWithRedissonLock();
         }
 
-        log.info("命中缓存。。。");
+        log.info("命中缓存");
         return categoryJSON;
     }
 
 
+    /**
+     * 查询父节点id
+     *
+     * @param catalogId
+     * @param catalogPath
+     * @return
+     */
     private List<Long> findParentById(Long catalogId, List<Long> catalogPath) {
         // 收集当前节点id
         catalogPath.add(catalogId);
 
         CategoryEntity category = categoryDao.selectById(catalogId);
         Long parentCid = category.getParentCid();
+
+        // 如果不是顶级分类就继续向上查找
         if (!ProductConstants.categoryRootId.equals(parentCid)) {
             findParentById(parentCid, catalogPath);
         }
@@ -260,56 +269,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     }
 
 
-    /**
-     * 代码方式实现数据缓存
-     *
-     * @return
-     */
-    private Map<String, List<Category2VO>> getCatalogJSONFromDbOld() {
-        Map<String, List<Category2VO>> category = (Map<String, List<Category2VO>>) redisTemplate.opsForValue().get(ProductConstants.CATEGORYS);
-        if (MapUtils.isNotEmpty(category)) {
-            return category;
-        }
-        log.info("查询数据库。。。");
-        // 先查询所有分类信息
-        List<CategoryEntity> categorys = categoryDao.selectList(null);
 
-        // 1、获取所有一级分类
-        List<CategoryEntity> categoryList = listCategoryByParentId(categorys, 0L);
 
-        // 2、把一级分类id当键， 二级分类及子类当值
-        Map<String, List<Category2VO>> catalogJSON = categoryList.stream().collect(Collectors.toMap(
-                k -> k.getCatId().toString(),
-                v -> {
-                    List<CategoryEntity> category2List = listCategoryByParentId(categorys, v.getCatId());
-                    List<Category2VO> category2VOList = Collections.emptyList();
-                    if (CollectionUtils.isNotEmpty(category2List)) {
-                        category2VOList = category2List.stream().map(categorg2 -> {
-                            Category2VO category2VO = Category2VO.builder().id(categorg2.getCatId().toString())
-                                    .name(categorg2.getName())
-                                    .catalog1Id(v.getCatId().toString()).build();
-
-                            List<CategoryEntity> category3List = listCategoryByParentId(categorys, categorg2.getCatId());
-                            if (CollectionUtils.isNotEmpty(category3List)) {
-                                List<Category2VO.Category3VO> category3VOList = category3List.stream().map(categorg3 ->
-                                        Category2VO.Category3VO.builder().id(categorg3.getCatId().toString())
-                                                .name(categorg3.getName())
-                                                .catalog2Id(categorg2.getCatId().toString())
-                                                .build()
-                                ).collect(Collectors.toList());
-                                category2VO.setCatalog3List(category3VOList);
-                            }
-                            return category2VO;
-                        }).collect(Collectors.toList());
-                    }
-                    return category2VOList;
-                }
-        ));
-
-        // 将查询出来的数据放到缓存中
-        redisTemplate.opsForValue().set(ProductConstants.CATEGORYS, catalogJSON);
-        return catalogJSON;
-    }
 
 
     /**
@@ -354,26 +315,26 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      */
     public Map<String, List<Category2VO>> getCatalogJSONOld() {
         // 1、获取所有一级分类
-        List<CategoryEntity> categoryList = listLevel1Category();
+        List<CategoryEntity> categoryLevel1List = listLevel1Category();
 
         // 把一级分类id当键， 二级分类及子类当值
-        Map<String, List<Category2VO>> catalogJSON = categoryList.stream().collect(Collectors.toMap(
-                k -> k.getCatId().toString(),
+        Map<String, List<Category2VO>> catalogJSON = categoryLevel1List.stream().collect(Collectors.toMap(
+                k -> k.getCategoryId().toString(),
                 v -> {
-                    List<CategoryEntity> category2List = listCategoryByParentId(v.getCatId());
+                    List<CategoryEntity> category2List = listCategoryByParentId(v.getCategoryId());
                     List<Category2VO> category2VOList = Collections.emptyList();
                     if (CollectionUtils.isNotEmpty(category2List)) {
-                        category2VOList = category2List.stream().map(categorg2 -> {
-                            Category2VO category2VO = Category2VO.builder().id(categorg2.getCatId().toString())
-                                    .name(categorg2.getName())
-                                    .catalog1Id(v.getCatId().toString()).build();
+                        category2VOList = category2List.stream().map(category2 -> {
+                            Category2VO category2VO = Category2VO.builder().id(category2.getCategoryId().toString())
+                                    .name(category2.getCategoryName())
+                                    .catalog1Id(v.getCategoryId().toString()).build();
 
-                            List<CategoryEntity> category3List = listCategoryByParentId(categorg2.getCatId());
+                            List<CategoryEntity> category3List = listCategoryByParentId(category2.getCategoryId());
                             if (CollectionUtils.isNotEmpty(category3List)) {
-                                List<Category2VO.Category3VO> category3VOList = category3List.stream().map(categorg3 ->
-                                        Category2VO.Category3VO.builder().id(categorg3.getCatId().toString())
-                                                .name(categorg3.getName())
-                                                .catalog2Id(categorg2.getCatId().toString())
+                                List<Category2VO.Category3VO> category3VOList = category3List.stream().map(category3 ->
+                                        Category2VO.Category3VO.builder().id(category3.getCategoryId().toString())
+                                                .name(category3.getCategoryName())
+                                                .catalog2Id(category2.getCategoryId().toString())
                                                 .build()
                                 ).collect(Collectors.toList());
                                 category2VO.setCatalog3List(category3VOList);

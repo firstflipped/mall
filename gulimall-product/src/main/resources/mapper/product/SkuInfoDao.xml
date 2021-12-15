@@ -17,7 +17,7 @@
         <result property="saleCount" column="sale_count"/>
     </resultMap>
 
-    <select id="pageSkuInfoByParams" resultMap="skuInfoMap">
+    <select id="listSkusWithPage" resultMap="skuInfoMap">
         SELECT sku_id,
                spu_id,
                sku_name,

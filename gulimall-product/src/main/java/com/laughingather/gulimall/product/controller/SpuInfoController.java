@@ -36,8 +36,8 @@ public class SpuInfoController {
      *
      * @return
      */
-    @PostMapping("/{spuId}/up")
-    public MyResult upSpuBySpuId(@PathVariable("spuId") Long spuId) {
+    @PostMapping("/{sid}/up")
+    public MyResult upSpuBySpuId(@PathVariable("sid") Long spuId) {
         spuInfoService.upSpu(spuId);
         return MyResult.success();
     }

@@ -14,8 +14,27 @@ import com.laughingather.gulimall.product.entity.query.BrandQuery;
  */
 public interface BrandService extends IService<BrandEntity> {
 
-    MyPage<BrandEntity> pageBrandsByParams(BrandQuery brandQuery);
+    /**
+     * 分页查询品牌列表
+     *
+     * @param brandQuery
+     * @return
+     */
+    MyPage<BrandEntity> listBrandsWithPage(BrandQuery brandQuery);
 
-    boolean updateBrandById(BrandEntity brand);
+    /**
+     * 保存品牌信息
+     *
+     * @param brand
+     */
+    void saveBrand(BrandEntity brand);
+
+    /**
+     * 更新品牌信息
+     *
+     * @param brand
+     * @return
+     */
+    void updateBrandById(BrandEntity brand);
 }
 

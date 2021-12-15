@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 商品属性
+ * 属性路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -38,23 +38,23 @@ public class AttrController {
     }
 
 
-    @GetMapping("/{categoryId}/page")
+    @GetMapping("/{cid}/page")
     @ApiOperation("根据属性类型和属性分类分页查询属性列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "catId", value = "属性分类id", dataTypeClass = Long.class, example = "225"),
+            @ApiImplicitParam(name = "cid", value = "属性分类id", dataTypeClass = Long.class, example = "225"),
             @ApiImplicitParam(name = "attrQuery", value = "属性查询过滤条件", dataTypeClass = AttrQuery.class)
     })
-    public MyResult<MyPage<AttrVO>> listAttrsWithPageByCategoryId(@PathVariable("categoryId") Long categoryId,
+    public MyResult<MyPage<AttrVO>> listAttrsWithPageByCategoryId(@PathVariable("cid") Long categoryId,
                                                                   @ModelAttribute AttrQuery attrQuery) {
         MyPage<AttrVO> attrsWithPage = attrService.listAttrsWithPageByCategoryId(categoryId, attrQuery);
         return MyResult.success(attrsWithPage);
     }
 
 
-    @GetMapping("/{attrId}")
-    @ApiOperation(value = "根据属性id查询属性详情")
-    @ApiImplicitParam(name = "attrId", value = "属性id", dataTypeClass = Long.class, example = "7")
-    public MyResult<AttrVO> getAttrVOById(@PathVariable Long attrId) {
+    @GetMapping("/{aid}")
+    @ApiOperation(value = "查询属性详情信息")
+    @ApiImplicitParam(name = "aid", value = "属性id", dataTypeClass = Long.class, example = "7")
+    public MyResult<AttrVO> getAttrVOById(@PathVariable("aid") Long attrId) {
         AttrVO attrVO = attrService.getAttrVOById(attrId);
         return MyResult.success(attrVO);
     }

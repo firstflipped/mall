@@ -19,6 +19,14 @@ import java.util.List;
 public interface AttrService extends IService<AttrEntity> {
 
     /**
+     * 分页查询属性列表
+     *
+     * @param attrQuery
+     * @return
+     */
+    MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery);
+
+    /**
      * 根据分类id分页查询属性列表
      *
      * @param categoryId 分类id
@@ -26,6 +34,14 @@ public interface AttrService extends IService<AttrEntity> {
      * @return
      */
     MyPage<AttrVO> listAttrsWithPageByCategoryId(Long categoryId, AttrQuery attrQuery);
+
+    /**
+     * 根据分组id查询属性列表
+     *
+     * @param attrGroupId
+     * @return
+     */
+    List<AttrEntity> listAttrsByAttrGroupId(Long attrGroupId);
 
     /**
      * 保存属性信息
@@ -56,13 +72,5 @@ public interface AttrService extends IService<AttrEntity> {
      * @return
      */
     List<Long> selectSearchAttrIds(List<Long> attrIds);
-
-    /**
-     * 分页查询属性列表
-     *
-     * @param attrQuery
-     * @return
-     */
-    MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery);
 }
 

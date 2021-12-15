@@ -26,7 +26,7 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @param attrGroupQuery
      * @return
      */
-    MyPage<AttrGroupEntity> listAttrGroupsWithPage(Long categoryId, AttrGroupQuery attrGroupQuery);
+    MyPage<AttrGroupEntity> listAttrGroupsByCategoryIdWithPage(Long categoryId, AttrGroupQuery attrGroupQuery);
 
     /**
      * 根据id获取属性分组详细信息
@@ -52,5 +52,13 @@ public interface AttrGroupService extends IService<AttrGroupEntity> {
      * @return
      */
     List<SpuItemGroupAttrVO> getAttrGroupWithAttrsBySpuId(Long catalogId, Long spuId);
+
+    /**
+     * 分页查询属性分组列表
+     *
+     * @param attrGroupQuery
+     * @return
+     */
+    MyPage<AttrGroupVO> listAttrGroupsWithPage(AttrGroupQuery attrGroupQuery);
 }
 

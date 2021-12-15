@@ -20,6 +20,7 @@ public interface CategoryService extends IService<CategoryEntity> {
 
     /**
      * 查询所有分类，并将其转换成树形结构
+     *
      * @return
      */
     List<CategoryTreeVO> listWithTree();
@@ -30,7 +31,7 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @param catIdList
      * @return
      */
-    boolean deleteCategoryByIds(List<Long> catIdList);
+    void deleteCategoryByIds(List<Long> catIdList);
 
     /**
      * 根据子节点查询完整节点关系
@@ -48,8 +49,18 @@ public interface CategoryService extends IService<CategoryEntity> {
     List<CategoryEntity> listLevel1Category();
 
 
+    /**
+     * 查询分类列表并以属性接口展示（不使用缓存版本）
+     *
+     * @return
+     */
     Map<String, List<Category2VO>> getCategoryJSONFromDb();
 
+    /**
+     * 查询分类列表并以属性接口展示（使用缓存版本）
+     *
+     * @return
+     */
     Map<String, List<Category2VO>> getCategoryJSON();
 }
 

@@ -5,12 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.constant.ProductConstants;
-import com.laughingather.gulimall.product.dao.AttrAttrGroupRelationDao;
 import com.laughingather.gulimall.product.dao.AttrDao;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
 import com.laughingather.gulimall.product.dao.CategoryDao;
-import com.laughingather.gulimall.product.entity.AttrAttrGroupRelationEntity;
 import com.laughingather.gulimall.product.entity.AttrEntity;
 import com.laughingather.gulimall.product.entity.dto.AttrDTO;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
@@ -37,8 +34,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private AttrGroupDao attrGroupDao;
     @Resource
     private CategoryDao categoryDao;
-    @Resource
-    private AttrAttrGroupRelationDao attrAttrGroupRelationDao;
+
 
     @Resource
     private CategoryService categoryService;
@@ -78,6 +74,14 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         return getAttrOtherInfo(iPage);
     }
 
+    @Override
+    public List<AttrEntity> listAttrsByAttrGroupId(Long attrGroupId) {
+        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(AttrEntity::getAttrGroupId, attrGroupId);
+
+        return attrDao.selectList(queryWrapper);
+    }
+
 
     @Override
     public AttrVO getAttrVOById(Long attrId) {
@@ -104,8 +108,6 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         // 保存商品属性基本数据
         attr.setCreateTime(LocalDateTime.now());
         attrDao.insert(attr);
-        // 保存关联关系
-        saveAttrOtherInfo(attrDTO, attr);
     }
 
 
@@ -116,47 +118,8 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         BeanUtils.copyProperties(attrDTO, attr);
         // 更新基本信息
         attrDao.updateById(attr);
-
-        // 更新关联信息
-        updateAttrOtherInfo(attrDTO);
     }
 
-    /**
-     * 保存属性关联信息
-     *
-     * @param attrDTO
-     * @param attr
-     */
-    private void saveAttrOtherInfo(AttrDTO attrDTO, AttrEntity attr) {
-        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType()) &&
-                null != attrDTO.getAttrGroupId()) {
-            AttrAttrGroupRelationEntity attrAttrGroupRelation = AttrAttrGroupRelationEntity.builder()
-                    .attrId(attr.getAttrId())
-                    .attrGroupId(attrDTO.getAttrGroupId())
-                    .build();
-            attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
-        }
-    }
-
-    /**
-     * 更新属性关联信息
-     *
-     * @param attrDTO
-     */
-    private void updateAttrOtherInfo(AttrDTO attrDTO) {
-        if (ProductConstants.AttrEnum.ATTR_TYPE_BASE.getCode().equals(attrDTO.getAttrType())
-                && null != attrDTO.getAttrGroupId()) {
-            AttrAttrGroupRelationEntity attrAttrGroupRelation = AttrAttrGroupRelationEntity.builder()
-                    .attrId(attrDTO.getAttrId()).attrGroupId(attrDTO.getAttrGroupId()).build();
-            Integer count = attrAttrGroupRelationDao.countAttrAttrGroupByAttrId(attrDTO.getAttrId());
-            if (count > 0) {
-                // 更新关联信息
-                attrAttrGroupRelationDao.updateAttrAttrGroupByAttrId(attrAttrGroupRelation);
-            } else {
-                attrAttrGroupRelationDao.insert(attrAttrGroupRelation);
-            }
-        }
-    }
 
     /**
      * 获取属性的其他关联信息
@@ -188,11 +151,11 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     private AttrVO getAttrOtherInfoById(AttrEntity attr) {
         // 设置分类和分组的名字
         Long[] categoryPath = categoryService.getCategoryPath(attr.getCategoryId());
-        String categoryName = categoryDao.getNameById(attr.getCategoryId());
-        Long attrGroupId = attrAttrGroupRelationDao.getGroupIdByAttrId(attr.getAttrId());
+        String categoryName = categoryDao.getCategoryNameById(attr.getCategoryId());
         String attrGroupName = attrGroupDao.getGroupNameByAttrId(attr.getAttrId());
+
         AttrVO attrVO = AttrVO.builder().categoryPath(categoryPath).categoryName(categoryName)
-                .attrGroupId(attrGroupId).attrGroupName(attrGroupName).build();
+                .attrGroupId(attr.getAttrGroupId()).attrGroupName(attrGroupName).build();
         return attrVO;
     }
 

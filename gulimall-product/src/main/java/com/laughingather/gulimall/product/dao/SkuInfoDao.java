@@ -15,5 +15,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface SkuInfoDao extends BaseMapper<SkuInfoEntity> {
 
-    IPage<SkuInfoEntity> pageSkuInfoByParams(IPage<SkuInfoEntity> page, @Param("params") SkuInfoQuery skuInfoQuery);
+    /**
+     * 分页查询sku列表
+     *
+     * @param page
+     * @param skuInfoQuery
+     * @return
+     */
+    IPage<SkuInfoEntity> listSkusWithPage(IPage<SkuInfoEntity> page, @Param("params") SkuInfoQuery skuInfoQuery);
 }

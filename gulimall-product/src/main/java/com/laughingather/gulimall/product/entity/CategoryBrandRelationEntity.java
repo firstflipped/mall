@@ -2,14 +2,14 @@ package com.laughingather.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
+import java.time.LocalDateTime;
 
 /**
  * 品牌分类关联
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49
@@ -24,22 +24,31 @@ public class CategoryBrandRelationEntity implements Serializable {
 	 * 
 	 */
 	@TableId
-	private Long id;
-	/**
-	 * 品牌id
-	 */
-	private Long brandId;
-	/**
-	 * 分类id
-	 */
-	private Long catalogId;
-	/**
-	 *
-	 */
-	private String brandName;
-	/**
-	 *
-	 */
-	private String catalogName;
+    private Long id;
+
+    /**
+     * 品牌id
+     */
+    private Long brandId;
+
+    /**
+     * 分类id
+     */
+    private Long categoryId;
+
+    /**
+     * 品牌名称
+     */
+    private String brandName;
+
+    /**
+     * 分类名称
+     */
+    private String categoryName;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
 }

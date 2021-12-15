@@ -24,7 +24,7 @@ public interface SkuInfoService extends IService<SkuInfoEntity> {
      * @param skuInfoQuery
      * @return
      */
-    MyPage<SkuInfoEntity> pageSkuInfoByParams(SkuInfoQuery skuInfoQuery);
+    MyPage<SkuInfoEntity> listSkusWithPage(SkuInfoQuery skuInfoQuery);
 
     /**
      * 根据spuId获取sku列表

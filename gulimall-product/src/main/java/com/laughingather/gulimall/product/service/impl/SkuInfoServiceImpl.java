@@ -47,9 +47,10 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
     private ThreadPoolExecutor threadPoolExecutor;
 
     @Override
-    public MyPage<SkuInfoEntity> pageSkuInfoByParams(SkuInfoQuery skuInfoQuery) {
+    public MyPage<SkuInfoEntity> listSkusWithPage(SkuInfoQuery skuInfoQuery) {
         IPage<SkuInfoEntity> page = new Page<>(skuInfoQuery.getPageNumber(), skuInfoQuery.getPageSize());
-        IPage<SkuInfoEntity> skuInfoIPage = skuInfoDao.pageSkuInfoByParams(page, skuInfoQuery);
+        IPage<SkuInfoEntity> skuInfoIPage = skuInfoDao.listSkusWithPage(page, skuInfoQuery);
+
         return MyPage.restPage(skuInfoIPage);
     }
 

@@ -1,7 +1,12 @@
 package com.laughingather.gulimall.product.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
+import com.laughingather.gulimall.product.entity.CategoryEntity;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 品牌分类关联
@@ -12,4 +17,19 @@ import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
  */
 public interface CategoryBrandRelationDao extends BaseMapper<CategoryBrandRelationEntity> {
 
+    /**
+     * 查询分类列表
+     *
+     * @param brandId
+     * @return
+     */
+    List<CategoryEntity> listCategoryByBrandId(@Param("brandId") Long brandId);
+
+    /**
+     * 查询品牌列表
+     *
+     * @param categoryId
+     * @return
+     */
+    List<BrandEntity> listBrandsByCategoryId(@Param("categoryId") Long categoryId);
 }

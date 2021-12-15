@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 
 /**
- * spu图片
+ * spu图片路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/spu-images")
 public class SpuImagesController {
+
     @Resource
     private SpuImagesService spuImagesService;
 

@@ -1,7 +1,6 @@
 package com.laughingather.gulimall.product.controller;
 
 import com.laughingather.gulimall.product.service.SpuCommentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +8,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 商品评价
+ * 商品评价路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -18,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/spu-comment")
 public class SpuCommentController {
+
     @Resource
     private SpuCommentService spuCommentService;
 

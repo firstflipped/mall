@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 商品评价回复关系
+ * 商品评价回复关系路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/comment-replay")
 public class CommentReplayController {
+
     @Resource
     private CommentReplayService commentReplayService;
 

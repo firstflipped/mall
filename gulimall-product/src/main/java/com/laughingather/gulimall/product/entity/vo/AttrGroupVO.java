@@ -38,7 +38,7 @@ public class AttrGroupVO {
     /**
      * 所属分类名称
      */
-    private Long categoryName;
+    private String categoryName;
 
     /**
      * 所属分类完整路径

@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/sku-sale-attr-value")
 public class SkuSaleAttrValueController {
+
     @Resource
     private SkuSaleAttrValueService skuSaleAttrValueService;
 }

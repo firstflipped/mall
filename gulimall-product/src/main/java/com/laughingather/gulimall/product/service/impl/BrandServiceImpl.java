@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 
 
 @Service("brandService")
@@ -23,15 +24,21 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     private BrandDao brandDao;
 
     @Override
-    public MyPage<BrandEntity> pageBrandsByParams(BrandQuery brandQuery) {
+    public MyPage<BrandEntity> listBrandsWithPage(BrandQuery brandQuery) {
         IPage<BrandEntity> page = new Page<>(brandQuery.getPageNumber(), brandQuery.getPageSize());
         QueryWrapper<BrandEntity> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(brandQuery.getName())) {
-            queryWrapper.lambda().like(BrandEntity::getName, brandQuery.getName());
+            queryWrapper.lambda().like(BrandEntity::getBrandName, brandQuery.getName());
         }
 
         IPage<BrandEntity> brandEntityIPage = brandDao.selectPage(page, queryWrapper);
         return MyPage.restPage(brandEntityIPage);
+    }
+
+    @Override
+    public void saveBrand(BrandEntity brand) {
+        brand.setCreateTime(LocalDateTime.now());
+        brandDao.insert(brand);
     }
 
     /**
@@ -42,11 +49,10 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
      */
     @Override
     @Transactional
-    public boolean updateBrandById(BrandEntity brand) {
+    public void updateBrandById(BrandEntity brand) {
+        brand.setUpdateTime(LocalDateTime.now());
         brandDao.updateById(brand);
 
         // TODO：同步更新其他冗余数据
-
-        return true;
     }
 }

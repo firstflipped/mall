@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/sku-images")
 public class SkuImagesController {
+
     @Resource
     private SkuImagesService skuImagesService;
 

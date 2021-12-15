@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("product/product-attr-value")
 public class ProductAttrValueController {
+
     @Resource
     private ProductAttrValueService productAttrValueService;
 

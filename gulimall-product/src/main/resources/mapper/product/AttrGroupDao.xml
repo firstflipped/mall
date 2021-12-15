@@ -10,6 +10,8 @@
         <result property="description" column="description"/>
         <result property="icon" column="icon"/>
         <result property="categoryId" column="category_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <select id="getAttrGroupById" resultType="com.laughingather.gulimall.product.entity.vo.AttrGroupVO">
@@ -20,9 +22,9 @@
 
     <select id="getGroupNameByAttrId" resultType="java.lang.String">
         SELECT pag.attr_group_name
-        FROM pms_attr_attr_group_relation paagr
+        FROM pms_attr pa
                      INNER JOIN pms_attr_group pag USING (attr_group_id)
-        WHERE paagr.attr_id = #{attrId}
+        WHERE pa.attr_id = #{attrId}
     </select>
 
     <!-- 索引并不一定是每个关联字段都加上好，具体要看执行解释器 -->
@@ -37,14 +39,13 @@
         SELECT ppav.spu_id,
                pag.attr_group_id,
                pag.attr_group_name,
-               paagr.attr_id,
+               pa.attr_id,
                pa.attr_name,
                ppav.attr_value
         FROM pms_attr_group pag
-                     LEFT JOIN pms_attr_attr_group_relation paagr USING (attr_group_id)
-                     LEFT JOIN pms_attr pa USING (attr_id)
+                     LEFT JOIN pms_attr pa USING (attr_group_id)
                      LEFT JOIN pms_product_attr_value ppav USING (attr_id)
-        WHERE pag.category_id = #{catalogId}
+        WHERE pag.category_id = #{categoryId}
           AND ppav.spu_id = #{spuId}
     </select>
 </mapper>

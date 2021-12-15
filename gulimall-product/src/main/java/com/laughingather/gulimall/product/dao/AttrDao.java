@@ -15,5 +15,11 @@ import java.util.List;
  */
 public interface AttrDao extends BaseMapper<AttrEntity> {
 
+    /**
+     * 查询可以快速检索的属性id集合
+     *
+     * @param attrIds
+     * @return
+     */
     List<Long> selectSearchAttrIds(@Param("attrIds") List<Long> attrIds);
 }

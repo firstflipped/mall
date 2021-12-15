@@ -6,12 +6,14 @@
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.product.entity.BrandEntity" id="brandMap">
         <result property="brandId" column="brand_id"/>
-        <result property="name" column="name"/>
+        <result property="brandName" column="brand_name"/>
         <result property="logo" column="logo"/>
-        <result property="descript" column="descript"/>
+        <result property="description" column="description"/>
         <result property="showStatus" column="show_status"/>
         <result property="firstLetter" column="first_letter"/>
         <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
 

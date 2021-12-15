@@ -66,6 +66,13 @@ public class AttrEntity implements Serializable {
     @ApiModelProperty(value = "启用状态[0 - 禁用，1 - 启用]")
     private Long enable;
 
+
+    /**
+     * 快速展示[是否展示在介绍上；0-否 1-是]，在sku中仍然可以调整
+     */
+    @ApiModelProperty(value = "快速展示[是否展示在介绍上；0-否 1-是]，在sku中仍然可以调整")
+    private Integer showDesc;
+
     /**
      * 所属分类
      */
@@ -73,10 +80,10 @@ public class AttrEntity implements Serializable {
     private Long categoryId;
 
     /**
-     * 快速展示[是否展示在介绍上；0-否 1-是]，在sku中仍然可以调整
+     * 所属分类
      */
-    @ApiModelProperty(value = "快速展示[是否展示在介绍上；0-否 1-是]，在sku中仍然可以调整")
-    private Integer showDesc;
+    @ApiModelProperty(value = "所属属性分组")
+    private Long attrGroupId;
 
     /**
      * 创建时间

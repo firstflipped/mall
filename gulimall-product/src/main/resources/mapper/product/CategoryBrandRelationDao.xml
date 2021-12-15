@@ -7,8 +7,21 @@
                id="categoryBrandRelationMap">
         <result property="id" column="id"/>
         <result property="brandId" column="brand_id"/>
-        <result property="catalogId" column="catalog_id"/>
+        <result property="categoryId" column="category_id"/>
         <result property="brandName" column="brand_name"/>
-        <result property="catalogName" column="catalog_name"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
+
+    <select id="listCategoryByBrandId" resultType="com.laughingather.gulimall.product.entity.CategoryEntity">
+        SELECT pc.*
+        FROM pms_category_brand_relation pcbr INNER JOIN pms_category pc USING (category_id)
+        WHERE pcbr.brand_id = #{brandId}
+    </select>
+
+    <select id="listBrandsByCategoryId" resultType="com.laughingather.gulimall.product.entity.BrandEntity">
+        SELECT pb.*
+        FROM pms_category_brand_relation pcbr INNER JOIN pms_brand pb USING (brand_id)
+        WHERE pcbr.category_id = #{categoryId}
+    </select>
 </mapper>

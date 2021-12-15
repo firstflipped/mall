@@ -5,17 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.product.dao.AttrAttrGroupRelationDao;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
-import com.laughingather.gulimall.product.entity.AttrAttrGroupRelationEntity;
+import com.laughingather.gulimall.product.dao.CategoryDao;
 import com.laughingather.gulimall.product.entity.AttrEntity;
 import com.laughingather.gulimall.product.entity.AttrGroupEntity;
 import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
-import com.laughingather.gulimall.product.service.AttrAttrGroupRelationService;
 import com.laughingather.gulimall.product.service.AttrGroupService;
+import com.laughingather.gulimall.product.service.AttrService;
 import com.laughingather.gulimall.product.service.CategoryService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -37,15 +36,41 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Resource
     private AttrGroupDao attrGroupDao;
     @Resource
-    private AttrAttrGroupRelationDao attrAttrGroupRelationDao;
+    private CategoryDao categoryDao;
     @Resource
     private CategoryService categoryService;
     @Resource
-    private AttrAttrGroupRelationService attrAttrGroupRelationService;
+    private AttrService attrService;
 
 
     @Override
-    public MyPage<AttrGroupEntity> listAttrGroupsWithPage(Long categoryId, AttrGroupQuery attrGroupQuery) {
+    public MyPage<AttrGroupVO> listAttrGroupsWithPage(AttrGroupQuery attrGroupQuery) {
+        IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPageNumber(), attrGroupQuery.getPageSize());
+        IPage<AttrGroupEntity> attrGroupPage = attrGroupDao.selectPage(page, null);
+
+        List<AttrGroupVO> attrGroupVOList = attrGroupPage.getRecords().stream().map(item -> {
+            AttrGroupVO attrGroupVO = new AttrGroupVO();
+            BeanUtils.copyProperties(item, attrGroupVO);
+
+            // 获取分类名称
+            attrGroupVO.setCategoryPath(categoryService.getCategoryPath(item.getCategoryId()));
+            String categoryName = categoryDao.getCategoryNameById(item.getCategoryId());
+            attrGroupVO.setCategoryName(categoryName);
+            return attrGroupVO;
+        }).collect(Collectors.toList());
+
+
+        return MyPage.<AttrGroupVO>builder().pageNumber(attrGroupQuery.getPageNumber())
+                .pageSize(attrGroupPage.getSize())
+                .pages(attrGroupPage.getPages())
+                .total(attrGroupPage.getTotal())
+                .list(attrGroupVOList)
+                .build();
+    }
+
+
+    @Override
+    public MyPage<AttrGroupEntity> listAttrGroupsByCategoryIdWithPage(Long categoryId, AttrGroupQuery attrGroupQuery) {
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
         IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPageNumber(), attrGroupQuery.getPageSize());
 
@@ -87,11 +112,9 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         List<AttrGroupWithAttrsVO> attrGroupWithAttrsVOs = attrGroups.stream().map(attrGroup -> {
             AttrGroupWithAttrsVO attrGroupWithAttrsVO = new AttrGroupWithAttrsVO();
             BeanUtils.copyProperties(attrGroup, attrGroupWithAttrsVO);
-            List<AttrAttrGroupRelationEntity> attrGroupRelations = attrAttrGroupRelationDao.selectList(
-                    new QueryWrapper<AttrAttrGroupRelationEntity>().lambda().eq(AttrAttrGroupRelationEntity::getAttrGroupId, attrGroup.getAttrGroupId()));
 
             // 根据分组id查询所有属性
-            List<AttrEntity> attrs = attrAttrGroupRelationService.listAttrsByAttrGroupId(attrGroup.getAttrGroupId());
+            List<AttrEntity> attrs = attrService.listAttrsByAttrGroupId(attrGroup.getAttrGroupId());
             attrGroupWithAttrsVO.setAttrs(attrs);
             return attrGroupWithAttrsVO;
         }).collect(Collectors.toList());
@@ -108,4 +131,5 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         // 查出当前spu对应的所有属性的分组信息以及当前分组下的所有属性对应的值
         return attrGroupWithAttrs;
     }
+
 }

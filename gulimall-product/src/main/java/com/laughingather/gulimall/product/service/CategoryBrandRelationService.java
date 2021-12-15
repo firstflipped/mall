@@ -1,7 +1,9 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
+import com.laughingather.gulimall.product.entity.CategoryEntity;
 
 import java.util.List;
 
@@ -14,10 +16,27 @@ import java.util.List;
  */
 public interface CategoryBrandRelationService extends IService<CategoryBrandRelationEntity> {
 
-    List<CategoryBrandRelationEntity> listCategoryByBrandId(Long brandId);
+    /**
+     * 查询分类列表
+     *
+     * @param brandId
+     * @return
+     */
+    List<CategoryEntity> listCategoryByBrandId(Long brandId);
 
-    List<CategoryBrandRelationEntity> listBrandsByCategoryId(Long categoryId);
+    /**
+     * 查询品牌列表
+     *
+     * @param categoryId
+     * @return
+     */
+    List<BrandEntity> listBrandsByCategoryId(Long categoryId);
 
+    /**
+     * 保存品牌&分类关联关系
+     *
+     * @param categoryBrandRelation
+     */
     void saveCategoryBrandRelation(CategoryBrandRelationEntity categoryBrandRelation);
 }
 

@@ -14,6 +14,12 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface BrandDao extends BaseMapper<BrandEntity> {
 
-    @Select("SELECT name FROM pms_brand WHERE show_status = 1 AND brand_id = #{brandId}")
-    String getNameById(@Param("brandId") Long brandId);
+    /**
+     * 根据品牌id查询品牌名称
+     *
+     * @param brandId
+     * @return
+     */
+    @Select("SELECT brand_name FROM pms_brand WHERE show_status = 1 AND brand_id = #{brandId}")
+    String getBrandNameById(@Param("brandId") Long brandId);
 }
