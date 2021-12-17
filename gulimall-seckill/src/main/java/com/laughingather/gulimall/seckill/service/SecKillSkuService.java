@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.service;
 
-import com.laughingather.gulimall.seckill.entity.to.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
 
 import java.util.List;
 

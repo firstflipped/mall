@@ -9,7 +9,7 @@ import com.laughingather.gulimall.product.dao.AttrDao;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
 import com.laughingather.gulimall.product.dao.CategoryDao;
 import com.laughingather.gulimall.product.entity.AttrEntity;
-import com.laughingather.gulimall.product.entity.dto.AttrDTO;
+import com.laughingather.gulimall.product.entity.param.AttrParam;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.service.AttrService;
@@ -101,9 +101,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     @Override
     @Transactional
-    public void saveAttr(AttrDTO attrDTO) {
+    public void saveAttr(AttrParam attrParam) {
         AttrEntity attr = new AttrEntity();
-        BeanUtils.copyProperties(attrDTO, attr);
+        BeanUtils.copyProperties(attrParam, attr);
 
         // 保存商品属性基本数据
         attr.setCreateTime(LocalDateTime.now());
@@ -113,9 +113,9 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
     @Override
     @Transactional
-    public void updateAttrById(AttrDTO attrDTO) {
+    public void updateAttrById(AttrParam attrParam) {
         AttrEntity attr = new AttrEntity();
-        BeanUtils.copyProperties(attrDTO, attr);
+        BeanUtils.copyProperties(attrParam, attr);
         // 更新基本信息
         attrDao.updateById(attr);
     }

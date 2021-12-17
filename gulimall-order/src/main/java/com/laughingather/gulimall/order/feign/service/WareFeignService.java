@@ -3,7 +3,7 @@ package com.laughingather.gulimall.order.feign.service;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.order.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.order.entity.vo.SkuHashStockVO;
-import com.laughingather.gulimall.order.feign.entity.FareVO;
+import com.laughingather.gulimall.order.feign.entity.FareTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +35,7 @@ public interface WareFeignService {
      * @return
      */
     @GetMapping("/fare")
-    MyResult<FareVO> getFare(@RequestParam("aid") Long addressId);
+    MyResult<FareTO> getFare(@RequestParam("aid") Long addressId);
 
     /**
      * 订单锁定库存

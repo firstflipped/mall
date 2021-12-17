@@ -87,7 +87,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
         CompletableFuture<Void> groupAttrsCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(skuInfo -> {
             // 获取sku的规格参数信息
-            List<SpuItemGroupAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(skuInfo.getCatalogId(), skuInfo.getSpuId());
+            List<SpuItemGroupAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(skuInfo.getCategoryId(), skuInfo.getSpuId());
             skuItemVO.setGroupAttrs(groupAttrVO);
         }, threadPoolExecutor);
 

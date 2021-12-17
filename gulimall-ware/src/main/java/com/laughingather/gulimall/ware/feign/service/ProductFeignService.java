@@ -2,7 +2,7 @@ package com.laughingather.gulimall.ware.feign.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 远程调用商品服务
@@ -19,7 +19,7 @@ public interface ProductFeignService {
      * @param skuId
      * @return
      */
-    @GetMapping("/gulimall-product/openapi/product/skuInfo/getSkuName")
-    String getSkuNameBuSkuId(@RequestParam("skuId") Long skuId);
+    @GetMapping("/gulimall-product/openapi/product/{sid}/name")
+    String getSkuNameBuSkuId(@PathVariable("sid") Long skuId);
 
 }

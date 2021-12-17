@@ -5,6 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 属性视图展示类
+ *
+ * @author：laughingather
+ * @create：2021-06-08 21:18
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -45,7 +51,7 @@ public class AttrVO {
     /**
      * 快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整
      */
-    private Integer showDesc;
+    private Integer quickShow;
 
     /**
      * 所属分类

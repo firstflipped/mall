@@ -17,7 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/gulimall-product/openapi/product")
 public interface ProductFeignService {
 
-    @GetMapping("/{skuId}/info")
-    MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("skuId") Long skuId);
+
+    /**
+     * 根据skuId获取sku详情信息
+     *
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/{sid}/info")
+    MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
 
 }

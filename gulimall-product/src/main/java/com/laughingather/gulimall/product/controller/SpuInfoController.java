@@ -3,9 +3,12 @@ package com.laughingather.gulimall.product.controller;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.SpuInfoEntity;
-import com.laughingather.gulimall.product.entity.dto.SpuSaveDTO;
+import com.laughingather.gulimall.product.entity.param.SpuParam;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.service.SpuInfoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,14 +23,16 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/product/spu-info")
+@Api(tags = "spu模块")
 public class SpuInfoController {
 
     @Resource
     private SpuInfoService spuInfoService;
 
     @GetMapping("/page")
-    public MyResult<MyPage<SpuInfoEntity>> pageSpuInfoByParams(@ModelAttribute SpuInfoQuery spuInfoQuery) {
-        MyPage<SpuInfoEntity> spuInfoMyPage = spuInfoService.pageSpuInfoByParams(spuInfoQuery);
+    @ApiOperation(value = "分页查询spu列表")
+    public MyResult<MyPage<SpuInfoEntity>> listSpuWithPage(@ModelAttribute SpuInfoQuery spuInfoQuery) {
+        MyPage<SpuInfoEntity> spuInfoMyPage = spuInfoService.listSpuWithPage(spuInfoQuery);
         return MyResult.success(spuInfoMyPage);
     }
 
@@ -37,14 +42,18 @@ public class SpuInfoController {
      * @return
      */
     @PostMapping("/{sid}/up")
+    @ApiOperation(value = "商品上架")
+    @ApiImplicitParam(name = "sid", value = "spuId")
     public MyResult upSpuBySpuId(@PathVariable("sid") Long spuId) {
         spuInfoService.upSpu(spuId);
         return MyResult.success();
     }
 
+
     @PostMapping
-    public MyResult saveSpuInfo(@RequestBody SpuSaveDTO spuSaveDTO) {
-        spuInfoService.saveSpuInfo(spuSaveDTO);
+    @ApiOperation(value = "保存spu信息")
+    public MyResult saveSpuInfo(@RequestBody SpuParam spuParam) {
+        spuInfoService.saveSpuInfo(spuParam);
         return MyResult.success();
     }
 

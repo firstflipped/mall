@@ -22,7 +22,7 @@ public interface CouponFeignService {
      * @param spuBoundTO
      * @return
      */
-    @PostMapping("/gulimall-coupon/openapi/coupon/spubounds")
+    @PostMapping("/gulimall-coupon/openapi/coupon/spu-bounds")
     MyResult saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
 
     /**
@@ -31,7 +31,7 @@ public interface CouponFeignService {
      * @param skuOtherInfoTO
      * @return
      */
-    @PostMapping("/gulimall-coupon/openapi/coupon/skuOtherInfo")
+    @PostMapping("/gulimall-coupon/openapi/coupon/sku-other-info")
     MyResult saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);
 
 }

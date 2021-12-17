@@ -12,7 +12,7 @@
         <result property="attrType" column="attr_type"/>
         <result property="enable" column="enable"/>
         <result property="categoryId" column="category_id"/>
-        <result property="showDesc" column="show_desc"/>
+        <result property="quickShow" column="quick_show"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>

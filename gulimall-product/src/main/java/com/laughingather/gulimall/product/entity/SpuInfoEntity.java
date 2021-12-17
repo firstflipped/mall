@@ -32,11 +32,6 @@ public class SpuInfoEntity implements Serializable {
 	private String spuName;
 
 	/**
-	 * 商品描述
-	 */
-	private String spuDescription;
-
-	/**
 	 * 
 	 */
 	private BigDecimal weight;

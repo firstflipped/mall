@@ -2,7 +2,7 @@ package com.laughingather.gulimall.seckill.service.impl;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.SeckillConstants;
-import com.laughingather.gulimall.seckill.entity.to.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
 import com.laughingather.gulimall.seckill.feign.entity.SeckillSessionTO;
 import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
 import com.laughingather.gulimall.seckill.feign.service.CouponFeignService;

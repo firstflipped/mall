@@ -30,7 +30,7 @@ PUT http://localhost:9200/gulimall_product
       "brandId": {
         "type": "long"
       },
-      "catalogId": {
+      "categoryId": {
         "type": "long"
       },
       "brandName": {
@@ -41,7 +41,7 @@ PUT http://localhost:9200/gulimall_product
         "index": false,
         "doc_values": true
       },
-      "catalogName": {
+      "categoryName": {
         "type": "keyword",
         "index": false,
         "doc_values": true

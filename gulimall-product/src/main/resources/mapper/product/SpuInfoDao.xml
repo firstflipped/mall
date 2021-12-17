@@ -6,7 +6,6 @@
     <resultMap type="com.laughingather.gulimall.product.entity.SpuInfoEntity" id="spuInfoMap">
         <result property="id" column="id"/>
         <result property="spuName" column="spu_name"/>
-        <result property="spuDescription" column="spu_description"/>
         <result property="categoryId" column="category_id"/>
         <result property="brandId" column="brand_id"/>
         <result property="weight" column="weight"/>
@@ -15,10 +14,9 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <select id="pageSpuInfoByParams" resultMap="spuInfoMap">
+    <select id="listSpuWithPage" resultMap="spuInfoMap">
         SELECT id,
                spu_name,
-               spu_description,
                category_id,
                brand_id,
                weight,
@@ -28,8 +26,7 @@
         FROM pms_spu_info
         <where>
             <if test="params.key != null and params.key != ''">
-                AND (spu_name LIKE CONCAT('%', #{params.key}, '%') OR
-                     pms_spu_info.spu_description LIKE CONCAT('%', #{params.key}, '%'))
+                AND spu_name LIKE CONCAT('%', #{params.key}, '%')
             </if>
             <if test="params.categoryId != null and params.categoryId != 0">
                 AND category_id = #{params.categoryId}
@@ -54,7 +51,6 @@
     <select id="getSpuInfoBySkuId" resultType="com.laughingather.gulimall.product.entity.vo.SpuInfoVO">
         SELECT spu.id,
                spu.spu_name,
-               spu.spu_description,
                spu.category_id,
                brand.brand_name,
                image.img_url AS image

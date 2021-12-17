@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.seckill.entity.to;
+package com.laughingather.gulimall.seckill.entity;
 
 import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
 import lombok.Data;

@@ -3,7 +3,7 @@ package com.laughingather.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.SpuInfoEntity;
-import com.laughingather.gulimall.product.entity.dto.SpuSaveDTO;
+import com.laughingather.gulimall.product.entity.param.SpuParam;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 
@@ -19,9 +19,9 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
     /**
      * 保存spu信息
      *
-     * @param spuSaveDTO
+     * @param spuParam
      */
-    void saveSpuInfo(SpuSaveDTO spuSaveDTO);
+    void saveSpuInfo(SpuParam spuParam);
 
     /**
      * 分页查询spu信息
@@ -29,10 +29,10 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
      * @param spuInfoQuery
      * @return
      */
-    MyPage<SpuInfoEntity> pageSpuInfoByParams(SpuInfoQuery spuInfoQuery);
+    MyPage<SpuInfoEntity> listSpuWithPage(SpuInfoQuery spuInfoQuery);
 
     /**
-     * 上架功能
+     * 上架
      *
      * @param spuId
      */

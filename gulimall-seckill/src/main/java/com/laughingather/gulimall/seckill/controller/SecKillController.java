@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.seckill.controller;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.seckill.entity.to.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,6 +5,12 @@ import lombok.Data;
 
 import java.util.List;
 
+
+/**
+ * 属性分组&关联属性视图展示类
+ *
+ * @author：laughingather
+ */
 @Data
 public class AttrGroupWithAttrsVO {
     private static final long serialVersionUID = 1L;

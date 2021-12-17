@@ -14,7 +14,13 @@ public class SkuInfoQuery extends PageQuery {
 
     private Long categoryId;
 
+    /**
+     * 价格区间，最低价
+     */
     private BigDecimal min;
 
+    /**
+     * 价格区间，最高价
+     */
     private BigDecimal max;
 }

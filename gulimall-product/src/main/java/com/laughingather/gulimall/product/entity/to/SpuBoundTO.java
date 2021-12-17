@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
- * 传输类
+ * 积分传输类
  *
  * @author laughingather
  */
@@ -18,6 +18,14 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SpuBoundTO {
     private Long spuId;
+
+    /**
+     * 购买积分
+     */
     private BigDecimal buyBounds;
+
+    /**
+     * 成长积分
+     */
     private BigDecimal growBounds;
 }

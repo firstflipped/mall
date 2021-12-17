@@ -9,7 +9,14 @@ import lombok.Data;
 @Data
 public class AttrValueWithSkuIdVO {
 
+    /**
+     * 属性值
+     */
     private String attrValue;
+
+    /**
+     *
+     */
     private String skuIds;
 
 }

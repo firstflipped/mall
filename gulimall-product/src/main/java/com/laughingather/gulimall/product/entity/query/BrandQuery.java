@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class BrandQuery extends PageQuery {
 
-    private String name;
+    private String brandName;
 
 }

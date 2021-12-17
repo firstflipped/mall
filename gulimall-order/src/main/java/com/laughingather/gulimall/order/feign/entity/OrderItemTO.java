@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.order.entity.vo;
+package com.laughingather.gulimall.order.feign.entity;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @create：2021-08-16 2021/8/16
  */
 @Data
-public class OrderItemVO {
+public class OrderItemTO {
 
     /**
      * skuId

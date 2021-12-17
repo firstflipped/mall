@@ -17,25 +17,25 @@ public class BrandEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 品牌id
-	 */
-	private Long brandId;
-	/**
-	 * 品牌名
-	 */
-	private String name;
-	/**
-	 * 品牌logo地址
-	 */
-	private String logo;
-	/**
-	 * 介绍
-	 */
-	private String descript;
-	/**
-	 * 显示状态[0-不显示；1-显示]
-	 */
-	private Integer showStatus;
+     * 品牌id
+     */
+    private Long brandId;
+    /**
+     * 品牌名
+     */
+    private String brandName;
+    /**
+     * 品牌logo地址
+     */
+    private String logo;
+    /**
+     * 介绍
+     */
+    private String description;
+    /**
+     * 显示状态[0-不显示；1-显示]
+     */
+    private Integer showStatus;
 	/**
 	 * 检索首字母
 	 */

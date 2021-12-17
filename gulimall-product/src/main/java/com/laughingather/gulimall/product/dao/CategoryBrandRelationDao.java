@@ -20,7 +20,7 @@ public interface CategoryBrandRelationDao extends BaseMapper<CategoryBrandRelati
     /**
      * 查询分类列表
      *
-     * @param brandId
+     * @param brandId 品牌id
      * @return
      */
     List<CategoryEntity> listCategoryByBrandId(@Param("brandId") Long brandId);
@@ -28,7 +28,7 @@ public interface CategoryBrandRelationDao extends BaseMapper<CategoryBrandRelati
     /**
      * 查询品牌列表
      *
-     * @param categoryId
+     * @param categoryId 分类id
      * @return
      */
     List<BrandEntity> listBrandsByCategoryId(@Param("categoryId") Long categoryId);

@@ -8,9 +8,10 @@ import java.util.List;
 
 
 /**
- * @author WangJie
+ * 分类树形结构视图展示类
+ *
+ * @author：laughingather
  */
-
 @Data
 @ToString
 public class CategoryTreeVO {

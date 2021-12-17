@@ -23,17 +23,12 @@ public class SpuInfoVO {
     private String spuName;
 
     /**
-     * 商品描述
-     */
-    private String spuDescription;
-
-    /**
      * 所属分类id
      */
-    private Long catalogId;
+    private Long categoryId;
 
     /**
-     * 品牌id
+     * 品牌名称
      */
     private String brandName;
 

@@ -37,14 +37,11 @@ public class ProductOpenApi {
      * @param skuId
      * @return
      */
-    @GetMapping("/skuInfo/name")
-    public MyResult<String> getSkuNameBySkuId(@RequestParam("skuId") Long skuId) {
+    @GetMapping("/{sid}/name")
+    public MyResult<String> getSkuNameBySkuId(@PathVariable("sid") Long skuId) {
         SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
-        if (skuInfo != null) {
-            return MyResult.success(skuInfo.getSkuName());
-        }
-        return MyResult.failed();
+        return skuInfo != null ? MyResult.success(skuInfo.getSkuName()) : MyResult.failed();
     }
 
 
@@ -54,14 +51,11 @@ public class ProductOpenApi {
      * @param skuId
      * @return
      */
-    @GetMapping("/{sku-id}/price")
-    public MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sku-id") Long skuId) {
+    @GetMapping("/{sid}/price")
+    public MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sid") Long skuId) {
         SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
-        if (skuInfo != null) {
-            return MyResult.success(skuInfo.getPrice());
-        }
-        return MyResult.failed();
+        return skuInfo != null ? MyResult.success(skuInfo.getPrice()) : MyResult.failed();
     }
 
 
@@ -71,14 +65,11 @@ public class ProductOpenApi {
      * @param skuId
      * @return
      */
-    @GetMapping("/{skuId}/info")
-    public MyResult<SkuInfoEntity> getSkuInfoBySkuId(@PathVariable("skuId") Long skuId) {
+    @GetMapping("/{sid}/info")
+    public MyResult<SkuInfoEntity> getSkuInfoBySkuId(@PathVariable("sid") Long skuId) {
         SkuInfoEntity skuInfo = skuInfoService.getById(skuId);
 
-        if (skuInfo != null) {
-            return MyResult.success(skuInfo);
-        }
-        return MyResult.failed();
+        return skuInfo != null ? MyResult.success(skuInfo) : MyResult.failed();
     }
 
 

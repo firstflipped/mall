@@ -5,7 +5,7 @@ import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
-import com.laughingather.gulimall.product.entity.dto.CategoryBrandRelationDTO;
+import com.laughingather.gulimall.product.entity.param.CategoryBrandRelationParam;
 import com.laughingather.gulimall.product.service.CategoryBrandRelationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,9 +55,9 @@ public class CategoryBrandRelationController {
     @PostMapping
     @ApiOperation(value = "保存分类&品牌关联关系信息")
     public MyResult saveCategoryBrandRelation(@Validated(value = {AddGroup.class}) @RequestBody
-                                                      CategoryBrandRelationDTO categoryBrandRelationDTO) {
+                                                      CategoryBrandRelationParam categoryBrandRelationParam) {
         CategoryBrandRelationEntity categoryBrandRelation = new CategoryBrandRelationEntity();
-        BeanUtils.copyProperties(categoryBrandRelationDTO, categoryBrandRelation);
+        BeanUtils.copyProperties(categoryBrandRelationParam, categoryBrandRelation);
 
         categoryBrandRelationService.saveCategoryBrandRelation(categoryBrandRelation);
         return MyResult.success();

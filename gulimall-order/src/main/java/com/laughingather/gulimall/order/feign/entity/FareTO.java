@@ -11,12 +11,12 @@ import java.math.BigDecimal;
  * @create：2021-10-19 2021/10/19
  */
 @Data
-public class FareVO {
+public class FareTO {
 
     /**
      * 收获地址信息
      */
-    private MemberReceiveAddress address;
+    private MemberReceiveAddressTO address;
 
     /**
      * 运费信息

@@ -5,10 +5,11 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author WangJie
+ * @author：laughingather
  */
 @Data
 public class SpuItemGroupAttrVO {
+
     private String groupName;
     private List<SpuBaseAttrVO> attrs;
 }

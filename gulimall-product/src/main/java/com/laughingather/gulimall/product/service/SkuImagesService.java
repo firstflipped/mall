@@ -15,7 +15,7 @@ import java.util.List;
 public interface SkuImagesService extends IService<SkuImagesEntity> {
 
     /**
-     * 根据skuId获取
+     * 根据skuId获取图片集合
      *
      * @param skuId
      * @return

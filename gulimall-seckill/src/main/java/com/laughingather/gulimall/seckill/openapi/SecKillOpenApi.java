@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.seckill.openapi;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.seckill.entity.to.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +25,14 @@ public class SecKillOpenApi {
     @Resource
     private SecKillSkuService secKillSkuService;
 
+    /**
+     * 查询sku的秒杀信息
+     *
+     * @param skuId
+     * @return
+     */
     @GetMapping("/sec-kill-sku/{sid}/info")
-    public MyResult<SecKillSkuRedisTO> getSeckillSkuInfo(@PathVariable("sid") Long skuId) {
+    public MyResult<SecKillSkuRedisTO> getSecKillSkuInfo(@PathVariable("sid") Long skuId) {
         SecKillSkuRedisTO secKillSkuRedisTO = secKillSkuService.getSecKillSkuInfo(skuId);
         return null != secKillSkuRedisTO ? MyResult.success(secKillSkuRedisTO) : MyResult.failed();
     }

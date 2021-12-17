@@ -23,7 +23,7 @@ public interface SpuInfoDao extends BaseMapper<SpuInfoEntity> {
      * @param spuInfoQuery
      * @return
      */
-    IPage<SpuInfoEntity> pageSpuInfoByParams(IPage<SpuInfoEntity> page, @Param("params") SpuInfoQuery spuInfoQuery);
+    IPage<SpuInfoEntity> listSpuWithPage(IPage<SpuInfoEntity> page, @Param("params") SpuInfoQuery spuInfoQuery);
 
     /**
      * 更新spu状态

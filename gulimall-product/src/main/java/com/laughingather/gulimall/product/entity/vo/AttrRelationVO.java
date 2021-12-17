@@ -2,6 +2,11 @@ package com.laughingather.gulimall.product.entity.vo;
 
 import lombok.Data;
 
+/**
+ * 属性展示类
+ *
+ * @author：laughingather
+ */
 @Data
 public class AttrRelationVO {
 
@@ -9,6 +14,7 @@ public class AttrRelationVO {
      * 属性名
      */
     private String attrName;
+
     /**
      * 可选值列表[用逗号分隔]
      */

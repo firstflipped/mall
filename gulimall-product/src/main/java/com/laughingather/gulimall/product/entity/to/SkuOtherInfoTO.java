@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product.entity.to;
 
-import com.laughingather.gulimall.product.entity.dto.MemberPrice;
+import com.laughingather.gulimall.product.entity.param.SkuMemberPriceParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +21,5 @@ public class SkuOtherInfoTO {
     private BigDecimal fullPrice;
     private BigDecimal reducePrice;
     private Integer priceStatus;
-    private List<MemberPrice> memberPrice;
+    private List<SkuMemberPriceParam> memberPrice;
 }

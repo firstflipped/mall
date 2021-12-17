@@ -14,6 +14,13 @@ import java.util.List;
  */
 public interface ProductAttrValueService extends IService<ProductAttrValueEntity> {
 
+
+    /**
+     * 根据spuId查询属性值列表
+     *
+     * @param spuId
+     * @return
+     */
     List<ProductAttrValueEntity> listAttrValuesBySpuId(Long spuId);
 
 }

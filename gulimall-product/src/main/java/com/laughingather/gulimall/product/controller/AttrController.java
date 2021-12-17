@@ -2,7 +2,7 @@ package com.laughingather.gulimall.product.controller;
 
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.product.entity.dto.AttrDTO;
+import com.laughingather.gulimall.product.entity.param.AttrParam;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.service.AttrService;
@@ -61,15 +61,15 @@ public class AttrController {
 
     @PostMapping
     @ApiOperation(value = "保存属性信息")
-    public MyResult saveAttr(@RequestBody AttrDTO attrDTO) {
-        attrService.saveAttr(attrDTO);
+    public MyResult saveAttr(@RequestBody AttrParam attrParam) {
+        attrService.saveAttr(attrParam);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新属性信息")
-    public MyResult updateAttrById(@RequestBody AttrDTO attrDTO) {
-        attrService.updateAttrById(attrDTO);
+    public MyResult updateAttrById(@RequestBody AttrParam attrParam) {
+        attrService.updateAttrById(attrParam);
         return MyResult.success();
     }
 

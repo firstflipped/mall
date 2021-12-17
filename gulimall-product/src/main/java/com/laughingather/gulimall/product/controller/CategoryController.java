@@ -4,6 +4,7 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 import com.laughingather.gulimall.product.service.CategoryService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product/category")
-@ApiOperation("分类模块")
+@Api(tags = "分类模块")
 public class CategoryController {
 
     @Resource

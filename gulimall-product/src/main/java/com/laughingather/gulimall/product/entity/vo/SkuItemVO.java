@@ -9,12 +9,11 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 商品详情展示类
+ * 商品详情视图展示类
  *
  * @author：laughingather
  * @create：2021-06-04 22:16
  */
-
 @Data
 public class SkuItemVO {
 

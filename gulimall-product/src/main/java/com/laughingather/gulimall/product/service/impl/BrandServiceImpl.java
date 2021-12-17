@@ -27,8 +27,8 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
     public MyPage<BrandEntity> listBrandsWithPage(BrandQuery brandQuery) {
         IPage<BrandEntity> page = new Page<>(brandQuery.getPageNumber(), brandQuery.getPageSize());
         QueryWrapper<BrandEntity> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(brandQuery.getName())) {
-            queryWrapper.lambda().like(BrandEntity::getBrandName, brandQuery.getName());
+        if (StringUtils.isNotBlank(brandQuery.getBrandName())) {
+            queryWrapper.lambda().like(BrandEntity::getBrandName, brandQuery.getBrandName());
         }
 
         IPage<BrandEntity> brandEntityIPage = brandDao.selectPage(page, queryWrapper);

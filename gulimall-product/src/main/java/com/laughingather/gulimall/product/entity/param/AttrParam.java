@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.product.entity.dto;
+package com.laughingather.gulimall.product.entity.param;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "属性前端传入实体")
-public class AttrDTO {
+public class AttrParam {
 
     @ApiModelProperty(value = "属性id")
     private Long attrId;

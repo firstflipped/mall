@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.order.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.order.feign.entity.SpuInfoVO;
+import com.laughingather.gulimall.order.feign.entity.SpuInfoTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ public interface ProductFeignService {
      * @return
      */
     @GetMapping("/spu-info")
-    MyResult<SpuInfoVO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId);
+    MyResult<SpuInfoTO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId);
 
 }
 

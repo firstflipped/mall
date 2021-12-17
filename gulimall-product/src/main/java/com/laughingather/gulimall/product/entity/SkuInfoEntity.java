@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * sku信息
@@ -65,14 +66,19 @@ public class SkuInfoEntity implements Serializable {
 	 */
 	private Long categoryId;
 
-	/**
-	 * 品牌id
-	 */
-	private Long brandId;
+    /**
+     * 品牌id
+     */
+    private Long brandId;
 
-	/**
-	 * spuId
-	 */
-	private Long spuId;
+    /**
+     * spuId
+     */
+    private Long spuId;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
 }

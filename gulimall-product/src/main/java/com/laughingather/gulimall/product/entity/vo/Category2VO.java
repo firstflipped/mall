@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * 二级分类视图展示类
+ *
+ * @author：laughingather
+ */
 @Data
 @Builder
 @NoArgsConstructor

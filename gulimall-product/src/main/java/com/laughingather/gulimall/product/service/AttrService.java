@@ -3,7 +3,7 @@ package com.laughingather.gulimall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.product.entity.AttrEntity;
-import com.laughingather.gulimall.product.entity.dto.AttrDTO;
+import com.laughingather.gulimall.product.entity.param.AttrParam;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 
@@ -46,16 +46,16 @@ public interface AttrService extends IService<AttrEntity> {
     /**
      * 保存属性信息
      *
-     * @param attrDTO
+     * @param attrParam
      */
-    void saveAttr(AttrDTO attrDTO);
+    void saveAttr(AttrParam attrParam);
 
     /**
      * 更新属性信息
      *
-     * @param attrDTO
+     * @param attrParam
      */
-    void updateAttrById(AttrDTO attrDTO);
+    void updateAttrById(AttrParam attrParam);
 
     /**
      * 获取属性详情
