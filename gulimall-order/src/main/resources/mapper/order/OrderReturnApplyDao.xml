@@ -19,12 +19,12 @@
         <result property="skuImg" column="sku_img"/>
         <result property="skuName" column="sku_name"/>
         <result property="skuBrand" column="sku_brand"/>
-        <result property="skuAttrsVals" column="sku_attrs_vals"/>
+        <result property="skuAttrsValues" column="sku_attrs_values"/>
         <result property="skuCount" column="sku_count"/>
         <result property="skuPrice" column="sku_price"/>
         <result property="skuRealPrice" column="sku_real_price"/>
         <result property="reason" column="reason"/>
-        <result property="description述" column="description述"/>
+        <result property="description" column="description"/>
         <result property="descPics" column="desc_pics"/>
         <result property="handleNote" column="handle_note"/>
         <result property="handleMan" column="handle_man"/>

@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.search.entity.vo;
 
-import com.laughingather.gulimall.search.entity.SkuESModel;
+import com.laughingather.gulimall.search.entity.EsSku;
 import lombok.Data;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 检索结果集封装
  *
- * @author WangJie
+ * @author：laughingather
  */
 @Data
 public class SearchVO {
@@ -16,7 +16,7 @@ public class SearchVO {
     /**
      * 商品信息
      */
-    private List<SkuESModel> products;
+    private List<EsSku> products;
 
     /**
      * 当前页码
@@ -50,7 +50,7 @@ public class SearchVO {
     /**
      * 当前查询结果涉及到分类的信息
      */
-    private List<CatalogVO> catalogs;
+    private List<CategoryVO> categories;
 
     /**
      * 面包屑
@@ -79,8 +79,8 @@ public class SearchVO {
     }
 
     @Data
-    public static class CatalogVO {
-        private Long catalogId;
-        private String catalogName;
+    public static class CategoryVO {
+        private Long categoryId;
+        private String categoryName;
     }
 }

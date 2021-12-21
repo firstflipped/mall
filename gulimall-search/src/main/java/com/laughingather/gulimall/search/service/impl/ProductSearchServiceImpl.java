@@ -1,15 +1,14 @@
 package com.laughingather.gulimall.search.service.impl;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.api.ResultCodeEnum;
+import com.laughingather.gulimall.common.constant.SearchConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;
-import com.laughingather.gulimall.search.config.ElasticSearchConfig;
-import com.laughingather.gulimall.search.constant.EsConstant;
-import com.laughingather.gulimall.search.entity.SkuESModel;
+import com.laughingather.gulimall.search.config.MyElasticSearchConfig;
+import com.laughingather.gulimall.search.entity.EsSku;
 import com.laughingather.gulimall.search.entity.query.SearchQuery;
 import com.laughingather.gulimall.search.entity.vo.SearchVO;
-import com.laughingather.gulimall.search.feign.entity.AttrVO;
-import com.laughingather.gulimall.search.feign.entity.BrandEntity;
+import com.laughingather.gulimall.search.feign.entity.AttrTO;
+import com.laughingather.gulimall.search.feign.entity.BrandTO;
 import com.laughingather.gulimall.search.feign.service.ProductFeignService;
 import com.laughingather.gulimall.search.service.ProductSearchService;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +63,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         // 构建检索请求
         SearchRequest searchRequest = buildSearchRequest(searchQuery);
         try {
-            SearchResponse searchResponse = restHighLevelClient.search(searchRequest, ElasticSearchConfig.COMMON_OPTIONS);
+            SearchResponse searchResponse = restHighLevelClient.search(searchRequest, MyElasticSearchConfig.COMMON_OPTIONS);
             // 构建返回参数
             searchVO = buildSearchResult(searchResponse, searchQuery);
         } catch (IOException e) {
@@ -105,8 +104,9 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         String DSL = searchSourceBuilder.toString();
         log.info("构建的DSL语句{}", DSL);
 
-        return new SearchRequest(new String[]{EsConstant.PRODUCT_INDEX}, searchSourceBuilder);
+        return new SearchRequest(new String[]{SearchConstants.PRODUCT_INDEX}, searchSourceBuilder);
     }
+
 
     /**
      * 构建结果数据
@@ -124,7 +124,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         buildSearchVOProducts(searchQuery, searchResponse, searchVO);
 
         // 分类信息
-        buildSearchVOCatalogs(searchResponse, searchVO);
+        buildSearchVOCategory(searchResponse, searchVO);
 
         // 品牌信息
         buildSearchVOBrands(searchResponse, searchVO);
@@ -146,42 +146,42 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 
     private void buildSearchVOProducts(SearchQuery searchQuery, SearchResponse searchResponse, SearchVO searchVO) {
         SearchHit[] hits = searchResponse.getHits().getHits();
-        List<SkuESModel> skuESModels = new ArrayList<>();
+        List<EsSku> skuESModels = new ArrayList<>();
         if (ArrayUtils.isNotEmpty(hits)) {
             for (SearchHit hit : hits) {
-                String skuESModelJSON = hit.getSourceAsString();
-                SkuESModel skuESModel = JsonUtil.string2Obj(skuESModelJSON, SkuESModel.class);
+                String esSkuJSON = hit.getSourceAsString();
+                EsSku esSku = JsonUtil.string2Obj(esSkuJSON, EsSku.class);
 
                 // 高亮内容替换
                 if (StringUtils.isNotBlank(searchQuery.getKeyword())) {
                     HighlightField skuTitle = hit.getHighlightFields().get("skuTitle");
-                    skuESModel.setSkuTitle(skuTitle.getFragments()[0].string());
+                    esSku.setSkuTitle(skuTitle.getFragments()[0].string());
                 }
 
-                skuESModels.add(skuESModel);
+                skuESModels.add(esSku);
             }
         }
         searchVO.setProducts(skuESModels);
     }
 
-    private void buildSearchVOCatalogs(SearchResponse searchResponse, SearchVO searchVO) {
-        List<SearchVO.CatalogVO> catalogVOs = new ArrayList<>();
-        ParsedLongTerms catalogAgg = searchResponse.getAggregations().get("catalog_agg");
-        List<? extends Terms.Bucket> catalogAggBuckets = catalogAgg.getBuckets();
-        if (CollectionUtils.isNotEmpty(catalogAggBuckets)) {
-            for (Terms.Bucket catalogAggBucket : catalogAggBuckets) {
-                SearchVO.CatalogVO catalogVO = new SearchVO.CatalogVO();
+    private void buildSearchVOCategory(SearchResponse searchResponse, SearchVO searchVO) {
+        List<SearchVO.CategoryVO> catalogVOs = new ArrayList<>();
+        ParsedLongTerms categoryAgg = searchResponse.getAggregations().get("category_agg");
+        List<? extends Terms.Bucket> categoryAggBuckets = categoryAgg.getBuckets();
+        if (CollectionUtils.isNotEmpty(categoryAggBuckets)) {
+            for (Terms.Bucket categoryAggBucket : categoryAggBuckets) {
+                SearchVO.CategoryVO categoryVO = new SearchVO.CategoryVO();
                 // 设置分类id
-                catalogVO.setCatalogId(Long.parseLong(catalogAggBucket.getKeyAsString()));
+                categoryVO.setCategoryId(Long.parseLong(categoryAggBucket.getKeyAsString()));
                 // 设置分类名称
-                ParsedStringTerms catalogNameAgg = catalogAggBucket.getAggregations().get("catalog_name_agg");
-                List<? extends Terms.Bucket> catalogNameAggBuckets = catalogNameAgg.getBuckets();
-                catalogVO.setCatalogName(catalogNameAggBuckets.get(0).getKeyAsString());
+                ParsedStringTerms categoryNameAgg = categoryAggBucket.getAggregations().get("category_name_agg");
+                List<? extends Terms.Bucket> categoryNameAggBuckets = categoryNameAgg.getBuckets();
+                categoryVO.setCategoryName(categoryNameAggBuckets.get(0).getKeyAsString());
 
-                catalogVOs.add(catalogVO);
+                catalogVOs.add(categoryVO);
             }
         }
-        searchVO.setCatalogs(catalogVOs);
+        searchVO.setCategories(catalogVOs);
     }
 
     private void buildSearchVOBrands(SearchResponse searchResponse, SearchVO searchVO) {
@@ -239,7 +239,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         long total = searchResponse.getHits().getTotalHits().value;
         searchVO.setTotal(total);
         // 总页码
-        long totalPage = total % EsConstant.PAGE_TOTAL == 0 ? total / EsConstant.PAGE_TOTAL : (total / EsConstant.PAGE_TOTAL) + 1;
+        long totalPage = total % SearchConstants.PAGE_TOTAL == 0 ? total / SearchConstants.PAGE_TOTAL : (total / SearchConstants.PAGE_TOTAL) + 1;
         searchVO.setTotalPage(totalPage);
         // 页码数组
         List<Long> pageNavs = new ArrayList<>();
@@ -264,18 +264,18 @@ public class ProductSearchServiceImpl implements ProductSearchService {
                 // 分析每个attr传过来的值
                 SearchVO.NavVO navVO = new SearchVO.NavVO();
 
-                String[] split = attr.split(EsConstant.ATTR_SPLIT);
+                String[] split = attr.split(SearchConstants.ATTR_SPLIT);
                 navVO.setNavValue(split[1]);
-                MyResult<AttrVO> attrVOById = productFeignService.getAttrVOById(Long.parseLong(split[0]));
-                if (attrVOById.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
-                    navVO.setNavName(attrVOById.getData().getAttrName());
+                MyResult<AttrTO> attrTOResult = productFeignService.getAttrById(Long.parseLong(split[0]));
+                if (attrTOResult.isSuccess()) {
+                    navVO.setNavName(attrTOResult.getData().getAttrName());
                 } else {
                     navVO.setNavName(split[0]);
                 }
 
                 // 取消了面包屑之后，我们要跳转到那个地方，将请求地址的url里面的当前置空
                 String replace = replaceQueryString(searchQuery, "attrs", attr);
-                navVO.setLink(EsConstant.URL + replace);
+                navVO.setLink(SearchConstants.URL + replace);
 
                 return navVO;
             }).collect(Collectors.toList());
@@ -290,23 +290,24 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 
             navVO.setNavName("品牌");
             List<Long> brandId = searchQuery.getBrandId();
-            MyResult<List<BrandEntity>> myResult = productFeignService.listBrandsByIds(brandId);
-            if (ResultCodeEnum.SUCCESS.getCode().equals(myResult.getCode())) {
-                List<BrandEntity> brands = myResult.getData();
+            MyResult<List<BrandTO>> brandsResult = productFeignService.listBrandsByIds(brandId);
+            if (brandsResult.isSuccess()) {
+                List<BrandTO> brands = brandsResult.getData();
                 StringBuffer buffer = new StringBuffer();
                 String replace = "";
-                for (BrandEntity brand : brands) {
-                    buffer.append(brand.getName()).append(";");
+                for (BrandTO brand : brands) {
+                    buffer.append(brand.getBrandName()).append(";");
                     replace = replaceQueryString(searchQuery, "brandId", brand.getBrandId().toString());
                 }
                 navVO.setNavValue(buffer.toString());
-                navVO.setLink(EsConstant.URL + replace);
+                navVO.setLink(SearchConstants.URL + replace);
             }
 
             navs.add(navVO);
         }
 
     }
+
 
     private String replaceQueryString(SearchQuery searchQuery, String key, String value) {
         String encode = "";
@@ -321,6 +322,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         return replace;
     }
 
+
     private void buildQuery(SearchQuery searchQuery, SearchSourceBuilder searchSourceBuilder) {
         // 查询条件
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
@@ -329,8 +331,8 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         }
 
         // 过滤条件
-        if (null != searchQuery.getCatalog3Id()) {
-            boolQuery.filter(QueryBuilders.termQuery("catalogId", searchQuery.getCatalog3Id()));
+        if (null != searchQuery.getCategoryId()) {
+            boolQuery.filter(QueryBuilders.termQuery("categoryId", searchQuery.getCategoryId()));
         }
         if (CollectionUtils.isNotEmpty(searchQuery.getBrandId())) {
             boolQuery.filter(QueryBuilders.termsQuery("brandId", searchQuery.getBrandId()));
@@ -339,14 +341,14 @@ public class ProductSearchServiceImpl implements ProductSearchService {
             boolQuery.filter(QueryBuilders.termQuery("hasStock", searchQuery.getHasStock().equals(1) ? true : false));
         }
         // 价格参数必须符合 0-500/-500/0- 的格式
-        if (StringUtils.isNotBlank(searchQuery.getSkuPrice()) && searchQuery.getSkuPrice().contains(EsConstant.PRICE_SPLIT)) {
-            String[] price = searchQuery.getSkuPrice().split(EsConstant.PRICE_SPLIT);
+        if (StringUtils.isNotBlank(searchQuery.getSkuPrice()) && searchQuery.getSkuPrice().contains(SearchConstants.PRICE_SPLIT)) {
+            String[] price = searchQuery.getSkuPrice().split(SearchConstants.PRICE_SPLIT);
             // 表示小于某个价格
-            if (searchQuery.getSkuPrice().startsWith(EsConstant.PRICE_SPLIT)) {
+            if (searchQuery.getSkuPrice().startsWith(SearchConstants.PRICE_SPLIT)) {
                 boolQuery.filter(QueryBuilders.rangeQuery("skuPrice").lte(price[0]));
             }
             // 表示大于某个价格
-            else if (searchQuery.getSkuPrice().endsWith(EsConstant.PRICE_SPLIT)) {
+            else if (searchQuery.getSkuPrice().endsWith(SearchConstants.PRICE_SPLIT)) {
                 boolQuery.filter(QueryBuilders.rangeQuery("skuPrice").gte(price[0]));
             }
             // 表示价格区间
@@ -357,7 +359,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         if (CollectionUtils.isNotEmpty(searchQuery.getAttrs())) {
             for (String attr : searchQuery.getAttrs()) {
                 BoolQueryBuilder nestedBoolQuery = QueryBuilders.boolQuery();
-                String[] split = attr.split(EsConstant.ATTR_SPLIT);
+                String[] split = attr.split(SearchConstants.ATTR_SPLIT);
                 String attrId = split[0];
                 String[] attrValues = split[1].split(":");
                 nestedBoolQuery.must(QueryBuilders.termQuery("attrs.attrId", attrId));
@@ -373,33 +375,37 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         searchSourceBuilder.query(boolQuery);
     }
 
+
     private void buildOrder(SearchQuery searchQuery, SearchSourceBuilder searchSourceBuilder) {
         if (StringUtils.isNotBlank(searchQuery.getSort())) {
             // 排序字段格式   字段名_排序方式
-            String[] sort = searchQuery.getSort().split(EsConstant.ATTR_SPLIT);
+            String[] sort = searchQuery.getSort().split(SearchConstants.ATTR_SPLIT);
             SortOrder sortOrder = "ASC".equalsIgnoreCase(sort[1]) ? SortOrder.ASC : SortOrder.DESC;
             searchSourceBuilder.sort(sort[0], sortOrder);
         }
     }
 
+
     private void buildPage(SearchQuery searchQuery, SearchSourceBuilder searchSourceBuilder) {
         if (searchQuery.getPageNum() == null) {
             searchQuery.setPageNum(1);
         }
-        searchSourceBuilder.from((searchQuery.getPageNum() - 1) * EsConstant.PAGE_TOTAL);
-        searchSourceBuilder.size(EsConstant.PAGE_TOTAL);
+        searchSourceBuilder.from((searchQuery.getPageNum() - 1) * SearchConstants.PAGE_TOTAL);
+        searchSourceBuilder.size(SearchConstants.PAGE_TOTAL);
     }
+
 
     private void buildHighlight(SearchQuery searchQuery, SearchSourceBuilder searchSourceBuilder) {
         if (StringUtils.isNotBlank(searchQuery.getKeyword())) {
             HighlightBuilder highlightBuilder = new HighlightBuilder();
             highlightBuilder.field("skuTitle");
-            highlightBuilder.preTags(EsConstant.PRE_TAGS);
-            highlightBuilder.postTags(EsConstant.POST_TAGS);
+            highlightBuilder.preTags(SearchConstants.PRE_TAGS);
+            highlightBuilder.postTags(SearchConstants.POST_TAGS);
 
             searchSourceBuilder.highlighter(highlightBuilder);
         }
     }
+
 
     private void buildAggregation(SearchSourceBuilder searchSourceBuilder) {
         // 品牌聚合
@@ -410,10 +416,10 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         searchSourceBuilder.aggregation(brandAgg);
 
         // 分类聚合
-        TermsAggregationBuilder catalogAgg = AggregationBuilders.terms("catalog_agg").field("catalogId").size(50);
+        TermsAggregationBuilder categoryAgg = AggregationBuilders.terms("category_agg").field("categoryId").size(50);
         // 分类聚合的子聚合
-        catalogAgg.subAggregation(AggregationBuilders.terms("catalog_name_agg").field("catalogName").size(1));
-        searchSourceBuilder.aggregation(catalogAgg);
+        categoryAgg.subAggregation(AggregationBuilders.terms("category_name_agg").field("categoryName").size(1));
+        searchSourceBuilder.aggregation(categoryAgg);
 
         // 属性聚合
         NestedAggregationBuilder attrAgg = AggregationBuilders.nested("attr_agg", "attrs");

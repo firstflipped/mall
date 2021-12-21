@@ -1,9 +1,9 @@
-package com.laughingather.gulimall.search.constant;
+package com.laughingather.gulimall.common.constant;
 
 /**
  * @author WangJie
  */
-public class EsConstant {
+public class SearchConstants {
 
     /**
      * sku数据在es中的索引

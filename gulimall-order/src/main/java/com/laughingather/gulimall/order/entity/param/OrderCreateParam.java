@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.order.entity.bo;
+package com.laughingather.gulimall.order.entity.param;
 
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.entity.OrderItemEntity;
@@ -14,7 +14,7 @@ import java.util.List;
  * @create：2021-10-20 2021/10/20
  */
 @Data
-public class OrderCreateBO {
+public class OrderCreateParam {
 
     /**
      * 订单信息

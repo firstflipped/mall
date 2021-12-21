@@ -2,8 +2,8 @@ package com.laughingather.gulimall.order.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.order.entity.dto.WareSkuLockDTO;
-import com.laughingather.gulimall.order.entity.vo.SkuHashStockVO;
 import com.laughingather.gulimall.order.feign.entity.FareTO;
+import com.laughingather.gulimall.order.feign.entity.SkuHashStockTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +25,8 @@ public interface WareFeignService {
      * @param skuIds
      * @return
      */
-    @PostMapping("/has-stock")
-    MyResult<List<SkuHashStockVO>> getSkusHasStock(@RequestBody List<Long> skuIds);
+    @PostMapping("/stock")
+    MyResult<List<SkuHashStockTO>> getSkusHasStock(@RequestBody List<Long> skuIds);
 
     /**
      * 获取收货地址信息及运费信息

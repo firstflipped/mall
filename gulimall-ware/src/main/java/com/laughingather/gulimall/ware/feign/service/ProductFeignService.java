@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.ware.feign.service;
 
+import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,6 @@ public interface ProductFeignService {
      * @return
      */
     @GetMapping("/gulimall-product/openapi/product/{sid}/name")
-    String getSkuNameBuSkuId(@PathVariable("sid") Long skuId);
+    MyResult<String> getSkuNameBySkuId(@PathVariable("sid") Long skuId);
 
 }

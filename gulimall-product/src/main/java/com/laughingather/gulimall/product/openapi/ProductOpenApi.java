@@ -1,13 +1,15 @@
 package com.laughingather.gulimall.product.openapi;
 
 import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
+import com.laughingather.gulimall.product.entity.to.AttrTO;
+import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
-import com.laughingather.gulimall.product.service.SkuInfoService;
-import com.laughingather.gulimall.product.service.SkuSaleAttrValueService;
-import com.laughingather.gulimall.product.service.SpuInfoService;
+import com.laughingather.gulimall.product.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,6 +26,10 @@ import java.util.List;
 @RequestMapping("/openapi/product")
 public class ProductOpenApi {
 
+    @Resource
+    private AttrService attrService;
+    @Resource
+    private BrandService brandService;
     @Resource
     private SkuInfoService skuInfoService;
     @Resource
@@ -101,6 +107,35 @@ public class ProductOpenApi {
             return MyResult.success(spuInfo);
         }
         return MyResult.failed();
+    }
+
+
+    /**
+     * 获取属性信息
+     *
+     * @param attrId
+     * @return
+     */
+    @GetMapping("/{aid}")
+    public MyResult<AttrTO> getAttrById(@PathVariable("aid") Long attrId) {
+        AttrVO attrVO = attrService.getAttrVOById(attrId);
+
+        AttrTO attrTO = new AttrTO();
+        BeanUtils.copyProperties(attrVO, attrTO);
+        return attrTO != null ? MyResult.success(attrTO) : MyResult.failed();
+    }
+
+
+    @GetMapping("/brand/list")
+    public MyResult<List<BrandEntity>> listBrandsByIds(@RequestParam(value = "bids", required = false) List<Long> brandIds) {
+        List<BrandEntity> brands;
+        if (CollectionUtils.isNotEmpty(brandIds)) {
+            brands = brandService.listByIds(brandIds);
+        } else {
+            brands = brandService.list();
+        }
+
+        return CollectionUtils.isNotEmpty(brands) ? MyResult.success(brands) : MyResult.failed();
     }
 
 }

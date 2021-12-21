@@ -8,7 +8,14 @@ import lombok.Data;
 @Data
 public class SkuHasStockVO {
 
+    /**
+     * 商品id
+     */
     private Long skuId;
+
+    /**
+     * 是否有库存
+     */
     private Boolean hasStock;
 
 }

@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.order.entity.vo;
+package com.laughingather.gulimall.order.feign.entity;
 
 import lombok.Data;
 
@@ -9,9 +9,13 @@ import lombok.Data;
  * @create：2021-10-18 2021/10/18
  */
 @Data
-public class SkuHashStockVO {
+public class SkuHashStockTO {
 
     private Long skuId;
+
+    /**
+     * 是否有库存
+     */
     private Boolean hasStock;
 
 }

@@ -1,9 +1,11 @@
 package com.laughingather.gulimall.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.order.entity.OrderEntity;
-import com.laughingather.gulimall.order.entity.dto.OrderSubmitDTO;
 import com.laughingather.gulimall.order.entity.dto.PayDTO;
+import com.laughingather.gulimall.order.entity.param.OrderSubmitParam;
+import com.laughingather.gulimall.order.entity.query.OrderQuery;
 import com.laughingather.gulimall.order.entity.vo.OrderConfirmVO;
 import com.laughingather.gulimall.order.entity.vo.OrderSubmitVO;
 
@@ -19,6 +21,23 @@ import java.util.concurrent.ExecutionException;
 public interface OrderService extends IService<OrderEntity> {
 
     /**
+     * 分页查询订单列表
+     *
+     * @param orderQuery
+     * @return
+     */
+    MyPage<OrderEntity> listOrdersWithPage(OrderQuery orderQuery);
+
+    /**
+     * 根据订单号获取订单详情
+     *
+     * @param orderSn
+     * @return
+     */
+    OrderEntity getOrderByOrderSn(String orderSn);
+
+
+    /**
      * 获取订单确认页所需信息
      *
      * @return
@@ -30,18 +49,11 @@ public interface OrderService extends IService<OrderEntity> {
     /**
      * 提交订单
      *
-     * @param orderSubmitDTO
+     * @param orderSubmitParam
      * @return
      */
-    OrderSubmitVO submitOrder(OrderSubmitDTO orderSubmitDTO);
+    OrderSubmitVO submitOrder(OrderSubmitParam orderSubmitParam);
 
-    /**
-     * 根据订单号获取订单详情
-     *
-     * @param orderSn
-     * @return
-     */
-    OrderEntity getOrderByOrderSn(String orderSn);
 
     /**
      * 关闭订单
@@ -57,5 +69,6 @@ public interface OrderService extends IService<OrderEntity> {
      * @return
      */
     PayDTO getPayOrderInfo(String orderSn);
+
 }
 

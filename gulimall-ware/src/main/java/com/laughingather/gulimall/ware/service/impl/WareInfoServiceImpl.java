@@ -10,7 +10,7 @@ import com.laughingather.gulimall.ware.dao.WareInfoDao;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
-import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddress;
+import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddressTO;
 import com.laughingather.gulimall.ware.feign.service.MemberFeignService;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import org.apache.commons.lang3.RandomUtils;
@@ -21,6 +21,11 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 
 
+/**
+ * 仓储逻辑实现
+ *
+ * @author laughingather
+ */
 @Service("wareInfoService")
 public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity> implements WareInfoService {
 
@@ -31,7 +36,7 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
     private MemberFeignService memberFeignService;
 
     @Override
-    public MyPage<WareInfoEntity> pageWareInfoByParams(WareInfoQuery wareInfoQuery) {
+    public MyPage<WareInfoEntity> listWaresWithPage(WareInfoQuery wareInfoQuery) {
         IPage<WareInfoEntity> page = new Page<>(wareInfoQuery.getPageNumber(), wareInfoQuery.getPageSize());
         QueryWrapper<WareInfoEntity> queryWrapper = null;
         if (StringUtils.isNotBlank(wareInfoQuery.getKey())) {
@@ -40,6 +45,7 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
                     .or().like(WareInfoEntity::getName, wareInfoQuery.getKey())
                     .or().like(WareInfoEntity::getAddress, wareInfoQuery.getKey());
         }
+
         IPage<WareInfoEntity> wareInfoIPage = wareInfoDao.selectPage(page, queryWrapper);
         return MyPage.restPage(wareInfoIPage);
     }
@@ -48,8 +54,8 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
     public FareVO getFare(Long addressId) {
         FareVO fareVO = new FareVO();
 
-        MyResult<MemberReceiveAddress> addressInfoResult = memberFeignService.getAddressInfoById(addressId);
-        MemberReceiveAddress address = addressInfoResult.getData();
+        MyResult<MemberReceiveAddressTO> addressInfoResult = memberFeignService.getAddressInfoById(addressId);
+        MemberReceiveAddressTO address = addressInfoResult.getData();
 
         // TODO：模拟运费计算
         if (address == null) {

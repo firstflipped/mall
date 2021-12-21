@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.ware.entity.vo;
 
-import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddress;
+import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddressTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -14,8 +14,14 @@ import java.math.BigDecimal;
 @Data
 public class FareVO {
 
-    private MemberReceiveAddress address;
+    /**
+     * 收货地址信息
+     */
+    private MemberReceiveAddressTO address;
 
+    /**
+     * 运费
+     */
     private BigDecimal fare;
 
 }

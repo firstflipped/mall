@@ -15,7 +15,7 @@ public class SearchQuery {
     /**
      * 分类id
      */
-    private Long catalog3Id;
+    private Long categoryId;
 
     /**
      * 排序条件

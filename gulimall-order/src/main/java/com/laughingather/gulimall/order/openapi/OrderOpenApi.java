@@ -29,8 +29,8 @@ public class OrderOpenApi {
      * @param orderSn
      * @return
      */
-    @GetMapping("/{orderSn}/info")
-    public MyResult<OrderEntity> getOrderByOrderSn(@PathVariable("orderSn") String orderSn) {
+    @GetMapping("/{osn}/info")
+    public MyResult<OrderEntity> getOrderByOrderSn(@PathVariable("osn") String orderSn) {
         OrderEntity order = orderService.getOrderByOrderSn(orderSn);
         return MyResult.success(order);
     }

@@ -87,6 +87,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     public AttrVO getAttrVOById(Long attrId) {
         // 查询基本信息
         AttrEntity attrEntity = attrDao.selectById(attrId);
+
         // 查询其他信息
         AttrVO attrVO = getAttrOtherInfoById(attrEntity);
         BeanUtils.copyProperties(attrEntity, attrVO);

@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.order.entity.dto;
+package com.laughingather.gulimall.order.entity.param;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * @create：2021-10-19 2021/10/19
  */
 @Data
-public class OrderSubmitDTO {
+public class OrderSubmitParam {
 
     /**
      * 收货地址id

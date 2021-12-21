@@ -15,6 +15,11 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
+/**
+ * 采购单详情逻辑实现
+ *
+ * @author laughingather
+ */
 @Service("purchaseDetailService")
 public class PurchaseDetailServiceImpl extends ServiceImpl<PurchaseDetailDao, PurchaseDetailEntity> implements PurchaseDetailService {
 
@@ -22,7 +27,7 @@ public class PurchaseDetailServiceImpl extends ServiceImpl<PurchaseDetailDao, Pu
     private PurchaseDetailDao purchaseDetailDao;
 
     @Override
-    public MyPage<PurchaseDetailEntity> pagePurchaseDetailByParams(PurchaseDetailQuery purchaseDetailQuery) {
+    public MyPage<PurchaseDetailEntity> listPurchaseDetailsWithPage(PurchaseDetailQuery purchaseDetailQuery) {
         IPage<PurchaseDetailEntity> page = new Page<>(purchaseDetailQuery.getPageNumber(), purchaseDetailQuery.getPageSize());
         IPage<PurchaseDetailEntity> purchaseDetailIPage = purchaseDetailDao.pagePurchaseDetailByParams(page, purchaseDetailQuery);
         return MyPage.restPage(purchaseDetailIPage);

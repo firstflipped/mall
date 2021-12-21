@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.WareConstants;
 import com.laughingather.gulimall.common.entity.StockDetailDTO;
 import com.laughingather.gulimall.common.entity.StockLockedDTO;
@@ -13,18 +14,17 @@ import com.laughingather.gulimall.ware.entity.SkuWareHasStock;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskEntity;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
-import com.laughingather.gulimall.ware.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
 import com.laughingather.gulimall.ware.entity.vo.OrderItemVO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 import com.laughingather.gulimall.ware.exception.NoStockException;
+import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
 import com.laughingather.gulimall.ware.feign.service.ProductFeignService;
 import com.laughingather.gulimall.ware.service.WareOrderTaskDetailService;
 import com.laughingather.gulimall.ware.service.WareOrderTaskService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     private RabbitTemplate rabbitTemplate;
 
     @Override
-    public MyPage<WareSkuEntity> pageWareSkuByParams(WareSkuQuery wareSkuQuery) {
+    public MyPage<WareSkuEntity> listWareSkusWithPage(WareSkuQuery wareSkuQuery) {
         IPage<WareSkuEntity> page = new Page<>(wareSkuQuery.getPageNumber(), wareSkuQuery.getPageSize());
         QueryWrapper<WareSkuEntity> queryWrapper = new QueryWrapper<>();
         if (wareSkuQuery.getWareId() != null) {
@@ -79,11 +79,11 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         }
         // 如果没有当前的sku和仓库信息，则表示新增
         else {
-            String skuName = productFeignService.getSkuNameBuSkuId(skuId);
-            if (StringUtils.isBlank(skuName)) {
+            MyResult<String> skuNameResult = productFeignService.getSkuNameBySkuId(skuId);
+            if (!skuNameResult.isSuccess()) {
                 log.info("当前sku不存在，skuId：{}", skuId);
             }
-            WareSkuEntity wareSku = WareSkuEntity.builder().skuId(skuId).skuName(skuName)
+            WareSkuEntity wareSku = WareSkuEntity.builder().skuId(skuId).skuName(skuNameResult.getData())
                     .wareId(wareId).stock(skuNum).stockLocked(0).build();
             wareSkuDao.insert(wareSku);
         }
@@ -92,21 +92,23 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
     @Override
     public void saveWareSku(WareSkuEntity wareSku) {
-        String skuName = productFeignService.getSkuNameBuSkuId(wareSku.getSkuId());
-        if (StringUtils.isBlank(skuName)) {
+        MyResult<String> skuNameResult = productFeignService.getSkuNameBySkuId(wareSku.getSkuId());
+        if (!skuNameResult.isSuccess()) {
             log.info("当前sku不存在，skuId：{}", wareSku.getSkuId());
         }
-        wareSku.setSkuName(skuName);
+
+        wareSku.setSkuName(skuNameResult.getData());
         wareSkuDao.insert(wareSku);
     }
 
     @Override
     public void updateWareSkuById(WareSkuEntity wareSku) {
-        String skuName = productFeignService.getSkuNameBuSkuId(wareSku.getSkuId());
-        if (StringUtils.isBlank(skuName)) {
+        MyResult<String> skuNameResult = productFeignService.getSkuNameBySkuId(wareSku.getSkuId());
+        if (!skuNameResult.isSuccess()) {
             log.info("当前sku不存在，skuId：{}", wareSku.getSkuId());
         }
-        wareSku.setSkuName(skuName);
+
+        wareSku.setSkuName(skuNameResult.getData());
         wareSkuDao.updateById(wareSku);
     }
 
@@ -134,13 +136,13 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
     @Override
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
-    public Boolean orderLockStock(WareSkuLockDTO wareSkuLockDTO) {
+    public Boolean orderLockStock(WareSkuLockTO wareSkuLockTO) {
         // 保存库存工作单详情，便于回溯
-        WareOrderTaskEntity wareOrderTask = WareOrderTaskEntity.builder().orderSn(wareSkuLockDTO.getOrderSn()).build();
+        WareOrderTaskEntity wareOrderTask = WareOrderTaskEntity.builder().orderSn(wareSkuLockTO.getOrderSn()).build();
         wareOrderTaskService.save(wareOrderTask);
 
         // 拼装实体
-        List<SkuWareHasStock> skuWareHasStocks = assembleSkuWareHasStocks(wareSkuLockDTO);
+        List<SkuWareHasStock> skuWareHasStocks = assembleSkuWareHasStocks(wareSkuLockTO);
 
         // 锁定库存
         lockStock(skuWareHasStocks, wareOrderTask.getId());
@@ -224,11 +226,11 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     /**
      * 拼装商品对应仓库数据
      *
-     * @param wareSkuLockDTO
+     * @param wareSkuLockTO
      * @return
      */
-    private List<SkuWareHasStock> assembleSkuWareHasStocks(WareSkuLockDTO wareSkuLockDTO) {
-        List<OrderItemVO> locks = wareSkuLockDTO.getLocks();
+    private List<SkuWareHasStock> assembleSkuWareHasStocks(WareSkuLockTO wareSkuLockTO) {
+        List<OrderItemVO> locks = wareSkuLockTO.getLocks();
         List<SkuWareHasStock> skuWareHasStocks = locks.stream().map(lock -> {
             SkuWareHasStock skuWareHasStock = new SkuWareHasStock();
             skuWareHasStock.setSkuId(lock.getSkuId());

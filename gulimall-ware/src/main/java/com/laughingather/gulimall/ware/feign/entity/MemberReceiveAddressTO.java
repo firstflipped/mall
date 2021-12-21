@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2021-04-12 11:33:47
  */
 @Data
-public class MemberReceiveAddress {
+public class MemberReceiveAddressTO {
 
     /**
      * id
@@ -60,7 +60,7 @@ public class MemberReceiveAddress {
     /**
      * 省市区代码
      */
-    private String areacode;
+    private String areaCode;
 
     /**
      * 是否默认

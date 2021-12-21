@@ -20,5 +20,5 @@ public class SpuBaseAttrParam {
     /**
      * 是否快速展示
      */
-    private Integer showDesc;
+    private Integer quickShow;
 }

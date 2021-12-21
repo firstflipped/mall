@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * 短信配置类
  *
- * @author WangJie
+ * @author：laughingather
  */
 @Data
 @Component

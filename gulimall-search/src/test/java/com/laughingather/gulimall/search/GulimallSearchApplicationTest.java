@@ -1,8 +1,10 @@
 package com.laughingather.gulimall.search;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.laughingather.gulimall.search.entity.EsSku;
+import com.laughingather.gulimall.search.repository.ProductRepository;
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
@@ -12,24 +14,23 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 
-@Log4j2
-@RunWith(SpringRunner.class)
-@SpringBootTest
-class GulimallSearchApplicationTests {
+@Slf4j
+@SpringBootTest(classes = GulimallSearchApplication.class)
+class GulimallSearchApplicationTest {
 
     @Resource
     private RestHighLevelClient restHighLevelClient;
+    @Resource
+    private ProductRepository productRepository;
 
     @Test
     public void initSearch() {
-        log.info(restHighLevelClient);
+        log.info("{}", restHighLevelClient);
     }
 
 
@@ -43,7 +44,7 @@ class GulimallSearchApplicationTests {
         searchRequest.source(searchSourceBuilder);
 
         SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-        log.info(search);
+        log.info("{}", search);
     }
 
 
@@ -63,8 +64,15 @@ class GulimallSearchApplicationTests {
         IndexResponse index = restHighLevelClient.index(indexRequest, RequestOptions.DEFAULT);
 
         // 提取有用的数据
-        log.info(index);
+        log.info("{}", index);
 
+    }
+
+
+    @Test
+    public void esDataSelect() throws IOException {
+        Iterable<EsSku> all = productRepository.findAll();
+        System.out.println(all);
     }
 
 

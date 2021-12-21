@@ -14,14 +14,20 @@ import java.util.List;
  */
 public interface PurchaseDetailService extends IService<PurchaseDetailEntity> {
 
-    MyPage<PurchaseDetailEntity> pagePurchaseDetailByParams(PurchaseDetailQuery purchaseDetailQuery);
+    /**
+     * 分页查询采购单详情列表
+     *
+     * @param purchaseDetailQuery
+     * @return
+     */
+    MyPage<PurchaseDetailEntity> listPurchaseDetailsWithPage(PurchaseDetailQuery purchaseDetailQuery);
 
     /**
      * 根据采购单id获取其下的所有采购项
      *
-     * @param id
+     * @param purchaseId
      * @return
      */
-    List<PurchaseDetailEntity> listPurchaseDetailsByPurchaseId(Long id);
+    List<PurchaseDetailEntity> listPurchaseDetailsByPurchaseId(Long purchaseId);
 }
 

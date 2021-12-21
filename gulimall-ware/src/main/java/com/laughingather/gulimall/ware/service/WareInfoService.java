@@ -6,8 +6,6 @@ import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
 
-import java.math.BigDecimal;
-
 /**
  * 仓库信息
  *
@@ -23,7 +21,7 @@ public interface WareInfoService extends IService<WareInfoEntity> {
      * @param wareInfoQuery
      * @return
      */
-    MyPage<WareInfoEntity> pageWareInfoByParams(WareInfoQuery wareInfoQuery);
+    MyPage<WareInfoEntity> listWaresWithPage(WareInfoQuery wareInfoQuery);
 
     /**
      * 获取运费

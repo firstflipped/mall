@@ -1,7 +1,6 @@
 package com.laughingather.gulimall.ware.listener;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.OrderConstants;
 import com.laughingather.gulimall.common.constant.WareConstants;
 import com.laughingather.gulimall.common.entity.OrderDTO;
@@ -9,7 +8,7 @@ import com.laughingather.gulimall.common.entity.StockDetailDTO;
 import com.laughingather.gulimall.common.entity.StockLockedDTO;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskEntity;
-import com.laughingather.gulimall.ware.feign.entity.Order;
+import com.laughingather.gulimall.ware.feign.entity.OrderTO;
 import com.laughingather.gulimall.ware.feign.service.OrderFeignService;
 import com.laughingather.gulimall.ware.service.WareOrderTaskDetailService;
 import com.laughingather.gulimall.ware.service.WareOrderTaskService;
@@ -128,14 +127,14 @@ public class UnlockStockListener {
         // 远程获取订单状态
         WareOrderTaskEntity wareOrderTask = wareOrderTaskService.getById(wareOrderTaskDetail.getTaskId());
         String orderSn = wareOrderTask.getOrderSn();
-        MyResult<Order> orderResult = orderFeignService.getOrderByOrderSn(orderSn);
+        MyResult<OrderTO> orderResult = orderFeignService.getOrderByOrderSn(orderSn);
 
         // 如果远程失败则抛出异常
-        if (!Objects.equals(ResultCodeEnum.SUCCESS.getCode(), orderResult.getCode())) {
+        if (!orderResult.isSuccess()) {
             throw new RuntimeException("远程调用失败");
         }
 
-        Order order = orderResult.getData();
+        OrderTO order = orderResult.getData();
         // 订单不存在解锁库存
         if (order == null) {
             wareSkuService.unlockStock(detail.getSkuId(), detail.getWareId(), detail.getSkuNum(), detail.getId());

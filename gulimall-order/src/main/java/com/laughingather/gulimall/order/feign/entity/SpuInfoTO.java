@@ -28,6 +28,16 @@ public class SpuInfoTO {
     private Long categoryId;
 
     /**
+     * 所属分类id
+     */
+    private String categoryName;
+
+    /**
+     * 品牌id
+     */
+    private Long brandId;
+
+    /**
      * 品牌名称
      */
     private String brandName;

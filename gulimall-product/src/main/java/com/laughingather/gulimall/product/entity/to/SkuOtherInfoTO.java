@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SkuOtherInfoTO {
+
     private Long skuId;
     private Integer fullCount;
     private BigDecimal discount;

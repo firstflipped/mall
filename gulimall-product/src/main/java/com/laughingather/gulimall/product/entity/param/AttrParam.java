@@ -57,7 +57,8 @@ public class AttrParam {
      * 快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整
      */
     @ApiModelProperty(value = "快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整")
-    private Integer showDesc;
+    private Integer quickShow;
+
 
     @ApiModelProperty(value = "属性分组id")
     private Long attrGroupId;

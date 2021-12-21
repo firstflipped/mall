@@ -2,7 +2,7 @@ package com.laughingather.gulimall.search.openapi;
 
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.search.entity.SkuESModel;
+import com.laughingather.gulimall.search.entity.EsSku;
 import com.laughingather.gulimall.search.service.ProductSaveService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,16 +30,19 @@ public class EsSaveOpenApi {
      * @return
      */
     @PostMapping("/product")
-    public MyResult productStatusUp(@RequestBody List<SkuESModel> skuESModels) {
+    public MyResult productUp(@RequestBody List<EsSku> skuESModels) {
         try {
-            boolean isSuccess = productSaveService.productStatusUp(skuESModels);
-            return !isSuccess ? MyResult.success() :
+            // 保存到es是否发生了错误
+            boolean hasFailures = productSaveService.productUp(skuESModels);
+            return !hasFailures ? MyResult.success() :
                     MyResult.builder().code(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getCode())
-                            .message(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getMessage()).build();
+                            .message(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getMessage())
+                            .build();
         } catch (IOException e) {
             e.printStackTrace();
             return MyResult.builder().code(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getCode())
-                    .message(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getMessage()).build();
+                    .message(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getMessage())
+                    .build();
         }
     }
 

@@ -9,9 +9,9 @@ import com.laughingather.gulimall.common.constant.WareConstants;
 import com.laughingather.gulimall.ware.dao.PurchaseDao;
 import com.laughingather.gulimall.ware.entity.PurchaseDetailEntity;
 import com.laughingather.gulimall.ware.entity.PurchaseEntity;
-import com.laughingather.gulimall.ware.entity.dto.DonePurchaseDTO;
-import com.laughingather.gulimall.ware.entity.dto.DonePurchaseItemDTO;
-import com.laughingather.gulimall.ware.entity.dto.MergePurchaseDTO;
+import com.laughingather.gulimall.ware.entity.param.DonePurchaseItemParam;
+import com.laughingather.gulimall.ware.entity.param.DonePurchaseParam;
+import com.laughingather.gulimall.ware.entity.param.MergePurchaseParam;
 import com.laughingather.gulimall.ware.entity.query.PurchaseQuery;
 import com.laughingather.gulimall.ware.service.PurchaseDetailService;
 import com.laughingather.gulimall.ware.service.PurchaseService;
@@ -39,7 +39,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
     private WareSkuService wareSkuService;
 
     @Override
-    public MyPage<PurchaseEntity> pagePurchaseByParams(PurchaseQuery purchaseQuery) {
+    public MyPage<PurchaseEntity> listPurchasesWithPage(PurchaseQuery purchaseQuery) {
         IPage<PurchaseEntity> page = new Page<>(purchaseQuery.getPageNumber(), purchaseQuery.getPageSize());
         QueryWrapper<PurchaseEntity> queryWrapper = null;
         if (StringUtils.isNotBlank(purchaseQuery.getKey())) {
@@ -47,12 +47,13 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
             queryWrapper.lambda().like(PurchaseEntity::getAssigneeName, purchaseQuery.getKey())
                     .or().like(PurchaseEntity::getPhone, purchaseQuery.getKey());
         }
+
         IPage<PurchaseEntity> purchaseIPage = purchaseDao.selectPage(page, queryWrapper);
         return MyPage.restPage(purchaseIPage);
     }
 
     @Override
-    public List<PurchaseEntity> listUnreceivePurchaseDetail() {
+    public List<PurchaseEntity> listUnReceivePurchaseDetail() {
         QueryWrapper<PurchaseEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(PurchaseEntity::getStatus, 0).or().eq(PurchaseEntity::getStatus, 1);
 
@@ -73,8 +74,8 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
 
     @Override
     @Transactional
-    public void mergePurchase(MergePurchaseDTO mergePurchaseDTO) {
-        Long purchaseId = mergePurchaseDTO.getPurchaseId();
+    public void mergePurchase(MergePurchaseParam mergePurchaseParam) {
+        Long purchaseId = mergePurchaseParam.getPurchaseId();
         // 没有选中采购单的情况下会新建一个采购单
         purchaseId = createNewPurchase(purchaseId);
 
@@ -84,7 +85,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
                 WareConstants.PurchaseEnum.ASSIGNED.getCode().equals(purchaseById.getStatus())) {
 
             // 修改采购清单里的内容信息
-            updatePurchaseDetails(mergePurchaseDTO.getItems(), purchaseId);
+            updatePurchaseDetails(mergePurchaseParam.getItems(), purchaseId);
 
             // 修改采购单更新时间
             PurchaseEntity purchase = PurchaseEntity.builder().id(purchaseId).updateTime(LocalDateTime.now()).build();
@@ -108,13 +109,13 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
 
 
     @Override
-    @Transactional
-    public void donePurchase(DonePurchaseDTO donePurchaseDTO) {
+    @Transactional(rollbackFor = Exception.class)
+    public void donePurchase(DonePurchaseParam donePurchaseParam) {
         // 获取采购单id
-        Long purchaseId = donePurchaseDTO.getPurchaseId();
+        Long purchaseId = donePurchaseParam.getPurchaseId();
 
         // 改变采购项状态
-        Boolean flag = updateDonePurchaseDetails(donePurchaseDTO);
+        Boolean flag = updateDonePurchaseDetails(donePurchaseParam);
 
         // 改变采购单状态
         updateDonePurchase(purchaseId, flag);
@@ -226,16 +227,16 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
     /**
      * 更新完成的采购项
      *
-     * @param donePurchaseDTO
+     * @param donePurchaseParam
      * @return
      */
-    private Boolean updateDonePurchaseDetails(DonePurchaseDTO donePurchaseDTO) {
+    private Boolean updateDonePurchaseDetails(DonePurchaseParam donePurchaseParam) {
         Boolean flag = true;
-        List<DonePurchaseItemDTO> items = donePurchaseDTO.getItems();
+        List<DonePurchaseItemParam> items = donePurchaseParam.getItems();
         List<PurchaseDetailEntity> purchaseDetails = new ArrayList();
-        for (DonePurchaseItemDTO item : items) {
+        for (DonePurchaseItemParam item : items) {
             PurchaseDetailEntity purchaseDetail = new PurchaseDetailEntity();
-            if (item.getStatus() == WareConstants.PurchaseDetailEnum.HASERROR.getCode()) {
+            if (WareConstants.PurchaseDetailEnum.HASERROR.getCode().equals(item.getStatus())) {
                 flag = false;
                 purchaseDetail.setStatus(item.getStatus());
             } else {
@@ -254,10 +255,10 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
     /**
      * 更新库存信息
      *
-     * @param item
+     * @param donePurchaseItemParam
      */
-    private void updateWareSku(DonePurchaseItemDTO item) {
-        PurchaseDetailEntity byId = purchaseDetailService.getById(item.getItemId());
+    private void updateWareSku(DonePurchaseItemParam donePurchaseItemParam) {
+        PurchaseDetailEntity byId = purchaseDetailService.getById(donePurchaseItemParam.getItemId());
         wareSkuService.addStock(byId.getSkuId(), byId.getWareId(), byId.getSkuNum());
     }
 

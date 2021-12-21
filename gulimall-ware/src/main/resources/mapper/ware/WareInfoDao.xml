@@ -8,7 +8,9 @@
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="address" column="address"/>
-        <result property="areacode" column="areacode"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
 

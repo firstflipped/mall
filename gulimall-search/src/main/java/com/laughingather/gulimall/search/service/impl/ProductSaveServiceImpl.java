@@ -1,9 +1,9 @@
 package com.laughingather.gulimall.search.service.impl;
 
+import com.laughingather.gulimall.common.constant.SearchConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;
-import com.laughingather.gulimall.search.config.ElasticSearchConfig;
-import com.laughingather.gulimall.search.constant.EsConstant;
-import com.laughingather.gulimall.search.entity.SkuESModel;
+import com.laughingather.gulimall.search.config.MyElasticSearchConfig;
+import com.laughingather.gulimall.search.entity.EsSku;
 import com.laughingather.gulimall.search.service.ProductSaveService;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -26,7 +26,7 @@ public class ProductSaveServiceImpl implements ProductSaveService {
     private RestHighLevelClient restHighLevelClient;
 
     @Override
-    public boolean productStatusUp(List<SkuESModel> skuESModels) throws IOException {
+    public boolean productUp(List<EsSku> esSkus) throws IOException {
 
         // 保存到es
         // 1、给es中建立索引
@@ -34,19 +34,19 @@ public class ProductSaveServiceImpl implements ProductSaveService {
         // 2、给es中保存这些数据
         // 设置id的话重复操作也不会造成影响，因为存在id的话就会变成修改操作
         BulkRequest bulkRequest = new BulkRequest();
-        for (SkuESModel skuESModel : skuESModels) {
+        for (EsSku esSku : esSkus) {
             // 构造保存请求
-            IndexRequest indexRequest = new IndexRequest(EsConstant.PRODUCT_INDEX);
-            indexRequest.id(skuESModel.getSkuId().toString());
-            indexRequest.source(JsonUtil.obj2String(skuESModel), XContentType.JSON);
+            IndexRequest indexRequest = new IndexRequest(SearchConstants.PRODUCT_INDEX);
+            indexRequest.id(esSku.getSkuId().toString());
+            indexRequest.source(JsonUtil.obj2String(esSku), XContentType.JSON);
 
             bulkRequest.add(indexRequest);
         }
 
-        BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, ElasticSearchConfig.COMMON_OPTIONS);
+        BulkResponse bulk = restHighLevelClient.bulk(bulkRequest, MyElasticSearchConfig.COMMON_OPTIONS);
 
-        // TODO: 若果批量错误可以进行后续处理
-        boolean isSuccess = bulk.hasFailures();
-        return isSuccess;
+        // TODO: 如果批量错误可以进行后续处理
+        boolean hasFailures = bulk.hasFailures();
+        return hasFailures;
     }
 }

@@ -3,8 +3,10 @@ package com.laughingather.gulimall.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.order.entity.OrderOperateHistoryEntity;
 
+import java.util.List;
+
 /**
- * 订单操作历史记录
+ * 订单操作历史记录逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -12,5 +14,13 @@ import com.laughingather.gulimall.order.entity.OrderOperateHistoryEntity;
  */
 public interface OrderOperateHistoryService extends IService<OrderOperateHistoryEntity> {
 
+
+    /**
+     * 根据订单id查询订单操作历史记录列表
+     *
+     * @param orderId
+     * @return
+     */
+    List<OrderOperateHistoryEntity> listHistoriesByOrderId(Long orderId);
 }
 
