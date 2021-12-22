@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.coupon.controller;
 
 import com.laughingather.gulimall.coupon.service.SpuBoundsService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,9 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/spu-bounds")
+@Api(tags = "商品spu积分设置模块")
 public class SpuBoundsController {
+
     @Resource
     private SpuBoundsService spuBoundsService;
 

@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.cart.feign.service;
 
-import com.laughingather.gulimall.cart.feign.entity.SkuInfoEntity;
+import com.laughingather.gulimall.cart.feign.entity.SkuInfoTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +26,8 @@ public interface ProductFeignService {
      * @param skuId
      * @return
      */
-    @GetMapping("/{sku-id}/sku-price")
-    MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sku-id") Long skuId);
+    @GetMapping("/{sid}/price")
+    MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sid") Long skuId);
 
     /**
      * 调用远程接口获取商品详情
@@ -35,8 +35,8 @@ public interface ProductFeignService {
      * @param skuId
      * @return
      */
-    @GetMapping("/{skuId}/info")
-    MyResult<SkuInfoEntity> getSkuInfoBySkuId(@PathVariable("skuId") Long skuId);
+    @GetMapping("/{sid}/info")
+    MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
 
     /**
      * 调用远程端口获取销售属性列表
@@ -44,7 +44,7 @@ public interface ProductFeignService {
      * @param skuId
      * @return
      */
-    @GetMapping("/sku-sale-attr-value/list/{skuId}")
-    MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("skuId") Long skuId);
+    @GetMapping("/sku-sale-attr-value/list/{sid}")
+    MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("sid") Long skuId);
 
 }

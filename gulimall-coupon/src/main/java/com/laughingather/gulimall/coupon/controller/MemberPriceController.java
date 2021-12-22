@@ -5,6 +5,8 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
 import com.laughingather.gulimall.coupon.entity.query.MemberPriceQuery;
 import com.laughingather.gulimall.coupon.service.MemberPriceService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,12 +24,14 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/member-price")
+@Api(tags = "商品会员价格模块")
 public class MemberPriceController {
 
     @Resource
     private MemberPriceService memberPriceService;
 
     @GetMapping("/page")
+    @ApiOperation(value = "分页查询商品会员价格列表")
     public MyResult<MyPage<MemberPriceEntity>> pageMemberPrice(@ModelAttribute MemberPriceQuery memberPriceQuery) {
         MyPage<MemberPriceEntity> memberPricePage = memberPriceService.pageMemberPrice(memberPriceQuery);
         return MyResult.success(memberPricePage);

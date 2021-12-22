@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 支付信息表
+ * 支付信息路由
  *
  * @author laughingather
  * @email laughingather@gmail.com

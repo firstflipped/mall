@@ -8,7 +8,7 @@ import com.laughingather.gulimall.coupon.entity.query.CouponQuery;
 import java.util.List;
 
 /**
- * 优惠券信息
+ * 优惠券逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -29,6 +29,6 @@ public interface CouponService extends IService<CouponEntity> {
      * @param couponQuery
      * @return
      */
-    MyPage<CouponEntity> pageCoupons(CouponQuery couponQuery);
+    MyPage<CouponEntity> listCouponsWithPage(CouponQuery couponQuery);
 }
 

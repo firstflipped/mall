@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.product.config;
+package com.laughingather.gulimall.member.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@ public class MySwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 // 当前类路径（也可以为注解标记等）
-                .apis(RequestHandlerSelectors.basePackage("com.laughingather.gulimall.product.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.laughingather.gulimall.member.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

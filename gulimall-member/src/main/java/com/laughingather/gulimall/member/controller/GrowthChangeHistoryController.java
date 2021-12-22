@@ -20,4 +20,5 @@ public class GrowthChangeHistoryController {
 
     @Resource
     private GrowthChangeHistoryService growthChangeHistoryService;
+
 }

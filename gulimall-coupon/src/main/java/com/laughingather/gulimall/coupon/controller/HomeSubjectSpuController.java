@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/coupon/home-subject-spu")
 public class HomeSubjectSpuController {
+
     @Resource
     private HomeSubjectSpuService homeSubjectSpuService;
 

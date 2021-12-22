@@ -41,6 +41,9 @@ public class OrderReturnApplyServiceImpl extends ServiceImpl<OrderReturnApplyDao
         if (orderReturnApplyQuery.getStatus() != null) {
             queryWrapper.eq(OrderReturnApplyEntity::getStatus, orderReturnApplyQuery.getStatus());
         }
+        if (orderReturnApplyQuery.getReasonId() != null) {
+            queryWrapper.eq(OrderReturnApplyEntity::getReasonId, orderReturnApplyQuery.getReasonId());
+        }
 
         IPage<OrderReturnApplyEntity> orderReturnApplyIPage = orderReturnApplyDao.selectPage(page, queryWrapper);
         return MyPage.restPage(orderReturnApplyIPage);

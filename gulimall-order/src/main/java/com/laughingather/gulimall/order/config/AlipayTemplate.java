@@ -8,7 +8,7 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.response.AlipayTradePagePayResponse;
 import com.laughingather.gulimall.order.entity.dto.PayDTO;
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author laughingather
  */
 @Data
-@Log4j2
+@Slf4j
 @Component
 @ConfigurationProperties(prefix = "alipay")
 public class AlipayTemplate {

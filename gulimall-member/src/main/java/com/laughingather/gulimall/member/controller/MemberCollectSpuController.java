@@ -17,6 +17,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/member/member-collect-spu")
 public class MemberCollectSpuController {
+
     @Resource
     private MemberCollectSpuService memberCollectSpuService;
+
 }

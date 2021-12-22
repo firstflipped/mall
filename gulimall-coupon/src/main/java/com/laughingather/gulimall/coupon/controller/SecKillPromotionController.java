@@ -5,6 +5,8 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.SecKillPromotionEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillPromotionQuery;
 import com.laughingather.gulimall.coupon.service.SecKillPromotionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,19 +22,22 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequestMapping("/coupon/sec-kill-promotion")
+@Api(tags = "秒杀活动模块")
 public class SecKillPromotionController {
 
     @Resource
     private SecKillPromotionService secKillPromotionService;
 
     @GetMapping("/page")
+    @ApiOperation(value = "分页查询秒杀活动列表")
     public MyResult<MyPage<SecKillPromotionEntity>> pageSecKillPromotion(@ModelAttribute SecKillPromotionQuery secKillPromotionQuery) {
         MyPage<SecKillPromotionEntity> secKillPromotion = secKillPromotionService.pageSecKillPromotion(secKillPromotionQuery);
         return MyResult.success(secKillPromotion);
     }
 
 
-    @GetMapping("/info/{id}")
+    @GetMapping("/{id}")
+    @ApiOperation(value = "查询秒杀活动详情")
     public MyResult<SecKillPromotionEntity> getSecKillPromotionById(@PathVariable Long id) {
         SecKillPromotionEntity secKillPromotion = secKillPromotionService.getById(id);
         return MyResult.success(secKillPromotion);
@@ -40,13 +45,16 @@ public class SecKillPromotionController {
 
 
     @PostMapping
+    @ApiOperation(value = "保存秒杀活动信息")
     public MyResult saveSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
         secKillPromotion.setCreateTime(LocalDateTime.now());
         secKillPromotionService.save(secKillPromotion);
         return MyResult.success();
     }
 
+
     @PutMapping
+    @ApiOperation(value = "更新秒杀活动信息")
     public MyResult updateSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
         secKillPromotionService.updateById(secKillPromotion);
         return MyResult.success();

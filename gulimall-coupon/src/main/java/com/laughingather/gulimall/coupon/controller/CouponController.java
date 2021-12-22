@@ -5,6 +5,8 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.CouponEntity;
 import com.laughingather.gulimall.coupon.entity.query.CouponQuery;
 import com.laughingather.gulimall.coupon.service.CouponService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,11 +23,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/coupon/coupon")
+@Api(tags = "优惠券模块")
 public class CouponController {
+
     @Resource
     private CouponService couponService;
 
     @GetMapping("/list")
+    @ApiOperation(value = "查询优惠券列表")
     public MyResult<List<CouponEntity>> listCoupons() {
         List<CouponEntity> couponList = couponService.listCoupons();
         return MyResult.success(couponList);
@@ -33,8 +38,9 @@ public class CouponController {
 
 
     @GetMapping("/page")
-    public MyResult<MyPage<CouponEntity>> pageCoupons(@ModelAttribute CouponQuery couponQuery) {
-        MyPage<CouponEntity> couponPage = couponService.pageCoupons(couponQuery);
+    @ApiOperation(value = "分页查询优惠券列表")
+    public MyResult<MyPage<CouponEntity>> listCouponsWithPage(@ModelAttribute CouponQuery couponQuery) {
+        MyPage<CouponEntity> couponPage = couponService.listCouponsWithPage(couponQuery);
         return MyResult.success(couponPage);
     }
 

@@ -44,7 +44,7 @@ CREATE TABLE `wms_purchase`
 (
     `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT '采购单id',
     `assignee_id`   bigint(20)     DEFAULT NULL COMMENT '采购人id',
-    `assignee_name` varchar(255)   DEFAULT NULL COMMENT '采购人名',
+    `assignee_name` varchar(255)   DEFAULT NULL COMMENT '采购人姓名',
     `phone`         char(13)       DEFAULT NULL COMMENT '联系方式',
     `priority`      int(4)         DEFAULT NULL COMMENT '优先级',
     `status`        int(4)         DEFAULT NULL COMMENT '状态 0新建 1已分配 2已领取 3已完成 4有异常',
@@ -96,10 +96,12 @@ DROP TABLE IF EXISTS `wms_ware_info`;
 
 CREATE TABLE `wms_ware_info`
 (
-    `id`       bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `name`     varchar(255) DEFAULT NULL COMMENT '仓库名',
-    `address`  varchar(255) DEFAULT NULL COMMENT '仓库地址',
-    `areacode` varchar(20)  DEFAULT NULL COMMENT '区域编码',
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `name`        varchar(255)    DEFAULT NULL COMMENT '仓库名',
+    `address`     varchar(255)    DEFAULT NULL COMMENT '仓库地址',
+    `area_code`   varchar(20)     DEFAULT NULL COMMENT '区域编码',
+    `create_time` timestamp  NULL DEFAULT NULL COMMENT '创建时间',
+    `update_time` timestamp  NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 5
@@ -107,9 +109,9 @@ CREATE TABLE `wms_ware_info`
 
 /*Data for the table `wms_ware_info` */
 
-insert into `wms_ware_info`(`id`, `name`, `address`, `areacode`)
-values (3, '华北二仓', '山东省青岛市济南路09号', '099009'),
-       (4, '东北一仓', '吉林省大连市北京北路', '119120');
+insert into `wms_ware_info`(`id`, `name`, `address`, `area_code`, `create_time`, `update_time`)
+values (3, '华北二仓', '山东省青岛市济南路09号', '099009', NULL, NULL),
+       (4, '东北一仓', '吉林省大连市北京北路', '119120', NULL, NULL);
 
 /*Table structure for table `wms_ware_order_task` */
 
@@ -128,9 +130,9 @@ CREATE TABLE `wms_ware_order_task`
     `task_status`      tinyint(2)   DEFAULT NULL COMMENT '任务状态',
     `order_body`       varchar(255) DEFAULT NULL COMMENT '订单描述',
     `tracking_no`      char(30)     DEFAULT NULL COMMENT '物流单号',
-    `create_time`      datetime     DEFAULT NULL COMMENT 'create_time',
     `ware_id`          bigint(20)   DEFAULT NULL COMMENT '仓库id',
     `task_comment`     varchar(500) DEFAULT NULL COMMENT '工作单备注',
+    `create_time`      datetime     DEFAULT NULL COMMENT 'create_time',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 14
@@ -139,8 +141,8 @@ CREATE TABLE `wms_ware_order_task`
 /*Data for the table `wms_ware_order_task` */
 
 insert into `wms_ware_order_task`(`id`, `order_id`, `order_sn`, `consignee`, `consignee_tel`, `delivery_address`,
-                                  `order_comment`, `payment_way`, `task_status`, `order_body`, `tracking_no`,
-                                  `create_time`, `ware_id`, `task_comment`)
+                                  `order_comment`, `payment_way`, `task_status`, `order_body`, `tracking_no`, `ware_id`,
+                                  `task_comment`, `create_time`)
 values (12, NULL, '202110262154408461452997109169709058', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
         NULL),
        (13, NULL, '202110262317075141453017856931966978', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,

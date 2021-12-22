@@ -43,11 +43,10 @@ DROP TABLE IF EXISTS `oms_order`;
 CREATE TABLE `oms_order`
 (
     `id`                      bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `member_id`               bigint(20)     DEFAULT NULL COMMENT 'member_id',
+    `member_id`               bigint(20)     DEFAULT NULL COMMENT '会员id',
+    `member_username`         varchar(200)   DEFAULT NULL COMMENT '会员名',
     `order_sn`                varchar(55)    DEFAULT NULL COMMENT '订单号',
     `coupon_id`               bigint(20)     DEFAULT NULL COMMENT '使用的优惠券',
-    `create_time`             datetime       DEFAULT NULL COMMENT 'create_time',
-    `member_username`         varchar(200)   DEFAULT NULL COMMENT '用户名',
     `total_amount`            decimal(18, 4) DEFAULT NULL COMMENT '订单总额',
     `pay_amount`              decimal(18, 4) DEFAULT NULL COMMENT '应付总额',
     `freight_amount`          decimal(18, 4) DEFAULT NULL COMMENT '运费金额',
@@ -55,15 +54,15 @@ CREATE TABLE `oms_order`
     `integration_amount`      decimal(18, 4) DEFAULT NULL COMMENT '积分抵扣金额',
     `coupon_amount`           decimal(18, 4) DEFAULT NULL COMMENT '优惠券抵扣金额',
     `discount_amount`         decimal(18, 4) DEFAULT NULL COMMENT '后台调整订单使用的折扣金额',
-    `pay_type`                tinyint(4)     DEFAULT NULL COMMENT '支付方式【1->支付宝；2->微信；3->银联； 4->货到付款；】',
-    `source_type`             tinyint(4)     DEFAULT NULL COMMENT '订单来源[0->PC订单；1->app订单]',
-    `status`                  tinyint(4)     DEFAULT NULL COMMENT '订单状态【0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单】',
-    `delivery_company`        varchar(64)    DEFAULT NULL COMMENT '物流公司(配送方式)',
+    `pay_type`                tinyint(1)     DEFAULT NULL COMMENT '支付方式【1->支付宝；2->微信；3->银联； 4->货到付款；】',
+    `source_type`             tinyint(1)     DEFAULT NULL COMMENT '订单来源[0->PC订单；1->app订单]',
+    `status`                  tinyint(1)     DEFAULT NULL COMMENT '订单状态【0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单】',
     `delivery_sn`             varchar(64)    DEFAULT NULL COMMENT '物流单号',
+    `delivery_company`        varchar(64)    DEFAULT NULL COMMENT '物流公司(配送方式)',
     `auto_confirm_day`        int(11)        DEFAULT NULL COMMENT '自动确认时间（天）',
     `integration`             int(11)        DEFAULT NULL COMMENT '可以获得的积分',
     `growth`                  int(11)        DEFAULT NULL COMMENT '可以获得的成长值',
-    `bill_type`               tinyint(4)     DEFAULT NULL COMMENT '发票类型[0->不开发票；1->电子发票；2->纸质发票]',
+    `bill_type`               tinyint(1)     DEFAULT NULL COMMENT '发票类型[0->不开发票；1->电子发票；2->纸质发票]',
     `bill_header`             varchar(255)   DEFAULT NULL COMMENT '发票抬头',
     `bill_content`            varchar(255)   DEFAULT NULL COMMENT '发票内容',
     `bill_receiver_phone`     varchar(32)    DEFAULT NULL COMMENT '收票人电话',
@@ -76,14 +75,15 @@ CREATE TABLE `oms_order`
     `receiver_region`         varchar(32)    DEFAULT NULL COMMENT '区',
     `receiver_detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
     `note`                    varchar(500)   DEFAULT NULL COMMENT '订单备注',
-    `confirm_status`          tinyint(4)     DEFAULT NULL COMMENT '确认收货状态[0->未确认；1->已确认]',
-    `delete_status`           tinyint(4)     DEFAULT NULL COMMENT '删除状态【0->未删除；1->已删除】',
+    `confirm_status`          tinyint(1)     DEFAULT NULL COMMENT '确认收货状态[0->未确认；1->已确认]',
+    `delete_status`           tinyint(1)     DEFAULT NULL COMMENT '删除状态【0->未删除；1->已删除】',
     `use_integration`         int(11)        DEFAULT NULL COMMENT '下单时使用的积分',
     `payment_time`            datetime       DEFAULT NULL COMMENT '支付时间',
     `delivery_time`           datetime       DEFAULT NULL COMMENT '发货时间',
     `receive_time`            datetime       DEFAULT NULL COMMENT '确认收货时间',
     `comment_time`            datetime       DEFAULT NULL COMMENT '评价时间',
-    `modify_time`             datetime       DEFAULT NULL COMMENT '修改时间',
+    `create_time`             datetime       DEFAULT NULL COMMENT '创建时间',
+    `update_time`             datetime       DEFAULT NULL COMMENT '修改时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uni_order_sn` (`order_sn`)
 ) ENGINE = InnoDB
@@ -92,23 +92,6 @@ CREATE TABLE `oms_order`
 
 /*Data for the table `oms_order` */
 
-insert into `oms_order`(`id`, `member_id`, `order_sn`, `coupon_id`, `create_time`, `member_username`, `total_amount`,
-                        `pay_amount`, `freight_amount`, `promotion_amount`, `integration_amount`, `coupon_amount`,
-                        `discount_amount`, `pay_type`, `source_type`, `status`, `delivery_company`, `delivery_sn`,
-                        `auto_confirm_day`, `integration`, `growth`, `bill_type`, `bill_header`, `bill_content`,
-                        `bill_receiver_phone`, `bill_receiver_email`, `receiver_name`, `receiver_phone`,
-                        `receiver_post_code`, `receiver_province`, `receiver_city`, `receiver_region`,
-                        `receiver_detail_address`, `note`, `confirm_status`, `delete_status`, `use_integration`,
-                        `payment_time`, `delivery_time`, `receive_time`, `comment_time`, `modify_time`)
-values (12, 5, '202110262154408461452997109169709058', NULL, '2021-10-26 21:54:41', '心有猛虎的杰爷', 9598.0000, 9614.0000,
-        16.0000, 0.0000, 0.0000, 0.0000, NULL, NULL, NULL, 4, NULL, NULL, 15, 9598, 9598, NULL, NULL, NULL, NULL, NULL,
-        '山东舞王小阿靠', '17515235623', '0000', '山东省', '济南市', '历下区', '舜华路街道草山岭小区', NULL, NULL, 0, NULL, NULL, NULL, NULL,
-        NULL, '2021-10-26 21:54:41'),
-       (13, 5, '202110262317075141453017856931966978', NULL, '2021-10-26 23:17:08', '心有猛虎的杰爷', 9598.0000, 9616.0000,
-        18.0000, 0.0000, 0.0000, 0.0000, NULL, NULL, NULL, 4, NULL, NULL, 15, 9598, 9598, NULL, NULL, NULL, NULL, NULL,
-        '山东舞王小阿靠', '17515235623', '9999', '北京市', '北京市', '东城区', '长安街1号', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL,
-        '2021-10-26 23:17:08');
-
 /*Table structure for table `oms_order_item` */
 
 DROP TABLE IF EXISTS `oms_order_item`;
@@ -116,46 +99,31 @@ DROP TABLE IF EXISTS `oms_order_item`;
 CREATE TABLE `oms_order_item`
 (
     `id`                 bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `order_id`           bigint(20)     DEFAULT NULL COMMENT 'order_id',
-    `order_sn`           varchar(55)    DEFAULT NULL COMMENT 'order_sn',
-    `spu_id`             bigint(20)     DEFAULT NULL COMMENT 'spu_id',
-    `spu_name`           varchar(255)   DEFAULT NULL COMMENT 'spu_name',
-    `spu_pic`            varchar(500)   DEFAULT NULL COMMENT 'spu_pic',
-    `spu_brand`          varchar(200)   DEFAULT NULL COMMENT '品牌',
-    `category_id`        bigint(20)     DEFAULT NULL COMMENT '商品分类id',
-    `sku_id`             bigint(20)     DEFAULT NULL COMMENT '商品sku编号',
-    `sku_name`           varchar(255)   DEFAULT NULL COMMENT '商品sku名字',
-    `sku_pic`            varchar(500)   DEFAULT NULL COMMENT '商品sku图片',
-    `sku_price`          decimal(18, 4) DEFAULT NULL COMMENT '商品sku价格',
-    `sku_quantity`       int(11)        DEFAULT NULL COMMENT '商品购买的数量',
-    `sku_attrs_vals`     varchar(500)   DEFAULT NULL COMMENT '商品销售属性组合（JSON）',
-    `promotion_amount`   decimal(18, 4) DEFAULT NULL COMMENT '商品促销分解金额',
-    `coupon_amount`      decimal(18, 4) DEFAULT NULL COMMENT '优惠券优惠分解金额',
-    `integration_amount` decimal(18, 4) DEFAULT NULL COMMENT '积分优惠分解金额',
-    `real_amount`        decimal(18, 4) DEFAULT NULL COMMENT '该商品经过优惠后的分解金额',
-    `gift_integration`   int(11)        DEFAULT NULL COMMENT '赠送积分',
-    `gift_growth`        int(11)        DEFAULT NULL COMMENT '赠送成长值',
+    `order_id`           bigint(20)              DEFAULT NULL COMMENT '订单id',
+    `order_sn`           varchar(55)             DEFAULT NULL COMMENT '订单号',
+    `spu_id`             bigint(20)              DEFAULT NULL COMMENT 'spu_id',
+    `spu_name`           varchar(255)            DEFAULT NULL COMMENT 'spu_name',
+    `spu_pic`            varchar(500)            DEFAULT NULL COMMENT 'spu_pic',
+    `brand_id`           bigint(20)              DEFAULT NULL COMMENT '品牌分类id',
+    `category_id`        bigint(20)              DEFAULT NULL COMMENT '商品分类id',
+    `sku_id`             bigint(20)              DEFAULT NULL COMMENT '商品sku编号',
+    `sku_name`           varchar(255)            DEFAULT NULL COMMENT '商品sku名字',
+    `sku_pic`            varchar(500)            DEFAULT NULL COMMENT '商品sku图片',
+    `sku_price`          decimal(18, 4)          DEFAULT NULL COMMENT '商品sku价格',
+    `sku_quantity`       int(11)                 DEFAULT NULL COMMENT '商品购买的数量',
+    `sku_attrs_values`   varchar(500)            DEFAULT NULL COMMENT '商品销售属性组合（JSON）',
+    `promotion_amount`   decimal(18, 4)          DEFAULT NULL COMMENT '商品促销分解金额',
+    `coupon_amount`      decimal(18, 4) unsigned DEFAULT NULL COMMENT '优惠券优惠分解金额',
+    `integration_amount` decimal(18, 4)          DEFAULT NULL COMMENT '积分优惠分解金额',
+    `real_amount`        decimal(18, 4)          DEFAULT NULL COMMENT '该商品经过优惠后的分解金额',
+    `gift_integration`   int(11)                 DEFAULT NULL COMMENT '赠送积分',
+    `gift_growth`        int(11)                 DEFAULT NULL COMMENT '赠送成长值',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单项信息';
 
 /*Data for the table `oms_order_item` */
-
-insert into `oms_order_item`(`id`, `order_id`, `order_sn`, `spu_id`, `spu_name`, `spu_pic`, `spu_brand`, `category_id`,
-                             `sku_id`, `sku_name`, `sku_pic`, `sku_price`, `sku_quantity`, `sku_attrs_vals`,
-                             `promotion_amount`, `coupon_amount`, `integration_amount`, `real_amount`,
-                             `gift_integration`, `gift_growth`)
-values (12, NULL, '202110262154408461452997109169709058', 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机',
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
-        '苹果', 225, 41, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G',
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
-        4799.0000, 2, NULL, 0.0000, 0.0000, 0.0000, 9598.0000, 9598, 9598),
-       (13, NULL, '202110262317075141453017856931966978', 17, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机',
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/340fe5e7-788a-4c17-889c-795c470eaf9f_2d0dd638abf7dcc2.jpg',
-        '苹果', 225, 41, 'Apple iPhone 12 (A2404) 128GB 绿色 支持移动联通电信5G 双卡双待手机 黑色 4G',
-        'https://laughingather.oss-cn-qingdao.aliyuncs.com/gulimall/2021-09-14/8db090e8-5ff5-4357-8aff-7ebb55635ae7_24bc162f493ec940.jpg',
-        4799.0000, 2, NULL, 0.0000, 0.0000, 0.0000, 9598.0000, 9598, 9598);
 
 /*Table structure for table `oms_order_operate_history` */
 
@@ -166,9 +134,9 @@ CREATE TABLE `oms_order_operate_history`
     `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `order_id`     bigint(20)   DEFAULT NULL COMMENT '订单id',
     `operate_man`  varchar(100) DEFAULT NULL COMMENT '操作人[用户；系统；后台管理员]',
-    `create_time`  datetime     DEFAULT NULL COMMENT '操作时间',
     `order_status` tinyint(4)   DEFAULT NULL COMMENT '订单状态【0->待付款；1->待发货；2->已发货；3->已完成；4->已关闭；5->无效订单】',
     `note`         varchar(500) DEFAULT NULL COMMENT '备注',
+    `create_time`  datetime     DEFAULT NULL COMMENT '操作时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单操作历史记录';
@@ -181,34 +149,34 @@ DROP TABLE IF EXISTS `oms_order_return_apply`;
 
 CREATE TABLE `oms_order_return_apply`
 (
-    `id`              bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `order_id`        bigint(20)     DEFAULT NULL COMMENT 'order_id',
-    `sku_id`          bigint(20)     DEFAULT NULL COMMENT '退货商品id',
-    `order_sn`        char(32)       DEFAULT NULL COMMENT '订单编号',
-    `create_time`     datetime       DEFAULT NULL COMMENT '申请时间',
-    `member_username` varchar(64)    DEFAULT NULL COMMENT '会员用户名',
-    `return_amount`   decimal(18, 4) DEFAULT NULL COMMENT '退款金额',
-    `return_name`     varchar(100)   DEFAULT NULL COMMENT '退货人姓名',
-    `return_phone`    varchar(20)    DEFAULT NULL COMMENT '退货人电话',
-    `status`          tinyint(1)     DEFAULT NULL COMMENT '申请状态[0->待处理；1->退货中；2->已完成；3->已拒绝]',
-    `handle_time`     datetime       DEFAULT NULL COMMENT '处理时间',
-    `sku_img`         varchar(500)   DEFAULT NULL COMMENT '商品图片',
-    `sku_name`        varchar(200)   DEFAULT NULL COMMENT '商品名称',
-    `sku_brand`       varchar(200)   DEFAULT NULL COMMENT '商品品牌',
-    `sku_attrs_vals`  varchar(500)   DEFAULT NULL COMMENT '商品销售属性(JSON)',
-    `sku_count`       int(11)        DEFAULT NULL COMMENT '退货数量',
-    `sku_price`       decimal(18, 4) DEFAULT NULL COMMENT '商品单价',
-    `sku_real_price`  decimal(18, 4) DEFAULT NULL COMMENT '商品实际支付单价',
-    `reason`          varchar(200)   DEFAULT NULL COMMENT '原因',
-    `description述`    varchar(500)   DEFAULT NULL COMMENT '描述',
-    `desc_pics`       varchar(2000)  DEFAULT NULL COMMENT '凭证图片，以逗号隔开',
-    `handle_note`     varchar(500)   DEFAULT NULL COMMENT '处理备注',
-    `handle_man`      varchar(200)   DEFAULT NULL COMMENT '处理人员',
-    `receive_man`     varchar(100)   DEFAULT NULL COMMENT '收货人',
-    `receive_time`    datetime       DEFAULT NULL COMMENT '收货时间',
-    `receive_note`    varchar(500)   DEFAULT NULL COMMENT '收货备注',
-    `receive_phone`   varchar(20)    DEFAULT NULL COMMENT '收货电话',
-    `company_address` varchar(500)   DEFAULT NULL COMMENT '公司收货地址',
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `order_id`         bigint(20)     DEFAULT NULL COMMENT 'order_id',
+    `order_sn`         char(32)       DEFAULT NULL COMMENT '订单编号',
+    `sku_id`           bigint(20)     DEFAULT NULL COMMENT '退货商品id',
+    `member_username`  varchar(64)    DEFAULT NULL COMMENT '会员用户名',
+    `return_amount`    decimal(18, 4) DEFAULT NULL COMMENT '退款金额',
+    `return_name`      varchar(100)   DEFAULT NULL COMMENT '退货人姓名',
+    `return_phone`     varchar(20)    DEFAULT NULL COMMENT '退货人电话',
+    `status`           tinyint(1)     DEFAULT NULL COMMENT '申请状态[0->待处理；1->退货中；2->已完成；3->已拒绝]',
+    `handle_time`      datetime       DEFAULT NULL COMMENT '处理时间',
+    `sku_img`          varchar(500)   DEFAULT NULL COMMENT '商品图片',
+    `sku_name`         varchar(200)   DEFAULT NULL COMMENT '商品名称',
+    `sku_brand`        varchar(200)   DEFAULT NULL COMMENT '商品品牌',
+    `sku_attrs_values` varchar(500)   DEFAULT NULL COMMENT '商品销售属性(JSON)',
+    `sku_count`        int(11)        DEFAULT NULL COMMENT '退货数量',
+    `sku_price`        decimal(18, 4) DEFAULT NULL COMMENT '商品单价',
+    `sku_real_price`   decimal(18, 4) DEFAULT NULL COMMENT '商品实际支付单价',
+    `reason`           varchar(200)   DEFAULT NULL COMMENT '原因',
+    `description`      varchar(500)   DEFAULT NULL COMMENT '描述',
+    `desc_pics`        varchar(2000)  DEFAULT NULL COMMENT '凭证图片，以逗号隔开',
+    `handle_note`      varchar(500)   DEFAULT NULL COMMENT '处理备注',
+    `handle_man`       varchar(200)   DEFAULT NULL COMMENT '处理人员',
+    `receive_man`      varchar(100)   DEFAULT NULL COMMENT '收货人',
+    `receive_time`     datetime       DEFAULT NULL COMMENT '收货时间',
+    `receive_note`     varchar(500)   DEFAULT NULL COMMENT '收货备注',
+    `receive_phone`    varchar(20)    DEFAULT NULL COMMENT '收货电话',
+    `company_address`  varchar(500)   DEFAULT NULL COMMENT '公司收货地址',
+    `create_time`      datetime       DEFAULT NULL COMMENT '申请时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单退货申请';

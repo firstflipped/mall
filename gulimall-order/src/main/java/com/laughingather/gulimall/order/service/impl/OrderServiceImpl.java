@@ -1,9 +1,11 @@
 package com.laughingather.gulimall.order.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
@@ -95,15 +97,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         IPage<OrderEntity> page = new Page<>(orderQuery.getPageNumber(), orderQuery.getPageSize());
 
         // 拼装查询条件
-        QueryWrapper<OrderEntity> queryWrapper = new QueryWrapper<>();
+        LambdaQueryWrapper<OrderEntity> queryWrapper = Wrappers.lambdaQuery(OrderEntity.class);
         if (StringUtils.isNotBlank(orderQuery.getOrderSn())) {
-            queryWrapper.lambda().eq(OrderEntity::getOrderSn, orderQuery.getOrderSn());
+            queryWrapper.eq(OrderEntity::getOrderSn, orderQuery.getOrderSn());
         }
         if (StringUtils.isNotBlank(orderQuery.getMemberUsername())) {
-            queryWrapper.lambda().like(OrderEntity::getMemberUsername, orderQuery.getMemberUsername());
+            queryWrapper.like(OrderEntity::getMemberUsername, orderQuery.getMemberUsername());
         }
         if (orderQuery.getStatus() != null) {
-            queryWrapper.lambda().eq(OrderEntity::getStatus, orderQuery.getStatus());
+            queryWrapper.eq(OrderEntity::getStatus, orderQuery.getStatus());
         }
 
         IPage<OrderEntity> orderIPage = orderDao.selectPage(page, queryWrapper);

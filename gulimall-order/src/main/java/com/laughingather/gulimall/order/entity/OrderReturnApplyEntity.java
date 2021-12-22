@@ -114,7 +114,7 @@ public class OrderReturnApplyEntity implements Serializable {
     /**
      * 原因
      */
-    private String reason;
+    private Long reasonId;
 
     /**
      * 描述

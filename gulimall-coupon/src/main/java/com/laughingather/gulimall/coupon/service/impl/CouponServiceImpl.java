@@ -15,8 +15,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-@Service("couponService")
+/**
+ * 优惠券逻辑实现
+ *
+ * @author laughingather
+ */
 @Slf4j
+@Service("couponService")
 public class CouponServiceImpl extends ServiceImpl<CouponDao, CouponEntity> implements CouponService {
 
     @Resource
@@ -28,7 +33,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponDao, CouponEntity> impl
     }
 
     @Override
-    public MyPage<CouponEntity> pageCoupons(CouponQuery couponQuery) {
+    public MyPage<CouponEntity> listCouponsWithPage(CouponQuery couponQuery) {
         IPage<CouponEntity> page = new Page<>(couponQuery.getPageNumber(), couponQuery.getPageSize());
         IPage<CouponEntity> couponPage = couponDao.selectPage(page, null);
         return MyPage.restPage(couponPage);

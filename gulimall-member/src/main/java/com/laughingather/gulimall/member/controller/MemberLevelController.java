@@ -21,6 +21,7 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/member/member-level")
 public class MemberLevelController {
+
     @Resource
     private MemberLevelService memberLevelService;
 

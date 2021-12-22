@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.coupon.controller;
 
 import com.laughingather.gulimall.coupon.service.SkuFullReductionService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,9 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/sku-full-reduction")
+@Api(tags = "商品满减信息模块")
 public class SkuFullReductionController {
+
     @Resource
     private SkuFullReductionService skuFullReductionService;
 

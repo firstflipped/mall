@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/coupon/coupon-history")
 public class CouponHistoryController {
+
     @Resource
     private CouponHistoryService couponHistoryService;
 

@@ -17,6 +17,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/member/member-collect-subject")
 public class MemberCollectSubjectController {
+
     @Resource
     private MemberCollectSubjectService memberCollectSubjectService;
+
 }

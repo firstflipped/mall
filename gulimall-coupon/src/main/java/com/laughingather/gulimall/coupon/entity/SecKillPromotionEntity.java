@@ -25,32 +25,38 @@ public class SecKillPromotionEntity implements Serializable {
      */
     @TableId
     private Long id;
+
     /**
      * 活动标题
      */
     private String title;
+
     /**
      * 开始日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime startTime;
+
     /**
      * 结束日期
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime endTime;
+
     /**
      * 上下线状态
      */
     private Integer status;
+
+    /**
+     * 创建人
+     */
+    private Long userId;
+
     /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
-    /**
-     * 创建人
-     */
-    private Long userId;
 
 }

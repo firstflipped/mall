@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/member/member")
 public class MemberController {
+
     @Resource
     private MemberService memberService;
 

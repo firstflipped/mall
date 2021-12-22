@@ -27,5 +27,10 @@ public class OrderReturnApplyQuery extends PageQuery {
      */
     private String returnPhone;
 
+    /**
+     * 退货原因
+     */
+    private Long reasonId;
+
 }
 

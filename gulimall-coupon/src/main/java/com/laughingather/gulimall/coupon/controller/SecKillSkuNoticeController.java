@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/coupon/sec-kill-sku-notice")
 public class SecKillSkuNoticeController {
+
     @Resource
     private SecKillSkuNoticeService secKillSkuNoticeService;
 

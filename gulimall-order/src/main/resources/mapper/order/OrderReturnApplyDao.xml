@@ -23,7 +23,7 @@
         <result property="skuCount" column="sku_count"/>
         <result property="skuPrice" column="sku_price"/>
         <result property="skuRealPrice" column="sku_real_price"/>
-        <result property="reason" column="reason"/>
+        <result property="reasonId" column="reason_id"/>
         <result property="description" column="description"/>
         <result property="descPics" column="desc_pics"/>
         <result property="handleNote" column="handle_note"/>

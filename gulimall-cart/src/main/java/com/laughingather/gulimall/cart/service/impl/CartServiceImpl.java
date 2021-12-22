@@ -3,7 +3,7 @@ package com.laughingather.gulimall.cart.service.impl;
 import com.laughingather.gulimall.cart.entity.vo.CartItemVO;
 import com.laughingather.gulimall.cart.entity.vo.CartVO;
 import com.laughingather.gulimall.cart.entity.vo.UserInfoVO;
-import com.laughingather.gulimall.cart.feign.entity.SkuInfoEntity;
+import com.laughingather.gulimall.cart.feign.entity.SkuInfoTO;
 import com.laughingather.gulimall.cart.feign.service.ProductFeignService;
 import com.laughingather.gulimall.cart.interceptor.CartInterceptor;
 import com.laughingather.gulimall.cart.service.CartService;
@@ -53,23 +53,27 @@ public class CartServiceImpl implements CartService {
 
             CompletableFuture<Void> getSkuInfoCompletableFuture = CompletableFuture.runAsync(() -> {
                 // 1、远程查询当前要添加的商品的信息
-                MyResult<SkuInfoEntity> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuId);
-                SkuInfoEntity skuInfo = skuInfoResult.getData();
+                MyResult<SkuInfoTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuId);
+                if (skuInfoResult.isSuccess()) {
+                    SkuInfoTO skuInfo = skuInfoResult.getData();
+                    cartItemVO.setImage(skuInfo.getSkuDefaultImg());
+                    cartItemVO.setTitle(skuInfo.getSkuTitle());
+                    cartItemVO.setPrice(skuInfo.getPrice());
+                    cartItemVO.setTotalPrice(skuInfo.getPrice().multiply(new BigDecimal(num)));
+                }
 
                 cartItemVO.setCheck(true);
                 cartItemVO.setCount(num);
-                cartItemVO.setImage(skuInfo.getSkuDefaultImg());
                 cartItemVO.setSkuId(skuId);
-                cartItemVO.setTitle(skuInfo.getSkuTitle());
-                cartItemVO.setPrice(skuInfo.getPrice());
-                cartItemVO.setTotalPrice(skuInfo.getPrice().multiply(new BigDecimal(num)));
             }, threadPoolExecutor);
 
             CompletableFuture<Void> getSkuSaleAttrValuesCompletableFuture = CompletableFuture.runAsync(() -> {
                 // 2、远程查询sku的组合信息
                 MyResult<List<String>> skuSaleAttrValuesResult = productFeignService.getSkuSaleAttrValues(skuId);
-                List<String> skuSaleAttrValues = skuSaleAttrValuesResult.getData();
-                cartItemVO.setSkuAttr(skuSaleAttrValues);
+                if (skuSaleAttrValuesResult.isSuccess()) {
+                    List<String> skuSaleAttrValues = skuSaleAttrValuesResult.getData();
+                    cartItemVO.setSkuAttr(skuSaleAttrValues);
+                }
             }, threadPoolExecutor);
 
             // 等待异步编排任务全部执行完成

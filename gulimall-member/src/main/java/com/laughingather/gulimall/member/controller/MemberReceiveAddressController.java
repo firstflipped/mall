@@ -16,8 +16,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/member/member-receive-address")
 public class MemberReceiveAddressController {
+
     @Resource
     private MemberReceiveAddressService memberReceiveAddressService;
-
 
 }

@@ -85,8 +85,8 @@ public class ProductOpenApi {
      * @param skuId
      * @return
      */
-    @GetMapping("/sku-sale-attr-value/list/{skuId}")
-    public MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("skuId") Long skuId) {
+    @GetMapping("/sku-sale-attr-value/list/{sid}")
+    public MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("sid") Long skuId) {
         List<String> skuSaleAttrValues = skuSaleAttrValueService.getSkuSaleAttrValuesAsString(skuId);
         return CollectionUtils.isNotEmpty(skuSaleAttrValues) ? MyResult.success(skuSaleAttrValues) :
                 MyResult.failed();

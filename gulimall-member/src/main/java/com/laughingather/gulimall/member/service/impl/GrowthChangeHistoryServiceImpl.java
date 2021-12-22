@@ -8,6 +8,9 @@ import com.laughingather.gulimall.member.entity.GrowthChangeHistoryEntity;
 import com.laughingather.gulimall.member.service.GrowthChangeHistoryService;
 
 
+/**
+ * @author laughingather
+ */
 @Service("growthChangeHistoryService")
 public class GrowthChangeHistoryServiceImpl extends ServiceImpl<GrowthChangeHistoryDao, GrowthChangeHistoryEntity> implements GrowthChangeHistoryService {
 
