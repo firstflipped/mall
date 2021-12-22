@@ -4,7 +4,7 @@
 <mapper namespace="com.laughingather.gulimall.coupon.dao.HomeFigureDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.laughingather.gulimall.coupon.entity.HomeAdvEntity" id="homeAdvMap">
+    <resultMap type="com.laughingather.gulimall.coupon.entity.HomeFigureEntity" id="homeFigureMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="pic" column="pic"/>
