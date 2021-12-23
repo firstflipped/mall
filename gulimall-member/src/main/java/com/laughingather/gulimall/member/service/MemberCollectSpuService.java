@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.member.entity.MemberCollectSpuEntity;
 
 /**
- * 会员收藏的商品
+ * 会员收藏商品逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com

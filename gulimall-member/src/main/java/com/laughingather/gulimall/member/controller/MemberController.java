@@ -1,10 +1,12 @@
 package com.laughingather.gulimall.member.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
 import com.laughingather.gulimall.member.service.MemberService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 会员
+ * 会员路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -22,15 +24,18 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member")
+@Api(tags = "会员模块")
 public class MemberController {
 
     @Resource
     private MemberService memberService;
 
-    @GetMapping("/list")
-    public MyResult listMembers(@ModelAttribute MemberQuery memberQuery) {
-        IPage<MemberEntity> memberPage = memberService.listMembers(memberQuery);
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询会员列表")
+    public MyResult<MyPage<MemberEntity>> listMembersWithPage(@ModelAttribute MemberQuery memberQuery) {
+        MyPage<MemberEntity> memberPage = memberService.listMembersWithPage(memberQuery);
         return MyResult.success(memberPage);
     }
+
 
 }

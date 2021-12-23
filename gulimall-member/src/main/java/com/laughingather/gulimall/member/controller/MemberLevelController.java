@@ -5,6 +5,8 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.laughingather.gulimall.member.entity.query.MemberLevelQuery;
 import com.laughingather.gulimall.member.service.MemberLevelService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,7 +14,7 @@ import java.util.Arrays;
 
 
 /**
- * 会员等级
+ * 会员等级路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -20,43 +22,55 @@ import java.util.Arrays;
  */
 @RestController
 @RequestMapping("/member/member-level")
+@Api(tags = "会员等级模块")
 public class MemberLevelController {
 
     @Resource
     private MemberLevelService memberLevelService;
 
     @GetMapping("/page")
-    public MyResult<MyPage<MemberLevelEntity>> pageMemberLevels(@ModelAttribute MemberLevelQuery memberLevelQuery) {
-        MyPage<MemberLevelEntity> memberLevelMyPage = memberLevelService.pageMemberLevels(memberLevelQuery);
+    @ApiOperation(value = "分页查询会员等级列表")
+    public MyResult<MyPage<MemberLevelEntity>> listMemberLevelsWithPage(@ModelAttribute MemberLevelQuery memberLevelQuery) {
+        MyPage<MemberLevelEntity> memberLevelMyPage = memberLevelService.listMemberLevelsWithPage(memberLevelQuery);
         return MyResult.success(memberLevelMyPage);
     }
 
+
     @GetMapping("/{id}")
+    @ApiOperation(value = "查询会员等级详情")
     public MyResult<MemberLevelEntity> getMemberLevelById(@PathVariable("id") Long id) {
         MemberLevelEntity memberLevel = memberLevelService.getById(id);
         return MyResult.success(memberLevel);
     }
 
+
     @PostMapping
+    @ApiOperation(value = "保存会员等级信息")
     public MyResult saveMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
         memberLevelService.save(memberLevelEntity);
         return MyResult.success();
     }
 
+
     @DeleteMapping("/{id}")
-    public MyResult deleteMemberLevelById(@PathVariable("id") Long id) {
+    @ApiOperation(value = "删除会员等级信息")
+    public MyResult deleteMemberLevel(@PathVariable("id") Long id) {
         memberLevelService.removeById(id);
         return MyResult.success();
     }
 
+
     @DeleteMapping
-    public MyResult deleteBatchMemberLevelByIds(@RequestBody Long[] ids) {
+    @ApiOperation(value = "批量删除会员等级信息")
+    public MyResult deleteBatchMemberLevel(@RequestBody Long[] ids) {
         memberLevelService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
 
+
     @PutMapping
-    public MyResult updateMemberLevelById(@RequestBody MemberLevelEntity memberLevelEntity) {
+    @ApiOperation(value = "更新会员等级信息")
+    public MyResult updateMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
         memberLevelService.updateById(memberLevelEntity);
         return MyResult.success();
     }

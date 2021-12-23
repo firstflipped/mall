@@ -11,9 +11,9 @@
         <result property="defaultStatus" column="default_status"/>
         <result property="freeFreightPoint" column="free_freight_point"/>
         <result property="commentGrowthPoint" column="comment_growth_point"/>
-        <result property="priviledgeFreeFreight" column="priviledge_free_freight"/>
-        <result property="priviledgeMemberPrice" column="priviledge_member_price"/>
-        <result property="priviledgeBirthday" column="priviledge_birthday"/>
+        <result property="freeFreightPrivilege" column="free_freight_privilege"/>
+        <result property="memberPricePrivilege" column="member_price_privilege"/>
+        <result property="birthdayPrivilege" column="birthday_privilege"/>
         <result property="note" column="note"/>
     </resultMap>
 

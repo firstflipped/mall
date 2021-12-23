@@ -24,25 +24,30 @@ public class MemberLoginLogEntity implements Serializable {
 	 */
 	@TableId
 	private Long id;
+
 	/**
 	 * member_id
 	 */
 	private Long memberId;
-	/**
-	 * 创建时间
-	 */
-	private LocalDateTime createTime;
-	/**
+
+    /**
 	 * ip
 	 */
 	private String ip;
-	/**
-	 * city
-	 */
-	private String city;
-	/**
-	 * 登录类型[1-web，2-app]
-	 */
-	private Integer loginType;
+
+    /**
+     * city
+     */
+    private String city;
+
+    /**
+     * 登录类型[1-web，2-app]
+     */
+    private Integer loginType;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
 }

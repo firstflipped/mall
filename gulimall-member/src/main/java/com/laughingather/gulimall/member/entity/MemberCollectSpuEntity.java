@@ -24,24 +24,29 @@ public class MemberCollectSpuEntity implements Serializable {
 	 */
 	@TableId
 	private Long id;
+
 	/**
 	 * 会员id
 	 */
 	private Long memberId;
+
 	/**
 	 * spu_id
 	 */
 	private Long spuId;
-	/**
-	 * spu_name
-	 */
+
+    /**
+     * spu名称
+     */
 	private String spuName;
-	/**
-	 * spu_img
+
+    /**
+     * spu图片
 	 */
 	private String spuImg;
-	/**
-	 * create_time
+
+    /**
+     * 创建时间
 	 */
 	private LocalDateTime createTime;
 

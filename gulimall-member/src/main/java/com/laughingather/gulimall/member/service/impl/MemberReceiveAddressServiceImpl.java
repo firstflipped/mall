@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * 会员收货地址逻辑类
+ * 会员收货地址逻辑实现
  *
  * @author laughingather
  */
@@ -24,9 +24,10 @@ public class MemberReceiveAddressServiceImpl extends ServiceImpl<MemberReceiveAd
     private MemberReceiveAddressDao memberReceiveAddressDao;
 
     @Override
-    public List<MemberReceiveAddressEntity> listMemberReceiveAddress(Long memberId) {
+    public List<MemberReceiveAddressEntity> listMemberReceiveAddresses(Long memberId) {
         LambdaQueryWrapper<MemberReceiveAddressEntity> queryWrapper = new QueryWrapper<MemberReceiveAddressEntity>().lambda()
                 .eq(MemberReceiveAddressEntity::getMemberId, memberId);
+
         return memberReceiveAddressDao.selectList(queryWrapper);
     }
 }

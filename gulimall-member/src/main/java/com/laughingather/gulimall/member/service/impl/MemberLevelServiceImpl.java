@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 
+/**
+ * 会员等级逻辑实现
+ *
+ * @author laughingather
+ */
 @Service("memberLevelService")
 public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLevelEntity> implements MemberLevelService {
 
@@ -22,7 +27,7 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLe
     private MemberLevelDao memberLevelDao;
 
     @Override
-    public MyPage<MemberLevelEntity> pageMemberLevels(MemberLevelQuery memberLevelQuery) {
+    public MyPage<MemberLevelEntity> listMemberLevelsWithPage(MemberLevelQuery memberLevelQuery) {
         IPage<MemberLevelEntity> page = new Page<>(memberLevelQuery.getPageNumber(), memberLevelQuery.getPageSize());
         QueryWrapper<MemberLevelEntity> queryWrapper = null;
         if (StringUtils.isNotBlank(memberLevelQuery.getKey())) {

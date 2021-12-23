@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.member.controller;
 
 import com.laughingather.gulimall.member.service.MemberCollectSubjectService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,7 +9,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 会员收藏的专题活动
+ * 会员收藏专题活动路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-collect-subject")
+@Api(tags = "会员收藏专题活动模块")
 public class MemberCollectSubjectController {
 
     @Resource

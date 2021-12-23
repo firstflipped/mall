@@ -6,7 +6,7 @@ import com.laughingather.gulimall.member.entity.MemberReceiveAddressEntity;
 import java.util.List;
 
 /**
- * 会员收货地址
+ * 会员收货地址逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -20,7 +20,7 @@ public interface MemberReceiveAddressService extends IService<MemberReceiveAddre
      * @param memberId 会员id
      * @return
      */
-    List<MemberReceiveAddressEntity> listMemberReceiveAddress(Long memberId);
+    List<MemberReceiveAddressEntity> listMemberReceiveAddresses(Long memberId);
 
 
 }

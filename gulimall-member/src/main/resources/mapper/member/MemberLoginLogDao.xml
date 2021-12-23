@@ -7,10 +7,10 @@
     <resultMap type="com.laughingather.gulimall.member.entity.MemberLoginLogEntity" id="memberLoginLogMap">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
-        <result property="createTime" column="create_time"/>
         <result property="ip" column="ip"/>
         <result property="city" column="city"/>
         <result property="loginType" column="login_type"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
 

@@ -6,7 +6,7 @@ import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.laughingather.gulimall.member.entity.query.MemberLevelQuery;
 
 /**
- * 会员等级
+ * 会员等级逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -20,7 +20,7 @@ public interface MemberLevelService extends IService<MemberLevelEntity> {
      * @param memberLevelQuery
      * @return
      */
-    MyPage<MemberLevelEntity> pageMemberLevels(MemberLevelQuery memberLevelQuery);
+    MyPage<MemberLevelEntity> listMemberLevelsWithPage(MemberLevelQuery memberLevelQuery);
 
 }
 

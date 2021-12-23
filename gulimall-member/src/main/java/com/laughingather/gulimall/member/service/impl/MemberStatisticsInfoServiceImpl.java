@@ -8,6 +8,11 @@ import com.laughingather.gulimall.member.entity.MemberStatisticsInfoEntity;
 import com.laughingather.gulimall.member.service.MemberStatisticsInfoService;
 
 
+/**
+ * 会员统计信息逻辑实现
+ *
+ * @author laughingather
+ */
 @Service("memberStatisticsInfoService")
 public class MemberStatisticsInfoServiceImpl extends ServiceImpl<MemberStatisticsInfoDao, MemberStatisticsInfoEntity> implements MemberStatisticsInfoService {
 

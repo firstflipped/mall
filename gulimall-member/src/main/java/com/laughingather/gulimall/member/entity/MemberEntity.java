@@ -117,13 +117,6 @@ public class MemberEntity implements Serializable {
     private Integer status;
 
     /**
-     * 注册时间
-     */
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime createTime;
-
-    /**
      * 社交帐号唯一id
      */
     private Long socialUid;
@@ -137,5 +130,12 @@ public class MemberEntity implements Serializable {
      * 社交令牌有效时间
      */
     private Long expiresIn;
+
+    /**
+     * 注册时间
+     */
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime createTime;
 
 }

@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.member.controller;
 
 import com.laughingather.gulimall.member.service.MemberStatisticsInfoService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-statistics-info")
+@Api(tags = "会员统计信息模块")
 public class MemberStatisticsInfoController {
 
     @Resource

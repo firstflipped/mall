@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
 import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
@@ -11,7 +11,7 @@ import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
 
 /**
- * 会员
+ * 会员逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -20,11 +20,12 @@ import com.laughingather.gulimall.member.exception.UsernameExistException;
 public interface MemberService extends IService<MemberEntity> {
 
     /**
-     * 获取会员列表
+     * 分页查询会员列表
      *
      * @param memberQuery
+     * @return
      */
-    IPage<MemberEntity> listMembers(MemberQuery memberQuery);
+    MyPage<MemberEntity> listMembersWithPage(MemberQuery memberQuery);
 
     /**
      * 注册添加会员

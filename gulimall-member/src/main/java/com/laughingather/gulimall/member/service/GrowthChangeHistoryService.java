@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.member.entity.GrowthChangeHistoryEntity;
 
 /**
- * 成长值变化历史记录
+ * 成长值变化历史记录逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com

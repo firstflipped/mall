@@ -9,7 +9,7 @@
         <result property="subjectId" column="subject_id"/>
         <result property="subjectName" column="subject_name"/>
         <result property="subjectImg" column="subject_img"/>
-        <result property="subjectUrll" column="subject_urll"/>
+        <result property="subjectUrl" column="subject_url"/>
     </resultMap>
 
 

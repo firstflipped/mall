@@ -86,12 +86,12 @@ public class MemberOpenApi {
     /**
      * 获取会员收货地址列表
      *
-     * @param memberId
+     * @param memberId 会员id
      * @return
      */
-    @GetMapping("/{member-id}/addresses")
-    public MyResult<List<MemberReceiveAddressEntity>> listMemberReceiveAddress(@PathVariable("member-id") Long memberId) {
-        List<MemberReceiveAddressEntity> memberReceiveAddress = memberReceiveAddressService.listMemberReceiveAddress(memberId);
+    @GetMapping("/{mid}/address")
+    public MyResult<List<MemberReceiveAddressEntity>> listMemberReceiveAddresses(@PathVariable("mid") Long memberId) {
+        List<MemberReceiveAddressEntity> memberReceiveAddress = memberReceiveAddressService.listMemberReceiveAddresses(memberId);
         return MyResult.success(memberReceiveAddress);
     }
 
@@ -99,12 +99,12 @@ public class MemberOpenApi {
     /**
      * 获取收货地址详情
      *
-     * @param id
+     * @param addressId 地址id
      * @return
      */
     @GetMapping("/{aid}/info")
-    public MyResult<MemberReceiveAddressEntity> getAddressInfoById(@PathVariable("aid") Long id) {
-        MemberReceiveAddressEntity memberReceiveAddress = memberReceiveAddressService.getById(id);
+    public MyResult<MemberReceiveAddressEntity> getAddressInfoById(@PathVariable("aid") Long addressId) {
+        MemberReceiveAddressEntity memberReceiveAddress = memberReceiveAddressService.getById(addressId);
         return MyResult.success(memberReceiveAddress);
     }
 

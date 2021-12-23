@@ -21,10 +21,10 @@
         <result property="integration" column="integration"/>
         <result property="growth" column="growth"/>
         <result property="status" column="status"/>
-        <result property="createTime" column="create_time"/>
         <result property="socialUid" column="social_uid"/>
         <result property="accessToken" column="access_token"/>
         <result property="expiresIn" column="expires_in"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
 
     <select id="getMemberBySocialUid" resultMap="memberMap">
