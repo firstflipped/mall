@@ -6,9 +6,9 @@ import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.entity.PlatformLog;
 import com.laughingather.gulimall.common.service.PlatformLogService;
-import com.laughingather.gulimall.common.util.HttpContextUtils;
+import com.laughingather.gulimall.common.util.HttpContextUtil;
 import com.laughingather.gulimall.common.util.JsonUtil;
-import com.laughingather.gulimall.common.util.RequestUtils;
+import com.laughingather.gulimall.common.util.RequestUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -82,7 +82,7 @@ public class PlatformLogAspect {
      */
     private void saveLog(ProceedingJoinPoint point, Object result, long time) {
         // 获取request对象
-        HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+        HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
 
         // 获取当前方法的信息
         MethodSignature signature = (MethodSignature) point.getSignature();
@@ -119,7 +119,7 @@ public class PlatformLogAspect {
         }
 
         platformLog.setServerIp(NetUtil.getLocalhostStr());
-        platformLog.setClientIp(RequestUtils.getClientIp(request));
+        platformLog.setClientIp(RequestUtil.getClientIp(request));
         platformLog.setCreateTime(LocalDateTime.now());
 
         logger.info(platformLog.toString());

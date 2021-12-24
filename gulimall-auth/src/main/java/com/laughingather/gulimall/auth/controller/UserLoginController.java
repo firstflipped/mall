@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.controller;
 
 import cn.hutool.core.util.RandomUtil;
-import com.laughingather.gulimall.auth.entity.dto.UserLoginDTO;
+import com.laughingather.gulimall.auth.entity.to.UserLoginTO;
 import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
 import com.laughingather.gulimall.auth.service.UserLoginService;
 import com.laughingather.gulimall.common.api.MyResult;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * 登录路由
+ * 管理用户登录路由
  *
  * @author：laughingather
  * @create：2021-06-21 23:55
@@ -54,7 +54,7 @@ public class UserLoginController {
 
 
     @PostMapping("/login")
-    public MyResult<String> login(@RequestBody @Valid UserLoginDTO userLoginDTO, BindingResult bindingResult) {
+    public MyResult<String> login(@RequestBody @Valid UserLoginTO userLoginTO, BindingResult bindingResult) {
         // 校验参数
         if (bindingResult.hasErrors()) {
             String errors = bindingResult.getFieldErrors().stream().map(FieldError::getDefaultMessage)
@@ -62,7 +62,7 @@ public class UserLoginController {
             return MyResult.errMsg(errors);
         }
 
-        userLoginService.login(userLoginDTO);
+        userLoginService.login(userLoginTO);
 
         return null;
     }

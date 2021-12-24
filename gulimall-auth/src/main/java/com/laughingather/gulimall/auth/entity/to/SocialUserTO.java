@@ -1,15 +1,15 @@
-package com.laughingather.gulimall.auth.entity;
+package com.laughingather.gulimall.auth.entity.to;
 
 import lombok.Data;
 
 /**
- * ouauth2返回实体
+ * oauth2返回实体
  *
  * @author：laughingather
  * @create：2021-06-22 22:27
  */
 @Data
-public class SocialUser {
+public class SocialUserTO {
 
     private String access_token;
     private Long remind_in;

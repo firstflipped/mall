@@ -9,6 +9,6 @@ import lombok.Data;
  * @create：2021-12-06 2021/12/6
  */
 @Data
-public class UserDTO {
+public class UserTO {
 }
 

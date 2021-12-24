@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.web;
 
-import com.laughingather.gulimall.auth.entity.dto.MemberLoginDTO;
-import com.laughingather.gulimall.auth.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.auth.entity.to.MemberLoginDTO;
+import com.laughingather.gulimall.auth.entity.to.MemberRegisterDTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;

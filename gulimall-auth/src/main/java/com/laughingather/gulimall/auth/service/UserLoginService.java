@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.auth.service;
 
-import com.laughingather.gulimall.auth.entity.dto.UserLoginDTO;
+import com.laughingather.gulimall.auth.entity.to.UserLoginTO;
 
 /**
  * 管理登录
@@ -13,7 +13,7 @@ public interface UserLoginService {
     /**
      * 管理员登录
      *
-     * @param userLoginDTO
+     * @param userLoginTO
      */
-    void login(UserLoginDTO userLoginDTO);
+    void login(UserLoginTO userLoginTO);
 }

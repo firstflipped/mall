@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
  * @author WangJie
  */
 @Slf4j
-public class RequestUtils {
+public class RequestUtil {
 
     private static final String UNKNOWN = "unknown";
     private static final String LOCALHOST_IP4 = "127.0.0.1";

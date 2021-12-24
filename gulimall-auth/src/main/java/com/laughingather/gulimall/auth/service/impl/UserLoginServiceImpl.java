@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.service.impl;
 
-import com.laughingather.gulimall.auth.entity.dto.UserLoginDTO;
-import com.laughingather.gulimall.auth.feign.entity.UserDTO;
+import com.laughingather.gulimall.auth.entity.to.UserLoginTO;
+import com.laughingather.gulimall.auth.feign.entity.UserTO;
 import com.laughingather.gulimall.auth.feign.service.AdminFeignService;
 import com.laughingather.gulimall.auth.service.UserLoginService;
 import com.laughingather.gulimall.common.api.MyResult;
@@ -20,8 +20,8 @@ public class UserLoginServiceImpl implements UserLoginService {
     private AdminFeignService adminFeignService;
 
     @Override
-    public void login(UserLoginDTO userLoginDTO) {
-        MyResult<UserDTO> loginResult = adminFeignService.login(userLoginDTO);
+    public void login(UserLoginTO userLoginTO) {
+        MyResult<UserTO> loginResult = adminFeignService.login(userLoginTO);
 
         // 登录成功
         if (loginResult.isSuccess()) {

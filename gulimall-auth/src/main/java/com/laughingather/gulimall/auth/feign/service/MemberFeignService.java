@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.auth.feign.service;
 
-import com.laughingather.gulimall.auth.entity.SocialUser;
-import com.laughingather.gulimall.auth.entity.dto.MemberLoginDTO;
-import com.laughingather.gulimall.auth.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.auth.entity.to.MemberLoginTO;
+import com.laughingather.gulimall.auth.entity.to.MemberRegisterTO;
+import com.laughingather.gulimall.auth.entity.to.SocialUserTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.entity.MemberEntity;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,30 +21,30 @@ public interface MemberFeignService {
     /**
      * 远程注册接口
      *
-     * @param memberRegisterDTO
+     * @param memberRegisterTO
      * @return MyResult
      */
     @PostMapping("/gulimall-member/openapi/member/register")
-    MyResult register(@RequestBody MemberRegisterDTO memberRegisterDTO);
+    MyResult register(@RequestBody MemberRegisterTO memberRegisterTO);
 
     /**
      * 远程登录接口
      * <p>
      * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
      *
-     * @param memberLoginDTO
+     * @param memberLoginTO
      * @return
      */
     @PostMapping("/gulimall-member/openapi/member/login")
-    MyResult<MemberEntity> login(@RequestBody MemberLoginDTO memberLoginDTO);
+    MyResult<MemberEntity> login(@RequestBody MemberLoginTO memberLoginTO);
 
     /**
      * oauth2登录接口
      *
-     * @param socialUser
+     * @param socialUserTO
      * @return
      */
     @PostMapping("/gulimall-member/openapi/member/oauth2/login")
-    MyResult<MemberEntity> oauth2Login(@RequestBody SocialUser socialUser);
+    MyResult<MemberEntity> oauth2Login(@RequestBody SocialUserTO socialUserTO);
 
 }

@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.auth.entity.dto;
+package com.laughingather.gulimall.auth.entity.to;
 
 import lombok.Data;
 import lombok.ToString;
@@ -8,11 +8,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**
- * @author WangJie
+ * 管理用户注册传输类
+ *
+ * @author：laughingather
  */
 @Data
 @ToString
-public class UserRegisterDTO {
+public class UserRegisterTO {
 
     @NotBlank(message = "用户名必须填写")
     private String username;

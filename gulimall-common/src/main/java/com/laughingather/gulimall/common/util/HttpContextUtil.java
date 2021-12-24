@@ -9,9 +9,9 @@ import java.util.Objects;
 /**
  * @author WangJie
  */
-public class HttpContextUtils {
+public class HttpContextUtil {
 
-    private HttpContextUtils() {
+    private HttpContextUtil() {
 
     }
 

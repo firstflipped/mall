@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.auth.entity.dto;
+package com.laughingather.gulimall.auth.entity.to;
 
 import lombok.Data;
 import lombok.ToString;
@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 用户登录实体类
+ * 会员登录传输类
  *
  * @author：laughingather
  * @create：2021-05-27 23:03
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @ToString
-public class UserLoginDTO {
+public class MemberLoginTO {
 
     @NotBlank(message = "用户名必须填写")
     private String username;
