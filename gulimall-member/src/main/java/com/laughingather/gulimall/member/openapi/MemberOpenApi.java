@@ -44,11 +44,9 @@ public class MemberOpenApi {
         try {
             memberService.registerMember(memberRegisterDTO);
         } catch (UsernameExistException e) {
-            return MyResult.builder().code(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION.getCode())
-                    .message(ErrorCodeEnum.MOBILE_EXIST_EXCEPTION.getMessage()).build();
+            return MyResult.failed(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION);
         } catch (MobileExistException e) {
-            return MyResult.builder().code(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION.getCode())
-                    .message(ErrorCodeEnum.MOBILE_EXIST_EXCEPTION.getMessage()).build();
+            return MyResult.failed(ErrorCodeEnum.MOBILE_EXIST_EXCEPTION);
         }
 
         return MyResult.success();
@@ -64,8 +62,7 @@ public class MemberOpenApi {
     @PostMapping("/login")
     public MyResult<MemberEntity> login(@RequestBody MemberLoginDTO memberLoginDTO) {
         MemberEntity member = memberService.checkLogin(memberLoginDTO);
-        return member == null ? MyResult.<MemberEntity>builder().code(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.ACCOUNT_PASSWORD_INVAILD_EXCEPTION.getMessage()).build() : MyResult.success(member);
+        return member == null ? MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION) : MyResult.success(member);
     }
 
 
@@ -78,8 +75,7 @@ public class MemberOpenApi {
     @PostMapping("/oauth2/login")
     public MyResult<MemberEntity> oauth2Login(@RequestBody SocialUser socialUser) {
         MemberEntity member = memberService.login(socialUser);
-        return member == null ? MyResult.<MemberEntity>builder().code(ErrorCodeEnum.OAUTH_LOGIN_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.OAUTH_LOGIN_EXCEPTION.getMessage()).build() : MyResult.success(member);
+        return member == null ? MyResult.failed(ErrorCodeEnum.OAUTH_LOGIN_EXCEPTION) : MyResult.success(member);
     }
 
 

@@ -12,11 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author WangJie
+ * 统一异常处理
+ *
+ * @author：laughingather
  */
 @Slf4j
 @RestControllerAdvice(basePackages = "com.laughingather.gulimall.product.controller")
-public class GulimallExceptionControllerAdvice {
+public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public MyResult<Map<String, String>> handleValidException(MethodArgumentNotValidException e) {
@@ -33,20 +35,14 @@ public class GulimallExceptionControllerAdvice {
                 errorMap.put(field, message);
             });
         }
-        return MyResult.<Map<String, String>>builder().code(ErrorCodeEnum.VERIFY_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.VERIFY_EXCEPTION.getMessage())
-                .data(errorMap)
-                .build();
+        return MyResult.failed(ErrorCodeEnum.VERIFY_EXCEPTION, errorMap);
     }
 
     @ExceptionHandler(value = Throwable.class)
     public MyResult handleThrowable(Throwable throwable) {
         throwable.printStackTrace();
         log.error("出现异常{}，异常类型{}", throwable.getMessage(), throwable.getClass());
-        return MyResult.builder().code(ErrorCodeEnum.UNKNOWN_EXCEPTION.getCode())
-                .message(ErrorCodeEnum.UNKNOWN_EXCEPTION.getMessage())
-                .data(throwable.getMessage())
-                .build();
+        return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION, throwable.getMessage());
     }
 
 

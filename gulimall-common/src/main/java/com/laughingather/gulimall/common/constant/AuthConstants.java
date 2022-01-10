@@ -1,5 +1,7 @@
 package com.laughingather.gulimall.common.constant;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+
 /**
  * @author WangJie
  */
@@ -27,7 +29,7 @@ public class AuthConstants {
     /**
      * 生产环境要通过配置文件读取出加密过的key
      */
-    public static final String KEY = "flippedmdfsklajfklasjr89e33q4ui90324ut9uqioJKSOPU7897(*)*()*d(^&ERWJHROQIUJIODFJHO9SAHFO0AIKF9";
+    public static final String KEY = "3XKfzFReDSSipAq6543nmYYbXNt6X9GBq83zzuW8N77sOtlGr8aLp0IxbYABRgU7HSNSr(*)*()*d(^&X9GB8945892W8N77sOtlG";
 
     /**
      * JWT的签发者
@@ -40,7 +42,12 @@ public class AuthConstants {
     public static final int TOKEN_EXP_TIME = 24 * 60 * 60;
 
     /**
-     * 用户名
+     * 加密方式
      */
-    public static final String USER_ID = "userId";
+    public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+
+    /**
+     * token前缀
+     */
+    public static final String TOKEN_PREFIX = "Bearer ";
 }

@@ -4,8 +4,8 @@ import cn.hutool.core.lang.Snowflake;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.adminnew.entity.SysUserEntity;
-import com.laughingather.gulimall.adminnew.entity.dto.UserDTO;
-import com.laughingather.gulimall.adminnew.entity.dto.UserLoginDTO;
+import com.laughingather.gulimall.adminnew.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.adminnew.entity.to.AdminTO;
 import com.laughingather.gulimall.adminnew.mapper.SysUserMapper;
 import com.laughingather.gulimall.adminnew.repository.SysUserRepository;
 import com.laughingather.gulimall.adminnew.service.SysUserService;
@@ -38,7 +38,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void saveUser(SysUserEntity sysUserEntity) {
-        sysUserEntity.setId(snowflake.nextId());
+        sysUserEntity.setUserid(snowflake.nextId());
         sysUserEntity.setPassword(bCryptPasswordEncoder.encode(sysUserEntity.getPassword()));
         sysUserEntity.setCreateTime(LocalDateTime.now());
         sysUserMapper.insert(sysUserEntity);
@@ -77,19 +77,19 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public UserDTO checkLogin(UserLoginDTO userLoginDTO) {
-        SysUserEntity user = sysUserRepository.getByUsernameEquals(userLoginDTO.getUsername());
+    public AdminTO checkLogin(AdminLoginTO adminLoginTO) {
+        SysUserEntity user = sysUserRepository.getByUsernameEquals(adminLoginTO.getUsername());
         if (user == null) {
             return null;
         }
 
-        if (!bCryptPasswordEncoder.matches(userLoginDTO.getPassword(), user.getPassword())) {
+        if (!bCryptPasswordEncoder.matches(adminLoginTO.getPassword(), user.getPassword())) {
             return null;
         }
 
-        UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(user, userDTO);
-        return userDTO;
+        AdminTO adminTO = new AdminTO();
+        BeanUtils.copyProperties(user, adminTO);
+        return adminTO;
     }
 
 }

@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * 分页实体类
+ *
+ * @author laughingather
  */
 @Data
 public class PageQuery {

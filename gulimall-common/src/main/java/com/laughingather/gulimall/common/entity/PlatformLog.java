@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.common.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -75,6 +76,7 @@ public class PlatformLog {
     /**
      * 返回结果，是否成功
      */
+    @TableField(value = "is_success")
     private Integer success;
 
     /**
@@ -87,6 +89,7 @@ public class PlatformLog {
      * 1 表示 是
      * 0 表示 否
      */
+    @TableField(value = "is_login")
     private Integer login;
 
     /**

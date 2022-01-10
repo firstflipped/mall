@@ -22,7 +22,7 @@ Snowy采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意
 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/xiaonuobase/snowy-cloud
 6.若您的项目无法满足以上几点，可申请商业授权，获取Snowy商业授权许可，请在官网购买授权，地址为 https://www.xiaonuo.vip
  */
-package com.laughingather.gulimall.common.util;
+package com.laughingather.gulimall.common.entity;
 
 import cn.hutool.core.util.IdUtil;
 import lombok.Data;
@@ -39,12 +39,12 @@ public class JwtPayLoad {
     /**
      * 用户id
      */
-    private Long userId;
+    private Long userid;
 
     /**
      * 账号
      */
-    private String account;
+    private String username;
 
     /**
      * 唯一表示id, 用于缓存登录用户的唯一凭证
@@ -54,9 +54,9 @@ public class JwtPayLoad {
     public JwtPayLoad() {
     }
 
-    public JwtPayLoad(Long userId, String account) {
-        this.userId = userId;
-        this.account = account;
+    public JwtPayLoad(Long userid, String username) {
+        this.userid = userid;
+        this.username = username;
         this.uuid = IdUtil.fastUUID();
     }
 }

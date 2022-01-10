@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.adminnew.service;
 
 import com.laughingather.gulimall.adminnew.entity.SysUserEntity;
-import com.laughingather.gulimall.adminnew.entity.dto.UserDTO;
-import com.laughingather.gulimall.adminnew.entity.dto.UserLoginDTO;
+import com.laughingather.gulimall.adminnew.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.adminnew.entity.to.AdminTO;
 import com.laughingather.gulimall.common.api.MyPage;
 
 import java.util.List;
@@ -63,9 +63,9 @@ public interface SysUserService {
     /**
      * 校验用户登录
      *
-     * @param userLoginDTO
+     * @param adminLoginTO
      * @return
      */
-    UserDTO checkLogin(UserLoginDTO userLoginDTO);
+    AdminTO checkLogin(AdminLoginTO adminLoginTO);
 }
 

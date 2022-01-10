@@ -35,8 +35,8 @@ import java.time.LocalDateTime;
 public class SysUserEntity {
 
     @Id
-    @ApiModelProperty(value = "id")
-    private Long id;
+    @ApiModelProperty(value = "用户id")
+    private Long userid;
 
     /**
      * 登录账号

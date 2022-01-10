@@ -73,7 +73,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void mergePurchase(MergePurchaseParam mergePurchaseParam) {
         Long purchaseId = mergePurchaseParam.getPurchaseId();
         // 没有选中采购单的情况下会新建一个采购单

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.feign.service;
 
-import com.laughingather.gulimall.auth.entity.to.UserLoginTO;
-import com.laughingather.gulimall.auth.feign.entity.UserTO;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.auth.feign.entity.AdminTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +24,10 @@ public interface AdminFeignService {
      * <p>
      * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
      *
-     * @param userLoginTO
+     * @param adminLoginTO
      * @return
      */
     @PostMapping("/login")
-    MyResult<UserTO> login(@RequestBody UserLoginTO userLoginTO);
+    MyResult<AdminTO> login(@RequestBody AdminLoginTO adminLoginTO);
 
 }

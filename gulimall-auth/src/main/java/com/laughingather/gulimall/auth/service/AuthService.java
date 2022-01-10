@@ -24,7 +24,7 @@ Snowy采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意
  */
 package com.laughingather.gulimall.auth.service;
 
-import org.springframework.security.core.Authentication;
+import com.laughingather.gulimall.common.entity.JwtPayLoad;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,39 +37,27 @@ import javax.servlet.http.HttpServletRequest;
 public interface AuthService {
 
     /**
-     * 账号密码登录
+     * 生成token
      *
-     * @param account  账号
-     * @param password 密码
-     * @return token
+     * @param jwtPayLoad
+     * @return
      */
-    String login(String account, String password);
+    String generateToken(JwtPayLoad jwtPayLoad);
+
 
     /**
-     * 从request获取token
+     * 从请求中获取token
      *
-     * @param request request
-     * @return token
+     * @param request
+     * @return
      */
     String getTokenFromRequest(HttpServletRequest request);
 
 
     /**
-     * 退出登录
-     */
-    void logout();
-
-    /**
-     * 获取SpringSecurityContext中认证信息
+     * 校验token
      *
-     * @return 认证信息
-     */
-    Authentication getAuthentication();
-
-    /**
-     * 校验token是否正确
-     *
-     * @param token token
+     * @param token
      */
     void checkToken(String token);
 

@@ -1,17 +1,16 @@
-package com.laughingather.gulimall.adminnew.entity.dto;
+package com.laughingather.gulimall.auth.feign.entity;
 
 import lombok.Data;
 
 /**
- * 对外开放接口用户信息返回类
+ * 用户信息传输类
  *
  * @author：laughingather
  * @create：2021-12-06 2021/12/6
  */
 @Data
-public class UserDTO {
-
-    private Long id;
+public class AdminTO {
+    private Long userid;
 
     /**
      * 登录账号
@@ -27,7 +26,6 @@ public class UserDTO {
      * 电话
      */
     private String phone;
-
 
 }
 

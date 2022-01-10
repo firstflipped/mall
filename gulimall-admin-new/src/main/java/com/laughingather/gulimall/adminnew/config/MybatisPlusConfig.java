@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration;
  * @EnableTransactionManagement:开启事务
  */
 @Configuration
-@MapperScan(basePackages = {"com.laughingather.gulimall.adminnew.mapper"})
+@MapperScan(basePackages = {"com.laughingather.gulimall.adminnew.mapper", "com.laughingather.gulimall.common.mapper"})
 public class MybatisPlusConfig extends BaseMybatisPlusConfig {
 }

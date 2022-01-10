@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.auth.controller;
 
-import com.laughingather.gulimall.auth.entity.to.SocialUser;
+import com.laughingather.gulimall.auth.entity.to.SocialUserTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
@@ -48,15 +48,15 @@ public class OAuth2Controller {
     public String getAccessToken(HttpSession session, @RequestParam("code") String code) {
         String sendUrl = String.format(AuthConstants.WEIBO_OAUTH_API_URL, appKey, appSecret, code, callbackUrl);
         log.info("请求获取凭证信息地址{}", sendUrl);
-        ResponseEntity<SocialUser> result = restTemplate.postForEntity(sendUrl, null, SocialUser.class);
+        ResponseEntity<SocialUserTO> result = restTemplate.postForEntity(sendUrl, null, SocialUserTO.class);
         // 成功
         if (result.getStatusCode() == HttpStatus.OK) {
             // 获取到accessToken
-            SocialUser socialUser = result.getBody();
-            log.info("获取到的凭证信息{}", socialUser);
+            SocialUserTO socialUserTO = result.getBody();
+            log.info("获取到的凭证信息{}", socialUserTO);
 
             // 当前用户如果是第一次登陆此网址，则自动进行用户注册
-            MyResult<MemberEntity> myResult = memberFeignService.oauth2Login(socialUser);
+            MyResult<MemberEntity> myResult = memberFeignService.oauth2Login(socialUserTO);
             if (Objects.equals(ResultCodeEnum.SUCCESS.getCode(), myResult.getCode())) {
                 MemberEntity data = myResult.getData();
                 log.info("用户名：{}", data.getNickname());

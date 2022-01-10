@@ -35,14 +35,10 @@ public class EsSaveOpenApi {
             // 保存到es是否发生了错误
             boolean hasFailures = productSaveService.productUp(skuESModels);
             return !hasFailures ? MyResult.success() :
-                    MyResult.builder().code(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getCode())
-                            .message(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getMessage())
-                            .build();
+                    MyResult.failed(ErrorCodeEnum.PRODUCT_UP_EXCEPTION);
         } catch (IOException e) {
             e.printStackTrace();
-            return MyResult.builder().code(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getCode())
-                    .message(ErrorCodeEnum.PRODUCT_UP_EXCEPTION.getMessage())
-                    .build();
+            return MyResult.failed(ErrorCodeEnum.PRODUCT_UP_EXCEPTION);
         }
     }
 

@@ -55,7 +55,6 @@ public class CategoryController {
     @ApiOperation(value = "批量删除分类信息")
     public MyResult deleteBatchCategoryByIds(@RequestBody Long[] categoryIds) {
         categoryService.deleteCategoryByIds(Arrays.asList(categoryIds));
-
         return MyResult.success();
     }
 

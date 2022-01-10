@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.web;
 
-import com.laughingather.gulimall.auth.entity.to.MemberLoginDTO;
-import com.laughingather.gulimall.auth.entity.to.MemberRegisterDTO;
+import com.laughingather.gulimall.auth.entity.to.MemberLoginTO;
+import com.laughingather.gulimall.auth.entity.to.MemberRegisterTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
@@ -39,13 +39,13 @@ public class IndexController {
     /**
      * RedirectAttributes  重定向携带数据
      *
-     * @param memberRegisterDTO
+     * @param memberRegisterTO
      * @param bindingResult
      * @param redirectAttributes
      * @return
      */
     @PostMapping("/register")
-    public String register(@Valid MemberRegisterDTO memberRegisterDTO,
+    public String register(@Valid MemberRegisterTO memberRegisterTO,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
 
@@ -65,14 +65,14 @@ public class IndexController {
         }
 
         // 调用远程服务进行注册
-        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterDTO.getMobile()).toString();
+        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterTO.getMobile()).toString();
         if (StringUtils.isBlank(cacheCode)) {
             Map<String, String> errors = new HashMap<>(2);
             errors.put("code", "验证码过期");
             redirectAttributes.addFlashAttribute("errors", errors);
             return "redirect:http://auth.gulimall.com/register.html";
         } else {
-            if (!cacheCode.equalsIgnoreCase(memberRegisterDTO.getCode())) {
+            if (!cacheCode.equalsIgnoreCase(memberRegisterTO.getCode())) {
                 Map<String, String> errors = new HashMap<>(2);
                 errors.put("code", "验证码错误");
                 redirectAttributes.addFlashAttribute("errors", errors);
@@ -81,10 +81,10 @@ public class IndexController {
         }
 
         // 执行正确的逻辑（先删除缓存中的验证码）
-        redisTemplate.delete(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterDTO.getMobile());
+        redisTemplate.delete(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterTO.getMobile());
 
 
-        MyResult result = memberFeignService.register(memberRegisterDTO);
+        MyResult result = memberFeignService.register(memberRegisterTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
             return "redirect:http://auth.gulimall.com/login.html";
         } else {
@@ -97,9 +97,9 @@ public class IndexController {
 
 
     @PostMapping("/login")
-    public String login(HttpSession session, RedirectAttributes redirectAttributes, MemberLoginDTO memberLoginDTO) {
+    public String login(HttpSession session, RedirectAttributes redirectAttributes, MemberLoginTO memberLoginTO) {
 
-        MyResult<MemberEntity> result = memberFeignService.login(memberLoginDTO);
+        MyResult<MemberEntity> result = memberFeignService.login(memberLoginTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
             session.setAttribute(AuthConstants.LOGIN_USER, result.getData());
             return "redirect:http://gulimall.com";

@@ -1,9 +1,9 @@
-package com.laughingather.gulimall.adminnew.entity.dto;
+package com.laughingather.gulimall.adminnew.entity.to;
 
 import lombok.Data;
 
 @Data
-public class UserLoginDTO {
+public class AdminLoginTO {
 
     /**
      * 用户名

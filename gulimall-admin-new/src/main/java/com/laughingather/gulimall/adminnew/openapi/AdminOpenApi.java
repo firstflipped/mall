@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.adminnew.openapi;
 
-import com.laughingather.gulimall.adminnew.entity.dto.UserDTO;
-import com.laughingather.gulimall.adminnew.entity.dto.UserLoginDTO;
+import com.laughingather.gulimall.adminnew.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.adminnew.entity.to.AdminTO;
 import com.laughingather.gulimall.adminnew.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,13 +29,13 @@ public class AdminOpenApi {
      * <p>
      * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
      *
-     * @param userLoginDTO
+     * @param adminLoginTO
      * @return
      */
     @PostMapping("/login")
-    MyResult<UserDTO> login(@RequestBody UserLoginDTO userLoginDTO) {
-        UserDTO userDTO = sysUserService.checkLogin(userLoginDTO);
-        return userDTO != null ? MyResult.success(userDTO) : MyResult.failed();
+    MyResult<AdminTO> login(@RequestBody AdminLoginTO adminLoginTO) {
+        AdminTO adminTO = sysUserService.checkLogin(adminLoginTO);
+        return adminTO != null ? MyResult.success(adminTO) : MyResult.failed();
     }
 
 }

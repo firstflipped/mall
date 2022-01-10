@@ -1,21 +1,20 @@
 package com.laughingather.gulimall.auth.controller;
 
 import cn.hutool.core.util.RandomUtil;
-import com.laughingather.gulimall.auth.entity.to.UserLoginTO;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
-import com.laughingather.gulimall.auth.service.UserLoginService;
+import com.laughingather.gulimall.auth.service.AdminLoginService;
+import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * 管理用户登录路由
@@ -24,14 +23,14 @@ import java.util.stream.Collectors;
  * @create：2021-06-21 23:55
  */
 @RestController
-public class UserLoginController {
+public class AdminLoginController {
 
     @Resource
     private ThirdPartyFeignService thirdPartyFeignService;
     @Resource
-    private UserLoginService userLoginService;
+    private AdminLoginService adminLoginService;
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/sms/send-code")
     public MyResult sendCode(@RequestParam("phoneNum") String phoneNum) {
@@ -54,17 +53,9 @@ public class UserLoginController {
 
 
     @PostMapping("/login")
-    public MyResult<String> login(@RequestBody @Valid UserLoginTO userLoginTO, BindingResult bindingResult) {
-        // 校验参数
-        if (bindingResult.hasErrors()) {
-            String errors = bindingResult.getFieldErrors().stream().map(FieldError::getDefaultMessage)
-                    .collect(Collectors.joining(","));
-            return MyResult.errMsg(errors);
-        }
-
-        userLoginService.login(userLoginTO);
-
-        return null;
+    public MyResult<String> login(@RequestBody @Valid AdminLoginTO adminLoginTO) {
+        String token = adminLoginService.login(adminLoginTO);
+        return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
     }
 
 

@@ -11,6 +11,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface SysUserRepository extends JpaRepository<SysUserEntity, Long> {
 
+    /**
+     * 根据用户名查询用户信息
+     *
+     * @param username
+     * @return
+     */
     SysUserEntity getByUsernameEquals(String username);
 
 }

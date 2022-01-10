@@ -7,10 +7,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * 启动类
  *
+ * @SpringBootApplication(scanBasePackages = {"com.laughingather.gulimall.*"})   注入common包中的类
  * @author：laughingather
  * @create：2021-11-24 2021/11/24
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.laughingather.gulimall.*"})
 @EnableDiscoveryClient
 public class GulimallAdminNewApplication {
 

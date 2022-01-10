@@ -71,7 +71,7 @@ public class WareOpenApi {
             Boolean result = wareSkuService.orderLockStock(wareSkuLockTO);
             return result ? MyResult.success() : MyResult.failed();
         } catch (Exception e) {
-            return MyResult.builder().code(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode()).message(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage()).build();
+            return MyResult.failed(ErrorCodeEnum.NO_STOCK_EXCEPTION);
         }
     }
 
