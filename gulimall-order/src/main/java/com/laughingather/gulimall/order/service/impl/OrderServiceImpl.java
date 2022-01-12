@@ -266,7 +266,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             // 更新订单状态为已取消状态
             OrderEntity updateOrder = new OrderEntity();
             updateOrder.setId(orderId);
-            updateOrder.setStatus(OrderConstants.OrderStatusEnum.CANCLED.getCode());
+            updateOrder.setStatus(OrderConstants.OrderStatusEnum.CANCELLED.getCode());
             orderDao.updateById(updateOrder);
 
             // 立即发送一个消息

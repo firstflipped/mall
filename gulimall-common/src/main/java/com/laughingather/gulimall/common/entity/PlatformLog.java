@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * @author WangJie
+ * 日志实体
+ *
+ * @author：laughingather
  */
 @Data
 @Builder

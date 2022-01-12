@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * json工具类
+ *
  * @author laughingather
  */
 public class JsonUtil {
@@ -133,7 +135,11 @@ public class JsonUtil {
         }
     }
 
-    //亮点：模拟构造方法设计模式提供类似于阿里巴巴FastJSON的put方式构造JSON功能
+    /**
+     * 亮点：模拟构造方法设计模式提供类似于阿里巴巴FastJSON的put方式构造JSON功能
+     *
+     * @return
+     */
     public static JsonBuilder builder() {
         return new JsonBuilder();
     }

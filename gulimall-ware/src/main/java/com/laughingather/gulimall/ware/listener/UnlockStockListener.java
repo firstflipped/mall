@@ -142,7 +142,7 @@ public class UnlockStockListener {
         }
 
         // 订单状态取消解锁库存
-        if (Objects.equals(OrderConstants.OrderStatusEnum.CANCLED.getCode(), order.getStatus())) {
+        if (Objects.equals(OrderConstants.OrderStatusEnum.CANCELLED.getCode(), order.getStatus())) {
             wareSkuService.unlockStock(detail.getSkuId(), detail.getWareId(), detail.getSkuNum(), detail.getId());
         }
     }

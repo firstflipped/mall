@@ -219,7 +219,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
     private void updateDonePurchase(Long purchaseId, Boolean flag) {
         PurchaseEntity purchase = new PurchaseEntity();
         purchase.setId(purchaseId);
-        purchase.setStatus(flag ? WareConstants.PurchaseEnum.FINISH.getCode() : WareConstants.PurchaseEnum.HASERROR.getCode());
+        purchase.setStatus(flag ? WareConstants.PurchaseEnum.FINISH.getCode() : WareConstants.PurchaseEnum.ERROR.getCode());
         purchase.setUpdateTime(LocalDateTime.now());
         purchaseDao.updateById(purchase);
     }
@@ -236,7 +236,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
         List<PurchaseDetailEntity> purchaseDetails = new ArrayList();
         for (DonePurchaseItemParam item : items) {
             PurchaseDetailEntity purchaseDetail = new PurchaseDetailEntity();
-            if (WareConstants.PurchaseDetailEnum.HASERROR.getCode().equals(item.getStatus())) {
+            if (WareConstants.PurchaseDetailEnum.ERROR.getCode().equals(item.getStatus())) {
                 flag = false;
                 purchaseDetail.setStatus(item.getStatus());
             } else {

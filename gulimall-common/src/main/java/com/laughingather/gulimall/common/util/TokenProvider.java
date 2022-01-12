@@ -25,7 +25,7 @@ import java.util.Date;
  * JwtToken工具类
  *
  * @author：laughingather
- * @date 2022/1/12 17:39
+ * @date 2022-01-12
  */
 @Slf4j
 public class TokenProvider {

@@ -19,7 +19,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author WangJie
+ * oss文件上传
+ *
+ * @author：laughingather
  */
 @Slf4j
 @RestController
@@ -42,10 +44,10 @@ public class OssController {
         String host = "https://" + bucket + "." + endpoint;
         String projectName = "gulimall";
         // 格式化一个当前日期
-        String format = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
+        String now = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now());
         // File.separator    系统路径分隔符
         // 用户上传文件时指定的前缀
-        String dir = projectName + "/" + format + "/";
+        String dir = projectName + "/" + now + "/";
 
         Map<String, String> respMap = null;
 

@@ -6,7 +6,7 @@ import lombok.Data;
  * 锁定库存工作单详情
  *
  * @author：laughingather
- * @create：2021-10-26 2021/10/26
+ * @create：2021-10-26
  */
 @Data
 public class StockDetailDTO {

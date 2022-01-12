@@ -46,7 +46,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<CategoryTreeVO> categoryList = categoryDao.selectListWithTree();
 
         List<CategoryTreeVO> level1Menus = categoryList.stream()
-                .filter(category -> ProductConstants.categoryRootId.equals(category.getParentCid()))
+                .filter(category -> ProductConstants.CATEGORY_ROOT_ID.equals(category.getParentCid()))
                 .map(category -> {
                     category.setChildren(getChildless(category, categoryList));
                     return category;
@@ -107,7 +107,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         List<CategoryEntity> categories = categoryDao.selectList(null);
 
         // 1、获取所有一级分类
-        List<CategoryEntity> category1List = listCategoryByParentId(categories, ProductConstants.categoryRootId);
+        List<CategoryEntity> category1List = listCategoryByParentId(categories, ProductConstants.CATEGORY_ROOT_ID);
 
         // 2、把一级分类id当键， 二级分类及子类当值
         Map<String, List<Category2VO>> catalogJSON = category1List.stream().collect(Collectors.toMap(
@@ -226,7 +226,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         Long parentCid = category.getParentCid();
 
         // 如果不是顶级分类就继续向上查找
-        if (!ProductConstants.categoryRootId.equals(parentCid)) {
+        if (!ProductConstants.CATEGORY_ROOT_ID.equals(parentCid)) {
             findParentById(parentCid, catalogPath);
         }
 

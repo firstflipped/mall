@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Objects;
 
 /**
- * @author WangJie
- * <p>
- * 记得要加入默认构造器，要不然会报序列化异常错误
+ * @author：laughingather 记得要加入默认构造器，要不然会报序列化异常错误
  */
 @Data
 @Builder

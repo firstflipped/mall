@@ -4,9 +4,9 @@ package com.laughingather.gulimall.common.constant;
  * 秒杀服务常量
  *
  * @author：laughingather
- * @create：2021-11-12 2021/11/12
+ * @create：2021-11-12
  */
-public class SeckillConstants {
+public class SecKillConstants {
 
     public static final String SESSION_CACHE_PREFIX = "seckill:sessions:";
 
@@ -16,6 +16,9 @@ public class SeckillConstants {
 
     public static final String UPLOAD_LOCK = "seckill:upload:lock";
 
+    /**
+     * 锁定时间
+     */
     public static final long UPLOAD_LOCK_TIME = 10;
 
 

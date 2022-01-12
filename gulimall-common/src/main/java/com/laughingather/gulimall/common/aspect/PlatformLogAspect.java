@@ -50,10 +50,10 @@ public class PlatformLogAspect {
     @Resource
     private PlatformLogService platformLogService;
 
-//    @Pointcut("execution(public * com.laughingather.gulimall.*.controller.*.*(..))")
-@Pointcut("@annotation(com.laughingather.gulimall.common.annotation.PlatformLogAnnotation)")
-public void platformLog() {
-}
+
+    @Pointcut("@annotation(com.laughingather.gulimall.common.annotation.PlatformLogAnnotation)")
+    public void platformLog() {
+    }
 
 
     @Around("platformLog()")

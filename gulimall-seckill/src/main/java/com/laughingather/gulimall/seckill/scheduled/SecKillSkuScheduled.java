@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.scheduled;
 
-import com.laughingather.gulimall.common.constant.SeckillConstants;
+import com.laughingather.gulimall.common.constant.SecKillConstants;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -37,8 +37,8 @@ public class SecKillSkuScheduled {
     @Scheduled(cron = "*/10 * * * * ?")
     public void uploadSecKillSkuLatest3Days() {
         log.info("上架秒杀产品");
-        RLock lock = redissonClient.getLock(SeckillConstants.UPLOAD_LOCK);
-        lock.lock(SeckillConstants.UPLOAD_LOCK_TIME, TimeUnit.SECONDS);
+        RLock lock = redissonClient.getLock(SecKillConstants.UPLOAD_LOCK);
+        lock.lock(SecKillConstants.UPLOAD_LOCK_TIME, TimeUnit.SECONDS);
         try {
             secKillSkuService.uploadSecKillSkuLatest3Days();
         } finally {

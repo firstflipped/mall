@@ -1,7 +1,9 @@
 package com.laughingather.gulimall.common.constant;
 
 /**
- * @author WangJie
+ * 搜索服务常量
+ *
+ * @author：laughingather
  */
 public class SearchConstants {
 

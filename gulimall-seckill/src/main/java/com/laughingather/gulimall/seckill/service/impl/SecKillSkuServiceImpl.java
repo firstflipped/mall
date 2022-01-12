@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.seckill.service.impl;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.constant.SeckillConstants;
+import com.laughingather.gulimall.common.constant.SecKillConstants;
 import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
 import com.laughingather.gulimall.seckill.feign.entity.SeckillSessionTO;
 import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
@@ -62,9 +62,9 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
 
         // 确定当前时间属于哪个秒杀场次
         long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-        Set<String> keys = redisTemplate.keys(SeckillConstants.SESSION_CACHE_PREFIX + "*");
+        Set<String> keys = redisTemplate.keys(SecKillConstants.SESSION_CACHE_PREFIX + "*");
         for (String key : keys) {
-            String during = key.replace(SeckillConstants.SESSION_CACHE_PREFIX, "");
+            String during = key.replace(SecKillConstants.SESSION_CACHE_PREFIX, "");
             String[] time = during.split("-");
             long startTime = Long.parseLong(time[0]);
             long endTime = Long.parseLong(time[1]);
@@ -72,7 +72,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
             // 获取这个场次下的所有商品信息
             if (now >= startTime && now < endTime) {
                 List<String> skuIds = redisTemplate.opsForList().range(key, -100, 100);
-                BoundHashOperations skuOperations = redisTemplate.boundHashOps(SeckillConstants.SESSION_SKUS_CACHE_PREFIX);
+                BoundHashOperations skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
                 List<SecKillSkuRedisTO> skus = skuOperations.multiGet(skuIds);
                 // 当前秒杀开始就需要随机码
                 // skus.stream().forEach(sku -> sku.setRandomCode(null));
@@ -86,7 +86,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
 
     @Override
     public SecKillSkuRedisTO getSecKillSkuInfo(Long skuId) {
-        BoundHashOperations<String, String, SecKillSkuRedisTO> skuOperations = redisTemplate.boundHashOps(SeckillConstants.SESSION_SKUS_CACHE_PREFIX);
+        BoundHashOperations<String, String, SecKillSkuRedisTO> skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
         Set<String> keys = skuOperations.keys();
 
         // TODO:此处需要处理同一商品处于不同秒杀场次下的问题
@@ -126,7 +126,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
             long startTime = secKillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
             long endTime = secKillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
-            String key = SeckillConstants.SESSION_CACHE_PREFIX + startTime + "-" + endTime;
+            String key = SecKillConstants.SESSION_CACHE_PREFIX + startTime + "-" + endTime;
             // 如果不存在当前的键才添加
             if (!redisTemplate.hasKey(key)) {
                 List<String> skuIds = secKillSessionTO.getSkuRelations().stream().map(skuRelationTO ->
@@ -145,7 +145,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
      */
     private void saveSessionSkusInfo(List<SeckillSessionTO> secKillSessionTOList) {
         secKillSessionTOList.stream().forEach(secKillSessionTO -> {
-            BoundHashOperations skuOperations = redisTemplate.boundHashOps(SeckillConstants.SESSION_SKUS_CACHE_PREFIX);
+            BoundHashOperations skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
             secKillSessionTO.getSkuRelations().stream().forEach(skuRelationTO -> {
                 // 判断是否存在该商品的信息
                 Boolean has = skuOperations.hasKey(skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId());
@@ -172,7 +172,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
                     skuOperations.put(skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId(), secKillSkuRedisTO);
 
                     // 信号量 商品可以秒杀的数量作为信号量
-                    RSemaphore semaphore = redissonClient.getSemaphore(SeckillConstants.SKU_STOCK_SEMAPHORE + randomCode);
+                    RSemaphore semaphore = redissonClient.getSemaphore(SecKillConstants.SKU_STOCK_SEMAPHORE + randomCode);
                     semaphore.trySetPermits(skuRelationTO.getSeckillCount());
                 }
             });

@@ -4,7 +4,7 @@ package com.laughingather.gulimall.common.constant;
  * 管理端常量
  *
  * @author：laughingather
- * @create：2021-11-25 2021/11/25
+ * @create：2021-11-25
  */
 public class AdminConstants {
 

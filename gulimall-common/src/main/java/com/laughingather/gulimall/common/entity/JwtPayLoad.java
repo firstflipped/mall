@@ -30,8 +30,8 @@ import lombok.Data;
 /**
  * JwtPayLoad部分
  *
- * @author xuyuxiang
- * @date 2020/3/12 17:41
+ * @author：laughingather
+ * @date 2020-09-09
  */
 @Data
 public class JwtPayLoad {

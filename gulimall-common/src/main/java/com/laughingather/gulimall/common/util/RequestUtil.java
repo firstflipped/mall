@@ -8,7 +8,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * @author WangJie
+ * 获取客户端ip工具类
+ *
+ * @author：laughingather
  */
 @Slf4j
 public class RequestUtil {
@@ -25,7 +27,7 @@ public class RequestUtil {
             ip = request.getHeader("Proxy-Client-IP");
         }
         if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
-            // WL-Proxy-Client-IP：weblogic 服务代理
+            // WL-Proxy-Client-IP：WebLogic 服务代理
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
         if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {

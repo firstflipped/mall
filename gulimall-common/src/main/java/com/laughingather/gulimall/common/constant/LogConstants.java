@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.common.constant;
 
 /**
- * 日志收集常量类
+ * 日志收集常量
  *
  * @author：laughingather
  * @create：2021-12-08 2021/12/8
@@ -16,7 +16,9 @@ public class LogConstants {
     public static final int UPDATE = 3;
     public static final int SELECT = 4;
 
-
+    /**
+     * 是否登录
+     */
     public static final boolean LOGIN = true;
     public static final boolean NO_LOGIN = false;
 

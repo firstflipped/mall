@@ -1,7 +1,9 @@
 package com.laughingather.gulimall.common.constant;
 
 /**
- * @author WangJie
+ * 公共常量
+ *
+ * @author：laughingather
  */
 public interface Constants {
 
