@@ -42,21 +42,21 @@ public class PurchaseDetailController {
 
     @PostMapping
     @ApiOperation(value = "保存采购单详情信息")
-    public MyResult savePurchaseDetail(@RequestBody PurchaseDetailEntity purchaseDetail) {
+    public MyResult<Void> savePurchaseDetail(@RequestBody PurchaseDetailEntity purchaseDetail) {
         purchaseDetailService.save(purchaseDetail);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除采购单详情信息")
-    public MyResult deleteBatchPurchaseDetailByIds(@RequestBody Long[] ids) {
+    public MyResult<Void> deleteBatchPurchaseDetailByIds(@RequestBody Long[] ids) {
         purchaseDetailService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新采购单详情信息")
-    public MyResult updatePurchaseDetailById(@RequestBody PurchaseDetailEntity purchaseDetail) {
+    public MyResult<Void> updatePurchaseDetailById(@RequestBody PurchaseDetailEntity purchaseDetail) {
         purchaseDetailService.updateById(purchaseDetail);
         return MyResult.success();
     }

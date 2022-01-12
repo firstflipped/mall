@@ -38,14 +38,14 @@ public class SecKillSkuRelationController {
 
     @PostMapping
     @ApiOperation(value = "保存秒杀活动&商品关联关系")
-    public MyResult saveSecKillSkuRelation(@RequestBody SecKillSkuRelationEntity secKillSkuRelation) {
+    public MyResult<Void> saveSecKillSkuRelation(@RequestBody SecKillSkuRelationEntity secKillSkuRelation) {
         secKillSkuRelationService.save(secKillSkuRelation);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新秒杀活动&商品关联关系")
-    public MyResult updateSecKillSkuRelation(@RequestBody SecKillSkuRelationEntity secKillSkuRelation) {
+    public MyResult<Void> updateSecKillSkuRelation(@RequestBody SecKillSkuRelationEntity secKillSkuRelation) {
         secKillSkuRelationService.updateById(secKillSkuRelation);
         return MyResult.success();
     }
@@ -53,7 +53,7 @@ public class SecKillSkuRelationController {
 
     @DeleteMapping
     @ApiOperation(value = "批量删除秒杀活动&商品关联关系")
-    public MyResult deleteSecKillSkuRelation(@RequestBody List<Long> ids) {
+    public MyResult<Void> deleteSecKillSkuRelation(@RequestBody List<Long> ids) {
         secKillSkuRelationService.removeByIds(ids);
         return MyResult.success();
     }

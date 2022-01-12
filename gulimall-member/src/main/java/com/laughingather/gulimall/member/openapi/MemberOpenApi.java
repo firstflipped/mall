@@ -40,7 +40,7 @@ public class MemberOpenApi {
      * @return
      */
     @PostMapping("/register")
-    public MyResult register(@RequestBody MemberRegisterDTO memberRegisterDTO) {
+    public MyResult<Void> register(@RequestBody MemberRegisterDTO memberRegisterDTO) {
         try {
             memberService.registerMember(memberRegisterDTO);
         } catch (UsernameExistException e) {

@@ -30,7 +30,7 @@ public class SysUserController {
     @PostMapping
     @ApiOperation(value = "保存用户")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存用户")
-    public MyResult saveUser(@RequestBody SysUserEntity sysUserEntity) {
+    public MyResult<Void> saveUser(@RequestBody SysUserEntity sysUserEntity) {
         sysUserService.saveUser(sysUserEntity);
         return MyResult.success();
     }
@@ -38,14 +38,14 @@ public class SysUserController {
 
     @DeleteMapping
     @ApiOperation(value = "批量删除用户")
-    public MyResult deleteBatchUserByIds(@RequestBody List<Long> userIds) {
+    public MyResult<Void> deleteBatchUserByIds(@RequestBody List<Long> userIds) {
         sysUserService.deleteBatchUserByIds(userIds);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新用户")
-    public MyResult updateUserById(@RequestBody SysUserEntity sysUserEntity) {
+    public MyResult<Void> updateUserById(@RequestBody SysUserEntity sysUserEntity) {
         sysUserService.updateUserById(sysUserEntity);
         return MyResult.success();
     }

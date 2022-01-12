@@ -44,21 +44,21 @@ public class OrderReturnReasonController {
 
     @PostMapping
     @ApiOperation(value = "保存退货原因信息")
-    public MyResult saveOrderReturnReason(@RequestBody OrderReturnReasonEntity orderReturnReason) {
+    public MyResult<Void> saveOrderReturnReason(@RequestBody OrderReturnReasonEntity orderReturnReason) {
         orderReturnReasonService.saveOrderReturnReason(orderReturnReason);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除退货原因信息")
-    public MyResult deleteBatchOrderReturnReason(@RequestBody List<Long> ids) {
+    public MyResult<Void> deleteBatchOrderReturnReason(@RequestBody List<Long> ids) {
         orderReturnReasonService.removeByIds(ids);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新退货原因信息")
-    public MyResult updateOrderReturnReason(@RequestBody OrderReturnReasonEntity orderReturnReason) {
+    public MyResult<Void> updateOrderReturnReason(@RequestBody OrderReturnReasonEntity orderReturnReason) {
         orderReturnReasonService.updateOrderReturnReason(orderReturnReason);
         return MyResult.success();
     }

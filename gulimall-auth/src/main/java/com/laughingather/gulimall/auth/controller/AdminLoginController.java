@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @create：2021-06-21 23:55
  */
 @RestController
+@RequestMapping("/auth/admin")
 public class AdminLoginController {
 
     @Resource
@@ -33,7 +34,7 @@ public class AdminLoginController {
     private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/sms/send-code")
-    public MyResult sendCode(@RequestParam("phoneNum") String phoneNum) {
+    public MyResult<Void> sendCode(@RequestParam("phoneNum") String phoneNum) {
         Object cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + phoneNum);
         if (!Objects.isNull(cacheCode)) {
             // 如果缓存中存在验证码则不允许重发
@@ -60,7 +61,7 @@ public class AdminLoginController {
 
 
     @PostMapping("/logout")
-    public MyResult logout() {
+    public MyResult<Void> logout() {
         return null;
     }
 

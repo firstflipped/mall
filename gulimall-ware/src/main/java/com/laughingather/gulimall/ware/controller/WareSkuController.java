@@ -44,21 +44,21 @@ public class WareSkuController {
 
     @PostMapping
     @ApiOperation(value = "保存商品库存信息")
-    public MyResult saveWareSku(@RequestBody WareSkuEntity wareSku) {
+    public MyResult<Void> saveWareSku(@RequestBody WareSkuEntity wareSku) {
         wareSkuService.saveWareSku(wareSku);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除商品库存信息")
-    public MyResult deleteBatchWareSkuByIds(@RequestBody Long[] ids) {
+    public MyResult<Void> deleteBatchWareSkuByIds(@RequestBody Long[] ids) {
         wareSkuService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新商品库存信息")
-    public MyResult updateWareSkuById(@RequestBody WareSkuEntity wareSku) {
+    public MyResult<Void> updateWareSkuById(@RequestBody WareSkuEntity wareSku) {
         wareSkuService.updateWareSkuById(wareSku);
         return MyResult.success();
     }

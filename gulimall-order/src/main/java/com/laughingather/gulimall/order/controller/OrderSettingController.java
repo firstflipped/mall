@@ -55,7 +55,7 @@ public class OrderSettingController {
 
     @PutMapping
     @ApiOperation(value = "更新订单配置信息")
-    public MyResult updateOrderSetting(@RequestBody OrderSettingEntity orderSetting) {
+    public MyResult<Void> updateOrderSetting(@RequestBody OrderSettingEntity orderSetting) {
         orderSettingService.updateOrderSetting(orderSetting);
         return MyResult.success();
     }
@@ -63,7 +63,7 @@ public class OrderSettingController {
 
     @DeleteMapping
     @ApiOperation(value = "批量删除订单配置信息")
-    public MyResult deleteBatchOrderSetting(@RequestBody List<Long> ids) {
+    public MyResult<Void> deleteBatchOrderSetting(@RequestBody List<Long> ids) {
         orderSettingService.removeByIds(ids);
         return MyResult.success();
     }

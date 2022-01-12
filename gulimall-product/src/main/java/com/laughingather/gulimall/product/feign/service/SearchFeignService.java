@@ -12,6 +12,6 @@ import java.util.List;
 public interface SearchFeignService {
 
     @PostMapping("/gulimall-search/openapi/search/product")
-    MyResult productStatusUp(@RequestBody List<SkuEsTO> skuEsTOs);
+    MyResult<Void> productStatusUp(@RequestBody List<SkuEsTO> skuEsTOs);
 
 }

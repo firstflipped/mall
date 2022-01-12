@@ -60,21 +60,21 @@ public class WareInfoController {
 
     @PostMapping
     @ApiOperation(value = "保存仓库信息")
-    public MyResult saveWare(@RequestBody WareInfoEntity wareInfo) {
+    public MyResult<Void> saveWare(@RequestBody WareInfoEntity wareInfo) {
         wareInfoService.save(wareInfo);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新仓库信息")
-    public MyResult updateWareById(@RequestBody WareInfoEntity wareInfo) {
+    public MyResult<Void> updateWareById(@RequestBody WareInfoEntity wareInfo) {
         wareInfoService.updateById(wareInfo);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除仓库信息")
-    public MyResult deleteBatchWareByIds(@RequestBody Long[] ids) {
+    public MyResult<Void> deleteBatchWareByIds(@RequestBody Long[] ids) {
         wareInfoService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }

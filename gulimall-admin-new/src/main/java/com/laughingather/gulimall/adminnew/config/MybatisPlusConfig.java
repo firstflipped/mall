@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * mybatis-plus配置
  *
- * @author Mark laughingather@gmail.com
+ * @author：laughingather
+ * @create：2022-01-11
  * @EnableTransactionManagement:开启事务
  */
 @Configuration

@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.auth.util;
+package com.laughingather.gulimall.common.util;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
@@ -10,6 +10,7 @@ import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +39,11 @@ public class TokenProvider {
      * 加密钥
      */
     private static final SecretKey SIGNING_KEY;
+
+    /**
+     * 加密方式
+     */
+    public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     /**
      * 获取配置文件中的密钥
@@ -78,12 +84,12 @@ public class TokenProvider {
                 .setIssuer(AuthConstants.ISSUER)
                 // 消息主题
                 .setClaims(BeanUtil.beanToMap(jwtPayLoad))
-                .setSubject(jwtPayLoad.getUserId().toString())
+                .setSubject(jwtPayLoad.getUserid().toString())
                 // 签发时间
                 .setIssuedAt(new Date())
                 // 签发有效截止时间
                 .setExpiration(expirationDate)
-                .signWith(SIGNING_KEY, AuthConstants.SIGNATURE_ALGORITHM)
+                .signWith(SIGNING_KEY, SIGNATURE_ALGORITHM)
                 .compact();
 
         return AuthConstants.TOKEN_PREFIX + token;
@@ -147,7 +153,7 @@ public class TokenProvider {
         JwtPayLoad jwtPayLoad = new JwtPayLoad();
         jwtPayLoad.setUuid(IdUtil.fastUUID());
         jwtPayLoad.setUsername("admin");
-        jwtPayLoad.setUserId(111L);
+        jwtPayLoad.setUserid(111L);
         String token = generateToken(jwtPayLoad);
         log.info("token:{}", token);
 

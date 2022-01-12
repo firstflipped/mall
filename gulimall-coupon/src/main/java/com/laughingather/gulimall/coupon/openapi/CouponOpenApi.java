@@ -32,13 +32,13 @@ public class CouponOpenApi {
     private SecKillSessionService secKillSessionService;
 
     @PostMapping("/spu-bounds")
-    public MyResult saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO) {
+    public MyResult<Void> saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO) {
         spuBoundsService.saveSpuBounds(spuBoundTO);
         return MyResult.success();
     }
 
     @PostMapping("/sku-other-info")
-    public MyResult saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO) {
+    public MyResult<Void> saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO) {
         couponOpenService.saveSkuOtherInfo(skuOtherInfoTO);
         return MyResult.success();
     }

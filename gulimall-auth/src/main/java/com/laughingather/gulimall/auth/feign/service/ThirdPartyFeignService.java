@@ -20,7 +20,7 @@ public interface ThirdPartyFeignService {
      * @return
      */
     @GetMapping("/gulimall-third-party/sms/sms-send.do")
-    MyResult sendCheckCode(@RequestParam(name = "phoneNumber") String phoneNumber,
-                           @RequestParam(name = "code") String code);
+    MyResult<Void> sendCheckCode(@RequestParam(name = "phoneNumber") String phoneNumber,
+                                 @RequestParam(name = "code") String code);
 
 }

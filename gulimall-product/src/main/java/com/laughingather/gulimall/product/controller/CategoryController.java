@@ -53,7 +53,7 @@ public class CategoryController {
 
     @DeleteMapping
     @ApiOperation(value = "批量删除分类信息")
-    public MyResult deleteBatchCategoryByIds(@RequestBody Long[] categoryIds) {
+    public MyResult<Void> deleteBatchCategoryByIds(@RequestBody Long[] categoryIds) {
         categoryService.deleteCategoryByIds(Arrays.asList(categoryIds));
         return MyResult.success();
     }
@@ -66,7 +66,7 @@ public class CategoryController {
     @PutMapping
     @CacheEvict(value = "category", key = "'level1Category'")
     @ApiOperation(value = "更新分类信息", notes = "采用了缓存失效模式，如果执行了该更新操作，则会把缓存删掉")
-    public MyResult updateCategoryById(@RequestBody CategoryEntity category) {
+    public MyResult<Void> updateCategoryById(@RequestBody CategoryEntity category) {
         boolean isSuccess = categoryService.updateById(category);
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
@@ -74,7 +74,7 @@ public class CategoryController {
 
     @PutMapping("/drag")
     @ApiOperation(value = "批量拖拽更新分类信息")
-    public MyResult updateWithDrag(@RequestBody CategoryEntity[] categories) {
+    public MyResult<Void> updateWithDrag(@RequestBody CategoryEntity[] categories) {
         boolean isSuccess = categoryService.updateBatchById(Arrays.asList(categories));
         return isSuccess ? MyResult.success() : MyResult.failed();
     }

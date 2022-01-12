@@ -60,7 +60,7 @@ public class PurchaseController {
 
     @PostMapping
     @ApiOperation(value = "保存采购单信息")
-    public MyResult savePurchase(@RequestBody PurchaseEntity purchase) {
+    public MyResult<Void> savePurchase(@RequestBody PurchaseEntity purchase) {
         purchaseService.savePurchase(purchase);
         return MyResult.success();
     }
@@ -68,34 +68,34 @@ public class PurchaseController {
     @DeleteMapping
     @ApiOperation(value = "批量删除采购单信息")
     @ApiImplicitParam(name = "ids", value = "采购单id集合", dataTypeClass = Long.class)
-    public MyResult deleteBatchPurchaseByIds(@RequestBody Long[] ids) {
+    public MyResult<Void> deleteBatchPurchaseByIds(@RequestBody Long[] ids) {
         purchaseService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新采购单信息")
-    public MyResult updatePurchaseById(@RequestBody PurchaseEntity purchase) {
+    public MyResult<Void> updatePurchaseById(@RequestBody PurchaseEntity purchase) {
         purchaseService.updatePurchaseById(purchase);
         return MyResult.success();
     }
 
     @PutMapping("/merge")
     @ApiOperation(value = "合并采购单")
-    public MyResult mergePurchase(@RequestBody MergePurchaseParam mergePurchaseParam) {
+    public MyResult<Void> mergePurchase(@RequestBody MergePurchaseParam mergePurchaseParam) {
         purchaseService.mergePurchase(mergePurchaseParam);
         return MyResult.success();
     }
 
     @PutMapping("/received")
     @ApiOperation(value = "完成采购单")
-    public MyResult receivedPurchase(@RequestBody List<Long> ids) {
+    public MyResult<Void> receivedPurchase(@RequestBody List<Long> ids) {
         purchaseService.receivedPurchase(ids);
         return MyResult.success();
     }
 
     @PutMapping("/done")
-    public MyResult donePurchase(@RequestBody DonePurchaseParam donePurchaseParam) {
+    public MyResult<Void> donePurchase(@RequestBody DonePurchaseParam donePurchaseParam) {
         purchaseService.donePurchase(donePurchaseParam);
         return MyResult.success();
     }

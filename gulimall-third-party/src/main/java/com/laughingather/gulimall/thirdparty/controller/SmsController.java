@@ -36,8 +36,8 @@ public class SmsController {
     private SmsReportMessageListener smsReportMessageListener;
 
     @RequestMapping("/sms-send.do")
-    public MyResult sendCheckCode(@RequestParam(name = "phoneNumber") String phoneNumber,
-                                  @RequestParam(name = "code") String code) {
+    public MyResult<SendSmsResponse> sendCheckCode(@RequestParam(name = "phoneNumber") String phoneNumber,
+                                                   @RequestParam(name = "code") String code) {
         // 组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         // 必填:待发送手机号

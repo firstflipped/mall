@@ -39,7 +39,7 @@ public class ExceptionControllerAdvice {
     }
 
     @ExceptionHandler(value = Throwable.class)
-    public MyResult handleThrowable(Throwable throwable) {
+    public MyResult<String> handleThrowable(Throwable throwable) {
         throwable.printStackTrace();
         log.error("出现异常{}，异常类型{}", throwable.getMessage(), throwable.getClass());
         return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION, throwable.getMessage());

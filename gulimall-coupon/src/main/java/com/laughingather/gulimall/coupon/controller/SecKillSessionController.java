@@ -43,7 +43,7 @@ public class SecKillSessionController {
 
     @PostMapping
     @ApiOperation(value = "保存秒杀活动场次信息")
-    public MyResult saveSecKillSession(@RequestBody SecKillSessionEntity secKillSession) {
+    public MyResult<Void> saveSecKillSession(@RequestBody SecKillSessionEntity secKillSession) {
         secKillSession.setCreateTime(LocalDateTime.now());
         secKillSessionService.save(secKillSession);
         return MyResult.success();
@@ -51,7 +51,7 @@ public class SecKillSessionController {
 
     @PutMapping
     @ApiOperation(value = "更新秒杀活动场次信息")
-    public MyResult updateSecKillSessionById(@RequestBody SecKillSessionEntity secKillSession) {
+    public MyResult<Void> updateSecKillSessionById(@RequestBody SecKillSessionEntity secKillSession) {
         secKillSessionService.updateById(secKillSession);
         return MyResult.success();
     }

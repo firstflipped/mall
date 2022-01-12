@@ -30,28 +30,28 @@ public class SysPermissionController {
 
     @PostMapping
     @ApiOperation(value = "保存权限")
-    public MyResult savePermission(@RequestBody SysPermissionEntity sysPermissionEntity) {
+    public MyResult<Void> savePermission(@RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.savePermission(sysPermissionEntity);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除权限")
-    public MyResult deletePermissionByIds(@RequestBody List<Long> permissionIds) {
+    public MyResult<Void> deletePermissionByIds(@RequestBody List<Long> permissionIds) {
         sysPermissionService.batchDeletePermission(permissionIds);
         return MyResult.success();
     }
 
     @DeleteMapping("/{pid}")
     @ApiOperation(value = "删除权限")
-    public MyResult deletePermissionById(@PathVariable("pid") Long permissionId) {
+    public MyResult<Void> deletePermissionById(@PathVariable("pid") Long permissionId) {
         sysPermissionService.deletePermission(permissionId);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新权限")
-    public MyResult updatePermissionById(@RequestBody SysPermissionEntity sysPermissionEntity) {
+    public MyResult<Void> updatePermissionById(@RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.updatePermission(sysPermissionEntity);
         return MyResult.success();
     }

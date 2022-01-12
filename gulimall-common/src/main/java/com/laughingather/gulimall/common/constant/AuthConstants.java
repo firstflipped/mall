@@ -1,7 +1,5 @@
 package com.laughingather.gulimall.common.constant;
 
-import io.jsonwebtoken.SignatureAlgorithm;
-
 /**
  * @author WangJie
  */
@@ -41,13 +39,16 @@ public class AuthConstants {
      */
     public static final int TOKEN_EXP_TIME = 24 * 60 * 60;
 
-    /**
-     * 加密方式
-     */
-    public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
     /**
      * token前缀
      */
     public static final String TOKEN_PREFIX = "Bearer ";
+
+    /**
+     * 用户id
+     * 用户姓名
+     */
+    public static final String USERID = "userid";
+    public static final String USERNAME = "username";
 }

@@ -31,7 +31,7 @@ class GulimallProductApplicationTests {
     @Test
     public void testFeign() {
         SpuBoundTO build = SpuBoundTO.builder().spuId(1L).growBounds(BigDecimal.ONE).buyBounds(BigDecimal.TEN).build();
-        MyResult myResult = couponFeignService.saveSpuBounds(build);
+        MyResult<Void> myResult = couponFeignService.saveSpuBounds(build);
 
         System.out.println("执行结果" + myResult);
     }

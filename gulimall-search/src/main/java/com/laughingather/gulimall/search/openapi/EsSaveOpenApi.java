@@ -30,7 +30,7 @@ public class EsSaveOpenApi {
      * @return
      */
     @PostMapping("/product")
-    public MyResult productUp(@RequestBody List<EsSku> skuESModels) {
+    public MyResult<Void> productUp(@RequestBody List<EsSku> skuESModels) {
         try {
             // 保存到es是否发生了错误
             boolean hasFailures = productSaveService.productUp(skuESModels);

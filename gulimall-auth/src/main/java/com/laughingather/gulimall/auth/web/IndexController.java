@@ -33,7 +33,7 @@ public class IndexController {
     @Resource
     private MemberFeignService memberFeignService;
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
 
     /**
@@ -84,7 +84,7 @@ public class IndexController {
         redisTemplate.delete(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterTO.getMobile());
 
 
-        MyResult result = memberFeignService.register(memberRegisterTO);
+        MyResult<Void> result = memberFeignService.register(memberRegisterTO);
         if (result.getCode().equals(ResultCodeEnum.SUCCESS.getCode())) {
             return "redirect:http://auth.gulimall.com/login.html";
         } else {

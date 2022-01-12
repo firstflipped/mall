@@ -12,7 +12,7 @@ import java.util.List;
  * 路由白名单配置
  *
  * @author：laughingather
- * @create：2021-11-25 2021/11/25
+ * @create：2021-11-25
  */
 @Data
 @Component

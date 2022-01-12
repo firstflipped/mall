@@ -1,14 +1,13 @@
 package com.laughingather.gulimall.auth.service.impl;
 
 import com.laughingather.gulimall.auth.service.AuthService;
-import com.laughingather.gulimall.auth.util.TokenProvider;
+import com.laughingather.gulimall.common.util.TokenProvider;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 认证逻辑实现
@@ -21,23 +20,22 @@ import javax.servlet.http.HttpServletRequest;
 public class AuthServiceImpl implements AuthService {
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public String generateToken(JwtPayLoad jwtPayLoad) {
         String token = TokenProvider.generateToken(jwtPayLoad);
-
         return token;
     }
 
     @Override
-    public String getTokenFromRequest(HttpServletRequest request) {
-        return null;
+    public JwtPayLoad parseToken(String token) {
+        return TokenProvider.getJwtPayLoad(token);
     }
 
     @Override
-    public void checkToken(String token) {
-
+    public Boolean checkToken(String token) {
+        return TokenProvider.checkToken(token);
     }
 
 

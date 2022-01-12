@@ -45,20 +45,20 @@ public class CouponController {
     }
 
     @PostMapping
-    public MyResult saveCoupon(@RequestBody CouponEntity coupon) {
+    public MyResult<Void> saveCoupon(@RequestBody CouponEntity coupon) {
         couponService.save(coupon);
         return MyResult.success();
     }
 
     @PutMapping
-    public MyResult updateCoupon(@RequestBody CouponEntity coupon) {
+    public MyResult<Void> updateCoupon(@RequestBody CouponEntity coupon) {
         couponService.updateById(coupon);
         return MyResult.success();
     }
 
 
     @DeleteMapping
-    public MyResult deleteCouponByIds(@RequestBody Long[] ids) {
+    public MyResult<Void> deleteCouponByIds(@RequestBody Long[] ids) {
         couponService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }

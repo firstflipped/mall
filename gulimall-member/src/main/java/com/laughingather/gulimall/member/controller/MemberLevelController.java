@@ -46,7 +46,7 @@ public class MemberLevelController {
 
     @PostMapping
     @ApiOperation(value = "保存会员等级信息")
-    public MyResult saveMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
+    public MyResult<Void> saveMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
         memberLevelService.save(memberLevelEntity);
         return MyResult.success();
     }
@@ -54,7 +54,7 @@ public class MemberLevelController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除会员等级信息")
-    public MyResult deleteMemberLevel(@PathVariable("id") Long id) {
+    public MyResult<Void> deleteMemberLevel(@PathVariable("id") Long id) {
         memberLevelService.removeById(id);
         return MyResult.success();
     }
@@ -62,7 +62,7 @@ public class MemberLevelController {
 
     @DeleteMapping
     @ApiOperation(value = "批量删除会员等级信息")
-    public MyResult deleteBatchMemberLevel(@RequestBody Long[] ids) {
+    public MyResult<Void> deleteBatchMemberLevel(@RequestBody Long[] ids) {
         memberLevelService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
@@ -70,7 +70,7 @@ public class MemberLevelController {
 
     @PutMapping
     @ApiOperation(value = "更新会员等级信息")
-    public MyResult updateMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
+    public MyResult<Void> updateMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
         memberLevelService.updateById(memberLevelEntity);
         return MyResult.success();
     }

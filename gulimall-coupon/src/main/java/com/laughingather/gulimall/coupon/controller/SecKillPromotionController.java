@@ -46,7 +46,7 @@ public class SecKillPromotionController {
 
     @PostMapping
     @ApiOperation(value = "保存秒杀活动信息")
-    public MyResult saveSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
+    public MyResult<Void> saveSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
         secKillPromotion.setCreateTime(LocalDateTime.now());
         secKillPromotionService.save(secKillPromotion);
         return MyResult.success();
@@ -55,7 +55,7 @@ public class SecKillPromotionController {
 
     @PutMapping
     @ApiOperation(value = "更新秒杀活动信息")
-    public MyResult updateSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
+    public MyResult<Void> updateSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
         secKillPromotionService.updateById(secKillPromotion);
         return MyResult.success();
     }

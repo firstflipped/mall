@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * 唯一id 雪花算法
  *
  * @author：laughingather
- * @create：2021-11-24 2021/11/24
+ * @create：2021-05-26
  */
 @Configuration
 public class MySnowflakeConfig {

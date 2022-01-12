@@ -230,7 +230,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         wareSkuLockDTO.setOrderSn(orderCreateParam.getOrder().getOrderSn());
         wareSkuLockDTO.setLocks(orderItemVOList);
 
-        MyResult lockStockResult = wareFeignService.orderLockStock(wareSkuLockDTO);
+        MyResult<Void> lockStockResult = wareFeignService.orderLockStock(wareSkuLockDTO);
         // 如果锁定库存失败，则返回错误
         if (!lockStockResult.isSuccess()) {
             orderSubmitVO.setCode(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode());

@@ -23,7 +23,7 @@ public interface CouponFeignService {
      * @return
      */
     @PostMapping("/gulimall-coupon/openapi/coupon/spu-bounds")
-    MyResult saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
+    MyResult<Void> saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
 
     /**
      * 保存sku的其他信息
@@ -32,7 +32,7 @@ public interface CouponFeignService {
      * @return
      */
     @PostMapping("/gulimall-coupon/openapi/coupon/sku-other-info")
-    MyResult saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);
+    MyResult<Void> saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);
 
 }
 

@@ -44,6 +44,6 @@ public interface WareFeignService {
      * @return
      */
     @PostMapping("/lock/order")
-    MyResult orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO);
+    MyResult<Void> orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO);
 
 }

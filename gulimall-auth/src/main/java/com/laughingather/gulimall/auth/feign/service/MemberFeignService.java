@@ -25,7 +25,7 @@ public interface MemberFeignService {
      * @return MyResult
      */
     @PostMapping("/gulimall-member/openapi/member/register")
-    MyResult register(@RequestBody MemberRegisterTO memberRegisterTO);
+    MyResult<Void> register(@RequestBody MemberRegisterTO memberRegisterTO);
 
     /**
      * 远程登录接口

@@ -66,28 +66,28 @@ public class BrandController {
 
     @PostMapping
     @ApiOperation(value = "保存品牌信息")
-    public MyResult saveBrand(@Validated({AddGroup.class}) @RequestBody BrandEntity brand) {
+    public MyResult<Void> saveBrand(@Validated({AddGroup.class}) @RequestBody BrandEntity brand) {
         brandService.saveBrand(brand);
         return MyResult.success();
     }
 
     @DeleteMapping("/{bid}")
     @ApiOperation(value = "删除品牌信息")
-    public MyResult deleteBrandById(@PathVariable("bid") Long brandId) {
+    public MyResult<Void> deleteBrandById(@PathVariable("bid") Long brandId) {
         boolean isSuccess = brandService.removeById(brandId);
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除品牌信息")
-    public MyResult deleteBatchBrandsByIds(@RequestBody Long[] brandIds) {
+    public MyResult<Void> deleteBatchBrandsByIds(@RequestBody Long[] brandIds) {
         boolean isSuccess = brandService.removeByIds(Arrays.asList(brandIds));
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
 
     @PutMapping
     @ApiOperation(value = "更新品牌信息")
-    public MyResult updateBrandById(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand) {
+    public MyResult<Void> updateBrandById(@Validated({UpdateGroup.class}) @RequestBody BrandEntity brand) {
         brandService.updateBrandById(brand);
         return MyResult.success();
     }

@@ -27,28 +27,28 @@ public class SysRoleController {
 
     @PostMapping
     @ApiOperation(value = "保存角色")
-    public MyResult saveRole(@RequestBody SysRoleEntity sysRoleEntity) {
+    public MyResult<Void> saveRole(@RequestBody SysRoleEntity sysRoleEntity) {
         sysRoleService.saveRole(sysRoleEntity);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除角色")
-    public MyResult deleteBatchRoleByIds(@RequestBody List<Long> roleIds) {
+    public MyResult<Void> deleteBatchRoleByIds(@RequestBody List<Long> roleIds) {
         sysRoleService.deleteBatchRoleByIds(roleIds);
         return MyResult.success();
     }
 
     @DeleteMapping("/{rid}")
     @ApiOperation("删除角色")
-    public MyResult deleteRoleById(@PathVariable("rid") Long roleId) {
+    public MyResult<Void> deleteRoleById(@PathVariable("rid") Long roleId) {
         sysRoleService.deleteRoleById(roleId);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新角色")
-    public MyResult updateRoleById(@RequestBody SysRoleEntity sysRoleEntity) {
+    public MyResult<Void> updateRoleById(@RequestBody SysRoleEntity sysRoleEntity) {
         sysRoleService.updateRoleById(sysRoleEntity);
         return MyResult.success();
     }

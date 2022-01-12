@@ -54,8 +54,8 @@ public class CategoryBrandRelationController {
 
     @PostMapping
     @ApiOperation(value = "保存分类&品牌关联关系信息")
-    public MyResult saveCategoryBrandRelation(@Validated(value = {AddGroup.class}) @RequestBody
-                                                      CategoryBrandRelationParam categoryBrandRelationParam) {
+    public MyResult<Void> saveCategoryBrandRelation(@Validated(value = {AddGroup.class}) @RequestBody
+                                                            CategoryBrandRelationParam categoryBrandRelationParam) {
         CategoryBrandRelationEntity categoryBrandRelation = new CategoryBrandRelationEntity();
         BeanUtils.copyProperties(categoryBrandRelationParam, categoryBrandRelation);
 

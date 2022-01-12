@@ -66,7 +66,7 @@ public class WareOpenApi {
      * @return
      */
     @PostMapping("/lock/order")
-    public MyResult orderLockStock(@RequestBody WareSkuLockTO wareSkuLockTO) {
+    public MyResult<Void> orderLockStock(@RequestBody WareSkuLockTO wareSkuLockTO) {
         try {
             Boolean result = wareSkuService.orderLockStock(wareSkuLockTO);
             return result ? MyResult.success() : MyResult.failed();

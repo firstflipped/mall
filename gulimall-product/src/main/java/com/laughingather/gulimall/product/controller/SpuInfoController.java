@@ -44,7 +44,7 @@ public class SpuInfoController {
     @PostMapping("/{sid}/up")
     @ApiOperation(value = "商品上架")
     @ApiImplicitParam(name = "sid", value = "spuId")
-    public MyResult upSpuBySpuId(@PathVariable("sid") Long spuId) {
+    public MyResult<Void> upSpuBySpuId(@PathVariable("sid") Long spuId) {
         spuInfoService.upSpu(spuId);
         return MyResult.success();
     }
@@ -52,7 +52,7 @@ public class SpuInfoController {
 
     @PostMapping
     @ApiOperation(value = "保存spu信息")
-    public MyResult saveSpuInfo(@RequestBody SpuParam spuParam) {
+    public MyResult<Void> saveSpuInfo(@RequestBody SpuParam spuParam) {
         spuInfoService.saveSpuInfo(spuParam);
         return MyResult.success();
     }

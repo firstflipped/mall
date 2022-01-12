@@ -26,8 +26,6 @@ package com.laughingather.gulimall.auth.service;
 
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * 认证相关service
  *
@@ -46,19 +44,20 @@ public interface AuthService {
 
 
     /**
-     * 从请求中获取token
+     * 解析token获取信息
      *
-     * @param request
+     * @param token
      * @return
      */
-    String getTokenFromRequest(HttpServletRequest request);
+    JwtPayLoad parseToken(String token);
 
 
     /**
      * 校验token
      *
      * @param token
+     * @return
      */
-    void checkToken(String token);
+    Boolean checkToken(String token);
 
 }

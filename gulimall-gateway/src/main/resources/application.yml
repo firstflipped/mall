@@ -20,6 +20,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: gulimall-auth
+          uri: lb://gulimall-auth
+          predicates:
+            - Path=/api/gulimall-auth/**
+          filters:
+            - StripPrefix=1
+
         - id: gulimall-product
           uri: lb://gulimall-product
           predicates:

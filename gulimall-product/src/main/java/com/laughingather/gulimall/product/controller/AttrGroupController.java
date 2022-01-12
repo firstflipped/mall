@@ -82,7 +82,7 @@ public class AttrGroupController {
 
     @PostMapping
     @ApiOperation(value = "保存属性分组信息")
-    public MyResult saveAttrGroup(@Validated(value = {AddGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
+    public MyResult<Void> saveAttrGroup(@Validated(value = {AddGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
         attrGroupService.save(attrGroup);
         return MyResult.success();
     }
@@ -90,21 +90,21 @@ public class AttrGroupController {
     @DeleteMapping("/{ag-id}")
     @ApiOperation(value = "删除属性分组信息")
     @ApiImplicitParam(name = "ag-id", value = "属性分组id", dataTypeClass = Long.class)
-    public MyResult deleteAttrGroupById(@PathVariable("ag-id") Long attrGroupId) {
+    public MyResult<Void> deleteAttrGroupById(@PathVariable("ag-id") Long attrGroupId) {
         attrGroupService.removeById(attrGroupId);
         return MyResult.success();
     }
 
     @DeleteMapping
     @ApiOperation(value = "批量删除属性分组信息")
-    public MyResult deleteAttrGroupsByIds(@RequestBody Long[] attrGroupIds) {
+    public MyResult<Void> deleteAttrGroupsByIds(@RequestBody Long[] attrGroupIds) {
         attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新属性分组信息")
-    public MyResult updateAttrGroupById(@Validated(value = {UpdateGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
+    public MyResult<Void> updateAttrGroupById(@Validated(value = {UpdateGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
         attrGroupService.updateById(attrGroup);
         return MyResult.success();
     }

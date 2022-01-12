@@ -61,14 +61,14 @@ public class AttrController {
 
     @PostMapping
     @ApiOperation(value = "保存属性信息")
-    public MyResult saveAttr(@RequestBody AttrParam attrParam) {
+    public MyResult<Void> saveAttr(@RequestBody AttrParam attrParam) {
         attrService.saveAttr(attrParam);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新属性信息")
-    public MyResult updateAttrById(@RequestBody AttrParam attrParam) {
+    public MyResult<Void> updateAttrById(@RequestBody AttrParam attrParam) {
         attrService.updateAttrById(attrParam);
         return MyResult.success();
     }
