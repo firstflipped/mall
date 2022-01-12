@@ -6,10 +6,10 @@ import com.laughingather.gulimall.generator.config.MongoManager;
 import com.laughingather.gulimall.generator.entity.mongo.MongoDefinition;
 import com.laughingather.gulimall.generator.factory.MongoDBCollectionFactory;
 import com.laughingather.gulimall.generator.utils.MongoScanner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Conditional(MongoCondition.class)
 public class MongoDBGeneratorDao implements GeneratorDao {
 
-    @Autowired
+    @Resource
     private MongoDBCollectionFactory mongoDBCollectionFactory;
 
     @Override

@@ -10,12 +10,13 @@ package com.laughingather.gulimall.generator.config;
 
 import com.laughingather.gulimall.generator.dao.*;
 import com.laughingather.gulimall.generator.utils.RRException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import javax.annotation.Resource;
 
 /**
  * 数据库配置
@@ -24,15 +25,15 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 public class DbConfig {
-    @Value("${renren.database: mysql}")
+    @Value("${laughingather.database: mysql}")
     private String database;
-    @Autowired
+    @Resource
     private MySQLGeneratorDao mySQLGeneratorDao;
-    @Autowired
+    @Resource
     private OracleGeneratorDao oracleGeneratorDao;
-    @Autowired
+    @Resource
     private SQLServerGeneratorDao sqlServerGeneratorDao;
-    @Autowired
+    @Resource
     private PostgreSQLGeneratorDao postgreSQLGeneratorDao;
 
     private static boolean mongo = false;

@@ -11,9 +11,9 @@ package com.laughingather.gulimall.generator.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.laughingather.gulimall.generator.config.MongoManager;
-import com.laughingather.gulimall.generator.factory.MongoDBCollectionFactory;
 import com.laughingather.gulimall.generator.dao.GeneratorDao;
 import com.laughingather.gulimall.generator.dao.MongoDBGeneratorDao;
+import com.laughingather.gulimall.generator.factory.MongoDBCollectionFactory;
 import com.laughingather.gulimall.generator.utils.GenUtils;
 import com.laughingather.gulimall.generator.utils.PageUtils;
 import com.laughingather.gulimall.generator.utils.Query;
@@ -33,6 +33,7 @@ import java.util.zip.ZipOutputStream;
  */
 @Service
 public class SysGeneratorService {
+
     @Autowired
     private GeneratorDao generatorDao;
 
