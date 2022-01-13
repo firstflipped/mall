@@ -69,7 +69,12 @@ public enum ErrorCodeEnum {
     /**
      * 发送消息到MQ失败
      */
-    SEND_MESSAGE_EXCEPTION(16003, "发送消息到MQ失败");
+    SEND_MESSAGE_EXCEPTION(16003, "发送消息到MQ失败"),
+
+    /**
+     * 发送短信异常
+     */
+    SEND_SMS_EXCEPTION(17000, "发送短信异常");
 
 
     private final Integer code;

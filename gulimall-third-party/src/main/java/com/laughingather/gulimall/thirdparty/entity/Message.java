@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.thirdparty.domain;
+package com.laughingather.gulimall.thirdparty.entity;
 
 /**
  * 消息实体

@@ -14,8 +14,14 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "alibaba.cloud.sms")
 public class SmsProperties {
 
+    /**
+     * 签名
+     */
     private String signName;
 
+    /**
+     * 模板编号
+     */
     private String templateCode;
 
 }
