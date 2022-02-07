@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author：laughingather
  * @create：2021-11-24 2021/11/24
  */
-@SpringBootApplication(scanBasePackages = {"com.laughingather.gulimall.*"})
+@SpringBootApplication
 @EnableDiscoveryClient
 public class GulimallAdminNewApplication {
 

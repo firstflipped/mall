@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.adminnew.controller;
 
+import com.laughingather.gulimall.adminnew.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.adminnew.entity.SysUserEntity;
 import com.laughingather.gulimall.adminnew.service.SysUserService;
-import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;

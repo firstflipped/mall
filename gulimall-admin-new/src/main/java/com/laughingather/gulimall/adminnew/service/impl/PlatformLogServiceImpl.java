@@ -1,8 +1,8 @@
-package com.laughingather.gulimall.common.service.impl;
+package com.laughingather.gulimall.adminnew.service.impl;
 
+import com.laughingather.gulimall.adminnew.mapper.PlatformLogMapper;
+import com.laughingather.gulimall.adminnew.service.PlatformLogService;
 import com.laughingather.gulimall.common.entity.PlatformLog;
-import com.laughingather.gulimall.common.mapper.PlatformLogMapper;
-import com.laughingather.gulimall.common.service.PlatformLogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

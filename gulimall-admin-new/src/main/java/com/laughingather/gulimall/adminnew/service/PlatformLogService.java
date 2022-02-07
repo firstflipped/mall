@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.common.service;
+package com.laughingather.gulimall.adminnew.service;
 
 import com.laughingather.gulimall.common.entity.PlatformLog;
 

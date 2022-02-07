@@ -18,15 +18,16 @@ public class MyRedisConfig {
 
 
     /**
-     * @param redisConnectionFactory
-     * @return
+     * @param redisConnectionFactory redis连接工厂
+     * @return redisTemplate类
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 初始化键
-        RedisSerializer stringSerializer = new StringRedisSerializer();
+        RedisSerializer<String> stringSerializer = new StringRedisSerializer();
         // 初始化值
         GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+        // 初始化redisTemplate
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 

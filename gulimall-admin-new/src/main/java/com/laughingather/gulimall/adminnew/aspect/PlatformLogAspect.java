@@ -1,11 +1,11 @@
-package com.laughingather.gulimall.common.aspect;
+package com.laughingather.gulimall.adminnew.aspect;
 
 
 import cn.hutool.core.net.NetUtil;
-import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
+import com.laughingather.gulimall.adminnew.annotation.PlatformLogAnnotation;
+import com.laughingather.gulimall.adminnew.service.PlatformLogService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.entity.PlatformLog;
-import com.laughingather.gulimall.common.service.PlatformLogService;
 import com.laughingather.gulimall.common.util.HttpContextUtil;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.common.util.RequestUtil;
@@ -51,7 +51,7 @@ public class PlatformLogAspect {
     private PlatformLogService platformLogService;
 
 
-    @Pointcut("@annotation(com.laughingather.gulimall.common.annotation.PlatformLogAnnotation)")
+    @Pointcut("@annotation(com.laughingather.gulimall.adminnew.annotation.PlatformLogAnnotation)")
     public void platformLog() {
     }
 

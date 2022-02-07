@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.common.mapper;
+package com.laughingather.gulimall.adminnew.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.laughingather.gulimall.common.entity.PlatformLog;
