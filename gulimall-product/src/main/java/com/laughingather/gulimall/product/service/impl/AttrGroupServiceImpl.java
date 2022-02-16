@@ -45,7 +45,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
 
     @Override
     public MyPage<AttrGroupVO> listAttrGroupsWithPage(AttrGroupQuery attrGroupQuery) {
-        IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPageNumber(), attrGroupQuery.getPageSize());
+        IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPn(), attrGroupQuery.getPs());
         IPage<AttrGroupEntity> attrGroupPage = attrGroupDao.selectPage(page, null);
 
         List<AttrGroupVO> attrGroupVOList = attrGroupPage.getRecords().stream().map(item -> {
@@ -60,7 +60,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         }).collect(Collectors.toList());
 
 
-        return MyPage.<AttrGroupVO>builder().pageNumber(attrGroupQuery.getPageNumber())
+        return MyPage.<AttrGroupVO>builder().pageNumber(attrGroupQuery.getPn())
                 .pageSize(attrGroupPage.getSize())
                 .pages(attrGroupPage.getPages())
                 .total(attrGroupPage.getTotal())
@@ -72,7 +72,7 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
     @Override
     public MyPage<AttrGroupEntity> listAttrGroupsByCategoryIdWithPage(Long categoryId, AttrGroupQuery attrGroupQuery) {
         QueryWrapper<AttrGroupEntity> queryWrapper = new QueryWrapper<>();
-        IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPageNumber(), attrGroupQuery.getPageSize());
+        IPage<AttrGroupEntity> page = new Page<>(attrGroupQuery.getPn(), attrGroupQuery.getPs());
 
         if (StringUtils.isNotBlank(attrGroupQuery.getKey())) {
             queryWrapper.and(q ->

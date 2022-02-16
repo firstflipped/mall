@@ -48,7 +48,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Override
     public MyPage<SkuInfoEntity> listSkusWithPage(SkuInfoQuery skuInfoQuery) {
-        IPage<SkuInfoEntity> page = new Page<>(skuInfoQuery.getPageNumber(), skuInfoQuery.getPageSize());
+        IPage<SkuInfoEntity> page = new Page<>(skuInfoQuery.getPn(), skuInfoQuery.getPs());
         IPage<SkuInfoEntity> skuInfoIPage = skuInfoDao.listSkusWithPage(page, skuInfoQuery);
 
         return MyPage.restPage(skuInfoIPage);

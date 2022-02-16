@@ -28,7 +28,7 @@ public class OrderReturnReasonServiceImpl extends ServiceImpl<OrderReturnReasonD
 
     @Override
     public MyPage<OrderReturnReasonEntity> listOrderReturnReasonsWithPage(OrderReturnReasonQuery orderReturnReasonQuery) {
-        IPage<OrderReturnReasonEntity> page = new Page<>(orderReturnReasonQuery.getPageNumber(), orderReturnReasonQuery.getPageSize());
+        IPage<OrderReturnReasonEntity> page = new Page<>(orderReturnReasonQuery.getPn(), orderReturnReasonQuery.getPs());
 
         QueryWrapper<OrderReturnReasonEntity> queryWrapper = new QueryWrapper<>();
         if (orderReturnReasonQuery.getStatus() != null) {

@@ -94,7 +94,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Override
     public MyPage<OrderEntity> listOrdersWithPage(OrderQuery orderQuery) {
 
-        IPage<OrderEntity> page = new Page<>(orderQuery.getPageNumber(), orderQuery.getPageSize());
+        IPage<OrderEntity> page = new Page<>(orderQuery.getPn(), orderQuery.getPs());
 
         // 拼装查询条件
         LambdaQueryWrapper<OrderEntity> queryWrapper = Wrappers.lambdaQuery(OrderEntity.class);

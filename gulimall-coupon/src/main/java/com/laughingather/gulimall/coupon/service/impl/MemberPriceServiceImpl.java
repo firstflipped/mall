@@ -46,14 +46,14 @@ public class MemberPriceServiceImpl extends ServiceImpl<MemberPriceDao, MemberPr
 
     @Override
     public MyPage<MemberPriceEntity> pageMemberPrice(MemberPriceQuery memberPriceQuery) {
-        if (memberPriceQuery.getPageNumber() == null || memberPriceQuery.getPageNumber() <= 0) {
-            memberPriceQuery.setPageNumber(1);
+        if (memberPriceQuery.getPn() == null || memberPriceQuery.getPn() <= 0) {
+            memberPriceQuery.setPn(1);
         }
-        if (memberPriceQuery.getPageSize() == null || memberPriceQuery.getPageSize() <= 0) {
-            memberPriceQuery.setPageSize(10);
+        if (memberPriceQuery.getPs() == null || memberPriceQuery.getPs() <= 0) {
+            memberPriceQuery.setPs(10);
         }
 
-        IPage<MemberPriceEntity> page = new Page<>(memberPriceQuery.getPageNumber(), memberPriceQuery.getPageSize());
+        IPage<MemberPriceEntity> page = new Page<>(memberPriceQuery.getPn(), memberPriceQuery.getPs());
         IPage<MemberPriceEntity> memberPricePage = memberPriceDao.selectPage(page, null);
 
         return MyPage.restPage(memberPricePage);

@@ -40,7 +40,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
 
     @Override
     public MyPage<PurchaseEntity> listPurchasesWithPage(PurchaseQuery purchaseQuery) {
-        IPage<PurchaseEntity> page = new Page<>(purchaseQuery.getPageNumber(), purchaseQuery.getPageSize());
+        IPage<PurchaseEntity> page = new Page<>(purchaseQuery.getPn(), purchaseQuery.getPs());
         QueryWrapper<PurchaseEntity> queryWrapper = null;
         if (StringUtils.isNotBlank(purchaseQuery.getKey())) {
             queryWrapper = new QueryWrapper<>();

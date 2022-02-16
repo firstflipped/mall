@@ -20,7 +20,7 @@ public class SeckillSkuRelationServiceImpl extends ServiceImpl<SecKillSkuRelatio
 
     @Override
     public MyPage<SecKillSkuRelationEntity> pageSecKillSkuRelation(SecKillSkuRelationQuery secKillSkuRelationQuery) {
-        IPage<SecKillSkuRelationEntity> page = new Page<>(secKillSkuRelationQuery.getPageNumber(), secKillSkuRelationQuery.getPageSize());
+        IPage<SecKillSkuRelationEntity> page = new Page<>(secKillSkuRelationQuery.getPn(), secKillSkuRelationQuery.getPs());
         QueryWrapper<SecKillSkuRelationEntity> queryWrapper = new QueryWrapper();
         queryWrapper.lambda().eq(SecKillSkuRelationEntity::getPromotionSessionId, secKillSkuRelationQuery.getPromotionSessionId());
 

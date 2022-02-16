@@ -1,13 +1,6 @@
 package com.laughingather.gulimall.product.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import io.seata.rm.datasource.DataSourceProxy;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
 
 /**
  * seata控制分布式事务
@@ -60,11 +53,11 @@ public class MySeataConfig {
      *
      * @return
      */
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DruidDataSource druidDataSource() {
-        return new DruidDataSource();
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource")
+//    public DruidDataSource druidDataSource() {
+//        return new DruidDataSource();
+//    }
 
     /**
      * 构造datasource代理对象，替换原来的datasource
@@ -72,10 +65,10 @@ public class MySeataConfig {
      * @param druidDataSource
      * @return
      */
-    @Primary
-    @Bean("dataSource")
-    public DataSourceProxy dataSourceProxy(DataSource druidDataSource) {
-        return new DataSourceProxy(druidDataSource);
-    }
+//    @Primary
+//    @Bean("dataSource")
+//    public DataSourceProxy dataSourceProxy(DataSource druidDataSource) {
+//        return new DataSourceProxy(druidDataSource);
+//    }
 
 }

@@ -3,10 +3,10 @@ package com.laughingather.gulimall.adminnew.entity.to;
 import lombok.Data;
 
 /**
- * 对外开放接口用户信息返回类
+ * 对外开放接口用户信息返回传输类
  *
  * @author：laughingather
- * @create：2021-12-06 2021/12/6
+ * @create：2021/12/6
  */
 @Data
 public class AdminTO {

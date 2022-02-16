@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/category-brand-relation")
+@RequestMapping("/product/category-brand-relation")
 @Api(tags = "品牌&分类关联模块")
 public class CategoryBrandRelationController {
 

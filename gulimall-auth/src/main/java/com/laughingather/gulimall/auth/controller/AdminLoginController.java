@@ -2,6 +2,7 @@ package com.laughingather.gulimall.auth.controller;
 
 import cn.hutool.core.util.RandomUtil;
 import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
 import com.laughingather.gulimall.auth.service.AdminLoginService;
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
@@ -43,11 +44,12 @@ public class AdminLoginController {
 
         // 生成随机验证码
         String code = RandomUtil.randomNumbers(6);
-        // 把验证码放到缓存中
-        redisTemplate.opsForValue().set(AuthConstants.SMS_CODE_CACHE_PREFIX + phoneNum, code, 60, TimeUnit.SECONDS);
 
         // TODO：第三方调用短信服务暂不可用
         thirdPartyFeignService.sendCheckCode(phoneNum, code);
+
+        // 把验证码放到缓存中
+        redisTemplate.opsForValue().set(AuthConstants.SMS_CODE_CACHE_PREFIX + phoneNum, code, 60, TimeUnit.SECONDS);
 
         return MyResult.success();
     }
@@ -63,6 +65,13 @@ public class AdminLoginController {
     @PostMapping("/logout")
     public MyResult<Void> logout() {
         return null;
+    }
+
+
+    @GetMapping("/userinfo")
+    public MyResult<AdminVO> getUserinfo(@RequestParam("token") String token) {
+        AdminVO adminVO = adminLoginService.getUserinfo(token);
+        return MyResult.success(adminVO);
     }
 
 

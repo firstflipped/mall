@@ -39,7 +39,7 @@ public class SecKillSessionServiceImpl extends ServiceImpl<SecKillSessionDao, Se
 
     @Override
     public MyPage<SecKillSessionEntity> pageSecKillSession(SecKillSessionQuery seckillSessionQuery) {
-        IPage<SecKillSessionEntity> page = new Page<>(seckillSessionQuery.getPageNumber(), seckillSessionQuery.getPageSize());
+        IPage<SecKillSessionEntity> page = new Page<>(seckillSessionQuery.getPn(), seckillSessionQuery.getPs());
         IPage<SecKillSessionEntity> secKillSessionPage = baseMapper.selectPage(page, null);
 
         return MyPage.restPage(secKillSessionPage);

@@ -28,7 +28,7 @@ public class PurchaseDetailServiceImpl extends ServiceImpl<PurchaseDetailDao, Pu
 
     @Override
     public MyPage<PurchaseDetailEntity> listPurchaseDetailsWithPage(PurchaseDetailQuery purchaseDetailQuery) {
-        IPage<PurchaseDetailEntity> page = new Page<>(purchaseDetailQuery.getPageNumber(), purchaseDetailQuery.getPageSize());
+        IPage<PurchaseDetailEntity> page = new Page<>(purchaseDetailQuery.getPn(), purchaseDetailQuery.getPs());
         IPage<PurchaseDetailEntity> purchaseDetailIPage = purchaseDetailDao.pagePurchaseDetailByParams(page, purchaseDetailQuery);
         return MyPage.restPage(purchaseDetailIPage);
     }

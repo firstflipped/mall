@@ -56,7 +56,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
     @Override
     public MyPage<WareSkuEntity> listWareSkusWithPage(WareSkuQuery wareSkuQuery) {
-        IPage<WareSkuEntity> page = new Page<>(wareSkuQuery.getPageNumber(), wareSkuQuery.getPageSize());
+        IPage<WareSkuEntity> page = new Page<>(wareSkuQuery.getPn(), wareSkuQuery.getPs());
         QueryWrapper<WareSkuEntity> queryWrapper = new QueryWrapper<>();
         if (wareSkuQuery.getWareId() != null) {
             queryWrapper.lambda().eq(WareSkuEntity::getWareId, wareSkuQuery.getWareId());

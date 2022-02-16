@@ -21,7 +21,6 @@ import com.laughingather.gulimall.product.feign.service.CouponFeignService;
 import com.laughingather.gulimall.product.feign.service.SearchFeignService;
 import com.laughingather.gulimall.product.feign.service.WareFeignService;
 import com.laughingather.gulimall.product.service.*;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -71,7 +70,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     @Override
     public MyPage<SpuInfoEntity> listSpuWithPage(SpuInfoQuery spuInfoQuery) {
-        IPage<SpuInfoEntity> page = new Page<>(spuInfoQuery.getPageNumber(), spuInfoQuery.getPageSize());
+        IPage<SpuInfoEntity> page = new Page<>(spuInfoQuery.getPn(), spuInfoQuery.getPs());
         IPage<SpuInfoEntity> spuInfoEntityIPage = spuInfoDao.listSpuWithPage(page, spuInfoQuery);
 
         return MyPage.restPage(spuInfoEntityIPage);
@@ -223,7 +222,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param spuParam
      */
     @Override
-    @GlobalTransactional
+    // @GlobalTransactional
     public void saveSpuInfo(SpuParam spuParam) {
 
         log.info(JsonUtil.obj2String(spuParam));

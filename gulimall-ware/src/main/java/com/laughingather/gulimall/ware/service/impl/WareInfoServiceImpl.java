@@ -37,7 +37,7 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
 
     @Override
     public MyPage<WareInfoEntity> listWaresWithPage(WareInfoQuery wareInfoQuery) {
-        IPage<WareInfoEntity> page = new Page<>(wareInfoQuery.getPageNumber(), wareInfoQuery.getPageSize());
+        IPage<WareInfoEntity> page = new Page<>(wareInfoQuery.getPn(), wareInfoQuery.getPs());
         QueryWrapper<WareInfoEntity> queryWrapper = null;
         if (StringUtils.isNotBlank(wareInfoQuery.getKey())) {
             queryWrapper = new QueryWrapper<>();

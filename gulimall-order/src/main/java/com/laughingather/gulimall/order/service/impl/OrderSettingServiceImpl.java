@@ -26,7 +26,7 @@ public class OrderSettingServiceImpl extends ServiceImpl<OrderSettingDao, OrderS
 
     @Override
     public MyPage<OrderSettingEntity> listOrderSettingsWithPage(PageQuery pageQuery) {
-        Page<OrderSettingEntity> page = new Page<>(pageQuery.getPageNumber(), pageQuery.getPageSize());
+        Page<OrderSettingEntity> page = new Page<>(pageQuery.getPn(), pageQuery.getPs());
         Page<OrderSettingEntity> orderSettingPage = orderSettingDao.selectPage(page, null);
 
         return MyPage.restPage(orderSettingPage);

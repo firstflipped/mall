@@ -5,7 +5,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.*;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.MethodType;
 import com.laughingather.gulimall.thirdparty.entity.query.SmsQuery;
-import com.laughingather.gulimall.thirdparty.properties.SmsProperties;
+import com.laughingather.gulimall.thirdparty.config.SmsProperties;
 import com.laughingather.gulimall.thirdparty.service.MySmsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -107,9 +107,9 @@ public class MySmsServiceImpl implements MySmsService {
         // 必填-短信发送的日期 支持30天内记录查询（可查其中一天的发送数据），格式yyyyMMdd
         request.setSendDate(date.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         // 必填-当前页码从1开始计数
-        request.setCurrentPage(smsQuery.getPageNumber().longValue());
+        request.setCurrentPage(smsQuery.getPn().longValue());
         // 必填-页大小
-        request.setPageSize(smsQuery.getPageSize().longValue());
+        request.setPageSize(smsQuery.getPs().longValue());
 
         try {
             querySendDetailsResponse = aliSmsService.querySendDetails(request);

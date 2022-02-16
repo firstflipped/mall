@@ -4,7 +4,7 @@
 <mapper namespace="com.laughingather.gulimall.coupon.dao.SecKillPromotionDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.laughingather.gulimall.coupon.entity.SeckillPromotionEntity" id="seckillPromotionMap">
+    <resultMap type="com.laughingather.gulimall.coupon.entity.SecKillPromotionEntity" id="seckillPromotionMap">
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="startTime" column="start_time"/>

@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * 角色实体
+ *
+ * @author laughingather
+ */
 @Data
 @Entity
 @Table(name = "sys_role")

@@ -59,7 +59,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             queryWrapper.like(MemberEntity::getMobile, memberQuery.getMobile());
         }
 
-        Page<MemberEntity> page = new Page<>(memberQuery.getPageNumber(), memberQuery.getPageSize());
+        Page<MemberEntity> page = new Page<>(memberQuery.getPn(), memberQuery.getPs());
 
         Page<MemberEntity> memberPage = memberDao.selectPage(page, queryWrapper);
         return MyPage.restPage(memberPage);

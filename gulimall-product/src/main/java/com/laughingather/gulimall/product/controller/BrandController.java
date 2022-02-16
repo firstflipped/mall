@@ -27,7 +27,7 @@ import java.util.List;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("product/brand")
+@RequestMapping("/product/brand")
 @Api(tags = "品牌模块")
 public class BrandController {
 

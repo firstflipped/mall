@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.adminnew.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,6 +36,7 @@ import java.time.LocalDateTime;
 public class SysUserEntity {
 
     @Id
+    @TableId
     @ApiModelProperty(value = "用户id")
     private Long userid;
 
@@ -76,7 +78,7 @@ public class SysUserEntity {
      * 性别（1：男 2：女）
      */
     @ApiModelProperty(value = "性别")
-    private Integer sex;
+    private Integer gender;
 
     /**
      * 电子邮件

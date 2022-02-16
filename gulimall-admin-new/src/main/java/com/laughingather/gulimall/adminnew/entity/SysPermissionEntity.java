@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * 权限实体
+ *
+ * @author laughingather
+ */
 @Data
 @Entity
 @Table(name = "sys_permission")

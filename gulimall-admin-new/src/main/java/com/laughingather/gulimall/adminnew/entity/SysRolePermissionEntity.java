@@ -6,6 +6,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
+/**
+ * 角色权限关联实体
+ *
+ * @author laughingather
+ */
 @Data
 public class SysRolePermissionEntity {
     /**

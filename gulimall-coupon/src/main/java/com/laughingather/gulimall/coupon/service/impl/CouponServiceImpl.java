@@ -34,7 +34,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponDao, CouponEntity> impl
 
     @Override
     public MyPage<CouponEntity> listCouponsWithPage(CouponQuery couponQuery) {
-        IPage<CouponEntity> page = new Page<>(couponQuery.getPageNumber(), couponQuery.getPageSize());
+        IPage<CouponEntity> page = new Page<>(couponQuery.getPn(), couponQuery.getPs());
         IPage<CouponEntity> couponPage = couponDao.selectPage(page, null);
         return MyPage.restPage(couponPage);
     }

@@ -16,7 +16,7 @@ public class SecKillPromotionServiceImpl extends ServiceImpl<SecKillPromotionDao
 
     @Override
     public MyPage<SecKillPromotionEntity> pageSecKillPromotion(SecKillPromotionQuery secKillPromotionQuery) {
-        IPage<SecKillPromotionEntity> page = new Page<>(secKillPromotionQuery.getPageSize(), secKillPromotionQuery.getPageNumber());
+        IPage<SecKillPromotionEntity> page = new Page<>(secKillPromotionQuery.getPs(), secKillPromotionQuery.getPn());
         IPage<SecKillPromotionEntity> secKillPromotionPage = baseMapper.selectPage(page, null);
 
         return MyPage.restPage(secKillPromotionPage);

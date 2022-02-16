@@ -27,18 +27,16 @@ public class SysUserServiceTest {
     @Test
     public void testSaveUser() {
         SysUserEntity sysUserEntity = new SysUserEntity();
-        sysUserEntity.setUsername("wangjie");
-        sysUserEntity.setRealName("王杰");
+        sysUserEntity.setUsername("wangwu");
+        sysUserEntity.setRealName("王五");
         sysUserEntity.setPassword(bCryptPasswordEncoder.encode("123456"));
-        sysUserEntity.setAvatar("https://www.baidu.com");
-        sysUserEntity.setBirthday(LocalDate.of(1998, 8, 20));
-        sysUserEntity.setBirthday(LocalDate.of(1998, 8, 20));
-        sysUserEntity.setSex(0);
-        sysUserEntity.setEmail("18763096838@163.com");
-        sysUserEntity.setPhone("18763096838");
+        sysUserEntity.setAvatar("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31");
+        sysUserEntity.setBirthday(LocalDate.of(1996, 9, 20));
+        sysUserEntity.setGender(0);
+        sysUserEntity.setEmail("9999999@qq.com");
+        sysUserEntity.setPhone("13377777777");
         sysUserEntity.setStatus(1);
         sysUserEntity.setDelete(0);
-        sysUserEntity.setCreateBy("admin");
         sysUserEntity.setCreateTime(LocalDateTime.now());
 
         sysUserService.saveUser(sysUserEntity);

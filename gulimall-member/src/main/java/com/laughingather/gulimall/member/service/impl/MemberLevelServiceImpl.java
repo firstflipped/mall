@@ -28,7 +28,7 @@ public class MemberLevelServiceImpl extends ServiceImpl<MemberLevelDao, MemberLe
 
     @Override
     public MyPage<MemberLevelEntity> listMemberLevelsWithPage(MemberLevelQuery memberLevelQuery) {
-        IPage<MemberLevelEntity> page = new Page<>(memberLevelQuery.getPageNumber(), memberLevelQuery.getPageSize());
+        IPage<MemberLevelEntity> page = new Page<>(memberLevelQuery.getPn(), memberLevelQuery.getPs());
         QueryWrapper<MemberLevelEntity> queryWrapper = null;
         if (StringUtils.isNotBlank(memberLevelQuery.getKey())) {
             queryWrapper = new QueryWrapper();

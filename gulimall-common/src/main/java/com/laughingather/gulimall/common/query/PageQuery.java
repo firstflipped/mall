@@ -13,9 +13,9 @@ import javax.validation.constraints.NotBlank;
 public class PageQuery {
 
     @NotBlank(message = "当前页码不能为空")
-    private Integer pageNumber;
+    private Integer pn;
 
     @NotBlank(message = "当前页条数不能为空")
-    private Integer pageSize;
+    private Integer ps;
 
 }

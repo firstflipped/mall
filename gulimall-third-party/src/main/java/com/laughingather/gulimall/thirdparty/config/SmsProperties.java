@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.thirdparty.properties;
+package com.laughingather.gulimall.thirdparty.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,13 +1,13 @@
 package com.laughingather.gulimall.adminnew.openapi;
 
+import com.laughingather.gulimall.adminnew.entity.SysUserEntity;
+import com.laughingather.gulimall.adminnew.entity.to.AdminInfoTO;
 import com.laughingather.gulimall.adminnew.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.adminnew.entity.to.AdminTO;
 import com.laughingather.gulimall.adminnew.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.BeanUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -36,6 +36,20 @@ public class AdminOpenApi {
     MyResult<AdminTO> login(@RequestBody AdminLoginTO adminLoginTO) {
         AdminTO adminTO = sysUserService.checkLogin(adminLoginTO);
         return adminTO != null ? MyResult.success(adminTO) : MyResult.failed();
+    }
+
+
+    @GetMapping("/userinfo")
+    MyResult<AdminInfoTO> getUserinfo(@RequestParam("userid") Long userid) {
+        SysUserEntity user = sysUserService.getUserById(userid);
+
+        if (user == null) {
+            return MyResult.failed();
+        }
+
+        AdminInfoTO adminInfoTO = new AdminInfoTO();
+        BeanUtils.copyProperties(user, adminInfoTO);
+        return MyResult.success(adminInfoTO);
     }
 
 }

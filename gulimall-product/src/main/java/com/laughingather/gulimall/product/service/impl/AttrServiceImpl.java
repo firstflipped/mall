@@ -168,13 +168,13 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
      */
     private IPage getPage(AttrQuery attrQuery) {
         // 拼接分页条件
-        if (attrQuery.getPageNumber() == null || attrQuery.getPageNumber() <= 0) {
-            attrQuery.setPageNumber(1);
+        if (attrQuery.getPn() == null || attrQuery.getPn() <= 0) {
+            attrQuery.setPn(1);
         }
-        if (attrQuery.getPageSize() == null || attrQuery.getPageSize() <= 0) {
-            attrQuery.setPageSize(10);
+        if (attrQuery.getPs() == null || attrQuery.getPs() <= 0) {
+            attrQuery.setPs(10);
         }
-        return new Page(attrQuery.getPageNumber(), attrQuery.getPageSize());
+        return new Page(attrQuery.getPn(), attrQuery.getPs());
     }
 
 }

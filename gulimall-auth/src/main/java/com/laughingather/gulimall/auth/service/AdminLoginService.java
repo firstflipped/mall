@@ -2,6 +2,7 @@ package com.laughingather.gulimall.auth.service;
 
 
 import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 
 /**
  * 管理登录
@@ -18,4 +19,12 @@ public interface AdminLoginService {
      * @return token
      */
     String login(AdminLoginTO adminLoginTO);
+
+    /**
+     * 获取用户信息
+     *
+     * @param token
+     * @return
+     */
+    AdminVO getUserinfo(String token);
 }

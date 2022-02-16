@@ -29,7 +29,7 @@ public class OrderReturnApplyServiceImpl extends ServiceImpl<OrderReturnApplyDao
 
     @Override
     public MyPage<OrderReturnApplyEntity> listOrderReturnAppliesWithPage(OrderReturnApplyQuery orderReturnApplyQuery) {
-        IPage<OrderReturnApplyEntity> page = new Page<>(orderReturnApplyQuery.getPageNumber(), orderReturnApplyQuery.getPageSize());
+        IPage<OrderReturnApplyEntity> page = new Page<>(orderReturnApplyQuery.getPn(), orderReturnApplyQuery.getPs());
 
         LambdaQueryWrapper<OrderReturnApplyEntity> queryWrapper = Wrappers.lambdaQuery(OrderReturnApplyEntity.class);
         if (StringUtils.isNotBlank(orderReturnApplyQuery.getOrderSn())) {

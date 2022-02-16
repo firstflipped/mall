@@ -16,8 +16,8 @@ public interface MySmsService {
     /**
      * 发送短信
      *
-     * @param phoneNumber
-     * @param code
+     * @param phoneNumber 手机号
+     * @param code        验证码
      * @return
      */
     SendSmsResponse sendCheckCode(String phoneNumber, String code);
@@ -26,8 +26,8 @@ public interface MySmsService {
     /**
      * 批量发送短信
      *
-     * @param phoneNumber
-     * @param code
+     * @param phoneNumber 手机号
+     * @param code        验证码
      * @return
      */
     SendBatchSmsResponse batchSendCheckCode(String phoneNumber, String code);

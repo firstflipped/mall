@@ -11,7 +11,7 @@ import java.util.Map;
 public interface OssService {
 
     /**
-     * 获取文件上传所需信息
+     * 获取文件上传所需签名
      *
      * @return
      */

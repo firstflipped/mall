@@ -1,12 +1,11 @@
 package com.laughingather.gulimall.auth.feign.service;
 
 import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.auth.feign.entity.AdminInfoTO;
 import com.laughingather.gulimall.auth.feign.entity.AdminTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 后台管理第三方调用接口
@@ -30,4 +29,12 @@ public interface AdminFeignService {
     @PostMapping("/login")
     MyResult<AdminTO> login(@RequestBody AdminLoginTO adminLoginTO);
 
+    /**
+     * 远程获取用户信息接口
+     *
+     * @param userid
+     * @return
+     */
+    @GetMapping("/userinfo")
+    MyResult<AdminInfoTO> getUserinfo(@RequestParam("userid") Long userid);
 }
