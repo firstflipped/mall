@@ -87,7 +87,6 @@ CREATE TABLE `oms_order`
     PRIMARY KEY (`id`),
     UNIQUE KEY `uni_order_sn` (`order_sn`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单';
 
 /*Data for the table `oms_order` */
@@ -120,7 +119,6 @@ CREATE TABLE `oms_order_item`
     `gift_growth`        int(11)                 DEFAULT NULL COMMENT '赠送成长值',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 14
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单项信息';
 
 /*Data for the table `oms_order_item` */
@@ -149,7 +147,7 @@ DROP TABLE IF EXISTS `oms_order_return_apply`;
 
 CREATE TABLE `oms_order_return_apply`
 (
-    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `id`               bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `order_id`         bigint(20)     DEFAULT NULL COMMENT 'order_id',
     `order_sn`         char(32)       DEFAULT NULL COMMENT '订单编号',
     `sku_id`           bigint(20)     DEFAULT NULL COMMENT '退货商品id',
@@ -166,18 +164,18 @@ CREATE TABLE `oms_order_return_apply`
     `sku_count`        int(11)        DEFAULT NULL COMMENT '退货数量',
     `sku_price`        decimal(18, 4) DEFAULT NULL COMMENT '商品单价',
     `sku_real_price`   decimal(18, 4) DEFAULT NULL COMMENT '商品实际支付单价',
-    `reason`           varchar(200)   DEFAULT NULL COMMENT '原因',
+    `reason_id`        bigint(20)     DEFAULT NULL COMMENT '退货原因',
     `description`      varchar(500)   DEFAULT NULL COMMENT '描述',
     `desc_pics`        varchar(2000)  DEFAULT NULL COMMENT '凭证图片，以逗号隔开',
     `handle_note`      varchar(500)   DEFAULT NULL COMMENT '处理备注',
     `handle_man`       varchar(200)   DEFAULT NULL COMMENT '处理人员',
-    `receive_man`      varchar(100)   DEFAULT NULL COMMENT '收货人',
+    `receive_man`      varchar(100) NOT NULL COMMENT '收货人',
     `receive_time`     datetime       DEFAULT NULL COMMENT '收货时间',
     `receive_note`     varchar(500)   DEFAULT NULL COMMENT '收货备注',
     `receive_phone`    varchar(20)    DEFAULT NULL COMMENT '收货电话',
     `company_address`  varchar(500)   DEFAULT NULL COMMENT '公司收货地址',
     `create_time`      datetime       DEFAULT NULL COMMENT '申请时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`, `receive_man`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单退货申请';
 
@@ -190,10 +188,11 @@ DROP TABLE IF EXISTS `oms_order_return_reason`;
 CREATE TABLE `oms_order_return_reason`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `name`        varchar(200) DEFAULT NULL COMMENT '退货原因名',
+    `name`        varchar(200) DEFAULT NULL COMMENT '退货原因',
     `sort`        int(11)      DEFAULT NULL COMMENT '排序',
     `status`      tinyint(1)   DEFAULT NULL COMMENT '启用状态',
-    `create_time` datetime     DEFAULT NULL COMMENT 'create_time',
+    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='退货原因';
@@ -213,6 +212,8 @@ CREATE TABLE `oms_order_setting`
     `finish_overtime`       int(11)    DEFAULT NULL COMMENT '自动完成交易时间，不能申请退货（天）',
     `comment_overtime`      int(11)    DEFAULT NULL COMMENT '订单完成后自动好评时间（天）',
     `member_level`          tinyint(2) DEFAULT NULL COMMENT '会员等级【0-不限会员等级，全部通用；其他-对应的其他会员等级】',
+    `create_time`           datetime   DEFAULT NULL COMMENT '创建时间',
+    `update_time`           datetime   DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单配置信息';

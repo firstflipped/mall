@@ -25,7 +25,7 @@ CREATE TABLE `sms_coupon`
     `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `coupon_type`       tinyint(1)     DEFAULT NULL COMMENT '优惠卷类型[0->全场赠券；1->会员赠券；2->购物赠券；3->注册赠券]',
     `coupon_img`        varchar(2000)  DEFAULT NULL COMMENT '优惠券图片',
-    `coupon_name`       varchar(100)   DEFAULT NULL COMMENT '优惠卷名字',
+    `coupon_name`       varchar(100)   DEFAULT NULL COMMENT '优惠券名字',
     `num`               int(11)        DEFAULT NULL COMMENT '数量',
     `amount`            decimal(18, 4) DEFAULT NULL COMMENT '金额',
     `per_limit`         int(11)        DEFAULT NULL COMMENT '每人限领张数',
@@ -59,8 +59,8 @@ CREATE TABLE `sms_coupon_history`
     `member_id`        bigint(20)  DEFAULT NULL COMMENT '会员id',
     `member_nick_name` varchar(64) DEFAULT NULL COMMENT '会员名字',
     `get_type`         tinyint(1)  DEFAULT NULL COMMENT '获取方式[0->后台赠送；1->主动领取]',
-    `create_time`      datetime    DEFAULT NULL COMMENT '创建时间',
     `use_type`         tinyint(1)  DEFAULT NULL COMMENT '使用状态[0->未使用；1->已使用；2->已过期]',
+    `create_time`      datetime    DEFAULT NULL COMMENT '创建时间',
     `use_time`         datetime    DEFAULT NULL COMMENT '使用时间',
     `order_id`         bigint(20)  DEFAULT NULL COMMENT '订单id',
     `order_sn`         bigint(20)  DEFAULT NULL COMMENT '订单号',
@@ -240,13 +240,13 @@ DROP TABLE IF EXISTS `sms_sec_kill_sku_notice`;
 
 CREATE TABLE `sms_sec_kill_sku_notice`
 (
-    `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `member_id`     bigint(20) DEFAULT NULL COMMENT 'member_id',
-    `sku_id`        bigint(20) DEFAULT NULL COMMENT 'sku_id',
-    `session_id`    bigint(20) DEFAULT NULL COMMENT '活动场次id',
-    `subcribe_time` datetime   DEFAULT NULL COMMENT '订阅时间',
-    `send_time`     datetime   DEFAULT NULL COMMENT '发送时间',
-    `notice_type`   tinyint(1) DEFAULT NULL COMMENT '通知方式[0-短信，1-邮件]',
+    `id`             bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `member_id`      bigint(20) DEFAULT NULL COMMENT 'member_id',
+    `sku_id`         bigint(20) DEFAULT NULL COMMENT 'sku_id',
+    `session_id`     bigint(20) DEFAULT NULL COMMENT '活动场次id',
+    `subscribe_time` datetime   DEFAULT NULL COMMENT '订阅时间',
+    `send_time`      datetime   DEFAULT NULL COMMENT '发送时间',
+    `notice_type`    tinyint(1) DEFAULT NULL COMMENT '通知方式[0-短信，1-邮件]',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='秒杀商品通知订阅';
@@ -263,10 +263,10 @@ CREATE TABLE `sms_sec_kill_sku_relation`
     `promotion_id`         bigint(20)     DEFAULT NULL COMMENT '活动id',
     `promotion_session_id` bigint(20)     DEFAULT NULL COMMENT '活动场次id',
     `sku_id`               bigint(20)     DEFAULT NULL COMMENT '商品id',
-    `seckill_price`        decimal(10, 0) DEFAULT NULL COMMENT '秒杀价格',
-    `seckill_count`        int(11)        DEFAULT NULL COMMENT '秒杀总量',
-    `seckill_limit`        int(11)        DEFAULT NULL COMMENT '每人限购数量',
-    `seckill_sort`         int(11)        DEFAULT NULL COMMENT '排序',
+    `sec_kill_price`       decimal(10, 0) DEFAULT NULL COMMENT '秒杀价格',
+    `sec_kill_count`       int(11)        DEFAULT NULL COMMENT '秒杀总量',
+    `sec_kill_limit`       int(11)        DEFAULT NULL COMMENT '每人限购数量',
+    `sec_kill_sort`        int(11)        DEFAULT NULL COMMENT '排序',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 5
@@ -274,8 +274,8 @@ CREATE TABLE `sms_sec_kill_sku_relation`
 
 /*Data for the table `sms_sec_kill_sku_relation` */
 
-insert into `sms_sec_kill_sku_relation`(`id`, `promotion_id`, `promotion_session_id`, `sku_id`, `seckill_price`,
-                                        `seckill_count`, `seckill_limit`, `seckill_sort`)
+insert into `sms_sec_kill_sku_relation`(`id`, `promotion_id`, `promotion_session_id`, `sku_id`, `sec_kill_price`,
+                                        `sec_kill_count`, `sec_kill_limit`, `sec_kill_sort`)
 values (2, NULL, 1, 41, 3999, 1, 1, 0),
        (3, NULL, 2, 41, 4999, 10, 1, 0),
        (4, NULL, 3, 41, 4299, 100, 1, 0);

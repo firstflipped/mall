@@ -51,6 +51,7 @@ public class OssServiceImpl implements OssService {
 
         Map<String, String> respMap = null;
         try {
+            // 签名有效期
             long expireTime = 30;
             long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
             Date expiration = new Date(expireEndTime);
@@ -59,13 +60,14 @@ public class OssServiceImpl implements OssService {
             policyConditions.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
             policyConditions.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
 
+            //
             String postPolicy = ossClient.generatePostPolicy(expiration, policyConditions);
             byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
             String encodedPolicy = BinaryUtil.toBase64String(binaryData);
             String postSignature = ossClient.calculatePostSignature(postPolicy);
 
             respMap = new LinkedHashMap<>();
-            respMap.put("accessid", accessId);
+            respMap.put("accessId", accessId);
             respMap.put("policy", encodedPolicy);
             respMap.put("signature", postSignature);
             respMap.put("dir", dir);

@@ -24,10 +24,10 @@ CREATE TABLE `ums_growth_change_history`
 (
     `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `member_id`    bigint(20) DEFAULT NULL COMMENT 'member_id',
-    `create_time`  datetime   DEFAULT NULL COMMENT 'create_time',
     `change_count` int(11)    DEFAULT NULL COMMENT '改变的值（正负计数）',
     `note`         varchar(0) DEFAULT NULL COMMENT '备注',
-    `source_type`  tinyint(4) DEFAULT NULL COMMENT '积分来源[0-购物，1-管理员修改]',
+    `source_type`  tinyint(1) DEFAULT NULL COMMENT '积分来源[0-购物，1-管理员修改]',
+    `create_time`  datetime   DEFAULT NULL COMMENT 'create_time',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='成长值变化历史记录';
@@ -42,10 +42,10 @@ CREATE TABLE `ums_integration_change_history`
 (
     `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `member_id`    bigint(20)   DEFAULT NULL COMMENT 'member_id',
-    `create_time`  datetime     DEFAULT NULL COMMENT 'create_time',
     `change_count` int(11)      DEFAULT NULL COMMENT '变化的值',
     `note`         varchar(255) DEFAULT NULL COMMENT '备注',
-    `source_tyoe`  tinyint(4)   DEFAULT NULL COMMENT '来源[0->购物；1->管理员修改;2->活动]',
+    `source_type`  tinyint(1)   DEFAULT NULL COMMENT '来源[0->购物；1->管理员修改;2->活动]',
+    `create_time`  datetime     DEFAULT NULL COMMENT 'create_time',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='积分变化历史记录';
@@ -75,10 +75,10 @@ CREATE TABLE `ums_member`
     `integration`  int(11)      DEFAULT NULL COMMENT '积分',
     `growth`       int(11)      DEFAULT NULL COMMENT '成长值',
     `status`       tinyint(4)   DEFAULT NULL COMMENT '启用状态',
-    `create_time`  datetime     DEFAULT NULL COMMENT '注册时间',
     `social_uid`   bigint(20)   DEFAULT NULL COMMENT '社交用户唯一id',
     `access_token` varchar(255) DEFAULT NULL COMMENT '访问令牌',
     `expires_in`   bigint(20)   DEFAULT NULL COMMENT '访问令牌的时间',
+    `create_time`  datetime     DEFAULT NULL COMMENT '注册时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 6
@@ -87,16 +87,16 @@ CREATE TABLE `ums_member`
 /*Data for the table `ums_member` */
 
 insert into `ums_member`(`id`, `level_id`, `username`, `password`, `nickname`, `mobile`, `email`, `header`, `gender`,
-                         `birth`, `city`, `job`, `sign`, `source_type`, `integration`, `growth`, `status`,
-                         `create_time`, `social_uid`, `access_token`, `expires_in`)
+                         `birth`, `city`, `job`, `sign`, `source_type`, `integration`, `growth`, `status`, `social_uid`,
+                         `access_token`, `expires_in`, `create_time`)
 values (2, 1, 'wangjie', '$2a$10$6gKu6vmpTFQUtEczpX5bdOItBTKuLLOnFpjc53sX1Zps7lCJ0.n82', NULL, '18763096838', NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:01:35', NULL, NULL, NULL),
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:01:35'),
        (4, 1, 'admin', '$2a$10$ekdVeZ8K5cQg1dKSbaUyNudomVMex8KkPA8ztUAm8iNMNZxyxGVkm', NULL, '17515235623', NULL, NULL,
-        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:41:09', NULL, NULL, NULL),
+        NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-27 23:41:09'),
        (5, 1, NULL, '$2a$10$WHcNFkpxhOQer.UHE4FT6uyyUZxmDFP895BnJjy8w7.tJ0dRgjkB.', '心有猛虎的杰爷', NULL, NULL,
         'https://tva4.sinaimg.cn/crop.0.0.1080.1080.50/006evlUgjw8fbuphxbojoj30u00u0jrs.jpg?KID=imgbed,tva&Expires=1629309063&ssig=JnKnMHkqmm',
-        1, NULL, '16', NULL, NULL, NULL, NULL, NULL, NULL, '2021-08-18 22:51:04', 5711138076,
-        '2.00Qu2VOGppkbeC8f7ac62209LyPwxD', 157679999);
+        1, NULL, '16', NULL, NULL, NULL, NULL, NULL, NULL, 5711138076, '2.00Qu2VOGppkbeC8f7ac62209LyPwxD', 157679999,
+        '2021-08-18 22:51:04');
 
 /*Table structure for table `ums_member_collect_spu` */
 
@@ -126,7 +126,7 @@ CREATE TABLE `ums_member_collect_subject`
     `subject_id`   bigint(20)   DEFAULT NULL COMMENT 'subject_id',
     `subject_name` varchar(255) DEFAULT NULL COMMENT 'subject_name',
     `subject_img`  varchar(500) DEFAULT NULL COMMENT 'subject_img',
-    `subject_urll` varchar(500) DEFAULT NULL COMMENT '活动url',
+    `subject_url`  varchar(500) DEFAULT NULL COMMENT '活动url',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='会员收藏的专题活动';
@@ -139,16 +139,16 @@ DROP TABLE IF EXISTS `ums_member_level`;
 
 CREATE TABLE `ums_member_level`
 (
-    `id`                      bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `name`                    varchar(100)   DEFAULT NULL COMMENT '等级名称',
-    `growth_point`            int(11)        DEFAULT NULL COMMENT '等级需要的成长值',
-    `default_status`          tinyint(4)     DEFAULT NULL COMMENT '是否为默认等级[0->不是；1->是]',
-    `free_freight_point`      decimal(18, 4) DEFAULT NULL COMMENT '免运费标准',
-    `comment_growth_point`    int(11)        DEFAULT NULL COMMENT '每次评价获取的成长值',
-    `priviledge_free_freight` tinyint(4)     DEFAULT NULL COMMENT '是否有免邮特权',
-    `priviledge_member_price` tinyint(4)     DEFAULT NULL COMMENT '是否有会员价格特权',
-    `priviledge_birthday`     tinyint(4)     DEFAULT NULL COMMENT '是否有生日特权',
-    `note`                    varchar(255)   DEFAULT NULL COMMENT '备注',
+    `id`                     bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `name`                   varchar(100)   DEFAULT NULL COMMENT '等级名称',
+    `growth_point`           int(11)        DEFAULT NULL COMMENT '等级需要的成长值',
+    `default_status`         tinyint(1)     DEFAULT NULL COMMENT '是否为默认等级[0->不是；1->是]',
+    `free_freight_point`     decimal(18, 4) DEFAULT NULL COMMENT '免运费标准',
+    `comment_growth_point`   int(11)        DEFAULT NULL COMMENT '每次评价获取的成长值',
+    `free_freight_privilege` tinyint(1)     DEFAULT NULL COMMENT '是否有免邮特权',
+    `member_price_privilege` tinyint(1)     DEFAULT NULL COMMENT '是否有会员价格特权',
+    `birthday_privilege`     tinyint(1)     DEFAULT NULL COMMENT '是否有生日特权',
+    `note`                   varchar(255)   DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 5
@@ -157,8 +157,8 @@ CREATE TABLE `ums_member_level`
 /*Data for the table `ums_member_level` */
 
 insert into `ums_member_level`(`id`, `name`, `growth_point`, `default_status`, `free_freight_point`,
-                               `comment_growth_point`, `priviledge_free_freight`, `priviledge_member_price`,
-                               `priviledge_birthday`, `note`)
+                               `comment_growth_point`, `free_freight_privilege`, `member_price_privilege`,
+                               `birthday_privilege`, `note`)
 values (1, '普通会员', 0, 1, 1000.0000, 10, 0, 0, 0, '普通会员'),
        (2, '白银会员', 5000, 0, 1000.0000, 20, 0, 1, 1, '白银会员'),
        (3, '黄金会员', 10000, 0, 500.0000, 30, 0, 1, 1, '黄金会员'),
@@ -197,7 +197,7 @@ CREATE TABLE `ums_member_receive_address`
     `city`           varchar(100) DEFAULT NULL COMMENT '城市',
     `region`         varchar(100) DEFAULT NULL COMMENT '区',
     `detail_address` varchar(255) DEFAULT NULL COMMENT '详细地址(街道)',
-    `areacode`       varchar(15)  DEFAULT NULL COMMENT '省市区代码',
+    `area_code`      varchar(15)  DEFAULT NULL COMMENT '省市区代码',
     `default_status` tinyint(1)   DEFAULT NULL COMMENT '是否默认',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -207,7 +207,7 @@ CREATE TABLE `ums_member_receive_address`
 /*Data for the table `ums_member_receive_address` */
 
 insert into `ums_member_receive_address`(`id`, `member_id`, `name`, `phone`, `post_code`, `province`, `city`, `region`,
-                                         `detail_address`, `areacode`, `default_status`)
+                                         `detail_address`, `area_code`, `default_status`)
 values (1, 5, '山东舞王小阿靠', '17515235623', '0000', '山东省', '济南市', '历下区', '舜华路街道草山岭小区', NULL, 1),
        (2, 5, '山东舞王小阿靠', '17515235623', '9999', '北京市', '北京市', '东城区', '长安街1号', NULL, 0),
        (3, 5, '山东舞王小阿靠', '17515235623', '2222', '山东省', '青岛市', '市南区', '济南路66号', NULL, 0);

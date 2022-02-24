@@ -43,13 +43,8 @@ public class BrandEntity implements Serializable {
 	 * 品牌logo地址
 	 */
 	@NotBlank(message = "品牌logo不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	@URL(message = "品牌logo地址为非法url", groups = {AddGroup.class, UpdateGroup.class})
+	@URL(message = "品牌logo地址不能为非法url", groups = {AddGroup.class, UpdateGroup.class})
 	private String logo;
-
-	/**
-	 * 介绍
-	 */
-	private String description;
 
 	/**
 	 * 显示状态[0-不显示；1-显示]
@@ -71,6 +66,11 @@ public class BrandEntity implements Serializable {
 	@NotNull(message = "品牌排序不能为空", groups = {AddGroup.class, UpdateGroup.class})
 	@Min(value = 0, message = "品牌排序顺序小于0", groups = {AddGroup.class, UpdateGroup.class})
 	private Integer sort;
+
+	/**
+	 * 介绍
+	 */
+	private String description;
 
 	/**
 	 * 创建时间
