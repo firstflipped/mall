@@ -5,7 +5,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * 积分
+ * spu积分传入实体
  *
  * @author laughingather
  */

@@ -20,7 +20,7 @@ import java.util.List;
 
 
 /**
- * 品牌路由
+ * 品牌管理路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product/brand")
-@Api(tags = "品牌模块")
+@Api(tags = "品牌管理")
 public class BrandController {
 
     @Resource

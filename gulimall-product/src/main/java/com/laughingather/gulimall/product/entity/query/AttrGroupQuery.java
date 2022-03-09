@@ -4,7 +4,7 @@ import com.laughingather.gulimall.common.query.PageQuery;
 import lombok.Data;
 
 /**
- * 属性分组条件查询参数
+ * 属性分组列表查询条件实体
  *
  * @author laughingather
  */

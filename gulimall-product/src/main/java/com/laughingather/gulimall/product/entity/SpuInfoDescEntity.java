@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * spu信息介绍
+ * spu信息介绍实体
  *
  * @author laughingather
  * @email laughingather@gmail.com

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 品牌视图展示类
+ * 品牌视图展示实体
  *
  * @author：laughingather
  * @create：2021-06-08 21:18

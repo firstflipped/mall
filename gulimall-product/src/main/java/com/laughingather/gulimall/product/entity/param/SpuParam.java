@@ -9,10 +9,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Auto-generated: 2021-04-28 12:2:54
+ * spu前端传入实体
  *
- * @author json.cn (i@json.cn)
- * @website http://www.json.cn/java2pojo/
+ * @author laughingather
  */
 @Data
 public class SpuParam {

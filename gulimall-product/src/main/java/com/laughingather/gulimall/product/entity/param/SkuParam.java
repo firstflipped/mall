@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
+ * sku传入实体
+ *
  * @author laughingather
  */
 @Data

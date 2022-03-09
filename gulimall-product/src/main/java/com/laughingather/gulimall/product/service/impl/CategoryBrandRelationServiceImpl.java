@@ -13,7 +13,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+/**
+ * 品牌分类关联关系管理逻辑实现
+ *
+ * @author laughingather
+ * @email laughingather@gmail.com
+ * @date 2021-04-11 15:12:49
+ */
 @Service("categoryBrandRelationService")
 public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandRelationDao, CategoryBrandRelationEntity> implements CategoryBrandRelationService {
 

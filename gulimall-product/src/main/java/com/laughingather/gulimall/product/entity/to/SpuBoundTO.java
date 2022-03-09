@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
- * 积分传输类
+ * spu积分服务传输实体
  *
  * @author laughingather
  */

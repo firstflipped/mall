@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 属性分组
+ * 属性分组实体
  *
  * @author laughingather
  * @email laughingather@gmail.com

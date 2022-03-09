@@ -9,10 +9,9 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 商品详情视图展示类
+ * 商品详情视图展示实体
  *
  * @author：laughingather
- * @create：2021-06-04 22:16
  */
 @Data
 public class SkuItemVO {
@@ -45,7 +44,7 @@ public class SkuItemVO {
     /**
      * 规格参数信息
      */
-    private List<SpuItemGroupAttrVO> groupAttrs;
+    private List<SpuItemAttrGroupWithAttrVO> groupAttrs;
 
     /**
      * 秒杀信息

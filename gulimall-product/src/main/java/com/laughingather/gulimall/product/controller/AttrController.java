@@ -2,6 +2,8 @@ package com.laughingather.gulimall.product.controller;
 
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.UpdateGroup;
 import com.laughingather.gulimall.product.entity.param.AttrParam;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
@@ -10,13 +12,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 
 /**
- * 属性路由
+ * 属性管理路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -24,7 +27,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/product/attr")
-@Api(tags = "属性模块")
+@Api(tags = "属性管理")
 public class AttrController {
 
     @Resource
@@ -61,14 +64,14 @@ public class AttrController {
 
     @PostMapping
     @ApiOperation(value = "保存属性信息")
-    public MyResult<Void> saveAttr(@RequestBody AttrParam attrParam) {
+    public MyResult<Void> saveAttr(@Validated({AddGroup.class}) @RequestBody AttrParam attrParam) {
         attrService.saveAttr(attrParam);
         return MyResult.success();
     }
 
     @PutMapping
     @ApiOperation(value = "更新属性信息")
-    public MyResult<Void> updateAttrById(@RequestBody AttrParam attrParam) {
+    public MyResult<Void> updateAttrById(@Validated({UpdateGroup.class}) @RequestBody AttrParam attrParam) {
         attrService.updateAttrById(attrParam);
         return MyResult.success();
     }

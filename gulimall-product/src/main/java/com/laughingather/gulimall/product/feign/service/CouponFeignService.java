@@ -19,8 +19,7 @@ public interface CouponFeignService {
      * 调用远程服务其实就相当于根据服务名 + 路由发送一个对应服务的请求而已
      * 只要参数的属性能够兼容，没必要参数签名完全一致
      *
-     * @param spuBoundTO
-     * @return
+     * @param spuBoundTO spu积分传输实体
      */
     @PostMapping("/gulimall-coupon/openapi/coupon/spu-bounds")
     MyResult<Void> saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO);
@@ -28,8 +27,7 @@ public interface CouponFeignService {
     /**
      * 保存sku的其他信息
      *
-     * @param skuOtherInfoTO
-     * @return
+     * @param skuOtherInfoTO sku其他信息传输实体
      */
     @PostMapping("/gulimall-coupon/openapi/coupon/sku-other-info")
     MyResult<Void> saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO);

@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * 属性分组&关联属性视图展示类
+ * 属性分组&关联属性视图展示实体
  *
  * @author：laughingather
  */

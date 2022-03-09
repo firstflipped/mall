@@ -12,6 +12,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
+/**
+ * sku图片管理逻辑接口
+ *
+ * @author laughingather
+ * @email laughingather@gmail.com
+ * @date 2021-04-11 15:12:49
+ */
 @Service("skuImagesService")
 public class SkuImagesServiceImpl extends ServiceImpl<SkuImagesDao, SkuImagesEntity> implements SkuImagesService {
 

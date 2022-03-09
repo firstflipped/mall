@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * sku信息服务传输实体
+ *
+ * @author：laughingather
+ * @create：2021-06-08 21:18
+ */
 @Data
 @Builder
 @NoArgsConstructor

@@ -22,7 +22,7 @@ import java.util.List;
 
 
 /**
- * 属性分组路由
+ * 属性分组管理路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -30,7 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product/attr-group")
-@Api(tags = "属性分组模块")
+@Api(tags = "属性分组管理")
 public class AttrGroupController {
 
     @Resource
@@ -43,6 +43,12 @@ public class AttrGroupController {
         return MyResult.success(attrGroupPage);
     }
 
+    @GetMapping("/list")
+    @ApiOperation(value = "查询属性分组列表")
+    public MyResult<List<AttrGroupEntity>> listAttrGroups() {
+        List<AttrGroupEntity> attrGroups = attrGroupService.list();
+        return MyResult.success(attrGroups);
+    }
 
     @GetMapping("/{cid}/page")
     @ApiOperation(value = "根据分类id分页查询属性分组列表")
@@ -58,20 +64,15 @@ public class AttrGroupController {
         return MyResult.success(attrGroupPage);
     }
 
-    @GetMapping("/{ag-id}")
+    @GetMapping("/{gid}")
     @ApiOperation(value = "查询属性分组详情信息")
     @ApiImplicitParam(name = "ag-id", value = "属性分组id", dataTypeClass = Long.class)
-    public MyResult<AttrGroupVO> getAttrGroupById(@PathVariable("ag-id") Long attrGroupId) {
+    public MyResult<AttrGroupVO> getAttrGroupById(@PathVariable("gid") Long attrGroupId) {
         AttrGroupVO attrGroupVO = attrGroupService.getAttrGroupById(attrGroupId);
         return MyResult.success(attrGroupVO);
     }
 
-    /**
-     * 查询当前分类下的所有分组以及分组下的属性信息
-     *
-     * @param categoryId
-     * @return
-     */
+
     @GetMapping("/{cid}/with-attrs")
     @ApiOperation(value = "查询当前分类下的所有分组以及分组下的属性信息")
     @ApiImplicitParam(name = "cid", value = "分类id", dataTypeClass = Long.class)
@@ -87,10 +88,10 @@ public class AttrGroupController {
         return MyResult.success();
     }
 
-    @DeleteMapping("/{ag-id}")
+    @DeleteMapping("/{gid}")
     @ApiOperation(value = "删除属性分组信息")
     @ApiImplicitParam(name = "ag-id", value = "属性分组id", dataTypeClass = Long.class)
-    public MyResult<Void> deleteAttrGroupById(@PathVariable("ag-id") Long attrGroupId) {
+    public MyResult<Void> deleteAttrGroupById(@PathVariable("gid") Long attrGroupId) {
         attrGroupService.removeById(attrGroupId);
         return MyResult.success();
     }

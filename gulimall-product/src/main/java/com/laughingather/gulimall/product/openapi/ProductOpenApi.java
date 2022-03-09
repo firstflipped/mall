@@ -40,8 +40,8 @@ public class ProductOpenApi {
     /**
      * 根据skuId获取商品名称
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return sku名称
      */
     @GetMapping("/{sid}/name")
     public MyResult<String> getSkuNameBySkuId(@PathVariable("sid") Long skuId) {
@@ -54,8 +54,8 @@ public class ProductOpenApi {
     /**
      * 根据skuId查询商品价格
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return sku价格
      */
     @GetMapping("/{sid}/price")
     public MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sid") Long skuId) {
@@ -68,8 +68,8 @@ public class ProductOpenApi {
     /**
      * 根据商品id获取商品详情
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return sku实体
      */
     @GetMapping("/{sid}/info")
     public MyResult<SkuInfoEntity> getSkuInfoBySkuId(@PathVariable("sid") Long skuId) {
@@ -82,8 +82,8 @@ public class ProductOpenApi {
     /**
      * 获取销售属性信息
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return 销售属性集合
      */
     @GetMapping("/sku-sale-attr-value/list/{sid}")
     public MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("sid") Long skuId) {
@@ -96,8 +96,8 @@ public class ProductOpenApi {
     /**
      * 获取spu信息
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return spu实体
      */
     @GetMapping("/spu-info")
     public MyResult<SpuInfoVO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId) {
@@ -113,8 +113,8 @@ public class ProductOpenApi {
     /**
      * 获取属性信息
      *
-     * @param attrId
-     * @return
+     * @param attrId 属性id
+     * @return 属性服务传输实体
      */
     @GetMapping("/{aid}")
     public MyResult<AttrTO> getAttrById(@PathVariable("aid") Long attrId) {
@@ -122,10 +122,16 @@ public class ProductOpenApi {
 
         AttrTO attrTO = new AttrTO();
         BeanUtils.copyProperties(attrVO, attrTO);
-        return attrTO != null ? MyResult.success(attrTO) : MyResult.failed();
+        return MyResult.success(attrTO);
     }
 
 
+    /**
+     * 获取品牌列表
+     *
+     * @param brandIds 品牌id集合
+     * @return 品牌实体集合
+     */
     @GetMapping("/brand/list")
     public MyResult<List<BrandEntity>> listBrandsByIds(@RequestParam(value = "bids", required = false) List<Long> brandIds) {
         List<BrandEntity> brands;

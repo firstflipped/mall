@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * 分类树形结构视图展示类
+ * 分类树形结构视图展示实体
  *
  * @author：laughingather
  */
@@ -20,35 +20,43 @@ public class CategoryTreeVO {
     /**
      * 分类id
      */
-    private Long catId;
+    private Long categoryId;
+
     /**
      * 分类名称
      */
-    private String name;
+    private String categoryName;
+
     /**
      * 父分类id
      */
-    private Long parentCid;
-    /**
-     * 层级
-     */
-    private Integer catLevel;
-    /**
-     * 是否显示[0-不显示，1显示]
-     */
-    private Integer showStatus;
-    /**
-     * 排序
-     */
-    private Integer sort;
+    private Long parentId;
+
     /**
      * 图标地址
      */
     private String icon;
+
+    /**
+     * 层级
+     */
+    private Integer categoryLevel;
+
+    /**
+     * 是否显示[0-不显示，1显示]
+     */
+    private Integer showStatus;
+
+    /**
+     * 排序
+     */
+    private Integer sort;
+
     /**
      * 计量单位
      */
     private String productUnit;
+
     /**
      * 商品数量
      */

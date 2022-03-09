@@ -3,6 +3,8 @@ package com.laughingather.gulimall.product.entity.vo;
 import lombok.Data;
 
 /**
+ * 属性值对应skuId视图展示实体
+ *
  * @author：laughingather
  * @create：2021-06-08 21:18
  */
@@ -15,7 +17,7 @@ public class AttrValueWithSkuIdVO {
     private String attrValue;
 
     /**
-     *
+     * skuId集合
      */
     private String skuIds;
 

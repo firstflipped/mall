@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * sku销售属性&值
- * 
+ * sku销售属性&值实体
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:48

@@ -5,6 +5,12 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * skuES服务传输实体
+ *
+ * @author：laughingather
+ * @create：2021-06-08 21:18
+ */
 @Data
 public class SkuEsTO {
 

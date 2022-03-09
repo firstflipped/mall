@@ -14,22 +14,17 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <select id="getAttrGroupById" resultType="com.laughingather.gulimall.product.entity.vo.AttrGroupVO">
-        SELECT attr_group_id, attr_group_name, sort, description, icon, category_id
-        FROM pms_attr_group
-        WHERE attr_group_id = #{attrGroupId};
-    </select>
-
     <select id="getGroupNameByAttrId" resultType="java.lang.String">
         SELECT pag.attr_group_name
         FROM pms_attr pa
-                     INNER JOIN pms_attr_group pag USING (attr_group_id)
+        INNER JOIN pms_attr_group pag USING (attr_group_id)
         WHERE pa.attr_id = #{attrId}
     </select>
 
     <!-- 索引并不一定是每个关联字段都加上好，具体要看执行解释器 -->
-    <resultMap id="attrGroupWithAttrsMap" type="com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO">
-        <result property="groupName" column="attr_group_name" javaType="string"/>
+    <resultMap id="attrGroupWithAttrsMap"
+               type="com.laughingather.gulimall.product.entity.vo.SpuItemAttrGroupWithAttrVO">
+        <result property="attrGroupName" column="attr_group_name" javaType="string"/>
         <collection property="attrs" ofType="com.laughingather.gulimall.product.entity.vo.SpuBaseAttrVO">
             <result property="attrName" column="attr_name" javaType="string"/>
             <result property="attrValue" column="attr_value" javaType="string"/>
@@ -37,9 +32,9 @@
     </resultMap>
     <select id="getAttrGroupWithAttrsBySpuId" resultMap="attrGroupWithAttrsMap">
         SELECT ppav.spu_id,
-               pag.attr_group_id,
-               pag.attr_group_name,
-               pa.attr_id,
+        pag.attr_group_id,
+        pag.attr_group_name,
+        pa.attr_id,
                pa.attr_name,
                ppav.attr_value
         FROM pms_attr_group pag

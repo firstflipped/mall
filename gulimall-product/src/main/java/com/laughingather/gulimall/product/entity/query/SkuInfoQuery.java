@@ -5,6 +5,11 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * sku列表查询条件实体
+ *
+ * @author laughingather
+ */
 @Data
 public class SkuInfoQuery extends PageQuery {
 

@@ -8,7 +8,11 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * @author WangJie
+ * spu信息介绍逻辑实现
+ *
+ * @author laughingather
+ * @email laughingather@gmail.com
+ * @date 2021-04-11 15:12:48
  */
 @Service("spuInfoDescService")
 public class SpuInfoDescServiceImpl extends ServiceImpl<SpuInfoDescDao, SpuInfoDescEntity> implements SpuInfoDescService {

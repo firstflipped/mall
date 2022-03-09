@@ -2,6 +2,11 @@ package com.laughingather.gulimall.product.entity.param;
 
 import lombok.Data;
 
+/**
+ * sku属性输入实体
+ *
+ * @author laughingather
+ */
 @Data
 public class SkuAttrParam {
     /**

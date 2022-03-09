@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * spu信息
- * 
+ * spu信息实体
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49

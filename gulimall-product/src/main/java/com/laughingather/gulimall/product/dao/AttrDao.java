@@ -18,8 +18,8 @@ public interface AttrDao extends BaseMapper<AttrEntity> {
     /**
      * 查询可以快速检索的属性id集合
      *
-     * @param attrIds
-     * @return
+     * @param attrIds 属性id集合
+     * @return 属性id集合
      */
     List<Long> selectSearchAttrIds(@Param("attrIds") List<Long> attrIds);
 }

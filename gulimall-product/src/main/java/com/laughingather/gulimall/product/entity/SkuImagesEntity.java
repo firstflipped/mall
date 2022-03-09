@@ -8,7 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * sku图片
+ * sku图片实体
  *
  * @author laughingather
  * @email laughingather@gmail.com

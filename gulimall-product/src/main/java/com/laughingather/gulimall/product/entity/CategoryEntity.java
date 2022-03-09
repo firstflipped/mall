@@ -34,7 +34,12 @@ public class CategoryEntity implements Serializable {
     /**
      * 父分类id
      */
-    private Long parentCid;
+    private Long parentId;
+
+    /**
+     * 图标地址
+     */
+    private String icon;
 
     /**
      * 层级
@@ -51,11 +56,6 @@ public class CategoryEntity implements Serializable {
      * 排序
      */
 	private Integer sort;
-
-	/**
-     * 图标地址
-     */
-    private String icon;
 
     /**
      * 计量单位

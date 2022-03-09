@@ -6,7 +6,7 @@ import com.laughingather.gulimall.product.entity.SkuImagesEntity;
 import java.util.List;
 
 /**
- * sku图片
+ * sku图片管理逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -17,8 +17,8 @@ public interface SkuImagesService extends IService<SkuImagesEntity> {
     /**
      * 根据skuId获取图片集合
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return sku图片列表
      */
     List<SkuImagesEntity> listImagesBySkuId(Long skuId);
 }

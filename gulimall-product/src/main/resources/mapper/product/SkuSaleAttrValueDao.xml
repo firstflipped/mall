@@ -36,7 +36,7 @@
 
     <select id="getSkuSaleAttrValuesAsString" resultType="java.lang.String">
         SELECT CONCAT(attr_name, ': ', attr_value)
-        FROM `pms_sku_sale_attr_value`
+        FROM pms_sku_sale_attr_value
         WHERE sku_id = #{skuId}
     </select>
 </mapper>

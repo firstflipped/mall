@@ -10,8 +10,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 商品属性
- * 
+ * 商品属性实体
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49
@@ -64,7 +64,7 @@ public class AttrEntity implements Serializable {
      * 启用状态[0 - 禁用，1 - 启用]
      */
     @ApiModelProperty(value = "启用状态[0 - 禁用，1 - 启用]")
-    private Long enable;
+    private Integer enable;
 
 
     /**

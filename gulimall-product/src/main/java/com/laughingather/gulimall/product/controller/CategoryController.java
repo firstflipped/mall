@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * 商品分类路由
+ * 分类管理路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product/category")
-@Api(tags = "分类模块")
+@Api(tags = "分类管理")
 public class CategoryController {
 
     @Resource
@@ -33,8 +33,8 @@ public class CategoryController {
     @GetMapping("/tree")
     @ApiOperation("树形结构查询分类列表")
     public MyResult<List<CategoryTreeVO>> listCategoryWithTree() {
-        List<CategoryTreeVO> categoryTreeVOs = categoryService.listWithTree();
-        return MyResult.success(categoryTreeVOs);
+        List<CategoryTreeVO> categoryTreeVOList = categoryService.listWithTree();
+        return MyResult.success(categoryTreeVOList);
     }
 
     @GetMapping("/{cid}")
@@ -60,8 +60,8 @@ public class CategoryController {
 
     /**
      * @param category
-     * @return
      * @CacheEvict：缓存失效模式，更新数据后会自动把缓存删掉
+     *
      */
     @PutMapping
     @CacheEvict(value = "category", key = "'level1Category'")

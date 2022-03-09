@@ -29,36 +29,36 @@ public class BrandEntity implements Serializable {
 	 * 品牌id
 	 */
 	@TableId
-	@Null(message = "品牌新增id必须为空", groups = {AddGroup.class})
-	@NotNull(message = "品牌修改id不能为空", groups = {UpdateGroup.class})
-	private Long brandId;
+    @Null(message = "品牌新增id必须为空", groups = {AddGroup.class})
+    @NotNull(message = "品牌修改id不能为空", groups = {UpdateGroup.class})
+    private Long brandId;
 
-	/**
-	 * 品牌名
-	 */
-	@NotBlank(message = "品牌名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	private String brandName;
+    /**
+     * 品牌名
+     */
+    @NotBlank(message = "品牌名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    private String brandName;
 
-	/**
-	 * 品牌logo地址
-	 */
-	@NotBlank(message = "品牌logo不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	@URL(message = "品牌logo地址不能为非法url", groups = {AddGroup.class, UpdateGroup.class})
-	private String logo;
+    /**
+     * 检索首字母
+     */
+    @NotBlank(message = "品牌检索首字母不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @Pattern(regexp = "^[a-zA-Z]$", message = "检索首字母不符合规范", groups = {AddGroup.class, UpdateGroup.class})
+    private String firstLetter;
 
-	/**
-	 * 显示状态[0-不显示；1-显示]
+    /**
+     * 品牌logo地址
+     */
+    @NotBlank(message = "品牌logo不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @URL(message = "品牌logo地址不能为非法url", groups = {AddGroup.class, UpdateGroup.class})
+    private String logo;
+
+    /**
+     * 显示状态[0-不显示；1-显示]
 	 */
 	@NotNull(message = "品牌显示状态不能为空", groups = {AddGroup.class, UpdateGroup.class})
 	@ListValue(values = {0, 1}, groups = {AddGroup.class, UpdateGroup.class})
 	private Integer showStatus;
-
-	/**
-	 * 检索首字母
-	 */
-	@NotBlank(message = "品牌检索首字母不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	@Pattern(regexp = "^[a-zA-Z]$", message = "检索首字母不符合规范", groups = {AddGroup.class, UpdateGroup.class})
-	private String firstLetter;
 
 	/**
 	 * 排序

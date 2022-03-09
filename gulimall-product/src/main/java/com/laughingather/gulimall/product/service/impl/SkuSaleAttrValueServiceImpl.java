@@ -12,9 +12,12 @@ import java.util.List;
 
 
 /**
- * @author WangJie
+ * sku销售属性&值逻辑实现
+ *
+ * @author laughingather
+ * @email laughingather@gmail.com
+ * @date 2021-04-11 15:12:48
  */
-
 @Service("skuSaleAttrValueService")
 public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueDao, SkuSaleAttrValueEntity> implements SkuSaleAttrValueService {
 
@@ -23,13 +26,11 @@ public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueDao
 
     @Override
     public List<ItemSaleAttrVO> getSaleAttrsBySpuId(Long spuId) {
-        List<ItemSaleAttrVO> saleAttrs = skuSaleAttrValueDao.getSaleAttrsBySpuId(spuId);
-        return saleAttrs;
+        return skuSaleAttrValueDao.getSaleAttrsBySpuId(spuId);
     }
 
     @Override
     public List<String> getSkuSaleAttrValuesAsString(Long skuId) {
-        List<String> skuSaleAttrValues = skuSaleAttrValueDao.getSkuSaleAttrValuesAsString(skuId);
-        return skuSaleAttrValues;
+        return skuSaleAttrValueDao.getSkuSaleAttrValuesAsString(skuId);
     }
 }

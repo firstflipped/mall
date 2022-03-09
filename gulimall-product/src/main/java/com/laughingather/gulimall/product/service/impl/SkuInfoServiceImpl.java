@@ -13,7 +13,7 @@ import com.laughingather.gulimall.product.entity.SpuInfoDescEntity;
 import com.laughingather.gulimall.product.entity.query.SkuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
-import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
+import com.laughingather.gulimall.product.entity.vo.SpuItemAttrGroupWithAttrVO;
 import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisTO;
 import com.laughingather.gulimall.product.feign.service.SecKillFeignService;
 import com.laughingather.gulimall.product.service.*;
@@ -25,7 +25,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 
-
+/**
+ * sku逻辑实现
+ *
+ * @author laughingather
+ * @email laughingather@gmail.com
+ * @date 2021-04-11 15:12:49
+ */
 @Service("skuInfoService")
 public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> implements SkuInfoService {
 
@@ -87,7 +93,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
         CompletableFuture<Void> groupAttrsCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(skuInfo -> {
             // 获取sku的规格参数信息
-            List<SpuItemGroupAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(skuInfo.getCategoryId(), skuInfo.getSpuId());
+            List<SpuItemAttrGroupWithAttrVO> groupAttrVO = attrGroupService.getAttrGroupWithAttrsBySpuId(skuInfo.getCategoryId(), skuInfo.getSpuId());
             skuItemVO.setGroupAttrs(groupAttrVO);
         }, threadPoolExecutor);
 

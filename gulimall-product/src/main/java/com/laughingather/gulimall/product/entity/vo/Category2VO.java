@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 二级分类视图展示类
+ * 二级分类视图展示实体
  *
  * @author：laughingather
  */
@@ -18,9 +18,24 @@ import java.util.List;
 @AllArgsConstructor
 public class Category2VO {
 
+    /**
+     * 二级分类id
+     */
     private String id;
+
+    /**
+     * 二级分类名称
+     */
     private String name;
-    private String catalog1Id;
+
+    /**
+     * 一级分类id
+     */
+    private String category1Id;
+
+    /**
+     * 三级分类列表
+     */
     private List<Category3VO> catalog3List;
 
 
@@ -29,9 +44,20 @@ public class Category2VO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Category3VO {
+        /**
+         * 三级分类id
+         */
         private String id;
+
+        /**
+         * 三级分类名称
+         */
         private String name;
-        private String catalog2Id;
+
+        /**
+         * 三级分类id
+         */
+        private String category2Id;
     }
 
 }

@@ -16,7 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
-
+/**
+ * 品牌管理逻辑实现
+ *
+ * @author laughingather
+ */
 @Service("brandService")
 public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
 
@@ -25,14 +29,16 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
 
     @Override
     public MyPage<BrandEntity> listBrandsWithPage(BrandQuery brandQuery) {
+        // 组建分页、条件参数
         IPage<BrandEntity> page = new Page<>(brandQuery.getPn(), brandQuery.getPs());
         QueryWrapper<BrandEntity> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(brandQuery.getName())) {
             queryWrapper.lambda().like(BrandEntity::getBrandName, brandQuery.getName());
         }
 
-        IPage<BrandEntity> brandEntityIPage = brandDao.selectPage(page, queryWrapper);
-        return MyPage.restPage(brandEntityIPage);
+        // 分页条件查询数据库
+        IPage<BrandEntity> brandEntityPage = brandDao.selectPage(page, queryWrapper);
+        return MyPage.restPage(brandEntityPage);
     }
 
     @Override
@@ -41,14 +47,9 @@ public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> impleme
         brandDao.insert(brand);
     }
 
-    /**
-     * 根据id更新品牌信息，需要同步更新其他冗余数据
-     *
-     * @param brand
-     * @return
-     */
+
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateBrandById(BrandEntity brand) {
         brand.setUpdateTime(LocalDateTime.now());
         brandDao.updateById(brand);

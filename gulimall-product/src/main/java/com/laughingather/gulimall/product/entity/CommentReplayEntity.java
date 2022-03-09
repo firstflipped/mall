@@ -8,8 +8,8 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 商品评价回复关系
- * 
+ * 商品评价回复关系实体
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49

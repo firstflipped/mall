@@ -4,6 +4,11 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * sku会员价格传入实体
+ *
+ * @author laughingather
+ */
 @Data
 public class SkuMemberPriceParam {
     /**

@@ -5,6 +5,11 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 分类品牌关联输入实体
+ *
+ * @author laughingather
+ */
 @Data
 public class CategoryBrandRelationParam {
     /**

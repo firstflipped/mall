@@ -3,7 +3,7 @@ package com.laughingather.gulimall.product.entity.vo;
 import lombok.Data;
 
 /**
- * 属性展示类
+ * 属性视图展示实体
  *
  * @author：laughingather
  */

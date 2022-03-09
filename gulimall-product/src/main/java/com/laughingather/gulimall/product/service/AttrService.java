@@ -10,7 +10,7 @@ import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import java.util.List;
 
 /**
- * 商品属性
+ * 属性管理逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -21,8 +21,8 @@ public interface AttrService extends IService<AttrEntity> {
     /**
      * 分页查询属性列表
      *
-     * @param attrQuery
-     * @return
+     * @param attrQuery 属性列表查询条件
+     * @return 属性列表
      */
     MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery);
 
@@ -30,30 +30,30 @@ public interface AttrService extends IService<AttrEntity> {
      * 根据分类id分页查询属性列表
      *
      * @param categoryId 分类id
-     * @param attrQuery
-     * @return
+     * @param attrQuery  属性列表查询条件
+     * @return 属性列表
      */
     MyPage<AttrVO> listAttrsWithPageByCategoryId(Long categoryId, AttrQuery attrQuery);
 
     /**
      * 根据分组id查询属性列表
      *
-     * @param attrGroupId
-     * @return
+     * @param attrGroupId 属性分组id
+     * @return 属性列表
      */
     List<AttrEntity> listAttrsByAttrGroupId(Long attrGroupId);
 
     /**
      * 保存属性信息
      *
-     * @param attrParam
+     * @param attrParam 新增属性信息
      */
     void saveAttr(AttrParam attrParam);
 
     /**
      * 更新属性信息
      *
-     * @param attrParam
+     * @param attrParam 修改属性信息
      */
     void updateAttrById(AttrParam attrParam);
 
@@ -61,15 +61,15 @@ public interface AttrService extends IService<AttrEntity> {
      * 获取属性详情
      *
      * @param attrId 属性id
-     * @return
+     * @return 属性详情
      */
     AttrVO getAttrVOById(Long attrId);
 
     /**
      * 查询需要检索的属性id列表
      *
-     * @param attrIds
-     * @return
+     * @param attrIds 属性id列表
+     * @return 属性id列表
      */
     List<Long> selectSearchAttrIds(List<Long> attrIds);
 }

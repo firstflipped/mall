@@ -8,7 +8,7 @@ import com.laughingather.gulimall.product.entity.CategoryEntity;
 import java.util.List;
 
 /**
- * 品牌分类关联
+ * 品牌分类关联关系管理逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -19,23 +19,23 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     /**
      * 查询分类列表
      *
-     * @param brandId
-     * @return
+     * @param brandId 品牌id
+     * @return 分类列表
      */
     List<CategoryEntity> listCategoryByBrandId(Long brandId);
 
     /**
      * 查询品牌列表
      *
-     * @param categoryId
-     * @return
+     * @param categoryId 分类id
+     * @return 品牌列表
      */
     List<BrandEntity> listBrandsByCategoryId(Long categoryId);
 
     /**
      * 保存品牌&分类关联关系
      *
-     * @param categoryBrandRelation
+     * @param categoryBrandRelation 品牌分类关联关系
      */
     void saveCategoryBrandRelation(CategoryBrandRelationEntity categoryBrandRelation);
 }

@@ -4,7 +4,7 @@ import com.laughingather.gulimall.common.query.PageQuery;
 import lombok.Data;
 
 /**
- * 品牌列表条件搜索
+ * 品牌列表查询条件实体
  *
  * @author laughingather
  */

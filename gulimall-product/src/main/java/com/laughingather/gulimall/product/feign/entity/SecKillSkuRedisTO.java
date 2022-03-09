@@ -5,10 +5,10 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * 秒杀服务redis存储商品详情
+ * 秒杀服务redis存储商品详情服务传输实体
  *
  * @author：laughingather
- * @create：2021-11-15 2021/11/15
+ * @date：2021-11-15
  */
 @Data
 public class SecKillSkuRedisTO {

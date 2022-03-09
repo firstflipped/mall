@@ -6,7 +6,7 @@
     <resultMap type="com.laughingather.gulimall.product.entity.CategoryEntity" id="categoryMap">
         <result property="categoryId" column="category_id"/>
         <result property="categoryName" column="category_name"/>
-        <result property="parentCid" column="parent_cid"/>
+        <result property="parentId" column="parent_id"/>
         <result property="categoryLevel" column="category_level"/>
         <result property="showStatus" column="show_status"/>
         <result property="sort" column="sort"/>
@@ -20,7 +20,7 @@
     <select id="selectListWithTree" resultType="com.laughingather.gulimall.product.entity.vo.CategoryTreeVO">
         SELECT category_id,
                category_name,
-               parent_cid,
+               parent_id,
                category_level,
                show_status,
                sort,

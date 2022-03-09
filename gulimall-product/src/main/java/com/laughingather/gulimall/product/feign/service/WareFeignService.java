@@ -19,8 +19,8 @@ public interface WareFeignService {
     /**
      * 查询sku的库存信息
      *
-     * @param skuIds
-     * @return
+     * @param skuIds skuId集合
+     * @return sku库存信息传输实体集合
      */
     @PostMapping("/gulimall-ware/openapi/ware/stock")
     MyResult<List<SkuHasStockTO>> getSkusHasStock(@RequestBody List<Long> skuIds);

@@ -4,7 +4,7 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
 import com.laughingather.gulimall.product.entity.to.SpuBoundTO;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
-import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
+import com.laughingather.gulimall.product.entity.vo.SpuItemAttrGroupWithAttrVO;
 import com.laughingather.gulimall.product.feign.service.CouponFeignService;
 import com.laughingather.gulimall.product.service.SkuSaleAttrValueService;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class GulimallProductApplicationTests {
 
     @Test
     public void testAttrGroupDao() {
-        List<SpuItemGroupAttrVO> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(225L, 7L);
+        List<SpuItemAttrGroupWithAttrVO> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(225L, 7L);
         attrGroupWithAttrsBySpuId.stream().forEach(System.out::println);
     }
 

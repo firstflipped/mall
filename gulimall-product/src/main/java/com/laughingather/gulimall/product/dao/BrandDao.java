@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 /**
- * 品牌
+ * 品牌管理持久层
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -17,8 +17,8 @@ public interface BrandDao extends BaseMapper<BrandEntity> {
     /**
      * 根据品牌id查询品牌名称
      *
-     * @param brandId
-     * @return
+     * @param brandId 品牌id
+     * @return 品牌名称
      */
     @Select("SELECT brand_name FROM pms_brand WHERE show_status = 1 AND brand_id = #{brandId}")
     String getBrandNameById(@Param("brandId") Long brandId);

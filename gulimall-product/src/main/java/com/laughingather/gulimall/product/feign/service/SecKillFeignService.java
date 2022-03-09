@@ -11,12 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 秒杀服务远程调用类
  *
  * @author：laughingather
- * @create：2021-11-17 2021/11/17
+ * @date：2021-11-17
  */
 @FeignClient("gulimall-seckill")
 @RequestMapping("/gulimall-seckill/openapi/seckill")
 public interface SecKillFeignService {
 
+    /**
+     * 获取sku秒杀信息
+     *
+     * @param skuId skuId
+     * @return sku秒杀信息传输实体
+     */
     @GetMapping("/sec-kill-sku/{sid}/info")
     MyResult<SecKillSkuRedisTO> getSecKillSkuInfo(@PathVariable("sid") Long skuId);
 }

@@ -8,7 +8,7 @@ import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 
 /**
- * spu信息
+ * spu逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -19,30 +19,30 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
     /**
      * 保存spu信息
      *
-     * @param spuParam
+     * @param spuParam 前端传入spu信息
      */
     void saveSpuInfo(SpuParam spuParam);
 
     /**
      * 分页查询spu信息
      *
-     * @param spuInfoQuery
-     * @return
+     * @param spuInfoQuery spu列表查询条件
+     * @return spu列表
      */
     MyPage<SpuInfoEntity> listSpuWithPage(SpuInfoQuery spuInfoQuery);
 
     /**
      * 上架
      *
-     * @param spuId
+     * @param spuId spuId
      */
     void upSpu(Long spuId);
 
     /**
      * 获取spu信息
      *
-     * @param skuId
-     * @return
+     * @param skuId skuId
+     * @return spu详情信息
      */
     SpuInfoVO getSpuInfoBySkuId(Long skuId);
 }

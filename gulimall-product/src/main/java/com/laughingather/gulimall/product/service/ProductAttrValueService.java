@@ -6,7 +6,7 @@ import com.laughingather.gulimall.product.entity.ProductAttrValueEntity;
 import java.util.List;
 
 /**
- * spu属性值
+ * spu属性值逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -18,8 +18,8 @@ public interface ProductAttrValueService extends IService<ProductAttrValueEntity
     /**
      * 根据spuId查询属性值列表
      *
-     * @param spuId
-     * @return
+     * @param spuId 商品spuId
+     * @return spu属性值列表
      */
     List<ProductAttrValueEntity> listAttrValuesBySpuId(Long spuId);
 

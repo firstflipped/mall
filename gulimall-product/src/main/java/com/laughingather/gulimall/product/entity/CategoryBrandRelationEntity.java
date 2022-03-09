@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 品牌分类关联
+ * 品牌分类关联实体
  *
  * @author laughingather
  * @email laughingather@gmail.com

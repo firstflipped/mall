@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 
 /**
- * spu信息
+ * spu路由
  *
  * @author laughingather
  * @email laughingather@gmail.com
@@ -36,11 +36,7 @@ public class SpuInfoController {
         return MyResult.success(spuInfoMyPage);
     }
 
-    /**
-     * 商品上架
-     *
-     * @return
-     */
+
     @PostMapping("/{sid}/up")
     @ApiOperation(value = "商品上架")
     @ApiImplicitParam(name = "sid", value = "spuId")

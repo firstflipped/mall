@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.CommentReplayEntity;
 
 /**
- * 商品评价回复关系
+ * 商品评价回复关系逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com

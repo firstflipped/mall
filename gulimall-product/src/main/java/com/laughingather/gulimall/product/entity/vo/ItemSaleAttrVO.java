@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 项销售属性视图展示类
+ * 项销售属性视图展示实体
  *
  * @author：laughingather
  */

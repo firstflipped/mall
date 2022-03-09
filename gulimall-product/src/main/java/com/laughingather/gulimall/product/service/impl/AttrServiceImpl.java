@@ -17,14 +17,19 @@ import com.laughingather.gulimall.product.service.CategoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
+/**
+ * 属性管理逻辑实现
+ *
+ * @author laughingather
+ */
 @Service("attrService")
 public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements AttrService {
 
@@ -42,16 +47,23 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery) {
         // 拼接分页条件
-        IPage page = getPage(attrQuery);
+        IPage<AttrEntity> page = getPage(attrQuery);
 
         // 拼接查询条件
-        IPage<AttrEntity> iPage = attrDao.selectPage(page, null);
-        return getAttrOtherInfo(iPage);
+        QueryWrapper<AttrEntity> queryWrapper = null;
+        if (StringUtils.isNotBlank(attrQuery.getKey())) {
+            queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda().like(AttrEntity::getAttrName, attrQuery.getKey());
+        }
+
+        IPage<AttrEntity> iPage = attrDao.selectPage(page, queryWrapper);
+        return assembleMyPage(iPage);
     }
 
     @Override
     public MyPage<AttrVO> listAttrsWithPageByCategoryId(Long categoryId, AttrQuery attrQuery) {
-        IPage page = getPage(attrQuery);
+        // 拼接分页条件
+        IPage<AttrEntity> page = getPage(attrQuery);
 
         // 拼接查询条件
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
@@ -71,7 +83,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         }
 
         IPage<AttrEntity> iPage = attrDao.selectPage(page, queryWrapper);
-        return getAttrOtherInfo(iPage);
+        return assembleMyPage(iPage);
     }
 
     @Override
@@ -89,9 +101,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         AttrEntity attrEntity = attrDao.selectById(attrId);
 
         // 查询其他信息
-        AttrVO attrVO = getAttrOtherInfoById(attrEntity);
-        BeanUtils.copyProperties(attrEntity, attrVO);
-        return attrVO;
+        return attr2AttrVO(attrEntity);
     }
 
     @Override
@@ -101,22 +111,20 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
 
     @Override
-    @Transactional
     public void saveAttr(AttrParam attrParam) {
-        AttrEntity attr = new AttrEntity();
-        BeanUtils.copyProperties(attrParam, attr);
-
-        // 保存商品属性基本数据
+        AttrEntity attr = attrParam2AttrEntity(attrParam);
         attr.setCreateTime(LocalDateTime.now());
+
+        // 保存商品属性基本信息
         attrDao.insert(attr);
     }
 
 
     @Override
-    @Transactional
     public void updateAttrById(AttrParam attrParam) {
-        AttrEntity attr = new AttrEntity();
-        BeanUtils.copyProperties(attrParam, attr);
+        AttrEntity attr = attrParam2AttrEntity(attrParam);
+        attr.setUpdateTime(LocalDateTime.now());
+
         // 更新基本信息
         attrDao.updateById(attr);
     }
@@ -125,31 +133,25 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     /**
      * 获取属性的其他关联信息
      *
-     * @param iPage
-     * @return
+     * @param attrPage 属性分页列表
+     * @return 属性分页列表
      */
-    private MyPage<AttrVO> getAttrOtherInfo(IPage<AttrEntity> iPage) {
+    private MyPage<AttrVO> assembleMyPage(IPage<AttrEntity> attrPage) {
 
-        List<AttrVO> attrVOList = iPage.getRecords().stream().map(attr -> {
-            // 设置分类和分组的名字
-            AttrVO attrVO = getAttrOtherInfoById(attr);
-            BeanUtils.copyProperties(attr, attrVO);
-            return attrVO;
-        }).collect(Collectors.toList());
+        // 设置分类和分组的名字
+        List<AttrVO> attrVOList = attrPage.getRecords().stream().map(this::attr2AttrVO).collect(Collectors.toList());
 
-        MyPage<AttrVO> myPage = MyPage.<AttrVO>builder().total(iPage.getTotal()).pages(iPage.getPages())
-                .pageNumber(iPage.getCurrent()).pageSize(iPage.getSize()).list(attrVOList).build();
-
-        return myPage;
+        return MyPage.<AttrVO>builder().total(attrPage.getTotal()).pages(attrPage.getPages())
+                .pageNumber(attrPage.getCurrent()).pageSize(attrPage.getSize()).list(attrVOList).build();
     }
 
     /**
-     * 获取属性的分组名称和分类名称
+     * 获取属性的分组名称和分类名称，转换为VO对象
      *
-     * @param attr
-     * @return
+     * @param attr 属性实体
+     * @return 属性VO对象
      */
-    private AttrVO getAttrOtherInfoById(AttrEntity attr) {
+    private AttrVO attr2AttrVO(AttrEntity attr) {
         // 设置分类和分组的名字
         Long[] categoryPath = categoryService.getCategoryPath(attr.getCategoryId());
         String categoryName = categoryDao.getCategoryNameById(attr.getCategoryId());
@@ -157,16 +159,35 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         AttrVO attrVO = AttrVO.builder().categoryPath(categoryPath).categoryName(categoryName)
                 .attrGroupId(attr.getAttrGroupId()).attrGroupName(attrGroupName).build();
+        BeanUtils.copyProperties(attr, attrVO);
+
+        // 把属性值拆分为列表
+        attrVO.setValueSelect(Arrays.asList(attr.getValueSelect().split(";")));
         return attrVO;
+    }
+
+    /**
+     * 将前端传入属性参数转换为属性实体
+     *
+     * @param attrParam 前端录入属性参数
+     * @return 属性实体
+     */
+    private AttrEntity attrParam2AttrEntity(AttrParam attrParam) {
+        // 设置分类和分组的名字
+        AttrEntity attr = new AttrEntity();
+        BeanUtils.copyProperties(attrParam, attr);
+        attr.setValueSelect(String.join(";", attrParam.getValueSelect()));
+
+        return attr;
     }
 
     /**
      * 默认初始化分页数据
      *
-     * @param attrQuery
-     * @return
+     * @param attrQuery 属性列表查询条件
+     * @return mybatis分页对象
      */
-    private IPage getPage(AttrQuery attrQuery) {
+    private IPage<AttrEntity> getPage(AttrQuery attrQuery) {
         // 拼接分页条件
         if (attrQuery.getPn() == null || attrQuery.getPn() <= 0) {
             attrQuery.setPn(1);
@@ -174,7 +195,7 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
         if (attrQuery.getPs() == null || attrQuery.getPs() <= 0) {
             attrQuery.setPs(10);
         }
-        return new Page(attrQuery.getPn(), attrQuery.getPs());
+        return new Page<>(attrQuery.getPn(), attrQuery.getPs());
     }
 
 }

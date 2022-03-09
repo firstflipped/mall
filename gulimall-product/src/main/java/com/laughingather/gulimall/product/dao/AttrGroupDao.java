@@ -2,8 +2,7 @@ package com.laughingather.gulimall.product.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.laughingather.gulimall.product.entity.AttrGroupEntity;
-import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
-import com.laughingather.gulimall.product.entity.vo.SpuItemGroupAttrVO;
+import com.laughingather.gulimall.product.entity.vo.SpuItemAttrGroupWithAttrVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,18 +17,10 @@ import java.util.List;
 public interface AttrGroupDao extends BaseMapper<AttrGroupEntity> {
 
     /**
-     * 查询属性分组详情
-     *
-     * @param attrGroupId
-     * @return
-     */
-    AttrGroupVO getAttrGroupById(@Param("attrGroupId") Long attrGroupId);
-
-    /**
      * 根据属性id获取属性分组名称
      *
-     * @param attrId
-     * @return
+     * @param attrId 属性id
+     * @return 属性分组名称
      */
     String getGroupNameByAttrId(@Param("attrId") Long attrId);
 
@@ -37,9 +28,9 @@ public interface AttrGroupDao extends BaseMapper<AttrGroupEntity> {
      * 查询属性分组及其关联属性
      *
      * @param categoryId 分类id
-     * @param spuId
-     * @return
+     * @param spuId      spuId
+     * @return 属性分组列表
      */
-    List<SpuItemGroupAttrVO> getAttrGroupWithAttrsBySpuId(@Param("categoryId") Long categoryId,
-                                                          @Param("spuId") Long spuId);
+    List<SpuItemAttrGroupWithAttrVO> getAttrGroupWithAttrsBySpuId(@Param("categoryId") Long categoryId,
+                                                                  @Param("spuId") Long spuId);
 }

@@ -18,9 +18,9 @@ import java.util.List;
 public interface CategoryDao extends BaseMapper<CategoryEntity> {
 
     /**
-     * 查询列表数据
+     * 查询分类列表数据
      *
-     * @return
+     * @return 分类列表
      */
     List<CategoryTreeVO> selectListWithTree();
 
@@ -28,7 +28,7 @@ public interface CategoryDao extends BaseMapper<CategoryEntity> {
      * 根据分类id查询分类名称
      *
      * @param categoryId 分类id
-     * @return
+     * @return 分类名称
      */
     @Select("SELECT category_name FROM pms_category WHERE show_status = 1 AND category_id = #{categoryId}")
     String getCategoryNameById(@Param("categoryId") Long categoryId);

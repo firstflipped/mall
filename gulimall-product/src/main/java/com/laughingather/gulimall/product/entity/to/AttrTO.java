@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 属性视图展示类
+ * 属性服务传输实体
  *
  * @author：laughingather
  * @create：2021-06-08 21:18

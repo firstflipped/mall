@@ -11,7 +11,13 @@ import com.laughingather.gulimall.product.service.ProductAttrValueService;
 import javax.annotation.Resource;
 import java.util.List;
 
-
+/**
+ * spu属性值逻辑实现
+ *
+ * @author laughingather
+ * @email laughingather@gmail.com
+ * @date 2021-04-11 15:12:49
+ */
 @Service("productAttrValueService")
 public class ProductAttrValueServiceImpl extends ServiceImpl<ProductAttrValueDao, ProductAttrValueEntity> implements ProductAttrValueService {
 

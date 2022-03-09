@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.product.entity.SpuImagesEntity;
 
 /**
- * spu图片
+ * spu图片逻辑接口
  *
  * @author laughingather
  * @email laughingather@gmail.com

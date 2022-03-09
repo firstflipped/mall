@@ -3,7 +3,7 @@ package com.laughingather.gulimall.product.entity.vo;
 import lombok.Data;
 
 /**
- * spu信息
+ * spu信息视图展示实体
  *
  * @author laughingather
  * @email laughingather@gmail.com

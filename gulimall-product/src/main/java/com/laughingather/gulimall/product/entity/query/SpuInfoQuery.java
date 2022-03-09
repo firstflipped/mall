@@ -3,6 +3,11 @@ package com.laughingather.gulimall.product.entity.query;
 import com.laughingather.gulimall.common.query.PageQuery;
 import lombok.Data;
 
+/**
+ * spu列表查询条件实体
+ *
+ * @author laughingather
+ */
 @Data
 public class SpuInfoQuery extends PageQuery {
 

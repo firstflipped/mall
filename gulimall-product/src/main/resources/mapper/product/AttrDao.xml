@@ -17,6 +17,7 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
+    <!-- 查询可以检索的属性id集合 -->
     <select id="selectSearchAttrIds" resultType="java.lang.Long">
         SELECT *
         FROM pms_attr WHERE attr_id IN
