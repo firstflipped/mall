@@ -6,6 +6,7 @@ import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.query.BrandQuery;
+import com.laughingather.gulimall.product.entity.vo.BrandSelectVO;
 import com.laughingather.gulimall.product.service.BrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -15,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class BrandController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页查询品牌列表")
-    public MyResult<MyPage<BrandEntity>> listBrandsWithPage(@ModelAttribute BrandQuery brandQuery) {
+    public MyResult<MyPage<BrandEntity>> listBrandsWithPage(@Valid @ModelAttribute BrandQuery brandQuery) {
         MyPage<BrandEntity> pageBrands = brandService.listBrandsWithPage(brandQuery);
 
         return MyResult.success(pageBrands);
@@ -55,6 +57,16 @@ public class BrandController {
 
         return MyResult.success(brands);
     }
+
+
+    @GetMapping("/list/select")
+    @ApiOperation(value = "查询品牌列表（仅供前端下拉选择器使用）")
+    @ApiImplicitParam(name = "name", value = "品牌名称", dataTypeClass = String.class)
+    public MyResult<List<BrandSelectVO>> listBrandsWithSelect(@RequestParam(value = "name", required = false) String brandName) {
+        List<BrandSelectVO> brands = brandService.listBrandsWithSelect(brandName);
+        return MyResult.success(brands);
+    }
+
 
     @GetMapping("/{bid}")
     @ApiOperation(value = "查询品牌详情信息")

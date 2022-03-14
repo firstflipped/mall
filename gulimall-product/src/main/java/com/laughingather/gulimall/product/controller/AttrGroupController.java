@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -84,7 +85,9 @@ public class AttrGroupController {
     @PostMapping
     @ApiOperation(value = "保存属性分组信息")
     public MyResult<Void> saveAttrGroup(@Validated(value = {AddGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
+        attrGroup.setCreateTime(LocalDateTime.now());
         attrGroupService.save(attrGroup);
+
         return MyResult.success();
     }
 
@@ -106,7 +109,9 @@ public class AttrGroupController {
     @PutMapping
     @ApiOperation(value = "更新属性分组信息")
     public MyResult<Void> updateAttrGroupById(@Validated(value = {UpdateGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
+        attrGroup.setUpdateTime(LocalDateTime.now());
         attrGroupService.updateById(attrGroup);
+
         return MyResult.success();
     }
 

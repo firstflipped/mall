@@ -15,8 +15,6 @@ import java.util.List;
 @Data
 @ToString
 public class CategoryTreeVO {
-
-
     /**
      * 分类id
      */
@@ -33,11 +31,6 @@ public class CategoryTreeVO {
     private Long parentId;
 
     /**
-     * 图标地址
-     */
-    private String icon;
-
-    /**
      * 层级
      */
     private Integer categoryLevel;
@@ -51,16 +44,6 @@ public class CategoryTreeVO {
      * 排序
      */
     private Integer sort;
-
-    /**
-     * 计量单位
-     */
-    private String productUnit;
-
-    /**
-     * 商品数量
-     */
-    private Integer productCount;
 
     /**
      * @JsonInclude 用来过滤字段在不同情况下是否显示

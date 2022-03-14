@@ -60,5 +60,13 @@ public interface CategoryService extends IService<CategoryEntity> {
      * @return 分类字典数据
      */
     Map<String, List<Category2VO>> getCategoryMap();
+
+    /**
+     * 根据分类id查询分类名称
+     *
+     * @param categoryId 分类id
+     * @return 分类名称
+     */
+    String getCategoryNameByCategoryId(Long categoryId);
 }
 

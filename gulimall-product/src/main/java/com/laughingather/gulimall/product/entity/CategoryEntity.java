@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 商品三级分类
- * 
+ * 商品三级分类实体
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49
@@ -37,11 +37,6 @@ public class CategoryEntity implements Serializable {
     private Long parentId;
 
     /**
-     * 图标地址
-     */
-    private String icon;
-
-    /**
      * 层级
      */
     private Integer categoryLevel;
@@ -56,16 +51,6 @@ public class CategoryEntity implements Serializable {
      * 排序
      */
 	private Integer sort;
-
-    /**
-     * 计量单位
-     */
-    private String productUnit;
-
-    /**
-     * 商品数量
-     */
-    private Integer productCount;
 
     /**
      * 创建时间

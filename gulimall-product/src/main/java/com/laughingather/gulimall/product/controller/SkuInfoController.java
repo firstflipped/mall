@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("/product/sku-info")
+@RequestMapping("/product/sku")
 @Api(tags = "sku模块")
 public class SkuInfoController {
 

@@ -2,6 +2,8 @@ package com.laughingather.gulimall.product.entity.vo;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * spu信息视图展示实体
  *
@@ -21,6 +23,11 @@ public class SpuInfoVO {
      * 商品名称
      */
     private String spuName;
+
+    /**
+     * 上架状态
+     */
+    private Integer publishStatus;
 
     /**
      * 所属分类id
@@ -46,5 +53,15 @@ public class SpuInfoVO {
      * 图片
      */
     private String image;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime updateTime;
 
 }

@@ -2,10 +2,9 @@ package com.laughingather.gulimall.product.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
  * 商品评价回复关系实体
@@ -25,10 +24,12 @@ public class CommentReplayEntity implements Serializable {
 	 */
 	@TableId
 	private Long id;
+
 	/**
 	 * 评论id
 	 */
 	private Long commentId;
+
 	/**
 	 * 回复id
 	 */

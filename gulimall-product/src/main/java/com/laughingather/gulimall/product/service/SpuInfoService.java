@@ -27,9 +27,9 @@ public interface SpuInfoService extends IService<SpuInfoEntity> {
      * 分页查询spu信息
      *
      * @param spuInfoQuery spu列表查询条件
-     * @return spu列表
+     * @return spuVO列表
      */
-    MyPage<SpuInfoEntity> listSpuWithPage(SpuInfoQuery spuInfoQuery);
+    MyPage<SpuInfoVO> listSpuWithPage(SpuInfoQuery spuInfoQuery);
 
     /**
      * 上架

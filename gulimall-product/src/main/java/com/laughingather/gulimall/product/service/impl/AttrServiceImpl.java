@@ -47,13 +47,15 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public MyPage<AttrVO> listAttrsWithPage(AttrQuery attrQuery) {
         // 拼接分页条件
-        IPage<AttrEntity> page = getPage(attrQuery);
+        IPage<AttrEntity> page = new Page<>(attrQuery.getPn(), attrQuery.getPs());
 
         // 拼接查询条件
-        QueryWrapper<AttrEntity> queryWrapper = null;
+        QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(attrQuery.getKey())) {
-            queryWrapper = new QueryWrapper<>();
             queryWrapper.lambda().like(AttrEntity::getAttrName, attrQuery.getKey());
+        }
+        if (attrQuery.getType() != null) {
+            queryWrapper.lambda().eq(AttrEntity::getAttrType, attrQuery.getType());
         }
 
         IPage<AttrEntity> iPage = attrDao.selectPage(page, queryWrapper);
@@ -63,12 +65,12 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     @Override
     public MyPage<AttrVO> listAttrsWithPageByCategoryId(Long categoryId, AttrQuery attrQuery) {
         // 拼接分页条件
-        IPage<AttrEntity> page = getPage(attrQuery);
+        IPage<AttrEntity> page = new Page<>(attrQuery.getPn(), attrQuery.getPs());
 
         // 拼接查询条件
         QueryWrapper<AttrEntity> queryWrapper = new QueryWrapper<>();
-        if (attrQuery.getAttrType() != null) {
-            queryWrapper.lambda().eq(AttrEntity::getAttrType, attrQuery.getAttrType());
+        if (attrQuery.getType() != null) {
+            queryWrapper.lambda().eq(AttrEntity::getAttrType, attrQuery.getType());
         }
         if (StringUtils.isNotBlank(attrQuery.getKey())) {
             queryWrapper.and(q ->
@@ -180,22 +182,4 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
 
         return attr;
     }
-
-    /**
-     * 默认初始化分页数据
-     *
-     * @param attrQuery 属性列表查询条件
-     * @return mybatis分页对象
-     */
-    private IPage<AttrEntity> getPage(AttrQuery attrQuery) {
-        // 拼接分页条件
-        if (attrQuery.getPn() == null || attrQuery.getPn() <= 0) {
-            attrQuery.setPn(1);
-        }
-        if (attrQuery.getPs() == null || attrQuery.getPs() <= 0) {
-            attrQuery.setPs(10);
-        }
-        return new Page<>(attrQuery.getPn(), attrQuery.getPs());
-    }
-
 }

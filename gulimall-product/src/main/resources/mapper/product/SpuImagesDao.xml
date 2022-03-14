@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.product.dao.SpuImagesDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.product.entity.SpuImagesEntity" id="spuImagesMap">
         <result property="id" column="id"/>
         <result property="spuId" column="spu_id"/>
@@ -13,5 +12,7 @@
         <result property="defaultImg" column="default_img"/>
     </resultMap>
 
-
+    <select id="getDefaultImage" resultType="java.lang.String">
+        SELECT img_url FROM pms_spu_images WHERE spu_id = #{spuId} AND default_img = 1
+    </select>
 </mapper>

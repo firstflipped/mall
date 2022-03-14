@@ -32,7 +32,7 @@ public class SpuInfoEntity implements Serializable {
 	private String spuName;
 
 	/**
-	 * 
+	 *
 	 */
 	private BigDecimal weight;
 
@@ -40,16 +40,6 @@ public class SpuInfoEntity implements Serializable {
 	 * 上架状态[0 - 下架，1 - 上架]
 	 */
 	private Integer publishStatus;
-
-	/**
-	 * 创建时间
-	 */
-	private LocalDateTime createTime;
-
-	/**
-	 * 更新时间
-	 */
-	private LocalDateTime updateTime;
 
 	/**
 	 * 所属分类id
@@ -60,4 +50,14 @@ public class SpuInfoEntity implements Serializable {
 	 * 品牌id
 	 */
 	private Long brandId;
+
+	/**
+	 * 创建时间
+	 */
+	private LocalDateTime createTime;
+
+	/**
+	 * 更新时间
+	 */
+	private LocalDateTime updateTime;
 }

@@ -2,6 +2,8 @@ package com.laughingather.gulimall.product.entity.vo;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * 属性分组视图展示实体
  *
@@ -49,5 +51,15 @@ public class AttrGroupVO {
      * 所属分类完整路径
      */
     private Long[] categoryPath;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 
 }

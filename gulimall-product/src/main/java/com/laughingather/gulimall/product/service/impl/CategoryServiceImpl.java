@@ -121,6 +121,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return categoryMap;
     }
 
+    @Override
+    public String getCategoryNameByCategoryId(Long categoryId) {
+        return categoryDao.getCategoryNameById(categoryId);
+    }
+
 
     /**
      * redisson分布式锁
@@ -197,7 +202,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                                                 .category2Id(category2.getCategoryId().toString())
                                                 .build()
                                 ).collect(Collectors.toList());
-                                category2VO.setCatalog3List(category3VOList);
+                                category2VO.setCategory3List(category3VOList);
                             }
                             return category2VO;
                         }).collect(Collectors.toList());
@@ -336,7 +341,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                                                 .category2Id(category2.getCategoryId().toString())
                                                 .build()
                                 ).collect(Collectors.toList());
-                                category2VO.setCatalog3List(category3VOList);
+                                category2VO.setCategory3List(category3VOList);
                             }
                             return category2VO;
                         }).collect(Collectors.toList());

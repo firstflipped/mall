@@ -12,5 +12,14 @@ public interface Constants {
 
     int NO = 0;
 
+    /**
+     * 降序
+     */
+    String DESC = "desc";
+
+    /**
+     * 升序
+     */
+    String ASC = "asc";
 
 }

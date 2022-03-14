@@ -12,14 +12,14 @@ import lombok.Data;
 public class SpuInfoQuery extends PageQuery {
 
     /**
-     * 状态
-     */
-    private Integer status;
-
-    /**
      * 关键字
      */
     private String key;
+
+    /**
+     * 状态
+     */
+    private Integer status;
 
     /**
      * 品牌id

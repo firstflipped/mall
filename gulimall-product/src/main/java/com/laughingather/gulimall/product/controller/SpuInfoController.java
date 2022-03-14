@@ -2,9 +2,9 @@ package com.laughingather.gulimall.product.controller;
 
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.product.entity.SpuInfoEntity;
 import com.laughingather.gulimall.product.entity.param.SpuParam;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
+import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 import com.laughingather.gulimall.product.service.SpuInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @date 2021-04-11 15:12:49
  */
 @RestController
-@RequestMapping("/product/spu-info")
+@RequestMapping("/product/spu")
 @Api(tags = "spu模块")
 public class SpuInfoController {
 
@@ -31,8 +31,8 @@ public class SpuInfoController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页查询spu列表")
-    public MyResult<MyPage<SpuInfoEntity>> listSpuWithPage(@ModelAttribute SpuInfoQuery spuInfoQuery) {
-        MyPage<SpuInfoEntity> spuInfoMyPage = spuInfoService.listSpuWithPage(spuInfoQuery);
+    public MyResult<MyPage<SpuInfoVO>> listSpuWithPage(@ModelAttribute SpuInfoQuery spuInfoQuery) {
+        MyPage<SpuInfoVO> spuInfoMyPage = spuInfoService.listSpuWithPage(spuInfoQuery);
         return MyResult.success(spuInfoMyPage);
     }
 

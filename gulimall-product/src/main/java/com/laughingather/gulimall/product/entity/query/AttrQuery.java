@@ -19,6 +19,6 @@ public class AttrQuery extends PageQuery {
     /**
      * 属性类型
      */
-    private Integer attrType;
+    private Integer type;
 
 }

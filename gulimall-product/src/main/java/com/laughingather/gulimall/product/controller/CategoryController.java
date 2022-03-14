@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +48,9 @@ public class CategoryController {
     @PostMapping
     @ApiOperation(value = "保存分类信息")
     public MyResult<CategoryEntity> saveCategory(@RequestBody CategoryEntity category) {
+        // 预设置创建时间
+        category.setCreateTime(LocalDateTime.now());
+
         boolean isSuccess = categoryService.save(category);
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
@@ -58,15 +62,14 @@ public class CategoryController {
         return MyResult.success();
     }
 
-    /**
-     * @param category
-     * @CacheEvict：缓存失效模式，更新数据后会自动把缓存删掉
-     *
-     */
+
     @PutMapping
     @CacheEvict(value = "category", key = "'level1Category'")
     @ApiOperation(value = "更新分类信息", notes = "采用了缓存失效模式，如果执行了该更新操作，则会把缓存删掉")
     public MyResult<Void> updateCategoryById(@RequestBody CategoryEntity category) {
+        // 预设置更新时间
+        category.setUpdateTime(LocalDateTime.now());
+
         boolean isSuccess = categoryService.updateById(category);
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
@@ -75,7 +78,11 @@ public class CategoryController {
     @PutMapping("/drag")
     @ApiOperation(value = "批量拖拽更新分类信息")
     public MyResult<Void> updateWithDrag(@RequestBody CategoryEntity[] categories) {
-        boolean isSuccess = categoryService.updateBatchById(Arrays.asList(categories));
+        // 预设置更新时间
+        List<CategoryEntity> categoryList = Arrays.asList(categories);
+        categoryList.forEach(item -> item.setUpdateTime(LocalDateTime.now()));
+
+        boolean isSuccess = categoryService.updateBatchById(categoryList);
         return isSuccess ? MyResult.success() : MyResult.failed();
     }
 }

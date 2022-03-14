@@ -12,5 +12,13 @@ import com.laughingather.gulimall.product.entity.SpuImagesEntity;
  */
 public interface SpuImagesService extends IService<SpuImagesEntity> {
 
+    /**
+     * 获取spu默认图片
+     *
+     * @param spuId spuId
+     * @return spu默认图片地址
+     */
+    String getDefaultImage(Long spuId);
+
 }
 

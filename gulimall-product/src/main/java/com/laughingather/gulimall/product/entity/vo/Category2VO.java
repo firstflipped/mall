@@ -36,7 +36,7 @@ public class Category2VO {
     /**
      * 三级分类列表
      */
-    private List<Category3VO> catalog3List;
+    private List<Category3VO> category3List;
 
 
     @Data

@@ -7,7 +7,6 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.ProductConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;
-import com.laughingather.gulimall.product.dao.CategoryDao;
 import com.laughingather.gulimall.product.dao.SpuInfoDao;
 import com.laughingather.gulimall.product.entity.*;
 import com.laughingather.gulimall.product.entity.param.*;
@@ -33,6 +32,9 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 /**
@@ -49,8 +51,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     @Resource
     private SpuInfoDao spuInfoDao;
-    @Resource
-    private CategoryDao categoryDao;
 
     @Resource
     private SpuInfoDescService spuInfoDescService;
@@ -69,18 +69,32 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Resource
     private BrandService brandService;
     @Resource
+    private CategoryService categoryService;
+    @Resource
     private CouponFeignService couponFeignService;
     @Resource
     private WareFeignService wareFeignService;
     @Resource
     private SearchFeignService searchFeignService;
 
-    @Override
-    public MyPage<SpuInfoEntity> listSpuWithPage(SpuInfoQuery spuInfoQuery) {
-        IPage<SpuInfoEntity> page = new Page<>(spuInfoQuery.getPn(), spuInfoQuery.getPs());
-        IPage<SpuInfoEntity> spuInfoEntityIPage = spuInfoDao.listSpuWithPage(page, spuInfoQuery);
+    @Resource
+    private ThreadPoolExecutor threadPoolExecutor;
 
-        return MyPage.restPage(spuInfoEntityIPage);
+    @Override
+    public MyPage<SpuInfoVO> listSpuWithPage(SpuInfoQuery spuInfoQuery) {
+        IPage<SpuInfoEntity> page = new Page<>(spuInfoQuery.getPn(), spuInfoQuery.getPs());
+        IPage<SpuInfoEntity> spuInfoPage = spuInfoDao.listSpuWithPage(page, spuInfoQuery);
+
+        // spu实体转VO
+        List<SpuInfoVO> spuInfoVOList = spuInfoPage.getRecords().stream().map(this::spu2SpuVO).collect(Collectors.toList());
+
+        return MyPage.<SpuInfoVO>builder()
+                .pageNumber(spuInfoQuery.getPn())
+                .pageSize(spuInfoQuery.getPs())
+                .pages(spuInfoPage.getPages())
+                .total(spuInfoPage.getTotal())
+                .list(spuInfoVOList)
+                .build();
     }
 
 
@@ -108,6 +122,39 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // 发送给es服务进行保存
         // TODO：保存到es的时候如果发生异常应该怎么处理
         saveSpu2ES(spuId, skuESModels);
+    }
+
+
+    /**
+     * 保存spu的基本信息
+     * <p>
+     * 注解@GlobalTransactional用来开启分布式全局事务，保证事务一致性，seata分布式事务框架
+     *
+     * @param spuParam 前端传入spu实体
+     */
+    @Override
+    public void saveSpuInfo(SpuParam spuParam) {
+
+        log.info(JsonUtil.obj2String(spuParam));
+
+        // 保存spu基本信息
+        SpuInfoEntity spuInfo = saveSpuBaseInfo(spuParam);
+        Long spuInfoId = spuInfo.getId();
+
+        // 保存spu的描述图片
+        saveSpuDescription(spuInfoId, spuParam.getDescription());
+
+        // 保存spu的图片集
+        saveSpuImages(spuInfoId, spuParam.getImages());
+
+        // 保存spu的规格参数
+        saveSpuAttrs(spuInfoId, spuParam.getBaseAttrs());
+
+        // 保存spu的积分信息
+        saveSpuBounds(spuInfoId, spuParam.getBounds());
+
+        // 保存spu对应的所有sku信息
+        saveSkus(spuInfo, spuParam.getSkus());
     }
 
 
@@ -187,7 +234,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             BrandEntity brand = brandService.getById(skuEsTO.getBrandId());
             skuEsTO.setBrandName(brand.getBrandName());
             skuEsTO.setBrandImg(brand.getLogo());
-            skuEsTO.setCategoryName(categoryDao.getCategoryNameById(skuEsTO.getCategoryId()));
+            skuEsTO.setCategoryName(categoryService.getCategoryNameByCategoryId(skuEsTO.getCategoryId()));
 
             // 设置检索属性
             skuEsTO.setAttrs(attrList);
@@ -210,39 +257,6 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             // TODO: 远程调用失败，保存到es失败
 
         }
-    }
-
-
-    /**
-     * 保存spu的基本信息
-     *
-     * 注解@GlobalTransactional用来开启分布式全局事务，保证事务一致性，seata分布式事务框架
-     *
-     * @param spuParam 前端传入spu实体
-     */
-    @Override
-    public void saveSpuInfo(SpuParam spuParam) {
-
-        log.info(JsonUtil.obj2String(spuParam));
-
-        // 保存spu基本信息
-        SpuInfoEntity spuInfo = saveSpuBaseInfo(spuParam);
-        Long spuInfoId = spuInfo.getId();
-
-        // 保存spu的描述图片
-        saveSpuDescription(spuInfoId, spuParam.getDescription());
-
-        // 保存spu的图片集
-        saveSpuImages(spuInfoId, spuParam.getImages());
-
-        // 保存spu的规格参数
-        saveSpuAttrs(spuInfoId, spuParam.getBaseAttrs());
-
-        // 保存spu的积分信息
-        saveSpuBounds(spuInfoId, spuParam.getBounds());
-
-        // 保存spu对应的所有sku信息
-        saveSkus(spuInfo, spuParam.getSkus());
     }
 
 
@@ -453,6 +467,45 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
                 log.error("远程调用服务失败，保存sku优惠、满减等信息");
             }
         }
+    }
+
+
+    /**
+     * spu实体转VO
+     *
+     * @param spuInfo spu实体
+     * @return spuVO
+     */
+    private SpuInfoVO spu2SpuVO(SpuInfoEntity spuInfo) {
+        SpuInfoVO spuInfoVO = new SpuInfoVO();
+        BeanUtils.copyProperties(spuInfo, spuInfoVO);
+
+        CompletableFuture<Void> brandNameCompletableFuture = CompletableFuture.runAsync(() -> {
+            // 查询品牌名称
+            String brandName = brandService.getBrandNameByBrandId(spuInfo.getBrandId());
+            spuInfoVO.setBrandName(brandName);
+        }, threadPoolExecutor);
+
+        CompletableFuture<Void> categoryNameCompletableFuture = CompletableFuture.runAsync(() -> {
+            // 查询
+            String categoryName = categoryService.getCategoryNameByCategoryId(spuInfo.getCategoryId());
+            spuInfoVO.setCategoryName(categoryName);
+        }, threadPoolExecutor);
+
+        CompletableFuture<Void> imageCompletableFuture = CompletableFuture.runAsync(() -> {
+            // 查询
+            String image = spuImagesService.getDefaultImage(spuInfo.getId());
+            spuInfoVO.setImage(image);
+        }, threadPoolExecutor);
+
+        // 等待所有线程执行完成   skuInfoCompletableFuture可以省略，因为其他异步执行会依赖他的结果
+        try {
+            CompletableFuture.allOf(brandNameCompletableFuture, categoryNameCompletableFuture, imageCompletableFuture).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return spuInfoVO;
     }
 
 }

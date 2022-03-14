@@ -2,8 +2,6 @@ package com.laughingather.gulimall.common.query;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-
 /**
  * 分页实体类
  *
@@ -12,10 +10,14 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class PageQuery {
 
-    @NotBlank(message = "当前页码不能为空")
-    private Integer pn;
+    /**
+     * 设置默认分页为第一页
+     */
+    private Integer pn = 1;
 
-    @NotBlank(message = "当前页条数不能为空")
-    private Integer ps;
+    /**
+     * 设置默认每页条数为十条
+     */
+    private Integer ps = 10;
 
 }

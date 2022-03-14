@@ -16,5 +16,12 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-
+    <select id="listBrandsWithSelect" resultType="com.laughingather.gulimall.product.entity.vo.BrandSelectVO">
+        SELECT brand_id, brand_name FROM pms_brand
+        <where>
+            <if test="brandName != null and brandName != ''">
+                AND brand_name LIKE CONCAT('%', #{brandName}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

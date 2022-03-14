@@ -50,18 +50,21 @@
 
     <select id="getSpuInfoBySkuId" resultType="com.laughingather.gulimall.product.entity.vo.SpuInfoVO">
         SELECT spu.id,
-               spu.spu_name,
-               spu.category_id,
-               category.category_name,
-               spu.brand_id,
-               brand.brand_name,
-               image.img_url AS image
+        spu.spu_name,
+        spu.publish_status,
+        spu.category_id,
+        category.category_name,
+        spu.brand_id,
+        brand.brand_name,
+        image.img_url AS image,
+        spu.create_time,
+        spu.update_time
         FROM pms_spu_info spu
-                     INNER JOIN pms_sku_info sku ON spu.id = sku.spu_id
-                     INNER JOIN pms_brand brand ON spu.brand_id = brand.brand_id
-                     INNER JOIN pms_category category ON spu.category_id = category.category_id
-                     INNER JOIN pms_spu_images image ON spu.id = image.spu_id
+        INNER JOIN pms_sku_info sku ON spu.id = sku.spu_id
+        INNER JOIN pms_brand brand ON spu.brand_id = brand.brand_id
+        INNER JOIN pms_category category ON spu.category_id = category.category_id
+        INNER JOIN pms_spu_images image ON spu.id = image.spu_id
         WHERE sku.sku_id = #{skuId}
-          AND image.default_img = 1
+        AND image.default_img = 1
     </select>
 </mapper>
