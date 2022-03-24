@@ -22,53 +22,54 @@ import java.time.LocalDateTime;
 @Data
 @TableName("pms_sku_info")
 public class SkuInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * skuId
-	 */
-	@TableId
-	private Long skuId;
+    /**
+     * skuId
+     */
+    @TableId
+    private Long skuId;
 
-	/**
-	 * sku名称
-	 */
-	private String skuName;
+    /**
+     * sku名称
+     */
+    private String skuName;
 
-	/**
-	 * sku介绍描述
-	 */
-	private String skuDesc;
+    /**
+     * 标题
+     */
+    private String skuTitle;
 
-	/**
-	 * 默认图片
-	 */
-	private String skuDefaultImg;
+    /**
+     * 副标题
+     */
+    private String skuSubtitle;
 
-	/**
-	 * 标题
-	 */
-	private String skuTitle;
+    /**
+     * sku介绍描述
+     */
+    private String skuDesc;
 
-	/**
-	 * 副标题
-	 */
-	private String skuSubtitle;
+    /**
+     * 默认图片
+     */
+    private String skuDefaultImg;
 
-	/**
-	 * 价格
-	 */
-	private BigDecimal price;
 
-	/**
-	 * 销量
-	 */
-	private Long saleCount;
+    /**
+     * 价格
+     */
+    private BigDecimal price;
 
-	/**
-	 * 所属分类id
-	 */
-	private Long categoryId;
+    /**
+     * 销量
+     */
+    private Long saleCount;
+
+    /**
+     * 所属分类id
+     */
+    private Long categoryId;
 
     /**
      * 品牌id
@@ -86,5 +87,12 @@ public class SkuInfoEntity implements Serializable {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime createTime;
+
+    /**
+     * 创建时间
+     */
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime updateTime;
 
 }

@@ -34,12 +34,6 @@ public class AttrParam {
     private String attrName;
 
     /**
-     * 属性图标
-     */
-    @ApiModelProperty(value = "属性图标")
-    private String icon;
-
-    /**
      * 可选值列表[用逗号分隔]
      */
     @ApiModelProperty(value = "可选值列表")

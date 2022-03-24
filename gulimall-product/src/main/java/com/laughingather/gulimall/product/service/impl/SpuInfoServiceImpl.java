@@ -142,7 +142,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         Long spuInfoId = spuInfo.getId();
 
         // 保存spu的描述图片
-        saveSpuDescription(spuInfoId, spuParam.getDescription());
+        saveSpuDescription(spuInfoId, spuParam.getSpuDescription());
 
         // 保存spu的图片集
         saveSpuImages(spuInfoId, spuParam.getImages());

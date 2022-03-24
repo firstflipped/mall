@@ -5,7 +5,6 @@ package com.laughingather.gulimall.product.entity.param;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,11 +20,6 @@ public class SpuParam {
     private String spuName;
 
     /**
-     * spu描述
-     */
-    private String spuDescription;
-
-    /**
      * 分类id
      */
     private Long categoryId;
@@ -36,16 +30,14 @@ public class SpuParam {
     private Long brandId;
 
     /**
-     * 重量
-     */
-    private BigDecimal weight;
-
-    /**
      * 上架状态
      */
     private Integer publishStatus;
 
-    private List<String> description;
+    /**
+     * 商品介绍，图片集
+     */
+    private List<String> spuDescription;
 
     /**
      * 图片集

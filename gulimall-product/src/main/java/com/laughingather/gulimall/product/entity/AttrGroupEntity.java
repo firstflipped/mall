@@ -46,12 +46,6 @@ public class AttrGroupEntity implements Serializable {
     private String attrGroupName;
 
     /**
-     * 图标
-     */
-    @ApiModelProperty(value = "图标")
-    private String icon;
-
-    /**
      * 排序
      */
     @ApiModelProperty(value = "属性分组排序")
