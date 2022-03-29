@@ -20,7 +20,7 @@ import java.util.List;
  * @create：2021-11-24 2021/11/24
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 @Api(tags = "用户管理模块")
 public class SysUserController {
 

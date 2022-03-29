@@ -21,7 +21,7 @@ import java.util.List;
  * @create：2021-12-01 2021/12/1
  */
 @RestController
-@RequestMapping("/permission")
+@RequestMapping("/admin/permission")
 @Api(tags = "权限管理模块")
 public class SysPermissionController {
 
