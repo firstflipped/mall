@@ -12,425 +12,281 @@ MySQL - 5.7.34 : Database - gulimall_admin
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_admin` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */;
 
 USE `gulimall_admin`;
 
-/*Table structure for table `QRTZ_CALENDARS` */
+/*Table structure for table `sys_permission` */
 
-DROP TABLE IF EXISTS `QRTZ_CALENDARS`;
+DROP TABLE IF EXISTS `sys_permission`;
 
-CREATE TABLE `QRTZ_CALENDARS`
+CREATE TABLE `sys_permission`
 (
-    `SCHED_NAME`    varchar(120) NOT NULL,
-    `CALENDAR_NAME` varchar(200) NOT NULL,
-    `CALENDAR`      blob         NOT NULL,
-    PRIMARY KEY (`SCHED_NAME`, `CALENDAR_NAME`)
+    `id`              bigint(20) NOT NULL COMMENT '主键id',
+    `parent_id`       bigint(20)   DEFAULT NULL COMMENT '父id',
+    `permission_name` varchar(100) DEFAULT NULL COMMENT '菜单标题',
+    `url`             varchar(255) DEFAULT NULL COMMENT '路径',
+    `menu_type`       tinyint(1)   DEFAULT NULL COMMENT '菜单类型(0:一级菜单; 1:子菜单:2:按钮权限)',
+    `sort_no`         int(11)      DEFAULT NULL COMMENT '菜单排序',
+    `icon`            varchar(100) DEFAULT NULL COMMENT '菜单图标',
+    `description`     varchar(255) DEFAULT NULL COMMENT '描述',
+    `create_by`       varchar(32)  DEFAULT NULL COMMENT '创建人',
+    `create_time`     datetime     DEFAULT NULL COMMENT '创建时间',
+    `update_by`       varchar(32)  DEFAULT NULL COMMENT '更新人',
+    `update_time`     datetime     DEFAULT NULL COMMENT '更新时间',
+    `delete`          tinyint(1)   DEFAULT '0' COMMENT '删除状态 0正常 1已删除',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_sp_parent_id` (`parent_id`) USING BTREE,
+    KEY `idx_sp_sort_no` (`sort_no`) USING BTREE,
+    KEY `idx_sp_menu_type` (`menu_type`) USING BTREE,
+    KEY `index_sp_pid` (`parent_id`),
+    KEY `index_sp_sort_no` (`sort_no`),
+    KEY `index_sp_menu_type` (`menu_type`),
+    KEY `idx_sp_del_flag` (`delete`),
+    KEY `index_sp_is_delete` (`delete`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='菜单权限表';
 
-/*Data for the table `QRTZ_CALENDARS` */
+/*Data for the table `sys_permission` */
 
-/*Table structure for table `QRTZ_FIRED_TRIGGERS` */
+insert into `sys_permission`(`id`, `parent_id`, `permission_name`, `url`, `menu_type`, `sort_no`, `icon`, `description`,
+                             `create_by`, `create_time`, `update_by`, `update_time`, `delete`)
+values (1466209998387417088, 0, '用户管理', 'www.baidu.com', NULL, 1, NULL, NULL, NULL, '2021-12-02 08:57:59', NULL, NULL,
+        NULL),
+       (1466211572253855744, 0, '角色管理', 'www.baidu.com', NULL, 1, NULL, NULL, NULL, '2021-12-02 09:04:14', NULL, NULL,
+        NULL),
+       (1466211672942317568, 0, '权限管理', 'www.baidu.com', NULL, 1, NULL, NULL, NULL, '2021-12-02 09:04:38', NULL, NULL,
+        NULL),
+       (1466212316054949888, 1466209998387417088, '用户添加', 'www.baidu.com', NULL, 1, NULL, NULL, NULL,
+        '2021-12-02 09:07:12', NULL, NULL, NULL),
+       (1466212464789164032, 1466211572253855744, '角色添加', 'www.baidu.com', NULL, 1, NULL, NULL, NULL,
+        '2021-12-02 09:07:47', NULL, NULL, NULL);
 
-DROP TABLE IF EXISTS `QRTZ_FIRED_TRIGGERS`;
+/*Table structure for table `sys_permission_data_rule` */
 
-CREATE TABLE `QRTZ_FIRED_TRIGGERS`
+DROP TABLE IF EXISTS `sys_permission_data_rule`;
+
+CREATE TABLE `sys_permission_data_rule`
 (
-    `SCHED_NAME`        varchar(120) NOT NULL,
-    `ENTRY_ID`          varchar(95)  NOT NULL,
-    `TRIGGER_NAME`      varchar(200) NOT NULL,
-    `TRIGGER_GROUP`     varchar(200) NOT NULL,
-    `INSTANCE_NAME`     varchar(200) NOT NULL,
-    `FIRED_TIME`        bigint(13)   NOT NULL,
-    `SCHED_TIME`        bigint(13)   NOT NULL,
-    `PRIORITY`          int(11)      NOT NULL,
-    `STATE`             varchar(16)  NOT NULL,
-    `JOB_NAME`          varchar(200) DEFAULT NULL,
-    `JOB_GROUP`         varchar(200) DEFAULT NULL,
-    `IS_NONCONCURRENT`  varchar(1)   DEFAULT NULL,
-    `REQUESTS_RECOVERY` varchar(1)   DEFAULT NULL,
-    PRIMARY KEY (`SCHED_NAME`, `ENTRY_ID`),
-    KEY `IDX_QRTZ_FT_TRIG_INST_NAME` (`SCHED_NAME`, `INSTANCE_NAME`),
-    KEY `IDX_QRTZ_FT_INST_JOB_REQ_RCVRY` (`SCHED_NAME`, `INSTANCE_NAME`, `REQUESTS_RECOVERY`),
-    KEY `IDX_QRTZ_FT_J_G` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`),
-    KEY `IDX_QRTZ_FT_JG` (`SCHED_NAME`, `JOB_GROUP`),
-    KEY `IDX_QRTZ_FT_T_G` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`),
-    KEY `IDX_QRTZ_FT_TG` (`SCHED_NAME`, `TRIGGER_GROUP`)
+    `id`              bigint(20) NOT NULL COMMENT 'ID',
+    `permission_id`   bigint(20)   DEFAULT NULL COMMENT '菜单ID',
+    `rule_name`       varchar(50)  DEFAULT NULL COMMENT '规则名称',
+    `rule_column`     varchar(50)  DEFAULT NULL COMMENT '字段',
+    `rule_conditions` varchar(50)  DEFAULT NULL COMMENT '条件',
+    `rule_value`      varchar(300) DEFAULT NULL COMMENT '规则值',
+    `status`          tinyint(4)   DEFAULT NULL COMMENT '权限有效状态1有0否',
+    `create_time`     datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_by`       varchar(32)  DEFAULT NULL,
+    `update_time`     datetime     DEFAULT NULL COMMENT '修改时间',
+    `update_by`       varchar(32)  DEFAULT NULL COMMENT '修改人',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `index_fucntionid` (`permission_id`) USING BTREE,
+    KEY `idx_spdr_permission_id` (`permission_id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC;
 
-/*Data for the table `QRTZ_FIRED_TRIGGERS` */
+/*Data for the table `sys_permission_data_rule` */
 
-/*Table structure for table `QRTZ_JOB_DETAILS` */
+/*Table structure for table `sys_platform_log` */
 
-DROP TABLE IF EXISTS `QRTZ_JOB_DETAILS`;
+DROP TABLE IF EXISTS `sys_platform_log`;
 
-CREATE TABLE `QRTZ_JOB_DETAILS`
+CREATE TABLE `sys_platform_log`
 (
-    `SCHED_NAME`        varchar(120) NOT NULL,
-    `JOB_NAME`          varchar(200) NOT NULL,
-    `JOB_GROUP`         varchar(200) NOT NULL,
-    `DESCRIPTION`       varchar(250) DEFAULT NULL,
-    `JOB_CLASS_NAME`    varchar(250) NOT NULL,
-    `IS_DURABLE`        varchar(1)   NOT NULL,
-    `IS_NONCONCURRENT`  varchar(1)   NOT NULL,
-    `IS_UPDATE_DATA`    varchar(1)   NOT NULL,
-    `REQUESTS_RECOVERY` varchar(1)   NOT NULL,
-    `JOB_DATA`          blob,
-    PRIMARY KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`),
-    KEY `IDX_QRTZ_J_REQ_RECOVERY` (`SCHED_NAME`, `REQUESTS_RECOVERY`),
-    KEY `IDX_QRTZ_J_GRP` (`SCHED_NAME`, `JOB_GROUP`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+    `id`                 bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `user_id`            bigint(20)               DEFAULT NULL COMMENT '操作用户账号',
+    `username`           varchar(100)             DEFAULT NULL COMMENT '操作用户名称',
+    `uri`                varchar(255)             DEFAULT NULL COMMENT 'uri',
+    `url`                varchar(255)             DEFAULT NULL COMMENT 'url',
+    `class_name`         varchar(255)             DEFAULT NULL COMMENT '请求类',
+    `method_name`        varchar(255)             DEFAULT NULL COMMENT '请求方法',
+    `method_type`        tinyint(4)               DEFAULT NULL COMMENT '请求类型 增1删2改3查4',
+    `method_params`      varchar(511)             DEFAULT NULL COMMENT '请求参数',
+    `method_description` varchar(255)             DEFAULT NULL COMMENT '操作描述',
+    `server_ip`          varchar(55)              DEFAULT NULL COMMENT '服务器地址',
+    `client_ip`          varchar(55)              DEFAULT NULL COMMENT '客户端地址',
+    `is_success`         tinyint(4)               DEFAULT NULL COMMENT '是否成功',
+    `spend_time`         bigint(20)               DEFAULT NULL COMMENT '耗时',
+    `is_login`           tinyint(4)               DEFAULT NULL COMMENT '是否为登录请求',
+    `create_time`        timestamp           NULL DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_sl_userid` (`user_id`)
+) ENGINE = MyISAM
+  AUTO_INCREMENT = 1493492984043851778
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='系统日志表';
 
-/*Data for the table `QRTZ_JOB_DETAILS` */
+/*Data for the table `sys_platform_log` */
 
-/*Table structure for table `QRTZ_LOCKS` */
-
-DROP TABLE IF EXISTS `QRTZ_LOCKS`;
-
-CREATE TABLE `QRTZ_LOCKS`
-(
-    `SCHED_NAME` varchar(120) NOT NULL,
-    `LOCK_NAME`  varchar(40)  NOT NULL,
-    PRIMARY KEY (`SCHED_NAME`, `LOCK_NAME`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-/*Data for the table `QRTZ_LOCKS` */
-
-insert into `QRTZ_LOCKS`(`SCHED_NAME`, `LOCK_NAME`)
-values ('RenrenScheduler', 'STATE_ACCESS'),
-       ('RenrenScheduler', 'TRIGGER_ACCESS');
-
-/*Table structure for table `QRTZ_PAUSED_TRIGGER_GRPS` */
-
-DROP TABLE IF EXISTS `QRTZ_PAUSED_TRIGGER_GRPS`;
-
-CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS`
-(
-    `SCHED_NAME`    varchar(120) NOT NULL,
-    `TRIGGER_GROUP` varchar(200) NOT NULL,
-    PRIMARY KEY (`SCHED_NAME`, `TRIGGER_GROUP`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-/*Data for the table `QRTZ_PAUSED_TRIGGER_GRPS` */
-
-/*Table structure for table `QRTZ_SCHEDULER_STATE` */
-
-DROP TABLE IF EXISTS `QRTZ_SCHEDULER_STATE`;
-
-CREATE TABLE `QRTZ_SCHEDULER_STATE`
-(
-    `SCHED_NAME`        varchar(120) NOT NULL,
-    `INSTANCE_NAME`     varchar(200) NOT NULL,
-    `LAST_CHECKIN_TIME` bigint(13)   NOT NULL,
-    `CHECKIN_INTERVAL`  bigint(13)   NOT NULL,
-    PRIMARY KEY (`SCHED_NAME`, `INSTANCE_NAME`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-/*Data for the table `QRTZ_SCHEDULER_STATE` */
-
-insert into `QRTZ_SCHEDULER_STATE`(`SCHED_NAME`, `INSTANCE_NAME`, `LAST_CHECKIN_TIME`, `CHECKIN_INTERVAL`)
-values ('RenrenScheduler', 'Flipped1638427707853', 1638438099174, 15000);
-
-/*Table structure for table `QRTZ_TRIGGERS` */
-
-DROP TABLE IF EXISTS `QRTZ_TRIGGERS`;
-
-CREATE TABLE `QRTZ_TRIGGERS`
-(
-    `SCHED_NAME`     varchar(120) NOT NULL,
-    `TRIGGER_NAME`   varchar(200) NOT NULL,
-    `TRIGGER_GROUP`  varchar(200) NOT NULL,
-    `JOB_NAME`       varchar(200) NOT NULL,
-    `JOB_GROUP`      varchar(200) NOT NULL,
-    `DESCRIPTION`    varchar(250) DEFAULT NULL,
-    `NEXT_FIRE_TIME` bigint(13)   DEFAULT NULL,
-    `PREV_FIRE_TIME` bigint(13)   DEFAULT NULL,
-    `PRIORITY`       int(11)      DEFAULT NULL,
-    `TRIGGER_STATE`  varchar(16)  NOT NULL,
-    `TRIGGER_TYPE`   varchar(8)   NOT NULL,
-    `START_TIME`     bigint(13)   NOT NULL,
-    `END_TIME`       bigint(13)   DEFAULT NULL,
-    `CALENDAR_NAME`  varchar(200) DEFAULT NULL,
-    `MISFIRE_INSTR`  smallint(2)  DEFAULT NULL,
-    `JOB_DATA`       blob,
-    PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`),
-    KEY `IDX_QRTZ_T_J` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`),
-    KEY `IDX_QRTZ_T_JG` (`SCHED_NAME`, `JOB_GROUP`),
-    KEY `IDX_QRTZ_T_C` (`SCHED_NAME`, `CALENDAR_NAME`),
-    KEY `IDX_QRTZ_T_G` (`SCHED_NAME`, `TRIGGER_GROUP`),
-    KEY `IDX_QRTZ_T_STATE` (`SCHED_NAME`, `TRIGGER_STATE`),
-    KEY `IDX_QRTZ_T_N_STATE` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`, `TRIGGER_STATE`),
-    KEY `IDX_QRTZ_T_N_G_STATE` (`SCHED_NAME`, `TRIGGER_GROUP`, `TRIGGER_STATE`),
-    KEY `IDX_QRTZ_T_NEXT_FIRE_TIME` (`SCHED_NAME`, `NEXT_FIRE_TIME`),
-    KEY `IDX_QRTZ_T_NFT_ST` (`SCHED_NAME`, `TRIGGER_STATE`, `NEXT_FIRE_TIME`),
-    KEY `IDX_QRTZ_T_NFT_MISFIRE` (`SCHED_NAME`, `MISFIRE_INSTR`, `NEXT_FIRE_TIME`),
-    KEY `IDX_QRTZ_T_NFT_ST_MISFIRE` (`SCHED_NAME`, `MISFIRE_INSTR`, `NEXT_FIRE_TIME`, `TRIGGER_STATE`),
-    KEY `IDX_QRTZ_T_NFT_ST_MISFIRE_GRP` (`SCHED_NAME`, `MISFIRE_INSTR`, `NEXT_FIRE_TIME`, `TRIGGER_GROUP`,
-                                         `TRIGGER_STATE`),
-    CONSTRAINT `QRTZ_TRIGGERS_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `QRTZ_JOB_DETAILS` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-/*Data for the table `QRTZ_TRIGGERS` */
-
-/*Table structure for table `mq_message` */
-
-DROP TABLE IF EXISTS `mq_message`;
-
-CREATE TABLE `mq_message`
-(
-    `message_id`     bigint(20) NOT NULL AUTO_INCREMENT,
-    `content`        text,
-    `to_exchange`    varchar(255) DEFAULT NULL,
-    `routing_key`    varchar(255) DEFAULT NULL,
-    `class_type`     varchar(255) DEFAULT NULL,
-    `message_status` tinyint(4)   DEFAULT '0' COMMENT '0-新建 1-已发送 2-错误抵达 3-已抵达',
-    `create_time`    datetime     DEFAULT NULL,
-    `update_time`    datetime     DEFAULT NULL,
-    PRIMARY KEY (`message_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4;
-
-/*Data for the table `mq_message` */
-
-/*Table structure for table `schedule_job` */
-
-DROP TABLE IF EXISTS `schedule_job`;
-
-CREATE TABLE `schedule_job`
-(
-    `job_id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务id',
-    `bean_name`       varchar(200)  DEFAULT NULL COMMENT 'spring bean名称',
-    `params`          varchar(2000) DEFAULT NULL COMMENT '参数',
-    `cron_expression` varchar(100)  DEFAULT NULL COMMENT 'cron表达式',
-    `status`          tinyint(4)    DEFAULT NULL COMMENT '任务状态  0：正常  1：暂停',
-    `remark`          varchar(255)  DEFAULT NULL COMMENT '备注',
-    `create_time`     datetime      DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`job_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务';
-
-/*Data for the table `schedule_job` */
-
-/*Table structure for table `schedule_job_log` */
-
-DROP TABLE IF EXISTS `schedule_job_log`;
-
-CREATE TABLE `schedule_job_log`
-(
-    `log_id`      bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志id',
-    `job_id`      bigint(20) NOT NULL COMMENT '任务id',
-    `bean_name`   varchar(200)  DEFAULT NULL COMMENT 'spring bean名称',
-    `params`      varchar(2000) DEFAULT NULL COMMENT '参数',
-    `status`      tinyint(4) NOT NULL COMMENT '任务状态    0：成功    1：失败',
-    `error`       varchar(2000) DEFAULT NULL COMMENT '失败信息',
-    `times`       int(11)    NOT NULL COMMENT '耗时(单位：毫秒)',
-    `create_time` datetime      DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`log_id`),
-    KEY `job_id` (`job_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务日志';
-
-/*Data for the table `schedule_job_log` */
-
-/*Table structure for table `sys_captcha` */
-
-DROP TABLE IF EXISTS `sys_captcha`;
-
-CREATE TABLE `sys_captcha`
-(
-    `uuid`        char(36)   NOT NULL COMMENT 'uuid',
-    `code`        varchar(6) NOT NULL COMMENT '验证码',
-    `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
-    PRIMARY KEY (`uuid`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统验证码';
-
-/*Data for the table `sys_captcha` */
-
-insert into `sys_captcha`(`uuid`, `code`, `expire_time`)
-values ('5ef59ed5-7455-4f7e-8820-f951c1ada3ee', 'fw7cw', '2021-09-13 09:09:18'),
-       ('70103c8c-9a18-47f0-8db7-03050ba26e5d', 'mxgy8', '2021-08-23 13:55:39'),
-       ('82fd01ce-c71a-461d-81b1-0a518c0dcb3b', '34ncw', '2021-12-02 14:54:11'),
-       ('ce329760-105a-494a-8b52-58d906793dbf', 'a2eax', '2021-08-23 13:55:26');
-
-/*Table structure for table `sys_config` */
-
-DROP TABLE IF EXISTS `sys_config`;
-
-CREATE TABLE `sys_config`
-(
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
-    `param_key`   varchar(50)   DEFAULT NULL COMMENT 'key',
-    `param_value` varchar(2000) DEFAULT NULL COMMENT 'value',
-    `status`      tinyint(4)    DEFAULT '1' COMMENT '状态   0：隐藏   1：显示',
-    `remark`      varchar(500)  DEFAULT NULL COMMENT '备注',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `param_key` (`param_key`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统配置信息表';
-
-/*Data for the table `sys_config` */
-
-insert into `sys_config`(`id`, `param_key`, `param_value`, `status`, `remark`)
-values (1, 'CLOUD_STORAGE_CONFIG_KEY',
-        '{\"aliyunAccessKeyId\":\"\",\"aliyunAccessKeySecret\":\"\",\"aliyunBucketName\":\"\",\"aliyunDomain\":\"\",\"aliyunEndPoint\":\"\",\"aliyunPrefix\":\"\",\"qcloudBucketName\":\"\",\"qcloudDomain\":\"\",\"qcloudPrefix\":\"\",\"qcloudSecretId\":\"\",\"qcloudSecretKey\":\"\",\"qiniuAccessKey\":\"NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ\",\"qiniuBucketName\":\"ios-app\",\"qiniuDomain\":\"http://7xqbwh.dl1.z0.glb.clouddn.com\",\"qiniuPrefix\":\"upload\",\"qiniuSecretKey\":\"uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV\",\"type\":1}',
-        0, '云存储配置信息');
-
-/*Table structure for table `sys_log` */
-
-DROP TABLE IF EXISTS `sys_log`;
-
-CREATE TABLE `sys_log`
-(
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
-    `username`    varchar(50)   DEFAULT NULL COMMENT '用户名',
-    `operation`   varchar(50)   DEFAULT NULL COMMENT '用户操作',
-    `method`      varchar(200)  DEFAULT NULL COMMENT '请求方法',
-    `params`      varchar(5000) DEFAULT NULL COMMENT '请求参数',
-    `time`        bigint(20) NOT NULL COMMENT '执行时长(毫秒)',
-    `ip`          varchar(64)   DEFAULT NULL COMMENT 'IP地址',
-    `create_date` datetime      DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统日志';
-
-/*Data for the table `sys_log` */
-
-insert into `sys_log`(`id`, `username`, `operation`, `method`, `params`, `time`, `ip`, `create_date`)
-values (1, 'admin', '保存菜单', 'com.laughingather.gulimall.admin.modules.sys.controller.SysMenuController.save()',
-        '[{\"menuId\":31,\"parentId\":0,\"name\":\"商品系统\",\"url\":\"\",\"perms\":\"\",\"type\":0,\"icon\":\"shoucang\",\"orderNum\":0}]',
-        88, '0:0:0:0:0:0:0:1', '2021-04-16 20:32:14'),
-       (2, 'admin', '保存菜单', 'com.laughingather.gulimall.admin.modules.sys.controller.SysMenuController.save()',
-        '[{\"menuId\":32,\"parentId\":31,\"name\":\"分类管理\",\"url\":\"product/category\",\"type\":1,\"icon\":\"menu\",\"orderNum\":0}]',
-        84, '0:0:0:0:0:0:0:1', '2021-04-16 20:34:53'),
-       (3, 'admin', '保存菜单', 'com.laughingather.gulimall.admin.modules.sys.controller.SysMenuController.save()',
-        '[{\"menuId\":33,\"parentId\":0,\"name\":\"品牌管理\",\"url\":\"product/brand\",\"perms\":\"\",\"type\":1,\"icon\":\"xiangqufill\",\"orderNum\":0}]',
-        60, '0:0:0:0:0:0:0:1', '2021-04-19 14:45:50'),
-       (4, 'admin', '修改菜单', 'com.laughingather.gulimall.admin.modules.sys.controller.SysMenuController.update()',
-        '[{\"menuId\":33,\"parentId\":31,\"name\":\"品牌管理\",\"url\":\"product/brand\",\"perms\":\"\",\"type\":1,\"icon\":\"xiangqufill\",\"orderNum\":0}]',
-        136, '0:0:0:0:0:0:0:1', '2021-04-19 14:46:07'),
-       (5, 'admin', '保存用户', 'com.laughingather.gulimall.admin.modules.sys.controller.SysUserController.save()',
-        '[{\"userId\":2,\"username\":\"wangjie\",\"password\":\"35c477810fa3806106dc0c11c6e462a8200f70aebe347925f1aae2384bd453e0\",\"salt\":\"cpqYT49Hw8VHjGSfLYp5\",\"email\":\"001@163.com\",\"mobile\":\"17515236789\",\"status\":1,\"roleIdList\":[],\"createUserId\":1,\"createTime\":\"Apr 29, 2021 12:50:44 PM\"}]',
-        251, '0:0:0:0:0:0:0:1', '2021-04-29 12:50:45');
-
-/*Table structure for table `sys_menu` */
-
-DROP TABLE IF EXISTS `sys_menu`;
-
-CREATE TABLE `sys_menu`
-(
-    `menu_id`   bigint(20) NOT NULL AUTO_INCREMENT,
-    `parent_id` bigint(20)   DEFAULT NULL COMMENT '父菜单ID，一级菜单为0',
-    `name`      varchar(50)  DEFAULT NULL COMMENT '菜单名称',
-    `url`       varchar(200) DEFAULT NULL COMMENT '菜单URL',
-    `perms`     varchar(500) DEFAULT NULL COMMENT '授权(多个用逗号分隔，如：user:list,user:create)',
-    `type`      int(11)      DEFAULT NULL COMMENT '类型   0：目录   1：菜单   2：按钮',
-    `icon`      varchar(50)  DEFAULT NULL COMMENT '菜单图标',
-    `order_num` int(11)      DEFAULT NULL COMMENT '排序',
-    PRIMARY KEY (`menu_id`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 76
-  DEFAULT CHARSET = utf8mb4 COMMENT ='菜单管理';
-
-/*Data for the table `sys_menu` */
-
-insert into `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`)
-values (1, 0, '系统管理', NULL, NULL, 0, 'system', 0),
-       (2, 1, '管理员列表', 'sys/user', NULL, 1, 'admin', 1),
-       (3, 1, '角色管理', 'sys/role', NULL, 1, 'role', 2),
-       (4, 1, '菜单管理', 'sys/menu', NULL, 1, 'menu', 3),
-       (5, 1, 'SQL监控', 'http://localhost:8080/gulimall-admin/druid/sql.html', NULL, 1, 'sql', 4),
-       (6, 1, '定时任务', 'job/schedule', NULL, 1, 'job', 5),
-       (7, 6, '查看', NULL, 'sys:schedule:list,sys:schedule:info', 2, NULL, 0),
-       (8, 6, '新增', NULL, 'sys:schedule:save', 2, NULL, 0),
-       (9, 6, '修改', NULL, 'sys:schedule:update', 2, NULL, 0),
-       (10, 6, '删除', NULL, 'sys:schedule:delete', 2, NULL, 0),
-       (11, 6, '暂停', NULL, 'sys:schedule:pause', 2, NULL, 0),
-       (12, 6, '恢复', NULL, 'sys:schedule:resume', 2, NULL, 0),
-       (13, 6, '立即执行', NULL, 'sys:schedule:run', 2, NULL, 0),
-       (14, 6, '日志列表', NULL, 'sys:schedule:log', 2, NULL, 0),
-       (15, 2, '查看', NULL, 'sys:user:list,sys:user:info', 2, NULL, 0),
-       (16, 2, '新增', NULL, 'sys:user:save,sys:role:select', 2, NULL, 0),
-       (17, 2, '修改', NULL, 'sys:user:update,sys:role:select', 2, NULL, 0),
-       (18, 2, '删除', NULL, 'sys:user:delete', 2, NULL, 0),
-       (19, 3, '查看', NULL, 'sys:role:list,sys:role:info', 2, NULL, 0),
-       (20, 3, '新增', NULL, 'sys:role:save,sys:menu:list', 2, NULL, 0),
-       (21, 3, '修改', NULL, 'sys:role:update,sys:menu:list', 2, NULL, 0),
-       (22, 3, '删除', NULL, 'sys:role:delete', 2, NULL, 0),
-       (23, 4, '查看', NULL, 'sys:menu:list,sys:menu:info', 2, NULL, 0),
-       (24, 4, '新增', NULL, 'sys:menu:save,sys:menu:select', 2, NULL, 0),
-       (25, 4, '修改', NULL, 'sys:menu:update,sys:menu:select', 2, NULL, 0),
-       (26, 4, '删除', NULL, 'sys:menu:delete', 2, NULL, 0),
-       (27, 1, '参数管理', 'sys/config',
-        'sys:config:list,sys:config:info,sys:config:save,sys:config:update,sys:config:delete', 1, 'config', 6),
-       (29, 1, '系统日志', 'sys/log', 'sys:log:list', 1, 'log', 7),
-       (30, 1, '文件上传', 'oss/oss', 'sys:oss:all', 1, 'oss', 6),
-       (31, 0, '商品系统', '', '', 0, 'editor', 0),
-       (32, 31, '分类管理', 'product/category', '', 1, 'menu', 0),
-       (34, 31, '品牌管理', 'product/brand', '', 1, 'editor', 0),
-       (37, 31, '属性管理', '', '', 0, 'system', 0),
-       (38, 37, '属性分组', 'product/attrgroup', '', 1, 'tubiao', 0),
-       (39, 37, '规格参数', 'product/baseattr', '', 1, 'log', 0),
-       (40, 37, '销售属性', 'product/saleattr', '', 1, 'zonghe', 0),
-       (41, 31, '商品维护', 'product/spu', '', 0, 'zonghe', 0),
-       (42, 0, '优惠营销', '', '', 0, 'mudedi', 0),
-       (43, 0, '库存系统', '', '', 0, 'shouye', 0),
-       (44, 0, '订单系统', '', '', 0, 'config', 0),
-       (45, 0, '用户系统', '', '', 0, 'admin', 0),
-       (46, 0, '内容管理', '', '', 0, 'sousuo', 0),
-       (47, 42, '优惠券管理', 'coupon/coupon', '', 1, 'zhedie', 0),
-       (48, 42, '发放记录', 'coupon/history', '', 1, 'sql', 0),
-       (49, 42, '专题活动', 'coupon/subject', '', 1, 'tixing', 0),
-       (50, 42, '秒杀活动', 'coupon/seckill', '', 1, 'daohang', 0),
-       (51, 42, '积分维护', 'coupon/bounds', '', 1, 'geren', 0),
-       (52, 42, '满减折扣', 'coupon/full', '', 1, 'shoucang', 0),
-       (53, 43, '仓库维护', 'ware/wareinfo', '', 1, 'shouye', 0),
-       (54, 43, '库存工作单', 'ware/task', '', 1, 'log', 0),
-       (55, 43, '商品库存', 'ware/sku', '', 1, 'jiesuo', 0),
-       (56, 44, '订单查询', 'order/order', '', 1, 'zhedie', 0),
-       (57, 44, '退货单处理', 'order/return', '', 1, 'shanchu', 0),
-       (58, 44, '等级规则', 'order/settings', '', 1, 'system', 0),
-       (59, 44, '支付流水查询', 'order/payment', '', 1, 'job', 0),
-       (60, 44, '退款流水查询', 'order/refund', '', 1, 'mudedi', 0),
-       (61, 45, '会员列表', 'member/member', '', 1, 'geren', 0),
-       (62, 45, '会员等级', 'member/level', '', 1, 'tubiao', 0),
-       (63, 45, '积分变化', 'member/growth', '', 1, 'bianji', 0),
-       (64, 45, '统计信息', 'member/statistics', '', 1, 'sql', 0),
-       (65, 46, '首页推荐', 'content/index', '', 1, 'shouye', 0),
-       (66, 46, '分类热门', 'content/category', '', 1, 'zhedie', 0),
-       (67, 46, '评论管理', 'content/comments', '', 1, 'pinglun', 0),
-       (68, 41, 'spu管理', 'product/spu', '', 1, 'config', 0),
-       (69, 41, '发布商品', 'product/spuadd', '', 1, 'bianji', 0),
-       (70, 43, '采购单维护', '', '', 0, 'tubiao', 0),
-       (71, 70, '采购需求', 'ware/purchaseitem', '', 1, 'editor', 0),
-       (72, 70, '采购单', 'ware/purchase', '', 1, 'menu', 0),
-       (73, 41, '商品管理', 'product/manager', '', 1, 'zonghe', 0),
-       (74, 42, '会员价格', 'coupon/memberprice', '', 1, 'admin', 0),
-       (75, 42, '每日秒杀', 'coupon/seckillsession', '', 1, 'job', 0);
-
-/*Table structure for table `sys_oss` */
-
-DROP TABLE IF EXISTS `sys_oss`;
-
-CREATE TABLE `sys_oss`
-(
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
-    `url`         varchar(200) DEFAULT NULL COMMENT 'URL地址',
-    `create_date` datetime     DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='文件上传';
-
-/*Data for the table `sys_oss` */
+insert into `sys_platform_log`(`id`, `user_id`, `username`, `uri`, `url`, `class_name`, `method_name`, `method_type`,
+                               `method_params`, `method_description`, `server_ip`, `client_ip`, `is_success`,
+                               `spend_time`, `is_login`, `create_time`)
+values (1481828902563745794, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.218.95:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.218.95', '0:0:0:0:0:0:0:1', 1, 34, 0, '2022-01-14 11:21:56'),
+       (1481823668651167745, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.218.95:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.218.95', '0:0:0:0:0:0:0:1', 1, 38, 0, '2022-01-14 11:01:08'),
+       (1481820723092131842, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://localhost:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.218.95', '172.20.218.95', 1, 121, 0, '2022-01-14 10:49:26'),
+       (1493396426157760514, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 53, 0, '2022-02-15 09:27:09'),
+       (1493396858942824450, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 3, 0, '2022-02-15 09:28:52'),
+       (1493396875942338562, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 4, 0, '2022-02-15 09:28:56'),
+       (1493402519374176257, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 38, 0, '2022-02-15 09:51:21'),
+       (1493402857216974850, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 36, 0, '2022-02-15 09:52:42'),
+       (1493403238449848321, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 31, 0, '2022-02-15 09:54:13'),
+       (1493403913644711938, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 40, 0, '2022-02-15 09:56:54'),
+       (1493404828036538369, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 34, 0, '2022-02-15 10:00:32'),
+       (1493405815535083521, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 34, 0, '2022-02-15 10:04:27'),
+       (1493407428282720257, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 33, 0, '2022-02-15 10:10:52'),
+       (1493407794445459457, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 4, 0, '2022-02-15 10:12:19'),
+       (1493407895805009921, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 3, 0, '2022-02-15 10:12:43'),
+       (1493407976113348609, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 4, 0, '2022-02-15 10:13:02'),
+       (1493409186912444417, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 35, 0, '2022-02-15 10:17:51'),
+       (1493413364904796161, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 114, 0, '2022-02-15 10:34:27'),
+       (1493413513525764098, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 4, 0, '2022-02-15 10:35:03'),
+       (1493413804962783234, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 43, 0, '2022-02-15 10:36:12'),
+       (1493414055098490881, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 5, 0, '2022-02-15 10:37:12'),
+       (1493415125203853314, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 38, 0, '2022-02-15 10:41:27'),
+       (1493417430720487426, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 38, 0, '2022-02-15 10:50:37'),
+       (1493417441550180354, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 5, 0, '2022-02-15 10:50:39'),
+       (1493421325354049537, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 36, 0, '2022-02-15 11:06:05'),
+       (1493421335357464577, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 3, 0, '2022-02-15 11:06:07'),
+       (1493421847783972865, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 3, 0, '2022-02-15 11:08:10'),
+       (1493422497653628929, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 38, 0, '2022-02-15 11:10:45'),
+       (1493422802147516417, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 35, 0, '2022-02-15 11:11:57'),
+       (1493424494037475329, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 49, 0, '2022-02-15 11:18:41'),
+       (1493424656176685057, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 3, 0, '2022-02-15 11:19:19'),
+       (1493425046519586818, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 39, 0, '2022-02-15 11:20:52'),
+       (1493464253988380673, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 60, 0, '2022-02-15 13:56:40'),
+       (1493471641982246913, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 4, 0, '2022-02-15 14:26:01'),
+       (1493471975030956034, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 4, 0, '2022-02-15 14:27:21'),
+       (1493472572656361474, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 3, 0, '2022-02-15 14:29:43'),
+       (1493485355020111874, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 21, 0, '2022-02-15 15:20:31'),
+       (1493492259972763650, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 5, 0, '2022-02-15 15:47:57'),
+       (1493492340985745410, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 6, 0, '2022-02-15 15:48:16'),
+       (1493492638059909122, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 44, 0, '2022-02-15 15:49:27'),
+       (1493492984043851777, NULL, NULL, '/gulimall-admin-new/user/list',
+        'http://172.20.202.93:9090/gulimall-admin-new/user/list',
+        'com.laughingather.gulimall.admin.controller.SysUserController', 'listUsers()', 4, NULL, '获取用户列表',
+        '172.20.202.93', '127.0.0.1', 1, 57, 0, '2022-02-15 15:50:50');
 
 /*Table structure for table `sys_role` */
 
@@ -438,31 +294,75 @@ DROP TABLE IF EXISTS `sys_role`;
 
 CREATE TABLE `sys_role`
 (
-    `role_id`        bigint(20) NOT NULL AUTO_INCREMENT,
-    `role_name`      varchar(100) DEFAULT NULL COMMENT '角色名称',
-    `remark`         varchar(100) DEFAULT NULL COMMENT '备注',
-    `create_user_id` bigint(20)   DEFAULT NULL COMMENT '创建者ID',
-    `create_time`    datetime     DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`role_id`)
+    `id`          bigint(20) NOT NULL COMMENT '主键id',
+    `role_name`   varchar(200) DEFAULT NULL COMMENT '角色名称',
+    `role_code`   varchar(100) DEFAULT NULL COMMENT '角色编码',
+    `description` varchar(255) DEFAULT NULL COMMENT '描述',
+    `create_by`   varchar(32)  DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `update_by`   varchar(32)  DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uniq_sr_role_code` (`role_code`),
+    KEY `idx_sr_role_code` (`role_code`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='角色';
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='角色表';
 
 /*Data for the table `sys_role` */
 
-/*Table structure for table `sys_role_menu` */
+insert into `sys_role`(`id`, `role_name`, `role_code`, `description`, `create_by`, `create_time`, `update_by`,
+                       `update_time`)
+values (1468855748988637184, '库存管理员', 'ware_manager', '库存服务管理', 'admin', '2021-12-09 16:11:15', NULL, NULL),
+       (1468855856593506304, '订单管理员', 'order_manager', '订单服务管理', 'admin', '2021-12-09 16:11:41', NULL, NULL);
 
-DROP TABLE IF EXISTS `sys_role_menu`;
+/*Table structure for table `sys_role_permission` */
 
-CREATE TABLE `sys_role_menu`
+DROP TABLE IF EXISTS `sys_role_permission`;
+
+CREATE TABLE `sys_role_permission`
 (
-    `id`      bigint(20) NOT NULL AUTO_INCREMENT,
-    `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
-    `menu_id` bigint(20) DEFAULT NULL COMMENT '菜单ID',
-    PRIMARY KEY (`id`)
+    `id`            bigint(20) NOT NULL,
+    `role_id`       bigint(20)    DEFAULT NULL COMMENT '角色id',
+    `permission_id` bigint(20)    DEFAULT NULL COMMENT '权限id',
+    `data_rule_ids` varchar(1000) DEFAULT NULL COMMENT '数据权限ids',
+    `operate_date`  datetime      DEFAULT NULL COMMENT '操作时间',
+    `operate_ip`    int(11)       DEFAULT NULL COMMENT '操作ip',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `index_group_role_per_id` (`role_id`, `permission_id`) USING BTREE,
+    KEY `index_group_role_id` (`role_id`) USING BTREE,
+    KEY `index_group_per_id` (`permission_id`) USING BTREE,
+    KEY `idx_srp_role_per_id` (`role_id`, `permission_id`) USING BTREE,
+    KEY `idx_srp_role_id` (`role_id`) USING BTREE,
+    KEY `idx_srp_permission_id` (`permission_id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='角色与菜单对应关系';
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='角色权限表';
 
-/*Data for the table `sys_role_menu` */
+/*Data for the table `sys_role_permission` */
+
+/*Table structure for table `sys_third_account` */
+
+DROP TABLE IF EXISTS `sys_third_account`;
+
+CREATE TABLE `sys_third_account`
+(
+    `id`              bigint(20) NOT NULL COMMENT '编号',
+    `user_id`         bigint(20)   DEFAULT NULL COMMENT '第三方登录id',
+    `avatar`          varchar(255) DEFAULT NULL COMMENT '头像',
+    `status`          tinyint(1)   DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
+    `is_del`          tinyint(1)   DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
+    `realname`        varchar(100) DEFAULT NULL COMMENT '真实姓名',
+    `third_user_uuid` varchar(100) DEFAULT NULL COMMENT '第三方账号',
+    `third_user_id`   varchar(100) DEFAULT NULL COMMENT '第三方app用户账号',
+    `third_type`      varchar(50)  DEFAULT NULL COMMENT '登录来源',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uniq_sys_third_account_third_type_third_user_id` (`third_type`, `third_user_id`) USING BTREE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  ROW_FORMAT = DYNAMIC;
+
+/*Data for the table `sys_third_account` */
 
 /*Table structure for table `sys_user` */
 
@@ -470,29 +370,54 @@ DROP TABLE IF EXISTS `sys_user`;
 
 CREATE TABLE `sys_user`
 (
-    `user_id`        bigint(20)  NOT NULL AUTO_INCREMENT,
-    `username`       varchar(50) NOT NULL COMMENT '用户名',
-    `password`       varchar(100) DEFAULT NULL COMMENT '密码',
-    `salt`           varchar(20)  DEFAULT NULL COMMENT '盐',
-    `email`          varchar(100) DEFAULT NULL COMMENT '邮箱',
-    `mobile`         varchar(100) DEFAULT NULL COMMENT '手机号',
-    `status`         tinyint(4)   DEFAULT NULL COMMENT '状态  0：禁用   1：正常',
-    `create_user_id` bigint(20)   DEFAULT NULL COMMENT '创建者ID',
-    `create_time`    datetime     DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`user_id`),
-    UNIQUE KEY `username` (`username`)
+    `userid`      varchar(32) NOT NULL COMMENT '主键id',
+    `username`    varchar(100) DEFAULT NULL COMMENT '登录账号',
+    `real_name`   varchar(100) DEFAULT NULL COMMENT '真实姓名',
+    `password`    varchar(255) DEFAULT NULL COMMENT '密码',
+    `avatar`      varchar(511) DEFAULT NULL COMMENT '头像',
+    `birthday`    date         DEFAULT NULL COMMENT '生日',
+    `gender`      tinyint(1)   DEFAULT NULL COMMENT '性别(0-默认保密,1-男,2-女)',
+    `email`       varchar(45)  DEFAULT NULL COMMENT '电子邮件',
+    `phone`       varchar(45)  DEFAULT NULL COMMENT '电话',
+    `status`      tinyint(1)   DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
+    `delete`      tinyint(1)   DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
+    `create_by`   varchar(32)  DEFAULT NULL COMMENT '创建人',
+    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `update_by`   varchar(32)  DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`userid`),
+    UNIQUE KEY `uniq_su_email` (`email`),
+    UNIQUE KEY `uniq_su_username` (`username`),
+    UNIQUE KEY `uniq_su_phone` (`phone`),
+    KEY `idx_su_username` (`username`),
+    KEY `idx_su_status` (`status`),
+    KEY `idx_su_is_delete` (`delete`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统用户';
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='用户表';
 
 /*Data for the table `sys_user` */
 
-insert into `sys_user`(`user_id`, `username`, `password`, `salt`, `email`, `mobile`, `status`, `create_user_id`,
-                       `create_time`)
-values (1, 'admin', '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d', 'YzcmCZNvbXocrsz9dm8e',
-        'root@renren.io', '13612345678', 1, 1, '2016-11-11 11:11:11'),
-       (2, 'wangjie', '35c477810fa3806106dc0c11c6e462a8200f70aebe347925f1aae2384bd453e0', 'cpqYT49Hw8VHjGSfLYp5',
-        '001@163.com', '17515236789', 1, 1, '2021-04-29 12:50:45');
+insert into `sys_user`(`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`,
+                       `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+values ('1463452828315029504', 'wangjie', '王杰', '$2a$10$pabNigivrJNadv7.CGus8.tfqnZ.jpWeYp/C2UoR2Y8.isnRHrykS',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp192244425.jpg&refer=http%3A%2F%2Fimg9.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647422947&t=56358da60f52c59b03eec3abc7dea6bf',
+        '1998-08-30', 0, '18763096838@163.com', '18763096838', 1, 0, 'admin', '2021-11-24 18:21:59', NULL, NULL),
+       ('1493468819329519616', 'admin', '管理员', '$2a$10$KN7XTwFtpUwVgoVJrq2VZOthDHxfSnf0de5kVx7cwSi.Y/uPP8Ty.',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31',
+        '1998-08-20', 0, '123456789@163.com', '13390908080', 1, 0, 'root', '2022-02-15 14:14:49', NULL, NULL),
+       ('1493469684618629120', 'zhangsan', '张三', '$2a$10$OAQQ3a6daUk8.cngekzUquQUO6DYCg9egyB2U3TqsMeXHqaGyaxHK',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31',
+        '1998-08-20', 0, '784217549@163.com', '13390907070', 1, 0, 'admin', '2022-02-15 14:18:15', NULL, NULL),
+       ('1493470195535187968', 'root', '超级管理员', '$2a$10$ozeJUCSnnQZmx5/LPbqO7ueKtXz2cORvm4NiZ2Y38t3i33s/gQmDm',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31',
+        '1998-08-20', 0, '0000000@163.com', '13312345678', 1, 0, 'admin', '2022-02-15 14:20:17', NULL, NULL),
+       ('1493470641809133568', 'lisi', '李四', '$2a$10$.3ViS1pYsPZO5Pz6g83R0OTGEa6SmdEqlFZUisvCETvV5hIISn0/q',
+        'https://img0.baidu.com/it/u=4044314804,383808458&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', '1996-09-20', 0,
+        '000123141@163.com', '13333335678', 1, 0, 'admin', '2022-02-15 14:22:03', NULL, NULL),
+       ('1493471308288233472', 'wangwu', '王五', '$2a$10$ddYGFWXrGy5sCuqaO4qM7eVSqEagGbxAPfibx3QFCGToWswwe2AbW',
+        'https://img0.baidu.com/it/u=4044314804,383808458&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', '1996-09-20', 0,
+        '9999999@qq.com', '13377777777', 1, 0, 'admin', '2022-02-15 14:24:42', NULL, NULL);
 
 /*Table structure for table `sys_user_role` */
 
@@ -500,79 +425,18 @@ DROP TABLE IF EXISTS `sys_user_role`;
 
 CREATE TABLE `sys_user_role`
 (
-    `id`      bigint(20) NOT NULL AUTO_INCREMENT,
-    `user_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
-    `role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
-    PRIMARY KEY (`id`)
+    `id`      bigint(20) NOT NULL COMMENT '主键id',
+    `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+    `role_id` bigint(20) DEFAULT NULL COMMENT '角色id',
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `idx_sur_user_id` (`user_id`) USING BTREE,
+    KEY `idx_sur_role_id` (`role_id`) USING BTREE,
+    KEY `idx_sur_user_role_id` (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户与角色对应关系';
+  DEFAULT CHARSET = utf8
+  ROW_FORMAT = DYNAMIC COMMENT ='用户角色表';
 
 /*Data for the table `sys_user_role` */
-
-/*Table structure for table `sys_user_token` */
-
-DROP TABLE IF EXISTS `sys_user_token`;
-
-CREATE TABLE `sys_user_token`
-(
-    `user_id`     bigint(20)   NOT NULL,
-    `token`       varchar(100) NOT NULL COMMENT 'token',
-    `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
-    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-    PRIMARY KEY (`user_id`),
-    UNIQUE KEY `token` (`token`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统用户Token';
-
-/*Data for the table `sys_user_token` */
-
-insert into `sys_user_token`(`user_id`, `token`, `expire_time`, `update_time`)
-values (1, 'dd080f7b8defaba4f3ead2e210d01762', '2021-12-03 02:49:33', '2021-12-02 14:49:33');
-
-/*Table structure for table `tb_user` */
-
-DROP TABLE IF EXISTS `tb_user`;
-
-CREATE TABLE `tb_user`
-(
-    `user_id`     bigint(20)  NOT NULL AUTO_INCREMENT,
-    `username`    varchar(50) NOT NULL COMMENT '用户名',
-    `mobile`      varchar(20) NOT NULL COMMENT '手机号',
-    `password`    varchar(64) DEFAULT NULL COMMENT '密码',
-    `create_time` datetime    DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`user_id`),
-    UNIQUE KEY `username` (`username`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户';
-
-/*Data for the table `tb_user` */
-
-insert into `tb_user`(`user_id`, `username`, `mobile`, `password`, `create_time`)
-values (1, 'mark', '13612345678', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
-        '2017-03-23 22:37:41');
-
-/*Table structure for table `undo_log` */
-
-DROP TABLE IF EXISTS `undo_log`;
-
-CREATE TABLE `undo_log`
-(
-    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
-    `branch_id`     bigint(20)   NOT NULL,
-    `xid`           varchar(100) NOT NULL,
-    `context`       varchar(128) NOT NULL,
-    `rollback_info` longblob     NOT NULL,
-    `log_status`    int(11)      NOT NULL,
-    `log_created`   datetime     NOT NULL,
-    `log_modified`  datetime     NOT NULL,
-    `ext`           varchar(100) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-/*Data for the table `undo_log` */
 
 /*!40101 SET SQL_MODE = @OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;
