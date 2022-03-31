@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
  * @author：laughingather
  * @create：2021-12-06 2021/12/6
  */
-@FeignClient("gulimall-admin-new")
-@RequestMapping("/gulimall-admin-new/openapi/admin")
+@FeignClient("gulimall-admin")
+@RequestMapping("/gulimall-admin/openapi/admin")
 public interface AdminFeignService {
 
 
