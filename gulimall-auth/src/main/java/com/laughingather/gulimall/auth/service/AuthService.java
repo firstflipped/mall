@@ -27,10 +27,11 @@ package com.laughingather.gulimall.auth.service;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 
 /**
- * 认证相关service
+ * 认证逻辑接口
  *
- * @author xuyuxiang
- * @date 2020/3/11 14:14
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface AuthService {
 

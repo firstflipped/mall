@@ -24,8 +24,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String generateToken(JwtPayLoad jwtPayLoad) {
-        String token = TokenProvider.generateToken(jwtPayLoad);
-        return token;
+        return TokenProvider.generateToken(jwtPayLoad);
     }
 
     @Override

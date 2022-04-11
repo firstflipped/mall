@@ -7,8 +7,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 /**
- * @author：laughingather
- * @create：2022-02-14 2022/2/14
+ * 管理员前端展示视图
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class AdminVO {

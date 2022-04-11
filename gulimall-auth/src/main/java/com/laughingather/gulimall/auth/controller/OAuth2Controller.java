@@ -21,12 +21,12 @@ import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 /**
- * oauth2.0
+ * oauth2.0路由
  *
- * @author：laughingather
- * @create：2021-06-21 23:57
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
-
 @Slf4j
 @Controller
 @RequestMapping("/oauth2.0")

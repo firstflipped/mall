@@ -14,8 +14,9 @@ import java.util.Objects;
 /**
  * 权限服务对外开放接口
  *
- * @author：laughingather
- * @create：2022-01-06 2022/1/6
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/openapi/auth")

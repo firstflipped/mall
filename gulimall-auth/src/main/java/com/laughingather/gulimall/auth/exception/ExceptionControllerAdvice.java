@@ -14,7 +14,9 @@ import java.util.Map;
 /**
  * 统一异常处理处理
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @RestControllerAdvice(basePackages = "com.laughingather.gulimall.auth.controller")

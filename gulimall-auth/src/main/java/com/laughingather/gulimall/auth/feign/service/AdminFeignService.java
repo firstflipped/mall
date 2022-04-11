@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 后台管理第三方调用接口
  *
- * @author：laughingather
- * @create：2021-12-06 2021/12/6
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-admin")
 @RequestMapping("/gulimall-admin/openapi/admin")

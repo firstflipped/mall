@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 会员服务远程调用接口
  *
- * @author：laughingather
- * @create：2021-05-26 22:53
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-member")
 public interface MemberFeignService {

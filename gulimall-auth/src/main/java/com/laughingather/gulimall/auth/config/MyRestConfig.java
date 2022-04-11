@@ -7,8 +7,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * restTemplate
  *
- * @author：laughingather
- * @create：2021-06-22 0:13
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Configuration
 public class MyRestConfig {

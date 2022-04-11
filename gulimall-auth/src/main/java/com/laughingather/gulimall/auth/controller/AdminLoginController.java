@@ -20,8 +20,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * 管理用户登录路由
  *
- * @author：laughingather
- * @create：2021-06-21 23:55
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/auth/admin")

@@ -17,8 +17,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * @author：laughingather
- * @create：2021-12-06 2021/12/6
+ * 管理登录逻辑实现
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service
 public class AdminLoginServiceImpl implements AdminLoginService {

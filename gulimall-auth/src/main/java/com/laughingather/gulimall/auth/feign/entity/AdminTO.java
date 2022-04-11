@@ -5,8 +5,9 @@ import lombok.Data;
 /**
  * 用户信息传输类
  *
- * @author：laughingather
- * @create：2021-12-06 2021/12/6
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class AdminTO {
