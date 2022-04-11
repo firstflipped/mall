@@ -22,7 +22,7 @@ public class MyRedisConfig {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 初始化键
-        RedisSerializer stringSerializer = new StringRedisSerializer();
+        RedisSerializer<String> stringSerializer = new StringRedisSerializer();
         // 初始化值
         GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();

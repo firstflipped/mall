@@ -104,7 +104,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return permissionsWithTreeVOList.stream()
                 .filter(item -> Objects.equals(id, item.getParentId()))
                 .map(item -> {
-                    item.setChildren(getChild(permissionsWithTreeVOList, item.getId()));
+                            item.setChildren(getChild(permissionsWithTreeVOList, item.getId()));
                             return item;
                         }
                 ).collect(Collectors.toList());

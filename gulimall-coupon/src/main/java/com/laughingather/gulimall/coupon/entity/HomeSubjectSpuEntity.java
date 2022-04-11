@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * 专题商品
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:49:52
@@ -16,32 +16,32 @@ import java.io.Serializable;
 @Data
 @TableName("sms_home_subject_spu")
 public class HomeSubjectSpuEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 专题名字
-	 */
-	private String name;
+     * id
+     */
+    @TableId
+    private Long id;
 
     /**
-	 * 专题id
-	 */
-	private Long subjectId;
+     * 专题名字
+     */
+    private String name;
 
     /**
-	 * spu_id
-	 */
-	private Long spuId;
+     * 专题id
+     */
+    private Long subjectId;
 
     /**
-	 * 排序
-	 */
-	private Integer sort;
+     * spu_id
+     */
+    private Long spuId;
+
+    /**
+     * 排序
+     */
+    private Integer sort;
 
 }

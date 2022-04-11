@@ -26,10 +26,8 @@ public class MyFeignConfig {
                 HttpServletRequest request = requestAttributes.getRequest();
                 // 同步请求头数据（将老请求头里的Cookie放到新请求里面）
                 // 老请求就是指浏览器发送的请求
-                if (request != null) {
-                    String cookie = request.getHeader("Cookie");
-                    requestTemplate.header("Cookie", cookie);
-                }
+                String cookie = request.getHeader("Cookie");
+                requestTemplate.header("Cookie", cookie);
             }
         };
     }

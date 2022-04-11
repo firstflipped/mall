@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * 优惠券分类关联
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:49:52
@@ -16,27 +16,27 @@ import java.io.Serializable;
 @Data
 @TableName("sms_coupon_spu_category_relation")
 public class CouponSpuCategoryRelationEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 优惠券id
-	 */
-	private Long couponId;
+     * id
+     */
+    @TableId
+    private Long id;
 
     /**
-	 * 产品分类id
-	 */
-	private Long categoryId;
+     * 优惠券id
+     */
+    private Long couponId;
 
     /**
-	 * 产品分类名称
-	 */
-	private String categoryName;
+     * 产品分类id
+     */
+    private Long categoryId;
+
+    /**
+     * 产品分类名称
+     */
+    private String categoryName;
 
 }

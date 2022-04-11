@@ -47,6 +47,11 @@ public class MyResult<T> {
                 .message(errorCodeEnum.getMessage()).data(data).build();
     }
 
+    public static <T> MyResult<T> errMsg(String msg) {
+        return MyResult.<T>builder().code(ResultCodeEnum.FAILED.getCode())
+                .message(msg).data(null).build();
+    }
+
     /**
      * 是否成功
      *
@@ -54,11 +59,6 @@ public class MyResult<T> {
      */
     public boolean isSuccess() {
         return Objects.equals(ResultCodeEnum.SUCCESS.getCode(), code);
-    }
-
-    public static <T> MyResult<T> errMsg(String msg) {
-        return MyResult.<T>builder().code(ResultCodeEnum.FAILED.getCode())
-                .message(msg).data(null).build();
     }
 
 

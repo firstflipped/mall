@@ -19,32 +19,32 @@ import java.math.BigDecimal;
 @Builder
 @TableName("sms_sku_full_reduction")
 public class SkuFullReductionEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * spu_id
-	 */
-	private Long skuId;
+     * id
+     */
+    @TableId
+    private Long id;
 
     /**
-	 * 满多少
-	 */
-	private BigDecimal fullPrice;
+     * spu_id
+     */
+    private Long skuId;
 
     /**
-	 * 减多少
-	 */
-	private BigDecimal reducePrice;
+     * 满多少
+     */
+    private BigDecimal fullPrice;
 
     /**
-	 * 是否参与其他优惠
-	 */
-	private Integer addOther;
+     * 减多少
+     */
+    private BigDecimal reducePrice;
+
+    /**
+     * 是否参与其他优惠
+     */
+    private Integer addOther;
 
 }

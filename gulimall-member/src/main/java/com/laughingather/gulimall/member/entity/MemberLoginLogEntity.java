@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 会员登录记录
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -17,23 +17,23 @@ import java.time.LocalDateTime;
 @Data
 @TableName("ums_member_login_log")
 public class MemberLoginLogEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
-
-	/**
-	 * member_id
-	 */
-	private Long memberId;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * ip
-	 */
-	private String ip;
+     * id
+     */
+    @TableId
+    private Long id;
+
+    /**
+     * member_id
+     */
+    private Long memberId;
+
+    /**
+     * ip
+     */
+    private String ip;
 
     /**
      * city

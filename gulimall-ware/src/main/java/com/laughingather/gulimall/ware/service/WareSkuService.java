@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
-import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
+import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 
 import java.util.List;
 

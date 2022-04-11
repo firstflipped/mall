@@ -28,11 +28,11 @@ public class SecKillSkuRelationEntity implements Serializable {
     /**
      * 活动id
      */
-	private Long promotionId;
+    private Long promotionId;
 
     /**
-	 * 活动场次id
-	 */
+     * 活动场次id
+     */
     private Long promotionSessionId;
 
     /**

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 会员收藏的商品
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -17,37 +17,37 @@ import java.time.LocalDateTime;
 @Data
 @TableName("ums_member_collect_spu")
 public class MemberCollectSpuEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
+    /**
+     * id
+     */
+    @TableId
+    private Long id;
 
-	/**
-	 * 会员id
-	 */
-	private Long memberId;
+    /**
+     * 会员id
+     */
+    private Long memberId;
 
-	/**
-	 * spu_id
-	 */
-	private Long spuId;
+    /**
+     * spu_id
+     */
+    private Long spuId;
 
     /**
      * spu名称
      */
-	private String spuName;
+    private String spuName;
 
     /**
      * spu图片
-	 */
-	private String spuImg;
+     */
+    private String spuImg;
 
     /**
      * 创建时间
-	 */
-	private LocalDateTime createTime;
+     */
+    private LocalDateTime createTime;
 
 }

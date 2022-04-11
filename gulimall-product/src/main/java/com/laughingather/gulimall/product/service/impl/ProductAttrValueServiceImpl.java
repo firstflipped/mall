@@ -1,12 +1,11 @@
 package com.laughingather.gulimall.product.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-
 import com.laughingather.gulimall.product.dao.ProductAttrValueDao;
 import com.laughingather.gulimall.product.entity.ProductAttrValueEntity;
 import com.laughingather.gulimall.product.service.ProductAttrValueService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 订单配置信息
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:17:55
@@ -17,33 +17,33 @@ import java.time.LocalDateTime;
 @Data
 @TableName("oms_order_setting")
 public class OrderSettingEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
-
-	/**
-	 * 秒杀订单超时关闭时间(分)
-	 */
-	private Integer flashOrderOvertime;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 正常订单超时时间(分)
-	 */
-	private Integer normalOrderOvertime;
+     * id
+     */
+    @TableId
+    private Long id;
 
     /**
-	 * 发货后自动确认收货时间（天）
-	 */
-	private Integer confirmOvertime;
+     * 秒杀订单超时关闭时间(分)
+     */
+    private Integer flashOrderOvertime;
 
     /**
-	 * 自动完成交易时间，不能申请退货（天）
-	 */
-	private Integer finishOvertime;
+     * 正常订单超时时间(分)
+     */
+    private Integer normalOrderOvertime;
+
+    /**
+     * 发货后自动确认收货时间（天）
+     */
+    private Integer confirmOvertime;
+
+    /**
+     * 自动完成交易时间，不能申请退货（天）
+     */
+    private Integer finishOvertime;
 
     /**
      * 订单完成后自动好评时间（天）

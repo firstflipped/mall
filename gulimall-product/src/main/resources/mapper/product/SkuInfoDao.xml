@@ -19,21 +19,21 @@
 
     <select id="listSkusWithPage" resultMap="skuInfoMap">
         SELECT sku_id,
-               spu_id,
-               sku_name,
-               sku_desc,
-               category_id,
-               brand_id,
-               sku_default_img,
-               sku_title,
-               sku_subtitle,
-               price,
-               sale_count
+        spu_id,
+        sku_name,
+        sku_desc,
+        category_id,
+        brand_id,
+        sku_default_img,
+        sku_title,
+        sku_subtitle,
+        price,
+        sale_count
         FROM pms_sku_info
         <where>
             <if test="params.key != null and params.key != ''">
                 AND (sku_name LIKE CONCAT('%', #{params.key}, '%') OR
-                     sku_desc LIKE CONCAT('%', #{params.key}, '%'))
+                sku_desc LIKE CONCAT('%', #{params.key}, '%'))
             </if>
             <if test="params.categoryId != null and params.categoryId != 0">
                 AND category_id = #{params.categoryId}

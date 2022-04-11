@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * 品牌
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-11 15:12:49
@@ -23,12 +23,12 @@ import java.time.LocalDateTime;
 @TableName("pms_brand")
 public class BrandEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 品牌id
-	 */
-	@TableId
+    /**
+     * 品牌id
+     */
+    @TableId
     @Null(message = "品牌新增id必须为空", groups = {AddGroup.class})
     @NotNull(message = "品牌修改id不能为空", groups = {UpdateGroup.class})
     private Long brandId;
@@ -55,31 +55,31 @@ public class BrandEntity implements Serializable {
 
     /**
      * 显示状态[0-不显示；1-显示]
-	 */
-	@NotNull(message = "品牌显示状态不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	@ListValue(values = {0, 1}, groups = {AddGroup.class, UpdateGroup.class})
-	private Integer showStatus;
+     */
+    @NotNull(message = "品牌显示状态不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @ListValue(values = {0, 1}, groups = {AddGroup.class, UpdateGroup.class})
+    private Integer showStatus;
 
-	/**
-	 * 排序
-	 */
-	@NotNull(message = "品牌排序不能为空", groups = {AddGroup.class, UpdateGroup.class})
-	@Min(value = 0, message = "品牌排序顺序小于0", groups = {AddGroup.class, UpdateGroup.class})
-	private Integer sort;
+    /**
+     * 排序
+     */
+    @NotNull(message = "品牌排序不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @Min(value = 0, message = "品牌排序顺序小于0", groups = {AddGroup.class, UpdateGroup.class})
+    private Integer sort;
 
-	/**
-	 * 介绍
-	 */
-	private String description;
+    /**
+     * 介绍
+     */
+    private String description;
 
-	/**
-	 * 创建时间
-	 */
-	private LocalDateTime createTime;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
-	/**
-	 * 更新时间
-	 */
-	private LocalDateTime updateTime;
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 
 }

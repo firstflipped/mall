@@ -246,7 +246,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
      * 递归查找所有菜单的子菜单
      *
      * @param root 分类父节点信息
-     * @param all 分类列表
+     * @param all  分类列表
      * @return 分类VO列表
      */
     private List<CategoryTreeVO> getChildless(CategoryTreeVO root, List<CategoryTreeVO> all) {

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 成长值变化历史记录
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -17,23 +17,23 @@ import java.time.LocalDateTime;
 @Data
 @TableName("ums_growth_change_history")
 public class GrowthChangeHistoryEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
-
-	/**
-	 * member_id
-	 */
-	private Long memberId;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 改变的值（正负计数）
-	 */
-	private Integer changeCount;
+     * id
+     */
+    @TableId
+    private Long id;
+
+    /**
+     * member_id
+     */
+    private Long memberId;
+
+    /**
+     * 改变的值（正负计数）
+     */
+    private Integer changeCount;
 
     /**
      * 备注

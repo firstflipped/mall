@@ -1,11 +1,10 @@
 package com.laughingather.gulimall.generator.factory;
 
+import com.laughingather.gulimall.generator.config.MongoCondition;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
-import com.laughingather.gulimall.generator.config.MongoCondition;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
@@ -33,22 +32,6 @@ public class MongoDBCollectionFactory {
 
     @Resource
     private MongoDatabase database;
-
-    @PostConstruct
-    public void initMongoDatabase() {
-        mongoDatabase = database;
-    }
-
-    /***
-     * 通过表名获得查询对象
-     * @author gxz
-     * @date 2020/5/9
-     * @param collectionName mongo的集合名(表名)
-     * @return 连接查询对象
-     **/
-    public MongoCollection<Document> getCollection(String collectionName) {
-        return mongoDatabase.getCollection(collectionName);
-    }
 
     /***
      * 获得当前数据库的集合名称
@@ -85,7 +68,6 @@ public class MongoDBCollectionFactory {
 
     }
 
-
     private static List<String> getCollectionNames() {
         MongoIterable<String> names = mongoDatabase.listCollectionNames();
         List<String> result = new ArrayList<>();
@@ -99,5 +81,21 @@ public class MongoDBCollectionFactory {
         return getCollectionNames()
                 .stream()
                 .filter((name) -> name.contains(likeName)).collect(Collectors.toList());
+    }
+
+    @PostConstruct
+    public void initMongoDatabase() {
+        mongoDatabase = database;
+    }
+
+    /***
+     * 通过表名获得查询对象
+     * @author gxz
+     * @date 2020/5/9
+     * @param collectionName mongo的集合名(表名)
+     * @return 连接查询对象
+     **/
+    public MongoCollection<Document> getCollection(String collectionName) {
+        return mongoDatabase.getCollection(collectionName);
     }
 }

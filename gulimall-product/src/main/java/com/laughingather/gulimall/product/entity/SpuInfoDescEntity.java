@@ -19,9 +19,9 @@ import java.io.Serializable;
 @Builder
 @TableName("pms_spu_info_desc")
 public class SpuInfoDescEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
+    /**
      * 商品id
      */
     @TableId(type = IdType.INPUT)

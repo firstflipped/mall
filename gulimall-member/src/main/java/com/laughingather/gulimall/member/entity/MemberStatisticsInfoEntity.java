@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 /**
  * 会员统计信息
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -17,82 +17,82 @@ import java.math.BigDecimal;
 @Data
 @TableName("ums_member_statistics_info")
 public class MemberStatisticsInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 会员id
-	 */
-	private Long memberId;
+     * id
+     */
+    @TableId
+    private Long id;
 
     /**
-	 * 累计消费金额
-	 */
-	private BigDecimal consumeAmount;
+     * 会员id
+     */
+    private Long memberId;
 
     /**
-	 * 累计优惠金额
-	 */
-	private BigDecimal couponAmount;
+     * 累计消费金额
+     */
+    private BigDecimal consumeAmount;
 
     /**
-	 * 订单数量
-	 */
-	private Integer orderCount;
+     * 累计优惠金额
+     */
+    private BigDecimal couponAmount;
 
     /**
-	 * 优惠券数量
-	 */
-	private Integer couponCount;
+     * 订单数量
+     */
+    private Integer orderCount;
 
     /**
-	 * 评价数
-	 */
-	private Integer commentCount;
+     * 优惠券数量
+     */
+    private Integer couponCount;
 
     /**
-	 * 退货数量
-	 */
-	private Integer returnOrderCount;
+     * 评价数
+     */
+    private Integer commentCount;
 
     /**
-	 * 登录次数
-	 */
-	private Integer loginCount;
+     * 退货数量
+     */
+    private Integer returnOrderCount;
 
     /**
-	 * 关注数量
-	 */
-	private Integer attendCount;
+     * 登录次数
+     */
+    private Integer loginCount;
 
     /**
-	 * 粉丝数量
-	 */
-	private Integer fansCount;
+     * 关注数量
+     */
+    private Integer attendCount;
 
     /**
-	 * 收藏的商品数量
-	 */
-	private Integer collectProductCount;
+     * 粉丝数量
+     */
+    private Integer fansCount;
 
     /**
-	 * 收藏的专题活动数量
-	 */
-	private Integer collectSubjectCount;
+     * 收藏的商品数量
+     */
+    private Integer collectProductCount;
 
     /**
-	 * 收藏的评论数量
-	 */
-	private Integer collectCommentCount;
+     * 收藏的专题活动数量
+     */
+    private Integer collectSubjectCount;
 
     /**
-	 * 邀请的朋友数量
-	 */
-	private Integer inviteFriendCount;
+     * 收藏的评论数量
+     */
+    private Integer collectCommentCount;
+
+    /**
+     * 邀请的朋友数量
+     */
+    private Integer inviteFriendCount;
 
 }

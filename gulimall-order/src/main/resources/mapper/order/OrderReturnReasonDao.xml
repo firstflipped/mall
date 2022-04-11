@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.order.dao.OrderReturnReasonDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.order.entity.OrderReturnReasonEntity" id="orderReturnReasonMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
@@ -12,6 +11,4 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-
-
 </mapper>

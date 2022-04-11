@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 @MapperScan("com.laughingather.gulimall.generator.dao")
 public class GulimallGeneratorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GulimallGeneratorApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GulimallGeneratorApplication.class, args);
+    }
 }

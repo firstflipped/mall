@@ -6,7 +6,6 @@ import com.laughingather.gulimall.common.constant.WareConstants;
 import com.laughingather.gulimall.ware.dao.WareOrderTaskDetailDao;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.laughingather.gulimall.ware.service.WareOrderTaskDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

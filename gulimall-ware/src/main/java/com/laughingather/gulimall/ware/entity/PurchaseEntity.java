@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * 采购信息
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:57:24
@@ -25,13 +25,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @TableName("wms_purchase")
 public class PurchaseEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 采购单id
-	 */
-	@TableId
-	private Long id;
+    /**
+     * 采购单id
+     */
+    @TableId
+    private Long id;
 
     /**
      * 采购人id

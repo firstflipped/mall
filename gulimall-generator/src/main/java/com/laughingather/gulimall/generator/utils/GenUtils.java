@@ -9,8 +9,8 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -275,7 +275,7 @@ public class GenUtils {
     public static String tableToJava(String tableName, String[] tablePrefixArray) {
         if (null != tablePrefixArray && tablePrefixArray.length > 0) {
             for (String tablePrefix : tablePrefixArray) {
-                  if (tableName.startsWith(tablePrefix)){
+                if (tableName.startsWith(tablePrefix)) {
                     tableName = tableName.replaceFirst(tablePrefix, "");
                 }
             }
@@ -303,7 +303,7 @@ public class GenUtils {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
         if (template.contains("MongoChildrenEntity.java.vm")) {
-            return packagePath + "entity" + File.separator + "inner" + File.separator + currentTableName+ File.separator + splitInnerName(className)+ "InnerEntity.java";
+            return packagePath + "entity" + File.separator + "inner" + File.separator + currentTableName + File.separator + splitInnerName(className) + "InnerEntity.java";
         }
         if (template.contains("Entity.java.vm") || template.contains("MongoEntity.java.vm")) {
             return packagePath + "entity" + File.separator + className + "Entity.java";
@@ -346,8 +346,8 @@ public class GenUtils {
         return null;
     }
 
-    private static String splitInnerName(String name){
-          name = name.replaceAll("\\.","_");
-          return name;
+    private static String splitInnerName(String name) {
+        name = name.replaceAll("\\.", "_");
+        return name;
     }
 }

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * seata控制分布式事务
- *
+ * <p>
  * AT模式：该模式仅适用于并发较小的后台管理类场景，不适用于高并发场景
  *
  * <p>

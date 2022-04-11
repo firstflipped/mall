@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.order.dao.RefundInfoDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.order.entity.RefundInfoEntity" id="refundInfoMap">
         <result property="id" column="id"/>
         <result property="orderReturnId" column="order_return_id"/>
@@ -13,6 +12,4 @@
         <result property="refundChannel" column="refund_channel"/>
         <result property="refundContent" column="refund_content"/>
     </resultMap>
-
-
 </mapper>

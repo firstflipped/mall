@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 /**
  * 积分变化历史记录
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -17,22 +17,22 @@ import java.time.LocalDateTime;
 @Data
 @TableName("ums_integration_change_history")
 public class IntegrationChangeHistoryEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
-
-	/**
-	 * member_id
-	 */
-	private Long memberId;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 变化的值
-	 */
+     * id
+     */
+    @TableId
+    private Long id;
+
+    /**
+     * member_id
+     */
+    private Long memberId;
+
+    /**
+     * 变化的值
+     */
     private Integer changeCount;
 
     /**

@@ -15,8 +15,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = "com.laughingather.gulimall.ware.feign.service")
 public class GulimallWareApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GulimallWareApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GulimallWareApplication.class, args);
+    }
 
 }

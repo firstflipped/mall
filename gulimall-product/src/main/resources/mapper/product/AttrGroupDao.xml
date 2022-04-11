@@ -34,12 +34,12 @@
         pag.attr_group_id,
         pag.attr_group_name,
         pa.attr_id,
-               pa.attr_name,
-               ppav.attr_value
+        pa.attr_name,
+        ppav.attr_value
         FROM pms_attr_group pag
-                     LEFT JOIN pms_attr pa USING (attr_group_id)
-                     LEFT JOIN pms_product_attr_value ppav USING (attr_id)
+        LEFT JOIN pms_attr pa USING (attr_group_id)
+        LEFT JOIN pms_product_attr_value ppav USING (attr_id)
         WHERE pag.category_id = #{categoryId}
-          AND ppav.spu_id = #{spuId}
+        AND ppav.spu_id = #{spuId}
     </select>
 </mapper>

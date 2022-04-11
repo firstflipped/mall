@@ -25,6 +25,7 @@ import javax.annotation.Resource;
  */
 @Configuration
 public class DbConfig {
+    private static boolean mongo = false;
     @Value("${laughingather.database: mysql}")
     private String database;
     @Resource
@@ -36,7 +37,9 @@ public class DbConfig {
     @Resource
     private PostgreSQLGeneratorDao postgreSQLGeneratorDao;
 
-    private static boolean mongo = false;
+    public static boolean isMongo() {
+        return mongo;
+    }
 
     @Bean
     @Primary
@@ -61,10 +64,6 @@ public class DbConfig {
     public GeneratorDao getMongoDBDao(MongoDBGeneratorDao mongoDBGeneratorDao) {
         mongo = true;
         return mongoDBGeneratorDao;
-    }
-
-    public static boolean isMongo() {
-        return mongo;
     }
 
 }

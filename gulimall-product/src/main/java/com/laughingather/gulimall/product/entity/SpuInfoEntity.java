@@ -17,41 +17,41 @@ import java.time.LocalDateTime;
 @Data
 @TableName("pms_spu_info")
 public class SpuInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 商品id
-	 */
-	@TableId
-	private Long id;
+    /**
+     * 商品id
+     */
+    @TableId
+    private Long id;
 
-	/**
-	 * 商品名称
-	 */
-	private String spuName;
+    /**
+     * 商品名称
+     */
+    private String spuName;
 
-	/**
+    /**
      * 上架状态[0 - 新建，1 - 已上架，2 - 已下架]
      */
-	private Integer publishStatus;
+    private Integer publishStatus;
 
-	/**
-	 * 所属分类id
-	 */
-	private Long categoryId;
+    /**
+     * 所属分类id
+     */
+    private Long categoryId;
 
-	/**
-	 * 品牌id
-	 */
-	private Long brandId;
+    /**
+     * 品牌id
+     */
+    private Long brandId;
 
-	/**
-	 * 创建时间
-	 */
-	private LocalDateTime createTime;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
-	/**
-	 * 更新时间
-	 */
-	private LocalDateTime updateTime;
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 }

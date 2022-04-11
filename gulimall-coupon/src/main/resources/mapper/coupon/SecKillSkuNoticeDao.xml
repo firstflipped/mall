@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.coupon.dao.SecKillSkuNoticeDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.coupon.entity.SecKillSkuNoticeEntity" id="secKillSkuNoticeMap">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
@@ -13,6 +12,4 @@
         <result property="sendTime" column="send_time"/>
         <result property="noticeType" column="notice_type"/>
     </resultMap>
-
-
 </mapper>

@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.coupon.dao.HomeFigureDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.coupon.entity.HomeFigureEntity" id="homeFigureMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
@@ -18,6 +17,4 @@
         <result property="publisherId" column="publisher_id"/>
         <result property="authId" column="auth_id"/>
     </resultMap>
-
-
 </mapper>

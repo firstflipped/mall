@@ -65,7 +65,7 @@ public class IndexController {
         }
 
         // 调用远程服务进行注册
-        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterTO.getMobile()).toString();
+        String cacheCode = Objects.requireNonNull(redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + memberRegisterTO.getMobile())).toString();
         if (StringUtils.isBlank(cacheCode)) {
             Map<String, String> errors = new HashMap<>(2);
             errors.put("code", "验证码过期");

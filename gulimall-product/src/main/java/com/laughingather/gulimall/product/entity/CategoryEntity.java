@@ -50,7 +50,7 @@ public class CategoryEntity implements Serializable {
     /**
      * 排序
      */
-	private Integer sort;
+    private Integer sort;
 
     /**
      * 创建时间

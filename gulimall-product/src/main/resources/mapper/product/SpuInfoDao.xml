@@ -15,12 +15,12 @@
 
     <select id="listSpuWithPage" resultMap="spuInfoMap">
         SELECT id,
-               spu_name,
-               category_id,
-               brand_id,
-               publish_status,
-               create_time,
-               update_time
+        spu_name,
+        category_id,
+        brand_id,
+        publish_status,
+        create_time,
+        update_time
         FROM pms_spu_info
         <where>
             <if test="params.key != null and params.key != ''">
@@ -41,7 +41,7 @@
     <update id="updateSpuStatus">
         UPDATE pms_spu_info
         SET publish_status = #{status},
-            update_time    = NOW()
+        update_time = NOW()
         WHERE id = #{spuId}
     </update>
 

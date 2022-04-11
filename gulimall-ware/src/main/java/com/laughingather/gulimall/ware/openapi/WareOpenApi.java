@@ -2,9 +2,9 @@ package com.laughingather.gulimall.ware.openapi;
 
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
-import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import lombok.extern.slf4j.Slf4j;

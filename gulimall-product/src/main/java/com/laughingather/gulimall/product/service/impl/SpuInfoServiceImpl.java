@@ -280,7 +280,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     /**
      * 保存spu描述信息
      *
-     * @param spuInfoId spuId
+     * @param spuInfoId       spuId
      * @param descriptionList 备注集合
      */
     private void saveSpuDescription(Long spuInfoId, List<String> descriptionList) {
@@ -298,7 +298,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * 保存spu图片信息
      *
      * @param spuInfoId spuId
-     * @param images spu图片集合
+     * @param images    spu图片集合
      */
     private void saveSpuImages(Long spuInfoId, List<String> images) {
         if (CollectionUtils.isNotEmpty(images)) {
@@ -336,7 +336,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * 保存spu积分信息
      *
      * @param spuInfoId spuId
-     * @param bound spu积分信息
+     * @param bound     spu积分信息
      */
     private void saveSpuBounds(Long spuInfoId, SpuBoundParam bound) {
         SpuBoundTO spuBoundTO = SpuBoundTO.builder()
@@ -357,7 +357,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * 保存sku集合
      *
      * @param spuInfo spuId
-     * @param skus sku集合
+     * @param skus    sku集合
      */
     private void saveSkus(SpuInfoEntity spuInfo, List<SkuParam> skus) {
         if (CollectionUtils.isNotEmpty(skus)) {
@@ -385,7 +385,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * 保存sku基本信息
      *
      * @param spuInfo spuId
-     * @param sku sku
+     * @param sku     sku
      * @return sku实体
      */
     private SkuInfoEntity saveSkuInfo(SpuInfoEntity spuInfo, SkuParam sku) {
@@ -413,7 +413,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     /**
      * 保存sku图片信息
      *
-     * @param skuId skuId
+     * @param skuId  skuId
      * @param images sku图片集合
      */
     private void saveSkuImages(Long skuId, List<SkuImageParam> images) {
@@ -453,7 +453,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * 保存营销优惠信息
      *
      * @param skuId skuId
-     * @param sku sku前端传入实体
+     * @param sku   sku前端传入实体
      */
     private void saveSkuOther(Long skuId, SkuParam sku) {
         SkuOtherInfoTO skuOtherInfoTO = new SkuOtherInfoTO();

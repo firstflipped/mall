@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.ware.dao;
 
-import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

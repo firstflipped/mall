@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.coupon.dao;
 
-import com.laughingather.gulimall.coupon.entity.SecKillSkuNoticeEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.laughingather.gulimall.coupon.entity.SecKillSkuNoticeEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

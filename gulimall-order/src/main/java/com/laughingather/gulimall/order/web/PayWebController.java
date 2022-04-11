@@ -39,8 +39,7 @@ public class PayWebController {
         // 获取支付详情信息
         PayDTO payDTO = orderService.getPayOrderInfo(orderSn);
 
-        String payPage = alipayTemplate.pay(payDTO);
-        return payPage;
+        return alipayTemplate.pay(payDTO);
     }
 
 }

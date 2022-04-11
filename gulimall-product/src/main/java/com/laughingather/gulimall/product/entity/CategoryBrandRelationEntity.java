@@ -18,12 +18,12 @@ import java.time.LocalDateTime;
 @TableName("pms_category_brand_relation")
 public class CategoryBrandRelationEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	@TableId
+    /**
+     *
+     */
+    @TableId
     private Long id;
 
     /**

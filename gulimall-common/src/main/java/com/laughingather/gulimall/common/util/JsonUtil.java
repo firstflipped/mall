@@ -30,12 +30,10 @@ import java.util.Map;
  * @author laughingather
  */
 public class JsonUtil {
-    private static ObjectMapper objectMapper = new ObjectMapper();
-
     private static final String STANDARD_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String TIME_PATTERN = "HH:mm:ss";
-
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         //设置java.util.Date时间类的序列化以及反序列化的格式

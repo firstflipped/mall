@@ -28,11 +28,11 @@ public class SecKillSkuNoticeEntity implements Serializable {
     /**
      * member_id
      */
-	private Long memberId;
+    private Long memberId;
 
     /**
-	 * sku_id
-	 */
+     * sku_id
+     */
     private Long skuId;
 
     /**

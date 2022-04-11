@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.ware.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.laughingather.gulimall.ware.entity.PurchaseDetailEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.laughingather.gulimall.ware.entity.query.PurchaseDetailQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

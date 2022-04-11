@@ -21,11 +21,11 @@ import java.time.LocalDateTime;
 @ApiModel(value = "属性实体")
 public class AttrEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 属性id
-	 */
+    /**
+     * 属性id
+     */
     @TableId
     @ApiModelProperty(value = "属性id")
     private Long attrId;

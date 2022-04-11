@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member.dao;
 
-import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

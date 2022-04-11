@@ -39,14 +39,13 @@ import java.util.Objects;
 public class UnlockStockListener {
 
     @Resource
+    public OrderFeignService orderFeignService;
+    @Resource
     private WareOrderTaskService wareOrderTaskService;
     @Resource
     private WareOrderTaskDetailService wareOrderTaskDetailService;
     @Resource
     private WareSkuService wareSkuService;
-
-    @Resource
-    public OrderFeignService orderFeignService;
 
     /**
      * 解锁锁定库存

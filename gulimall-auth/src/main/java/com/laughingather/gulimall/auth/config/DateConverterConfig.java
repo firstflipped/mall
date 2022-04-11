@@ -97,34 +97,6 @@ public class DateConverterConfig {
     }
 
     /**
-     * 和上面一种方法有一种即可
-     */
-    /*
-    @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
-        // 指定时区
-        objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        // 日期类型字符串处理
-        objectMapper.setDateFormat(new SimpleDateFormat(DATETIME_PATTERN));
-
-        // Java8日期日期处理
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DATETIME_FORMATTER));
-        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DATE_FORMATTER));
-        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(TIME_FORMATTER));
-        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DATETIME_FORMATTER));
-        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DATE_FORMATTER));
-        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(TIME_FORMATTER));
-        objectMapper.registerModule(javaTimeModule);
-
-        converter.setObjectMapper(objectMapper);
-        return converter;
-    }*/
-
-
-    /**
      * LocalDate转换器，用于转换RequestParam和PathVariable参数
      */
     @Bean

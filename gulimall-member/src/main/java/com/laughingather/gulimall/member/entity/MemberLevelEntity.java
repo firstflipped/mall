@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 /**
  * 会员等级
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:33:47
@@ -17,32 +17,32 @@ import java.math.BigDecimal;
 @Data
 @TableName("ums_member_level")
 public class MemberLevelEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
+    /**
+     * id
+     */
+    @TableId
+    private Long id;
 
-	/**
-	 * 等级名称
-	 */
-	private String name;
+    /**
+     * 等级名称
+     */
+    private String name;
 
     /**
      * 等级需要的成长值
      */
-	private Integer growthPoint;
+    private Integer growthPoint;
 
     /**
-	 * 是否为默认等级[0->不是；1->是]
-	 */
-	private Integer defaultStatus;
+     * 是否为默认等级[0->不是；1->是]
+     */
+    private Integer defaultStatus;
 
     /**
-	 * 免运费标准
-	 */
+     * 免运费标准
+     */
     private BigDecimal freeFreightPoint;
 
     /**

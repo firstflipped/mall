@@ -31,19 +31,17 @@ import java.util.Date;
 public class TokenProvider {
 
     /**
-     * 密文
+     * 加密方式
      */
-    private static byte[] jwtSecret;
-
+    public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
     /**
      * 加密钥
      */
     private static final SecretKey SIGNING_KEY;
-
     /**
-     * 加密方式
+     * 密文
      */
-    public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+    private static byte[] jwtSecret;
 
     /**
      * 获取配置文件中的密钥
@@ -72,7 +70,6 @@ public class TokenProvider {
 
     /**
      * 生成token
-     *
      */
     public static String generateToken(JwtPayLoad jwtPayLoad) {
 
@@ -97,7 +94,6 @@ public class TokenProvider {
 
     /**
      * 根据token获取Claims
-     *
      */
     private static Claims getClaimsFromToken(String token) {
         if (StringUtils.isBlank(token)) {
@@ -113,7 +109,6 @@ public class TokenProvider {
 
     /**
      * 获取JwtPayLoad部分
-     *
      */
     public static JwtPayLoad getJwtPayLoad(String token) {
         Claims claims = getClaimsFromToken(token);
@@ -122,7 +117,6 @@ public class TokenProvider {
 
     /**
      * 校验token是否正确
-     *
      */
     public static Boolean checkToken(String token) {
         try {
@@ -136,7 +130,6 @@ public class TokenProvider {
 
     /**
      * 校验token是否失效
-     *
      */
     public static Boolean isTokenExpired(String token) {
         try {

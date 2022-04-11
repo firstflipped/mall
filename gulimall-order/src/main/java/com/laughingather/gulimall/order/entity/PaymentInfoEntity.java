@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * 支付信息表
- * 
+ *
  * @author laughingather
  * @email laughingather@gmail.com
  * @date 2021-04-12 11:17:55
@@ -18,48 +18,48 @@ import java.time.LocalDateTime;
 @Data
 @TableName("oms_payment_info")
 public class PaymentInfoEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id
-	 */
-	@TableId
-	private Long id;
-
-	/**
-	 * 订单号（对外业务号）
-	 */
-	private String orderSn;
+    private static final long serialVersionUID = 1L;
 
     /**
-	 * 订单id
-	 */
-	private Long orderId;
+     * id
+     */
+    @TableId
+    private Long id;
 
     /**
-	 * 支付宝交易流水号
-	 */
-	private String alipayTradeNo;
+     * 订单号（对外业务号）
+     */
+    private String orderSn;
 
     /**
-	 * 支付总金额
-	 */
-	private BigDecimal totalAmount;
+     * 订单id
+     */
+    private Long orderId;
 
     /**
-	 * 交易内容
-	 */
-	private String subject;
+     * 支付宝交易流水号
+     */
+    private String alipayTradeNo;
 
     /**
-	 * 支付状态
-	 */
-	private String paymentStatus;
+     * 支付总金额
+     */
+    private BigDecimal totalAmount;
 
     /**
-	 * 确认时间
-	 */
-	private LocalDateTime confirmTime;
+     * 交易内容
+     */
+    private String subject;
+
+    /**
+     * 支付状态
+     */
+    private String paymentStatus;
+
+    /**
+     * 确认时间
+     */
+    private LocalDateTime confirmTime;
 
     /**
      * 回调内容

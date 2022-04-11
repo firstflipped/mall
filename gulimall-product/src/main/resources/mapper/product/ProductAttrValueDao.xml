@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.product.dao.ProductAttrValueDao">
-
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.laughingather.gulimall.product.entity.ProductAttrValueEntity" id="productAttrValueMap">
         <result property="id" column="id"/>
         <result property="spuId" column="spu_id"/>
@@ -13,6 +12,4 @@
         <result property="attrSort" column="attr_sort"/>
         <result property="quickShow" column="quick_show"/>
     </resultMap>
-
-
 </mapper>
