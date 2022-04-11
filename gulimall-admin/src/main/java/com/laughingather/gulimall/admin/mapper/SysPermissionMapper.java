@@ -8,10 +8,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 权限持久Mybatis
+ * 权限持久层
  *
- * @author：laughingather
- * @create：2021-12-01 2021/12/1
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermissionEntity> {
 

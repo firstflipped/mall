@@ -10,8 +10,9 @@ import javax.annotation.Resource;
 /**
  * 平台日志逻辑实现
  *
- * @author：laughingather
- * @create：2021-12-09 2021/12/9
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service
 public class PlatformLogServiceImpl implements PlatformLogService {

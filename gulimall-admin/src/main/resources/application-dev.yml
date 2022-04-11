@@ -22,7 +22,6 @@ logging:
           common:
             aspect: debug
 
-
 springfox:
   documentation:
     swagger-ui:

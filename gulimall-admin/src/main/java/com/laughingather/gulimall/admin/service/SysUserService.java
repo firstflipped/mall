@@ -10,8 +10,9 @@ import java.util.List;
 /**
  * 用户逻辑接口
  *
- * @author：laughingather
- * @create：2021-11-24 2021/11/24
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface SysUserService {
 

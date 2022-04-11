@@ -5,8 +5,9 @@ import com.laughingather.gulimall.common.entity.PlatformLog;
 /**
  * 平台日志逻辑接口
  *
- * @author：laughingather
- * @create：2021-12-09 2021/12/9
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface PlatformLogService {
 

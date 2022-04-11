@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * 后台管理对外开放接口
+ * 后台管理服务对外开放接口
  *
- * @author：laughingather
- * @create：2021-12-06 2021/12/6
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/openapi/admin")

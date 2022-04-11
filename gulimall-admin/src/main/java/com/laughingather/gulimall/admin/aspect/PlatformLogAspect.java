@@ -36,9 +36,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 日志切面
+ * 在执行目标方法之前执行该切面，记录请求日志
  *
- * @author：laughingather
- * @create：2021-12-07 2021/12/7
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Aspect
 @Order(1)
@@ -76,9 +78,9 @@ public class PlatformLogAspect {
     /**
      * 保存日志
      *
-     * @param point
-     * @param result
-     * @param time
+     * @param point  方法信息
+     * @param result 执行目标方法返回对象
+     * @param time   执行时间
      */
     private void saveLog(ProceedingJoinPoint point, Object result, long time) {
         // 获取request对象

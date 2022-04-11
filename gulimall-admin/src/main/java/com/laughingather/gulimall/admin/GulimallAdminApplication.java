@@ -5,11 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * 启动类
+ * 后台管理服务启动类
  *
- * @SpringBootApplication(scanBasePackages = {"com.laughingather.gulimall.*"})   注入common包中的类
- * @author：laughingather
- * @create：2021-11-24 2021/11/24
+ * <p>@SpringBootApplication(scanBasePackages = {"com.laughingather.gulimall.*"})   注入common包中的类</p>
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @SpringBootApplication
 @EnableDiscoveryClient

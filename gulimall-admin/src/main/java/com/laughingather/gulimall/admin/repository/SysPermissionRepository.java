@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * 权限持久JPA
  *
- * @author：laughingather
- * @create：2021-12-01 2021/12/1
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface SysPermissionRepository extends JpaRepository<SysPermissionEntity, Long> {
 }

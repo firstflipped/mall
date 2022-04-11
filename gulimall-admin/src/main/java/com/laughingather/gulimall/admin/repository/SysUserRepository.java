@@ -4,10 +4,11 @@ import com.laughingather.gulimall.admin.entity.SysUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * 用户持久层
+ * 用户持久JPA
  *
- * @author：laughingather
- * @create：2021-11-24 2021/11/24
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface SysUserRepository extends JpaRepository<SysUserEntity, Long> {
 

@@ -13,8 +13,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 /**
  * swagger配置
  *
- * @author laughingather
- * @date
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Configuration
 @EnableOpenApi
