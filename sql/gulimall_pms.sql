@@ -12,9 +12,11 @@ MySQL - 5.7.34 : Database - gulimall_pms
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0 */;
 /*!40101 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS */`gulimall_pms` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+CREATE
+DATABASE /*!32312 IF NOT EXISTS */`gulimall_pms` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
-USE `gulimall_pms`;
+USE
+`gulimall_pms`;
 
 /*Table structure for table `pms_attr` */
 
@@ -23,20 +25,20 @@ DROP TABLE IF EXISTS `pms_attr`;
 CREATE TABLE `pms_attr`
 (
     `attr_id`       bigint(20) NOT NULL AUTO_INCREMENT COMMENT '属性id',
-    `attr_name`     varchar(30)     DEFAULT NULL COMMENT '属性名',
-    `icon`          varchar(255)    DEFAULT NULL COMMENT '属性图标',
-    `value_select`  varchar(255)    DEFAULT NULL COMMENT '可选值列表[用逗号分隔]',
-    `attr_type`     tinyint(1)      DEFAULT NULL COMMENT '属性类型[0-销售属性，1-基本属性，2-既是销售属性又是基本属性]',
-    `search_type`   tinyint(1)      DEFAULT NULL COMMENT '是否需要检索[0-不需要，1-需要]',
-    `enable`        tinyint(1)      DEFAULT NULL COMMENT '启用状态[0 - 禁用，1 - 启用]',
-    `quick_show`    tinyint(1)      DEFAULT NULL COMMENT '快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整',
-    `attr_group_id` bigint(20)      DEFAULT NULL COMMENT '所属属性分组',
-    `category_id`   bigint(20)      DEFAULT NULL COMMENT '所属分类',
-    `create_time`   timestamp  NULL DEFAULT NULL COMMENT '创建时间',
-    `update_time`   timestamp  NULL DEFAULT NULL COMMENT '更新时间',
+    `attr_name`     varchar(30)  DEFAULT NULL COMMENT '属性名',
+    `icon`          varchar(255) DEFAULT NULL COMMENT '属性图标',
+    `value_select`  varchar(255) DEFAULT NULL COMMENT '可选值列表[用逗号分隔]',
+    `attr_type`     tinyint(1) DEFAULT NULL COMMENT '属性类型[0-销售属性，1-基本属性，2-既是销售属性又是基本属性]',
+    `search_type`   tinyint(1) DEFAULT NULL COMMENT '是否需要检索[0-不需要，1-需要]',
+    `enable`        tinyint(1) DEFAULT NULL COMMENT '启用状态[0 - 禁用，1 - 启用]',
+    `quick_show`    tinyint(1) DEFAULT NULL COMMENT '快速展示【是否展示在介绍上；0-否 1-是】，在sku中仍然可以调整',
+    `attr_group_id` bigint(20) DEFAULT NULL COMMENT '所属属性分组',
+    `category_id`   bigint(20) DEFAULT NULL COMMENT '所属分类',
+    `create_time`   timestamp NULL DEFAULT NULL COMMENT '创建时间',
+    `update_time`   timestamp NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`attr_id`),
-    KEY `idx_catalog_id` (`category_id`),
-    KEY `idx_attr_group_id` (`attr_group_id`)
+    KEY             `idx_catalog_id` (`category_id`),
+    KEY             `idx_attr_group_id` (`attr_group_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 20
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品属性';
@@ -87,15 +89,15 @@ DROP TABLE IF EXISTS `pms_attr_group`;
 CREATE TABLE `pms_attr_group`
 (
     `attr_group_id`   bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分组id',
-    `attr_group_name` char(20)        DEFAULT NULL COMMENT '组名',
-    `icon`            varchar(255)    DEFAULT NULL COMMENT '组图标',
-    `sort`            int(11)         DEFAULT NULL COMMENT '排序',
-    `description`     varchar(255)    DEFAULT NULL COMMENT '描述',
-    `category_id`     bigint(20)      DEFAULT NULL COMMENT '所属分类id',
-    `create_time`     timestamp  NULL DEFAULT NULL COMMENT '创建时间',
-    `update_time`     timestamp  NULL DEFAULT NULL COMMENT '更新时间',
+    `attr_group_name` char(20)     DEFAULT NULL COMMENT '组名',
+    `icon`            varchar(255) DEFAULT NULL COMMENT '组图标',
+    `sort`            int(11) DEFAULT NULL COMMENT '排序',
+    `description`     varchar(255) DEFAULT NULL COMMENT '描述',
+    `category_id`     bigint(20) DEFAULT NULL COMMENT '所属分类id',
+    `create_time`     timestamp NULL DEFAULT NULL COMMENT '创建时间',
+    `update_time`     timestamp NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`attr_group_id`),
-    KEY `idx_category_id` (`category_id`)
+    KEY               `idx_category_id` (`category_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8mb4 COMMENT ='属性分组';
@@ -124,14 +126,14 @@ DROP TABLE IF EXISTS `pms_brand`;
 CREATE TABLE `pms_brand`
 (
     `brand_id`     bigint(20) NOT NULL AUTO_INCREMENT COMMENT '品牌id',
-    `brand_name`   varchar(50)     DEFAULT NULL COMMENT '品牌名',
-    `first_letter` char(1)         DEFAULT NULL COMMENT '检索首字母',
-    `logo`         varchar(511)    DEFAULT NULL COMMENT '品牌logo地址',
+    `brand_name`   varchar(50)  DEFAULT NULL COMMENT '品牌名',
+    `first_letter` char(1)      DEFAULT NULL COMMENT '检索首字母',
+    `logo`         varchar(511) DEFAULT NULL COMMENT '品牌logo地址',
     `description`  longtext COMMENT '介绍',
-    `show_status`  tinyint(1)      DEFAULT NULL COMMENT '显示状态[0-不显示；1-显示]',
-    `sort`         int(11)         DEFAULT NULL COMMENT '排序',
-    `create_time`  timestamp  NULL DEFAULT NULL COMMENT '创建时间',
-    `update_time`  timestamp  NULL DEFAULT NULL COMMENT '更新时间',
+    `show_status`  tinyint(1) DEFAULT NULL COMMENT '显示状态[0-不显示；1-显示]',
+    `sort`         int(11) DEFAULT NULL COMMENT '排序',
+    `create_time`  timestamp NULL DEFAULT NULL COMMENT '创建时间',
+    `update_time`  timestamp NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`brand_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 11
@@ -164,15 +166,15 @@ DROP TABLE IF EXISTS `pms_category`;
 CREATE TABLE `pms_category`
 (
     `category_id`    bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分类id',
-    `category_name`  char(50)        DEFAULT NULL COMMENT '分类名称',
-    `parent_id`      bigint(20)      DEFAULT NULL COMMENT '父分类id',
-    `category_level` tinyint(1)      DEFAULT NULL COMMENT '层级',
-    `show_status`    tinyint(1)      DEFAULT NULL COMMENT '是否显示[0-不显示，1显示]',
-    `sort`           int(11)         DEFAULT NULL COMMENT '排序',
-    `create_time`    timestamp  NULL DEFAULT NULL COMMENT '创建时间',
-    `update_time`    timestamp  NULL DEFAULT NULL COMMENT '更新时间',
+    `category_name`  char(50) DEFAULT NULL COMMENT '分类名称',
+    `parent_id`      bigint(20) DEFAULT NULL COMMENT '父分类id',
+    `category_level` tinyint(1) DEFAULT NULL COMMENT '层级',
+    `show_status`    tinyint(1) DEFAULT NULL COMMENT '是否显示[0-不显示，1显示]',
+    `sort`           int(11) DEFAULT NULL COMMENT '排序',
+    `create_time`    timestamp NULL DEFAULT NULL COMMENT '创建时间',
+    `update_time`    timestamp NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`category_id`),
-    KEY `idx_parent_id` (`parent_id`)
+    KEY              `idx_parent_id` (`parent_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1424
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品三级分类';
@@ -1612,14 +1614,14 @@ DROP TABLE IF EXISTS `pms_category_brand_relation`;
 CREATE TABLE `pms_category_brand_relation`
 (
     `id`            bigint(20) NOT NULL AUTO_INCREMENT,
-    `brand_id`      bigint(20)      DEFAULT NULL COMMENT '品牌id',
-    `category_id`   bigint(20)      DEFAULT NULL COMMENT '分类id',
-    `brand_name`    varchar(255)    DEFAULT NULL COMMENT '品牌名称',
-    `category_name` varchar(255)    DEFAULT NULL COMMENT '分类名称',
-    `create_time`   timestamp  NULL DEFAULT NULL COMMENT '创建时间',
+    `brand_id`      bigint(20) DEFAULT NULL COMMENT '品牌id',
+    `category_id`   bigint(20) DEFAULT NULL COMMENT '分类id',
+    `brand_name`    varchar(255) DEFAULT NULL COMMENT '品牌名称',
+    `category_name` varchar(255) DEFAULT NULL COMMENT '分类名称',
+    `create_time`   timestamp NULL DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`),
-    KEY `idx_brand_id` (`brand_id`),
-    KEY `idx_category_id` (`category_id`)
+    KEY             `idx_brand_id` (`brand_id`),
+    KEY             `idx_category_id` (`category_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='品牌分类关联';
@@ -1653,12 +1655,12 @@ DROP TABLE IF EXISTS `pms_product_attr_value`;
 CREATE TABLE `pms_product_attr_value`
 (
     `id`         bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `spu_id`     bigint(20)   DEFAULT NULL COMMENT '商品id',
-    `attr_id`    bigint(20)   DEFAULT NULL COMMENT '属性id',
+    `spu_id`     bigint(20) DEFAULT NULL COMMENT '商品id',
+    `attr_id`    bigint(20) DEFAULT NULL COMMENT '属性id',
     `attr_name`  varchar(200) DEFAULT NULL COMMENT '属性名',
     `attr_value` varchar(200) DEFAULT NULL COMMENT '属性值',
-    `attr_sort`  int(11)      DEFAULT NULL COMMENT '顺序',
-    `quick_show` tinyint(1)   DEFAULT NULL COMMENT '快速展示【是否展示在介绍上；0-否 1-是】',
+    `attr_sort`  int(11) DEFAULT NULL COMMENT '顺序',
+    `quick_show` tinyint(1) DEFAULT NULL COMMENT '快速展示【是否展示在介绍上；0-否 1-是】',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 70
@@ -1693,10 +1695,10 @@ DROP TABLE IF EXISTS `pms_sku_images`;
 CREATE TABLE `pms_sku_images`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `sku_id`      bigint(20)   DEFAULT NULL COMMENT 'sku_id',
+    `sku_id`      bigint(20) DEFAULT NULL COMMENT 'sku_id',
     `img_url`     varchar(255) DEFAULT NULL COMMENT '图片地址',
-    `img_sort`    int(11)      DEFAULT NULL COMMENT '排序',
-    `default_img` int(11)      DEFAULT NULL COMMENT '默认图[0 - 不是默认图，1 - 是默认图]',
+    `img_sort`    int(11) DEFAULT NULL COMMENT '排序',
+    `default_img` int(11) DEFAULT NULL COMMENT '默认图[0 - 不是默认图，1 - 是默认图]',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 66
@@ -1797,18 +1799,18 @@ DROP TABLE IF EXISTS `pms_sku_info`;
 CREATE TABLE `pms_sku_info`
 (
     `sku_id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'skuId',
-    `sku_name`        varchar(255)    DEFAULT NULL COMMENT 'sku名称',
-    `sku_title`       varchar(255)    DEFAULT NULL COMMENT '标题',
-    `sku_subtitle`    varchar(511)    DEFAULT NULL COMMENT '副标题',
-    `sku_desc`        varchar(2000)   DEFAULT NULL COMMENT 'sku介绍描述',
-    `sku_default_img` varchar(255)    DEFAULT NULL COMMENT '默认图片',
-    `price`           decimal(18, 4)  DEFAULT NULL COMMENT '价格',
-    `sale_count`      bigint(20)      DEFAULT NULL COMMENT '销量',
-    `spu_id`          bigint(20)      DEFAULT NULL COMMENT 'spuId',
-    `category_id`     bigint(20)      DEFAULT NULL COMMENT '所属分类id',
-    `brand_id`        bigint(20)      DEFAULT NULL COMMENT '所属品牌id',
-    `create_time`     timestamp  NULL DEFAULT NULL COMMENT '创建时间',
-    `update_time`     timestamp  NULL DEFAULT NULL COMMENT '更新时间',
+    `sku_name`        varchar(255)   DEFAULT NULL COMMENT 'sku名称',
+    `sku_title`       varchar(255)   DEFAULT NULL COMMENT '标题',
+    `sku_subtitle`    varchar(511)   DEFAULT NULL COMMENT '副标题',
+    `sku_desc`        varchar(2000)  DEFAULT NULL COMMENT 'sku介绍描述',
+    `sku_default_img` varchar(255)   DEFAULT NULL COMMENT '默认图片',
+    `price`           decimal(18, 4) DEFAULT NULL COMMENT '价格',
+    `sale_count`      bigint(20) DEFAULT NULL COMMENT '销量',
+    `spu_id`          bigint(20) DEFAULT NULL COMMENT 'spuId',
+    `category_id`     bigint(20) DEFAULT NULL COMMENT '所属分类id',
+    `brand_id`        bigint(20) DEFAULT NULL COMMENT '所属品牌id',
+    `create_time`     timestamp NULL DEFAULT NULL COMMENT '创建时间',
+    `update_time`     timestamp NULL DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`sku_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 49
@@ -1866,11 +1868,11 @@ DROP TABLE IF EXISTS `pms_sku_sale_attr_value`;
 CREATE TABLE `pms_sku_sale_attr_value`
 (
     `id`         bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `sku_id`     bigint(20)   DEFAULT NULL COMMENT 'sku_id',
-    `attr_id`    bigint(20)   DEFAULT NULL COMMENT 'attr_id',
+    `sku_id`     bigint(20) DEFAULT NULL COMMENT 'sku_id',
+    `attr_id`    bigint(20) DEFAULT NULL COMMENT 'attr_id',
     `attr_name`  varchar(200) DEFAULT NULL COMMENT '销售属性名',
     `attr_value` varchar(200) DEFAULT NULL COMMENT '销售属性值',
-    `attr_sort`  int(11)      DEFAULT NULL COMMENT '顺序',
+    `attr_sort`  int(11) DEFAULT NULL COMMENT '顺序',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 17
@@ -1903,20 +1905,20 @@ DROP TABLE IF EXISTS `pms_spu_comment`;
 CREATE TABLE `pms_spu_comment`
 (
     `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `sku_id`           bigint(20)    DEFAULT NULL COMMENT 'sku_id',
-    `spu_id`           bigint(20)    DEFAULT NULL COMMENT 'spu_id',
+    `sku_id`           bigint(20) DEFAULT NULL COMMENT 'sku_id',
+    `spu_id`           bigint(20) DEFAULT NULL COMMENT 'spu_id',
     `spu_name`         varchar(255)  DEFAULT NULL COMMENT '商品名字',
     `member_nick_name` varchar(255)  DEFAULT NULL COMMENT '会员昵称',
-    `star`             tinyint(1)    DEFAULT NULL COMMENT '星级',
+    `star`             tinyint(1) DEFAULT NULL COMMENT '星级',
     `member_ip`        varchar(64)   DEFAULT NULL COMMENT '会员ip',
-    `show_status`      tinyint(1)    DEFAULT NULL COMMENT '显示状态[0-不显示，1-显示]',
+    `show_status`      tinyint(1) DEFAULT NULL COMMENT '显示状态[0-不显示，1-显示]',
     `spu_attributes`   varchar(255)  DEFAULT NULL COMMENT '购买时属性组合',
-    `likes_count`      int(11)       DEFAULT NULL COMMENT '点赞数',
-    `reply_count`      int(11)       DEFAULT NULL COMMENT '回复数',
+    `likes_count`      int(11) DEFAULT NULL COMMENT '点赞数',
+    `reply_count`      int(11) DEFAULT NULL COMMENT '回复数',
     `resources`        varchar(1000) DEFAULT NULL COMMENT '评论图片/视频[json数据；[{type:文件类型,url:资源路径}]]',
     `content`          text COMMENT '内容',
     `member_icon`      varchar(255)  DEFAULT NULL COMMENT '用户头像',
-    `comment_type`     tinyint(4)    DEFAULT NULL COMMENT '评论类型[0 - 对商品的直接评论，1 - 对评论的回复]',
+    `comment_type`     tinyint(4) DEFAULT NULL COMMENT '评论类型[0 - 对商品的直接评论，1 - 对评论的回复]',
     `create_time`      datetime      DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -1931,11 +1933,11 @@ DROP TABLE IF EXISTS `pms_spu_images`;
 CREATE TABLE `pms_spu_images`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `spu_id`      bigint(20)   DEFAULT NULL COMMENT 'spu_id',
+    `spu_id`      bigint(20) DEFAULT NULL COMMENT 'spu_id',
     `img_name`    varchar(200) DEFAULT NULL COMMENT '图片名',
     `img_url`     varchar(255) DEFAULT NULL COMMENT '图片地址',
-    `img_sort`    int(11)      DEFAULT NULL COMMENT '顺序',
-    `default_img` tinyint(1)   DEFAULT NULL COMMENT '是否默认图',
+    `img_sort`    int(11) DEFAULT NULL COMMENT '顺序',
+    `default_img` tinyint(1) DEFAULT NULL COMMENT '是否默认图',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 69
@@ -1995,9 +1997,9 @@ CREATE TABLE `pms_spu_info`
 (
     `id`             bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品id',
     `spu_name`       varchar(200) DEFAULT NULL COMMENT '商品名称',
-    `publish_status` tinyint(1)   DEFAULT NULL COMMENT '上架状态[0 - 新建，1 - 已上架，2 - 已下架]',
-    `category_id`    bigint(20)   DEFAULT NULL COMMENT '所属分类id',
-    `brand_id`       bigint(20)   DEFAULT NULL COMMENT '所属品牌id',
+    `publish_status` tinyint(1) DEFAULT NULL COMMENT '上架状态[0 - 新建，1 - 已上架，2 - 已下架]',
+    `category_id`    bigint(20) DEFAULT NULL COMMENT '所属分类id',
+    `brand_id`       bigint(20) DEFAULT NULL COMMENT '所属品牌id',
     `create_time`    datetime     DEFAULT NULL COMMENT '创建时间',
     `update_time`    datetime     DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
@@ -2039,12 +2041,12 @@ DROP TABLE IF EXISTS `undo_log`;
 
 CREATE TABLE `undo_log`
 (
-    `id`            bigint(20)   NOT NULL AUTO_INCREMENT,
-    `branch_id`     bigint(20)   NOT NULL,
+    `id`            bigint(20) NOT NULL AUTO_INCREMENT,
+    `branch_id`     bigint(20) NOT NULL,
     `xid`           varchar(100) NOT NULL,
     `context`       varchar(128) NOT NULL,
     `rollback_info` longblob     NOT NULL,
-    `log_status`    int(11)      NOT NULL,
+    `log_status`    int(11) NOT NULL,
     `log_created`   datetime     NOT NULL,
     `log_modified`  datetime     NOT NULL,
     `ext`           varchar(100) DEFAULT NULL,

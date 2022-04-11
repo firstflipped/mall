@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 /**
  * 成长值变化历史记录
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:33:47
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 @TableName("ums_growth_change_history")

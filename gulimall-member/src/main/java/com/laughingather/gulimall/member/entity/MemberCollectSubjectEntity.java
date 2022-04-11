@@ -9,9 +9,9 @@ import java.io.Serializable;
 /**
  * 会员收藏的专题活动
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:33:47
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 @TableName("ums_member_collect_subject")

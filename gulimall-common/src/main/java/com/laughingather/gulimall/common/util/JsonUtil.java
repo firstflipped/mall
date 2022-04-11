@@ -33,11 +33,11 @@ public class JsonUtil {
     private static final String STANDARD_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String TIME_PATTERN = "HH:mm:ss";
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
         //设置java.util.Date时间类的序列化以及反序列化的格式
-        objectMapper.setDateFormat(new SimpleDateFormat(STANDARD_PATTERN));
+        OBJECT_MAPPER.setDateFormat(new SimpleDateFormat(STANDARD_PATTERN));
 
         // 初始化JavaTimeModule
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -58,16 +58,16 @@ public class JsonUtil {
         javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(timeFormatter));
 
         //注册时间模块, 支持支持jsr310, 即新的时间类(java.time包下的时间类)
-        objectMapper.registerModule(javaTimeModule);
+        OBJECT_MAPPER.registerModule(javaTimeModule);
 
         // 包含所有字段
-        objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.ALWAYS);
 
         // 在序列化一个空对象时时不抛出异常
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        OBJECT_MAPPER.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 
         // 忽略反序列化时在json字符串中存在, 但在java对象中不存在的属性
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
 
     public static <T> String obj2String(T obj) {
@@ -76,7 +76,7 @@ public class JsonUtil {
         }
         String s = null;
         try {
-            s = obj instanceof String ? (String) obj : objectMapper.writeValueAsString(obj);
+            s = obj instanceof String ? (String) obj : OBJECT_MAPPER.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class JsonUtil {
             return null;
         }
         try {
-            return obj instanceof String ? (String) obj : objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+            return obj instanceof String ? (String) obj : OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             return null;
         }
@@ -100,7 +100,7 @@ public class JsonUtil {
         }
         T t = null;
         try {
-            t = clazz.equals(String.class) ? (T) str : objectMapper.readValue(str, clazz);
+            t = clazz.equals(String.class) ? (T) str : OBJECT_MAPPER.readValue(str, clazz);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,7 +115,7 @@ public class JsonUtil {
             return null;
         }
         try {
-            return (T) (typeReference.getType().equals(String.class) ? str : objectMapper.readValue(str, typeReference));
+            return (T) (typeReference.getType().equals(String.class) ? str : OBJECT_MAPPER.readValue(str, typeReference));
         } catch (IOException e) {
             return null;
         }
@@ -125,9 +125,9 @@ public class JsonUtil {
      * 在字符串与集合对象转换时使用
      */
     public static <T> T string2Obj(String str, Class<?> collectionClazz, Class<?>... elementClazzes) {
-        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClazz, elementClazzes);
+        JavaType javaType = OBJECT_MAPPER.getTypeFactory().constructParametricType(collectionClazz, elementClazzes);
         try {
-            return objectMapper.readValue(str, javaType);
+            return OBJECT_MAPPER.readValue(str, javaType);
         } catch (IOException e) {
             return null;
         }
@@ -143,7 +143,7 @@ public class JsonUtil {
     }
 
     public static class JsonBuilder {
-        private Map<String, Object> map = new HashMap<>();
+        private final Map<String, Object> map = new HashMap<>();
 
         JsonBuilder() {
         }

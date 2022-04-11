@@ -20,8 +20,9 @@ import java.util.List;
 /**
  * 会员服务对外提供接口
  *
- * @author：laughingather
- * @create：2021-05-26 22:44
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @RestController

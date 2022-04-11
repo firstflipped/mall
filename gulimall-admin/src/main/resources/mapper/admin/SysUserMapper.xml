@@ -4,6 +4,8 @@
 <mapper namespace="com.laughingather.gulimall.admin.mapper.SysUserMapper">
     <!-- 更新用户删除标志位 -->
     <update id="updateUserDeleteById">
-        UPDATE sys_user SET `delete` = #{delete} WHERE userid = #{userId}
+        UPDATE sys_user
+        SET `delete` = #{delete}
+        WHERE userid = #{userId}
     </update>
 </mapper>

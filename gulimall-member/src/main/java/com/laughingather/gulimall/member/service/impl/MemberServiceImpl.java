@@ -34,7 +34,9 @@ import java.util.Objects;
 /**
  * 会员逻辑实现
  *
- * @author：laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service("memberService")
 public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> implements MemberService {

@@ -16,9 +16,9 @@ import java.util.Arrays;
 /**
  * 会员等级路由
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:33:47
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/member/member-level")

@@ -32,10 +32,9 @@ import java.util.stream.Stream;
 @Component
 public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Value("${auth.ignore.urls}")
     private String authIgnoreUrls;
-
-    private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Override
     @SneakyThrows

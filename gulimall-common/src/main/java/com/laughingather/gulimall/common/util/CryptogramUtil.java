@@ -78,9 +78,7 @@ public class CryptogramUtil {
         String privateKeyStr = Base64.encodeBase64URLSafeString(privateKey.getEncoded());
 
 
-        /**
-         * 保存密钥到文件
-         */
+        // 保存密钥到文件
         File publicKeyFile = new File("public.key");
         savePublicKey2File(publicKey, publicKeyFile);
 
@@ -88,7 +86,7 @@ public class CryptogramUtil {
         savePrivateKey2File(privateKey, privateKeyFile);
 
 
-        Map<String, String> keyPairMap = new HashMap(4);
+        Map<String, String> keyPairMap = new HashMap<>(4);
         keyPairMap.put("publicKey", publicKeyStr);
         keyPairMap.put("privateKey", privateKeyStr);
         keyPairMap.put("publicKeyPath", publicKeyFile.getPath());
