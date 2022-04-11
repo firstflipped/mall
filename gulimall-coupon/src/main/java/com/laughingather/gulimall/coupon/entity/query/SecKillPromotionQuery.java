@@ -6,8 +6,9 @@ import lombok.Data;
 /**
  * 秒杀条件参数
  *
- * @author：laughingather
- * @create：2021-11-10 2021/11/10
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class SecKillPromotionQuery extends PageQuery {

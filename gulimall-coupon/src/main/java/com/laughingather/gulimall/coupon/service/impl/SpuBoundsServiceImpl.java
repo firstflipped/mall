@@ -10,7 +10,13 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-
+/**
+ *
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
+ */
 @Service("spuBoundsService")
 public class SpuBoundsServiceImpl extends ServiceImpl<SpuBoundsDao, SpuBoundsEntity> implements SpuBoundsService {
 

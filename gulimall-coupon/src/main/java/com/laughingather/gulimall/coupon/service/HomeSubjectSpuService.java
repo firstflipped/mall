@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.coupon.entity.HomeSubjectSpuEntity;
 
 /**
- * 专题商品
+ * 专题商品逻辑接口
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:49:52
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface HomeSubjectSpuService extends IService<HomeSubjectSpuEntity> {
 

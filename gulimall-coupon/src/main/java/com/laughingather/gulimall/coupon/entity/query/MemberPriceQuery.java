@@ -6,8 +6,9 @@ import lombok.Data;
 /**
  * 会员价格条件参数
  *
- * @author：laughingather
- * @create：2021-11-12 2021/11/12
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class MemberPriceQuery extends PageQuery {

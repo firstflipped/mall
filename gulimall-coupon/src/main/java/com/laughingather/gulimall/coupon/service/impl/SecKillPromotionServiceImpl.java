@@ -10,7 +10,13 @@ import com.laughingather.gulimall.coupon.entity.query.SecKillPromotionQuery;
 import com.laughingather.gulimall.coupon.service.SecKillPromotionService;
 import org.springframework.stereotype.Service;
 
-
+/**
+ *
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
+ */
 @Service("secKillPromotionService")
 public class SecKillPromotionServiceImpl extends ServiceImpl<SecKillPromotionDao, SecKillPromotionEntity> implements SecKillPromotionService {
 
