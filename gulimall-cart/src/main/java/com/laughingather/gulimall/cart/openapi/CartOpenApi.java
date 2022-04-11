@@ -11,10 +11,11 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 购物车提供第三方调用接口
+ * 购物车服务对外开放接口
  *
- * @author：laughingather
- * @create：2021-10-18 2021/10/18
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/openapi/cart")

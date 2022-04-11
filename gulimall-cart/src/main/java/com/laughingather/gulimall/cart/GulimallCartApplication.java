@@ -6,10 +6,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 购物车模块启动类
+ * 购物车服务启动类
  *
- * @author：laughingather
- * @create：2021-07-28 2021/7/28
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @EnableFeignClients
 @SpringBootApplication

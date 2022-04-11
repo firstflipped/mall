@@ -8,8 +8,9 @@ import java.util.List;
 /**
  * 购物项视图展示类
  *
- * @author：laughingather
- * @create：2021-08-16 2021/8/16
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class CartItemVO {
