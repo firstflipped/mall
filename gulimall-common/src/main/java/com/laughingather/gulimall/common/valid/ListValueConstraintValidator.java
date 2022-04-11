@@ -10,16 +10,18 @@ import java.util.Set;
 /**
  * 自定义列表常量校验实现
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public class ListValueConstraintValidator implements ConstraintValidator<ListValue, Integer> {
 
-    private Set<Integer> set = new HashSet<>();
+    private final Set<Integer> set = new HashSet<>();
 
     /**
      * 初始化方法
      *
-     * @param constraintAnnotation
+     * @param constraintAnnotation 集合值
      */
     @Override
     public void initialize(ListValue constraintAnnotation) {

@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.Objects;
 
 /**
- * @author：laughingather 记得要加入默认构造器，要不然会报序列化异常错误
+ * 记得要加入默认构造器，要不然会报序列化异常错误
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 @Builder

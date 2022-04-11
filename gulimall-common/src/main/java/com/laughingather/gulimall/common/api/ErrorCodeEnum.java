@@ -5,9 +5,10 @@ import lombok.Getter;
 /**
  * 自定义异常枚举类
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
-
 @Getter
 public enum ErrorCodeEnum {
 

@@ -3,7 +3,9 @@ package com.laughingather.gulimall.common.constant;
 /**
  * 权限服务常量
  *
- * @author：laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public class AuthConstants {
 

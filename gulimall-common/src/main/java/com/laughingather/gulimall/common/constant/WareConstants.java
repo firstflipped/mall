@@ -5,7 +5,9 @@ import lombok.Getter;
 /**
  * 库存服务常量类
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public class WareConstants {
 

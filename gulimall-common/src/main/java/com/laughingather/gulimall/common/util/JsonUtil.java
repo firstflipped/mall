@@ -27,7 +27,9 @@ import java.util.Map;
 /**
  * json工具类
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public class JsonUtil {
     private static final String STANDARD_PATTERN = "yyyy-MM-dd HH:mm:ss";

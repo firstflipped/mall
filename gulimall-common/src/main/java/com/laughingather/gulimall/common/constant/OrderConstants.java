@@ -5,8 +5,9 @@ import lombok.Getter;
 /**
  * 订单服务常量
  *
- * @author：laughingather
- * @create：2021-10-19 2021/10/19
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public class OrderConstants {
 

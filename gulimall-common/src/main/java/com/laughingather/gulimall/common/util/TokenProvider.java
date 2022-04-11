@@ -24,8 +24,9 @@ import java.util.Date;
 /**
  * JwtToken工具类
  *
- * @author：laughingather
- * @date 2022-01-12
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 public class TokenProvider {
