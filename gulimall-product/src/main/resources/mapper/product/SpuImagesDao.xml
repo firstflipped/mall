@@ -13,6 +13,9 @@
     </resultMap>
 
     <select id="getDefaultImage" resultType="java.lang.String">
-        SELECT img_url FROM pms_spu_images WHERE spu_id = #{spuId} AND default_img = 1
+        SELECT img_url
+        FROM pms_spu_images
+        WHERE spu_id = #{spuId}
+          AND default_img = 1
     </select>
 </mapper>

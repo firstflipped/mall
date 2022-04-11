@@ -5,17 +5,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
- * 排除数据源自动注入，在seata配置中配置
+ * <p>商品服务启动类</p>
+ * <p>排除数据源自动注入，在alibaba-seata配置文件中配置</p>
  *
- * @author WangJie
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.laughingather.gulimall.product.feign.service")
-@EnableRedisHttpSession
 public class GulimallProductApplication {
 
     public static void main(String[] args) {

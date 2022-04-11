@@ -15,13 +15,15 @@
 
     <select id="listCategoryByBrandId" resultType="com.laughingather.gulimall.product.entity.CategoryEntity">
         SELECT pc.*
-        FROM pms_category_brand_relation pcbr INNER JOIN pms_category pc USING (category_id)
+        FROM pms_category_brand_relation pcbr
+                 INNER JOIN pms_category pc USING (category_id)
         WHERE pcbr.brand_id = #{brandId}
     </select>
 
     <select id="listBrandsByCategoryId" resultType="com.laughingather.gulimall.product.entity.BrandEntity">
         SELECT pb.*
-        FROM pms_category_brand_relation pcbr INNER JOIN pms_brand pb USING (brand_id)
+        FROM pms_category_brand_relation pcbr
+                 INNER JOIN pms_brand pb USING (brand_id)
         WHERE pcbr.category_id = #{categoryId}
     </select>
 </mapper>

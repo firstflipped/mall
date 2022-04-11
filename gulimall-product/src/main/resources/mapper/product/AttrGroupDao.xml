@@ -16,7 +16,7 @@
     <select id="getGroupNameByAttrId" resultType="java.lang.String">
         SELECT pag.attr_group_name
         FROM pms_attr pa
-        INNER JOIN pms_attr_group pag USING (attr_group_id)
+                 INNER JOIN pms_attr_group pag USING (attr_group_id)
         WHERE pa.attr_id = #{attrId}
     </select>
 
@@ -31,15 +31,15 @@
     </resultMap>
     <select id="getAttrGroupWithAttrsBySpuId" resultMap="attrGroupWithAttrsMap">
         SELECT ppav.spu_id,
-        pag.attr_group_id,
-        pag.attr_group_name,
-        pa.attr_id,
-        pa.attr_name,
-        ppav.attr_value
+               pag.attr_group_id,
+               pag.attr_group_name,
+               pa.attr_id,
+               pa.attr_name,
+               ppav.attr_value
         FROM pms_attr_group pag
-        LEFT JOIN pms_attr pa USING (attr_group_id)
-        LEFT JOIN pms_product_attr_value ppav USING (attr_id)
+                 LEFT JOIN pms_attr pa USING (attr_group_id)
+                 LEFT JOIN pms_product_attr_value ppav USING (attr_id)
         WHERE pag.category_id = #{categoryId}
-        AND ppav.spu_id = #{spuId}
+          AND ppav.spu_id = #{spuId}
     </select>
 </mapper>

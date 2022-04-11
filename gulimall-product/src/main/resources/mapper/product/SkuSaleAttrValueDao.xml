@@ -23,15 +23,15 @@
     </resultMap>
     <select id="getSaleAttrsBySpuId" resultMap="saleAttrsVOMap">
         SELECT pssav.attr_id,
-        pssav.attr_name,
-        pssav.attr_value,
-        GROUP_CONCAT(DISTINCT psi.sku_id) AS sku_ids
+               pssav.attr_name,
+               pssav.attr_value,
+               GROUP_CONCAT(DISTINCT psi.sku_id) AS sku_ids
         FROM pms_sku_info psi
-        LEFT JOIN pms_sku_sale_attr_value pssav USING (sku_id)
+                 LEFT JOIN pms_sku_sale_attr_value pssav USING (sku_id)
         WHERE psi.spu_id = #{spuId}
         GROUP BY pssav.attr_id,
-        pssav.attr_name,
-        pssav.attr_value
+                 pssav.attr_name,
+                 pssav.attr_value
     </select>
 
     <select id="getSkuSaleAttrValuesAsString" resultType="java.lang.String">
