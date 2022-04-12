@@ -11,8 +11,9 @@ import java.util.List;
 /**
  * 购物车服务远程调用类
  *
- * @author：laughingather
- * @create：2021-10-18 2021/10/18
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-cart")
 @RequestMapping("/gulimall-cart/openapi/cart")
@@ -21,7 +22,7 @@ public interface CartFeignService {
     /**
      * 获取当前用户购物车项
      *
-     * @return
+     * @return 用户车购物项列表
      */
     @GetMapping("/current-user-cart-items")
     MyResult<List<OrderItemTO>> getCurrentUserCartItems();

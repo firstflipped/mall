@@ -28,7 +28,9 @@ import java.util.Date;
 /**
  * Java8日期转换类
  *
- * @author WangJie
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Configuration
 public class DateConverterConfig {

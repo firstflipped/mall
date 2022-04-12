@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * 商品服务第三方调用类
  *
- * @author：laughingather
- * @create：2021-10-20 2021/10/20
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-product")
 @RequestMapping("/gulimall-product/openapi/product")
@@ -20,8 +21,8 @@ public interface ProductFeignService {
     /**
      * 根据skuId获取spu信息
      *
-     * @param skuId
-     * @return
+     * @param skuId 商品id
+     * @return spu信息
      */
     @GetMapping("/spu-info")
     MyResult<SpuInfoTO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId);

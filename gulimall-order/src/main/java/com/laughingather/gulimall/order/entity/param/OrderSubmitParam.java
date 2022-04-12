@@ -7,8 +7,9 @@ import java.math.BigDecimal;
 /**
  * 订单提交前端传入数据
  *
- * @author：laughingather
- * @create：2021-10-19 2021/10/19
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class OrderSubmitParam {
