@@ -14,49 +14,52 @@
     </resultMap>
 
     <select id="queryList" resultMap="tableMap">
-        select dt.table_name tableName,
+        SELECT dt.table_name tableName,
         dtc.comments tableComment,
         uo.created createTime
-        from user_tables dt,
+        FROM user_tables dt,
         user_tab_comments dtc,
         user_objects uo
-        where dt.table_name = dtc.table_name and dt.table_name = uo.object_name and uo.object_type='TABLE'
+        WHERE dt.table_name = dtc.table_name and dt.table_name = uo.object_name and uo.object_type='TABLE'
         <if test="tableName != null and tableName.trim() != ''">
-            and dt.table_name like concat('%', UPPER(#{tableName}))
+            AND dt.table_name LIKE concat('%', UPPER(#{tableName}))
         </if>
-        order by uo.CREATED desc
+        ORDER BY uo.CREATED DESC
     </select>
 
     <select id="queryTable" resultMap="tableMap">
-        select dt.table_name tableName,dtc.comments tableComment,dt.last_analyzed createTime from user_tables
-        dt,user_tab_comments dtc where dt.table_name=dtc.table_name and dt.table_name = UPPER(#{tableName})
+        SELECT dt.table_name tableName, dtc.comments tableComment, dt.last_analyzed createTime
+        FROM user_tables dt,
+             user_tab_comments dtc
+        WHERE dt.table_name = dtc.table_name
+          AND dt.table_name = UPPER(#{tableName})
     </select>
 
     <select id="queryColumns" resultMap="tableMap">
-        select temp.column_name columnname,
-        temp.data_type dataType,
-        temp.comments columnComment,
-        case temp.constraint_type when 'P' then 'PRI' when 'C' then 'UNI' else '' end "COLUMNKEY",
-        '' "EXTRA"
-        from (
-        select col.column_id,
-        col.column_name,
-        col.data_type,
-        colc.comments,
-        uc.constraint_type,
-        -- 去重
-        row_number() over (partition by col.column_name order by uc.constraint_type desc) as row_flg
-        from user_tab_columns col
-        left join user_col_comments colc
-        on colc.table_name = col.table_name
-        and colc.column_name = col.column_name
-        left join user_cons_columns ucc
-        on ucc.table_name = col.table_name
-        and ucc.column_name = col.column_name
-        left join user_constraints uc
-        on uc.constraint_name = ucc.constraint_name
-        where col.table_name = upper(#{tableName})
-        ) temp
+        SELECT temp.column_name                                                              columnname,
+               temp.data_type                                                                dataType,
+               temp.comments                                                                 columnComment,
+               CASE temp.constraint_type WHEN 'P' THEN 'PRI' WHEN 'C' THEN 'UNI' ELSE '' END "COLUMNKEY",
+               ''                                                                            "EXTRA"
+        FROM (
+                 SELECT col.column_id,
+                        col.column_name,
+                        col.data_type,
+                        colc.comments,
+                        uc.constraint_type,
+                        -- 去重
+                        row_number() over (partition BY col.column_name ORDER BY uc.constraint_type DESC) AS row_flg
+                 from user_tab_columns col
+                          left join user_col_comments colc
+                                    on colc.table_name = col.table_name
+                                        and colc.column_name = col.column_name
+                          left join user_cons_columns ucc
+                                    on ucc.table_name = col.table_name
+                                        and ucc.column_name = col.column_name
+                          left join user_constraints uc
+                                    on uc.constraint_name = ucc.constraint_name
+                 where col.table_name = upper(#{tableName})
+             ) temp
         where temp.row_flg = 1
         order by temp.column_id
     </select>

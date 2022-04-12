@@ -14,7 +14,8 @@
     </resultMap>
 
     <update id="updateStatusById">
-        UPDATE wms_ware_order_task_detail SET lock_status = #{status}
+        UPDATE wms_ware_order_task_detail
+        SET lock_status = #{status}
         WHERE id = #{detailId}
     </update>
 </mapper>

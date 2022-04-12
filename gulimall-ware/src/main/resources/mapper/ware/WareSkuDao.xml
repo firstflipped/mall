@@ -16,37 +16,41 @@
         UPDATE wms_ware_sku
         SET stock = stock + #{skuNum}
         WHERE sku_id = #{skuId}
-        AND ware_id = #{wareId}
+          AND ware_id = #{wareId}
     </update>
 
     <select id="getCountBySkuIdAndWareId" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM wms_ware_sku
         WHERE sku_id = #{skuId}
-        AND ware_id = #{warId}
+          AND ware_id = #{warId}
     </select>
 
     <select id="getSkusHasStock" resultType="Long">
-        SELECT SUM(stock - stock_locked) FROM
-        wms_ware_sku WHERE sku_id = #{skuId}
+        SELECT SUM(stock - stock_locked)
+        FROM wms_ware_sku
+        WHERE sku_id = #{skuId}
     </select>
 
     <select id="listWareIdHasSkuStock" resultType="java.lang.Long">
-        SELECT ware_id FROM wms_ware_sku WHERE sku_id = #{skuId} AND stock - wms_ware_sku.stock_locked &gt; 0
+        SELECT ware_id
+        FROM wms_ware_sku
+        WHERE sku_id = #{skuId}
+          AND stock - wms_ware_sku.stock_locked &gt; 0
     </select>
 
     <update id="lockSkuStock">
         UPDATE wms_ware_sku
         SET stock_locked = stock_locked + #{count}
         WHERE sku_id = #{skuId}
-        AND ware_id = #{wareId}
-        AND stock - stock_locked &gt;= #{count}
+          AND ware_id = #{wareId}
+          AND stock - stock_locked &gt;= #{count}
     </update>
 
     <update id="unlockStock">
         UPDATE wms_ware_sku
         SET stock_locked = stock_locked - #{skuNum}
         WHERE sku_id = #{skuId}
-        AND ware_id = #{wareId}
+          AND ware_id = #{wareId}
     </update>
 </mapper>
