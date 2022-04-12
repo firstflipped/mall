@@ -14,8 +14,6 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.Constants;
 import com.laughingather.gulimall.common.constant.OrderConstants;
-import com.laughingather.gulimall.common.entity.MemberEntity;
-import com.laughingather.gulimall.common.entity.OrderDTO;
 import com.laughingather.gulimall.order.dao.OrderDao;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.entity.OrderItemEntity;
@@ -31,7 +29,6 @@ import com.laughingather.gulimall.order.feign.service.CartFeignService;
 import com.laughingather.gulimall.order.feign.service.MemberFeignService;
 import com.laughingather.gulimall.order.feign.service.ProductFeignService;
 import com.laughingather.gulimall.order.feign.service.WareFeignService;
-import com.laughingather.gulimall.order.interceptor.LoginUserInterceptor;
 import com.laughingather.gulimall.order.service.OrderItemService;
 import com.laughingather.gulimall.order.service.OrderService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -61,12 +58,14 @@ import java.util.stream.Collectors;
 /**
  * 订单逻辑
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service("orderService")
 public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> implements OrderService {
 
-    private ThreadLocal<OrderSubmitParam> orderSubmitDTOThreadLocal = new ThreadLocal<>();
+    private final ThreadLocal<OrderSubmitParam> orderSubmitThreadLocal = new ThreadLocal<>();
 
     @Resource
     private OrderDao orderDao;
@@ -184,7 +183,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Override
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
     public OrderSubmitVO submitOrder(OrderSubmitParam orderSubmitParam) {
-        orderSubmitDTOThreadLocal.set(orderSubmitParam);
+        orderSubmitThreadLocal.set(orderSubmitParam);
 
         // 获取会员信息
         MemberEntity member = LoginUserInterceptor.loginUser.get();
@@ -310,7 +309,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
      * @return
      */
     private OrderCreateParam createOrder() {
-        OrderSubmitParam orderSubmitParam = orderSubmitDTOThreadLocal.get();
+        OrderSubmitParam orderSubmitParam = orderSubmitThreadLocal.get();
 
         OrderCreateParam orderCreateParam = new OrderCreateParam();
 

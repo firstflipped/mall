@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 /**
  * 异步编排线程池参数
  *
- * @author：laughingather
- * @create：2021-10-09 2021/10/9
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 @Component

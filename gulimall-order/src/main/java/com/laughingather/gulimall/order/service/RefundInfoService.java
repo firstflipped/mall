@@ -6,9 +6,9 @@ import com.laughingather.gulimall.order.entity.RefundInfoEntity;
 /**
  * 退款信息
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:17:55
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface RefundInfoService extends IService<RefundInfoEntity> {
 

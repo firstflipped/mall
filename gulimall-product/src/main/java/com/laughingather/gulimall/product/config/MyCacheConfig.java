@@ -11,12 +11,16 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
 /**
- * 缓存配置
+ * 自定义缓存配置
  *
- * @author laughingather
+ * <p>@EnableCaching:用于开启缓存</p>
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Configuration
-@EnableCaching    // 开启缓存
+@EnableCaching
 public class MyCacheConfig {
 
     @Bean

@@ -17,11 +17,11 @@ import java.util.Map;
 
 /**
  * rabbitmq消息队列配置
- * <p>
  * 最重要的是要保证数据的可靠性
  *
- * @author：laughingather
- * @create：2021-10-24 2021/10/24
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @Configuration

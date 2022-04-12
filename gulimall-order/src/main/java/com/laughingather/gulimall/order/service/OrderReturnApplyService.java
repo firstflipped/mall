@@ -8,9 +8,9 @@ import com.laughingather.gulimall.order.entity.query.OrderReturnApplyQuery;
 /**
  * 订单退货申请逻辑接口
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:17:55
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface OrderReturnApplyService extends IService<OrderReturnApplyEntity> {
 

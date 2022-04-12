@@ -4,10 +4,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * seata控制分布式事务
- * <p>
  * AT模式：该模式仅适用于并发较小的后台管理类场景，不适用于高并发场景
  *
- * <p>
  * <p>
  * 1、每一个想要使用分布式事务的微服务数据库都需要创建 undo_log 表;
  * CREATE TABLE `undo_log`
@@ -26,10 +24,14 @@ import org.springframework.context.annotation.Configuration;
  * ) ENGINE = InnoDB
  * AUTO_INCREMENT = 1
  * DEFAULT CHARSET = utf8
+ * </p>
+ *
  * <p>
  * 2、安装事务协调器 seata-server   主要版本需要与引入jar包中的seata版本保持一致
  * 解压并启动 seata-server
  * registry.conf: 注册中心配置：修改registry type=nacos
+ * </p>
+ *
  * <p>
  * 3、整合
  * (1) 导入依赖包  spring-cloud-starter-alibaba-seata
@@ -38,11 +40,16 @@ import org.springframework.context.annotation.Configuration;
  * (3) 微服务resource中加入file.conf  registry.cong文件
  * file.conf文件  service.vgroupMapping: ${spring.application.name}-fescar-service-group
  * application.yml文件  spring.cloud.alibaba.seata.tx-service-group: ${spring.application.name}-fescar-service-group
+ * </p>
+ *
  * <p>
  * 4、使用
  * 给需要进行全局事务控制的方法加上 @GlobalTransactional 注解
+ * </p>
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Configuration
 public class MySeataConfig {
