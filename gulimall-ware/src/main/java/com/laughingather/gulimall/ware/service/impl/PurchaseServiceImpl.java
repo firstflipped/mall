@@ -27,7 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
+ */
 @Service("purchaseService")
 public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity> implements PurchaseService {
 

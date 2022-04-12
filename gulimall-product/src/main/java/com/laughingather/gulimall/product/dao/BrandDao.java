@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * 品牌管理持久层
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-11 15:12:49
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 public interface BrandDao extends BaseMapper<BrandEntity> {
 

@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 秒杀服务远程调用类
  *
- * @author：laughingather
- * @date：2021-11-17
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-seckill")
 @RequestMapping("/gulimall-seckill/openapi/seckill")

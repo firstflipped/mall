@@ -12,8 +12,9 @@ import java.util.List;
 /**
  * sku信息服务传输实体
  *
- * @author：laughingather
- * @create：2021-06-08 21:18
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 @Builder

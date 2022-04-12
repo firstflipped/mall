@@ -12,7 +12,9 @@ import java.util.List;
  * <p>
  * 如果需要监听短信是否被对方成功接收，只需实现这个接口并初始化一个 Spring Bean 即可。
  *
- * @author：laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @Component

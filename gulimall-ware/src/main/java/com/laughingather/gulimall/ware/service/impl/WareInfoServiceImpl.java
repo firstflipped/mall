@@ -24,7 +24,9 @@ import java.math.BigDecimal;
 /**
  * 仓储逻辑实现
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service("wareInfoService")
 public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity> implements WareInfoService {

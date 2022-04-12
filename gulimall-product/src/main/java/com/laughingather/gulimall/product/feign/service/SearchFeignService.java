@@ -12,7 +12,9 @@ import java.util.List;
 /**
  * 检索服务第三方调用接口
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-search")
 public interface SearchFeignService {

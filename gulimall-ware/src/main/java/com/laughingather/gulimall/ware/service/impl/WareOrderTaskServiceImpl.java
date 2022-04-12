@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 /**
  * 库存锁定清单
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service("wareOrderTaskService")
 public class WareOrderTaskServiceImpl extends ServiceImpl<WareOrderTaskDao, WareOrderTaskEntity> implements WareOrderTaskService {

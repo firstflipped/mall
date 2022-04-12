@@ -5,7 +5,9 @@ import lombok.Data;
 /**
  * sku属性输入实体
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class SkuAttrParam {

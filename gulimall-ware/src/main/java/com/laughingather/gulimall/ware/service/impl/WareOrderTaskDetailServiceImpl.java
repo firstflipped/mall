@@ -15,7 +15,9 @@ import java.util.List;
 /**
  * 库存锁定工作单详情逻辑层
  *
- * @author laughingather
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service("wareOrderTaskDetailService")
 public class WareOrderTaskDetailServiceImpl extends ServiceImpl<WareOrderTaskDetailDao, WareOrderTaskDetailEntity> implements WareOrderTaskDetailService {

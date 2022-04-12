@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * mybatis-plus配置
  *
- * @author Mark sunlightcs@gmail.com
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Configuration
-@EnableTransactionManagement    // 开启事务
+@EnableTransactionManagement
 @MapperScan(basePackages = "com.laughingather.gulimall.ware.dao")
 public class MybatisPlusConfig extends BaseMybatisPlusConfig {
 }

@@ -13,8 +13,9 @@ import java.util.List;
 /**
  * 商品服务远程调用类
  *
- * @author：laughingather
- * @create：2021-06-01 21:29
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-product")
 public interface ProductFeignService {

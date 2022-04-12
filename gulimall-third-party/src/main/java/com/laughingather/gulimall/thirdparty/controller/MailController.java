@@ -13,8 +13,9 @@ import javax.annotation.Resource;
 /**
  * 邮件发送路由
  *
- * @author：laughingather
- * @create：2022-01-12 2022/1/12
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/mail")

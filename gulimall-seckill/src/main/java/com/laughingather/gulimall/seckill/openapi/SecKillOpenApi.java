@@ -14,8 +14,9 @@ import javax.annotation.Resource;
 /**
  * 秒杀服务对外开放接口
  *
- * @author：laughingather
- * @create：2021-11-17 2021/11/17
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @RestController

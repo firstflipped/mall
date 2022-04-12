@@ -7,8 +7,9 @@ import java.math.BigDecimal;
 /**
  * 秒杀活动关联商品开放接口传输类
  *
- * @author：laughingather
- * @create：2021-11-12 2021/11/12
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Data
 public class SeckillSkuRelationTO {

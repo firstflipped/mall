@@ -18,7 +18,9 @@ import java.util.Map;
  * 静态文件放在resources/static下可以直接访问
  * 页面放在resources/templates下可以直接访问
  *
- * @author WangJie
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Controller
 public class IndexController {

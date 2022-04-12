@@ -14,8 +14,9 @@ import java.util.concurrent.ExecutionException;
 /**
  * 商品详情页
  *
- * @author：laughingather
- * @create：2021-06-04 21:22
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @Controller

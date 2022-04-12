@@ -20,9 +20,9 @@ import java.util.List;
 /**
  * 采购信息路由
  *
- * @author laughingather
- * @email laughingather@gmail.com
- * @date 2021-04-12 11:57:24
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @RestController
 @RequestMapping("/ware/purchase")

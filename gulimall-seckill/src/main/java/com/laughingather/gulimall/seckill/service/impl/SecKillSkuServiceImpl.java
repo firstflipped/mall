@@ -29,8 +29,9 @@ import java.util.stream.Collectors;
 /**
  * 秒杀商品逻辑实现
  *
- * @author：laughingather
- * @create：2021-11-12 2021/11/12
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Service
 public class SecKillSkuServiceImpl implements SecKillSkuService {

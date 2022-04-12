@@ -18,8 +18,9 @@ import javax.annotation.Resource;
  * <p>
  * 创建交换机、队列等是在第一次连接到rabbitmq的时候完成的
  *
- * @author：laughingather
- * @create：2021-10-24 2021/10/24
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @Slf4j
 @Configuration

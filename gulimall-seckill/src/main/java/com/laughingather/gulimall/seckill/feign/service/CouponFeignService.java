@@ -11,8 +11,9 @@ import java.util.List;
 /**
  * 优惠服务第三方调用
  *
- * @author：laughingather
- * @create：2021-11-12 2021/11/12
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-coupon")
 @RequestMapping("/gulimall-coupon/openapi/coupon")
