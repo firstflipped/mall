@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.laughingather.gulimall.common.entity.PlatformLog;
+import com.laughingather.gulimall.admin.entity.PlatformLog;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

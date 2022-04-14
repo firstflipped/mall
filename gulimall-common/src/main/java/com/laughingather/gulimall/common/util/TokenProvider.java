@@ -123,6 +123,9 @@ public class TokenProvider {
         try {
             getClaimsFromToken(token);
             return true;
+        } catch (ExpiredJwtException ex) {
+            log.error("登录凭证已失效", ex);
+            return false;
         } catch (Exception ex) {
             log.error("登录凭证不合法", ex);
             return false;
@@ -138,6 +141,7 @@ public class TokenProvider {
             final Date expiration = claims.getExpiration();
             return expiration.before(new Date());
         } catch (ExpiredJwtException expiredJwtException) {
+            log.error("登录凭证已失效", expiredJwtException);
             return true;
         }
     }

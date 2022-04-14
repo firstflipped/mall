@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.service;
 
-import com.laughingather.gulimall.common.entity.PlatformLog;
+
+import com.laughingather.gulimall.admin.entity.PlatformLog;
 
 /**
  * 平台日志逻辑接口

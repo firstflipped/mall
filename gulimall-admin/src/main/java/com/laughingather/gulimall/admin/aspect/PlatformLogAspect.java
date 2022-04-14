@@ -3,9 +3,9 @@ package com.laughingather.gulimall.admin.aspect;
 
 import cn.hutool.core.net.NetUtil;
 import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
+import com.laughingather.gulimall.admin.entity.PlatformLog;
 import com.laughingather.gulimall.admin.service.PlatformLogService;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.entity.PlatformLog;
 import com.laughingather.gulimall.common.util.HttpContextUtil;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.common.util.RequestUtil;

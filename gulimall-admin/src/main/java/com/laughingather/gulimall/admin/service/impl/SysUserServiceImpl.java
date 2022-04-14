@@ -10,8 +10,8 @@ import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.util.BCryptPasswordEncoderUtil;
 import org.springframework.beans.BeanUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,8 +31,6 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     private Snowflake snowflake;
     @Resource
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Resource
     private SysUserMapper sysUserMapper;
     @Resource
     private SysUserRepository sysUserRepository;
@@ -40,7 +38,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void saveUser(SysUserEntity sysUserEntity) {
         sysUserEntity.setUserid(snowflake.nextId());
-        sysUserEntity.setPassword(bCryptPasswordEncoder.encode(sysUserEntity.getPassword()));
+        sysUserEntity.setPassword(BCryptPasswordEncoderUtil.encodingPassword(sysUserEntity.getPassword()));
         sysUserEntity.setCreateTime(LocalDateTime.now());
         sysUserMapper.insert(sysUserEntity);
     }
@@ -84,7 +82,7 @@ public class SysUserServiceImpl implements SysUserService {
             return null;
         }
 
-        if (!bCryptPasswordEncoder.matches(adminLoginTO.getPassword(), user.getPassword())) {
+        if (!BCryptPasswordEncoderUtil.matchesPassword(adminLoginTO.getPassword(), user.getPassword())) {
             return null;
         }
 

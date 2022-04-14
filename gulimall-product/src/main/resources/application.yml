@@ -17,13 +17,11 @@ spring:
   cache:
     type: redis
 
-  session:
-    store-type: redis
-
-  cloud:
-    alibaba:
-      seata:
-        tx-service-group: gulimall-product-fescar-service-group
+# seata配置
+#  cloud:
+#    alibaba:
+#      seata:
+#        tx-service-group: gulimall-product-fescar-service-group
 
 #mybatis
 mybatis-plus:

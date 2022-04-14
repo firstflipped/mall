@@ -1,11 +1,11 @@
 package com.laughingather.gulimall.auth.controller;
 
 import com.laughingather.gulimall.auth.entity.to.SocialUserTO;
+import com.laughingather.gulimall.auth.feign.entity.MemberTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
 import com.laughingather.gulimall.common.constant.AuthConstants;
-import com.laughingather.gulimall.common.entity.MemberEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -56,9 +56,9 @@ public class OAuth2Controller {
             log.info("获取到的凭证信息{}", socialUserTO);
 
             // 当前用户如果是第一次登陆此网址，则自动进行用户注册
-            MyResult<MemberEntity> myResult = memberFeignService.oauth2Login(socialUserTO);
+            MyResult<MemberTO> myResult = memberFeignService.oauth2Login(socialUserTO);
             if (Objects.equals(ResultCodeEnum.SUCCESS.getCode(), myResult.getCode())) {
-                MemberEntity data = myResult.getData();
+                MemberTO data = myResult.getData();
                 log.info("用户名：{}", data.getNickname());
                 session.setAttribute(AuthConstants.LOGIN_USER, data);
                 return "redirect:http://gulimall.com";

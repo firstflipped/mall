@@ -1,7 +1,9 @@
 package com.laughingather.gulimall.gateway.filter;
 
+import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.common.util.TokenProvider;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -63,20 +67,20 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
         // 如果token为空则返回Unauthorized
         if (StringUtils.isBlank(authorization) || !authorization.startsWith(AuthConstants.TOKEN_PREFIX)) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.setComplete();
+            return out(response, "请求头 Authorization 为空或格式不正确");
         }
 
         // 如果token校验失败则返回
         String token = authorization.replace(AuthConstants.TOKEN_PREFIX, "");
         if (!TokenProvider.checkToken(token)) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.setComplete();
+            return out(response, "登录凭证不合法");
         }
 
         JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
         if (Objects.isNull(jwtPayLoad)) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.setComplete();
+            return out(response, "登录凭证载荷为空");
         }
 
         ServerHttpRequest buildRequest = request.mutate()
@@ -90,5 +94,19 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() {
         return 0;
+    }
+
+    private Mono<Void> out(ServerHttpResponse response, String message) {
+        MyResult<Void> result = new MyResult<>();
+        result.setCode(401);
+        result.setData(null);
+        result.setMessage(message);
+
+        byte[] bytes = JsonUtil.obj2String(result).getBytes(StandardCharsets.UTF_8);
+        DataBuffer buffer = response.bufferFactory().wrap(bytes);
+        // 指定编码，否则在浏览器中会中文乱码
+        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+        // 输出http响应
+        return response.writeWith(Mono.just(buffer));
     }
 }

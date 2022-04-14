@@ -13,10 +13,10 @@ spring:
           filters:
             - StripPrefix=1
 
-        - id: gulimall-admin-new
-          uri: lb://gulimall-admin-new
+        - id: gulimall-admin
+          uri: lb://gulimall-admin
           predicates:
-            - Path=/api/gulimall-admin-new/**
+            - Path=/api/gulimall-admin/**
           filters:
             - StripPrefix=1
 
@@ -68,13 +68,6 @@ spring:
             - Path=/api/gulimall-seckill/**
           filters:
             - StripPrefix=1
-
-        - id: gulimall-admin
-          uri: lb://gulimall-admin
-          predicates:
-            - Path=/api/**
-          filters:
-            - RewritePath=/api/(?<segment>/?.*), /gulimall-admin/$\{segment}
 
         - id: gulimall-product-web
           uri: lb://gulimall-product

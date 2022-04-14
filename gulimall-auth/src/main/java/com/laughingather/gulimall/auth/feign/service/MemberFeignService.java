@@ -3,8 +3,8 @@ package com.laughingather.gulimall.auth.feign.service;
 import com.laughingather.gulimall.auth.entity.to.MemberLoginTO;
 import com.laughingather.gulimall.auth.entity.to.MemberRegisterTO;
 import com.laughingather.gulimall.auth.entity.to.SocialUserTO;
+import com.laughingather.gulimall.auth.feign.entity.MemberTO;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.entity.MemberEntity;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +37,7 @@ public interface MemberFeignService {
      * @return
      */
     @PostMapping("/gulimall-member/openapi/member/login")
-    MyResult<MemberEntity> login(@RequestBody MemberLoginTO memberLoginTO);
+    MyResult<MemberTO> login(@RequestBody MemberLoginTO memberLoginTO);
 
     /**
      * oauth2登录接口
@@ -46,6 +46,6 @@ public interface MemberFeignService {
      * @return
      */
     @PostMapping("/gulimall-member/openapi/member/oauth2/login")
-    MyResult<MemberEntity> oauth2Login(@RequestBody SocialUserTO socialUserTO);
+    MyResult<MemberTO> oauth2Login(@RequestBody SocialUserTO socialUserTO);
 
 }
