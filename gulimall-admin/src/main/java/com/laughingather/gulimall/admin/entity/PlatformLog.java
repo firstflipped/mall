@@ -23,22 +23,25 @@ public class PlatformLog {
 
     private Long id;
 
-    private Long userId;
+    /**
+     * 请求URI
+     */
+    private String requestUri;
 
     /**
-     * 操作用户
+     * 请求URL
      */
-    private String username;
+    private String requestUrl;
 
     /**
-     * URI
+     * 请求方法
      */
-    private String uri;
+    private String requestMethod;
 
     /**
-     * URL
+     * 请求参数
      */
-    private String url;
+    private String requestParams;
 
     /**
      * 请求类
@@ -54,11 +57,6 @@ public class PlatformLog {
      * 请求类型
      */
     private Integer methodType;
-
-    /**
-     * 请求参数
-     */
-    private String methodParams;
 
     /**
      * 操作描述
@@ -82,11 +80,6 @@ public class PlatformLog {
     private Integer success;
 
     /**
-     * 消耗时间
-     */
-    private Long spendTime;
-
-    /**
      * 是否是登录操作
      * 1 表示 是
      * 0 表示 否
@@ -95,8 +88,23 @@ public class PlatformLog {
     private Integer login;
 
     /**
+     * 消耗时间
+     */
+    private Long spendTime;
+
+    /**
+     * 操作用户id
+     */
+    private Long operationUserid;
+
+    /**
+     * 操作用户
+     */
+    private String operationUsername;
+
+    /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private LocalDateTime operationTime;
 
 }

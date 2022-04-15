@@ -39,6 +39,7 @@ public class SysUserController {
 
     @DeleteMapping
     @ApiOperation(value = "批量删除用户")
+    @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除用户")
     public MyResult<Void> deleteBatchUserByIds(@RequestBody List<Long> userIds) {
         sysUserService.deleteBatchUserByIds(userIds);
         return MyResult.success();
@@ -46,6 +47,7 @@ public class SysUserController {
 
     @PutMapping
     @ApiOperation(value = "更新用户")
+    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户")
     public MyResult<Void> updateUserById(@RequestBody SysUserEntity sysUserEntity) {
         sysUserService.updateUserById(sysUserEntity);
         return MyResult.success();
@@ -54,6 +56,7 @@ public class SysUserController {
 
     @GetMapping("/{uid}")
     @ApiOperation(value = "获取用户详情")
+    @PlatformLogAnnotation(value = "获取用户详情")
     public MyResult<SysUserEntity> getUserById(@PathVariable("uid") Long userId) {
         SysUserEntity sysUserEntity = sysUserService.getUserById(userId);
         return MyResult.success(sysUserEntity);
@@ -71,6 +74,7 @@ public class SysUserController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页获取用户列表")
+    @PlatformLogAnnotation(value = "分页获取用户列表")
     public MyResult<MyPage<SysUserEntity>> listUserWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,
                                                             @RequestParam(value = "ps", defaultValue = "10") Integer pageSize) {
         MyPage<SysUserEntity> usersWithPage = sysUserService.listUserWithPage(pageNum, pageSize);
