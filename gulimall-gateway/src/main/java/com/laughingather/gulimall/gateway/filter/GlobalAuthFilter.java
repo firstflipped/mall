@@ -83,6 +83,7 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
             return out(response, "登录凭证载荷为空");
         }
 
+        // 将用户名和用户id放到请求头，进入其他微服务
         ServerHttpRequest buildRequest = request.mutate()
                 .header(AuthConstants.USERID, jwtPayLoad.getUserid().toString())
                 .header(AuthConstants.USERNAME, jwtPayLoad.getUsername())
