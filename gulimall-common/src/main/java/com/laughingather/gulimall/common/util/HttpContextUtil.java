@@ -16,9 +16,13 @@ import java.util.Objects;
 public class HttpContextUtil {
 
     private HttpContextUtil() {
-
     }
 
+    /**
+     * 获取请求上下文
+     *
+     * @return request
+     */
     public static HttpServletRequest getHttpServletRequest() {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     }

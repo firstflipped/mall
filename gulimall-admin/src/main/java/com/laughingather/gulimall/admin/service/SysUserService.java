@@ -26,9 +26,9 @@ public interface SysUserService {
     /**
      * 批量删除用户
      *
-     * @param userIds
+     * @param useridList
      */
-    void deleteBatchUserByIds(List<Long> userIds);
+    void deleteBatchUserByIds(List<Long> useridList);
 
     /**
      * 更新用户数据
@@ -40,10 +40,18 @@ public interface SysUserService {
     /**
      * 获取用户详情
      *
-     * @param userId
-     * @return
+     * @param userId 用户id
+     * @return 用户信息
      */
     SysUserEntity getUserById(Long userId);
+
+    /**
+     * 获取用户详情
+     *
+     * @param username
+     * @return 用户信息
+     */
+    SysUserEntity getUserByUsername(String username);
 
     /**
      * 查询用户集合

@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 后台管理第三方调用接口
+ * 后台管理服务远程调用接口
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

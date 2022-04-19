@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- * 会员
+ * 会员服务传输类
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

@@ -28,13 +28,7 @@ public class SysPermissionEntity {
      * 主键id
      */
     @Id
-    private Long id;
-
-    /**
-     * 父id
-     */
-    @Column(name = "parent_id")
-    private Long parentId;
+    private Long permissionId;
 
     /**
      * 菜单标题
@@ -43,22 +37,47 @@ public class SysPermissionEntity {
     private String permissionName;
 
     /**
+     * 菜单标题
+     */
+    @Column(name = "permission_value")
+    private String permissionValue;
+
+    /**
      * 路径
      */
     @Column(name = "url")
     private String url;
 
     /**
-     * 菜单排序
+     * 权限类型
      */
-    @Column(name = "sort_no")
-    private Integer sortNo;
+    @Column(name = "type")
+    private String type;
+
+    /**
+     * 父id
+     */
+    @Column(name = "parent_id")
+    private Long parentId;
 
     /**
      * 菜单图标
      */
     @Column(name = "icon")
     private String icon;
+
+    /**
+     * 状态 1已启用 0未启用
+     */
+    @Column(name = "status")
+    @TableField(value = "`status`")
+    private Integer status;
+
+    /**
+     * 菜单排序
+     */
+    @Column(name = "sort_no")
+    private Integer sortNo;
 
     /**
      * 描述
@@ -93,12 +112,5 @@ public class SysPermissionEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
-    /**
-     * 删除状态 0正常 1已删除
-     */
-    @Column(name = "delete")
-    @TableField(value = "`delete`")
-    private Integer delete;
 }
 

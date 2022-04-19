@@ -45,8 +45,8 @@ public class SysUserServiceImpl implements SysUserService {
 
 
     @Override
-    public void deleteBatchUserByIds(List<Long> userIds) {
-        sysUserMapper.deleteBatchIds(userIds);
+    public void deleteBatchUserByIds(List<Long> useridList) {
+        sysUserMapper.deleteBatchIds(useridList);
     }
 
     @Override
@@ -56,8 +56,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public SysUserEntity getUserById(Long userId) {
-        return sysUserMapper.selectById(userId);
+    public SysUserEntity getUserById(Long userid) {
+        return sysUserMapper.selectById(userid);
+    }
+
+    @Override
+    public SysUserEntity getUserByUsername(String username) {
+        return sysUserRepository.getByUsernameEquals(username);
     }
 
     @Override
@@ -71,8 +76,7 @@ public class SysUserServiceImpl implements SysUserService {
         IPage<SysUserEntity> usersWithPage = sysUserMapper.selectPage(new Page<>(pageNum, pageSize), null);
 
         // 组装成自己的分页信息
-        MyPage<SysUserEntity> usersWithMyPage = MyPage.restPage(usersWithPage);
-        return usersWithMyPage;
+        return MyPage.restPage(usersWithPage);
     }
 
     @Override

@@ -36,8 +36,8 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     @Override
     public void savePermission(SysPermissionEntity sysPermissionEntity) {
         // 填入默认值
-        sysPermissionEntity.setId(snowflake.nextId());
-        sysPermissionEntity.setDelete(AdminConstants.NO);
+        sysPermissionEntity.setPermissionId(snowflake.nextId());
+        sysPermissionEntity.setStatus(AdminConstants.NO);
         sysPermissionEntity.setCreateTime(LocalDateTime.now());
 
         sysPermissionMapper.insert(sysPermissionEntity);
@@ -71,8 +71,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         // 数据库查询从0开始
         IPage<SysPermissionEntity> permissionsWithPage = sysPermissionMapper.selectPage(new Page<>(pageNum, pageSize), null);
 
-        MyPage<SysPermissionEntity> permissionsWithMyPage = MyPage.restPage(permissionsWithPage);
-        return permissionsWithMyPage;
+        return MyPage.restPage(permissionsWithPage);
     }
 
     @Override
@@ -84,20 +83,18 @@ public class SysPermissionServiceImpl implements SysPermissionService {
                 .filter(item -> Objects.equals(AdminConstants.PERMISSION_ROOT_LEVEL, item.getParentId()))
                 .collect(Collectors.toList());
 
-        List<PermissionsWithTreeVO> permissionsWithTree = permissions1Level.stream().map(item -> {
+        return permissions1Level.stream().map(item -> {
             // 设置子类集合
-            item.setChildren(getChild(permissionsWithTreeVOList, item.getId()));
+            item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId()));
             return item;
         }).collect(Collectors.toList());
-
-        return permissionsWithTree;
     }
 
     /**
      * 获取子类集合
      *
-     * @param permissionsWithTreeVOList
-     * @param id
+     * @param permissionsWithTreeVOList 权限列表
+     * @param id                        id
      * @return
      */
     private List<PermissionsWithTreeVO> getChild(List<PermissionsWithTreeVO> permissionsWithTreeVOList, Long id) {
@@ -105,7 +102,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         return permissionsWithTreeVOList.stream()
                 .filter(item -> Objects.equals(id, item.getParentId()))
                 .map(item -> {
-                            item.setChildren(getChild(permissionsWithTreeVOList, item.getId()));
+                            item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId()));
                             return item;
                         }
                 ).collect(Collectors.toList());

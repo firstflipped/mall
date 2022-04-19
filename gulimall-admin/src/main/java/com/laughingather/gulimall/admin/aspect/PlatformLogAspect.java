@@ -131,7 +131,7 @@ public class PlatformLogAspect {
         platformLog.setSpendTime(time);
         platformLog.setOperationTime(LocalDateTime.now());
 
-        logger.info(platformLog.toString());
+        // logger.info(platformLog.toString());
         // 把日志放进消息队列
         // kafkaProducerService.sendMessage("user-logs", JsonUtil.obj2String(platformLog));
 
@@ -185,6 +185,8 @@ public class PlatformLogAspect {
 
 
     /**
+     * TODO：此处需要优化
+     * <p>
      * 组装请求参数
      *
      * @param paramsKeys   参数键列表

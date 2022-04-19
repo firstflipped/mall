@@ -12,10 +12,21 @@ import lombok.Data;
 @Data
 public class SocialUserTO {
 
+    /**
+     * access_token
+     */
     private String access_token;
+
+
     private Long remind_in;
+
+    /**
+     * 过期时间
+     */
     private Long expires_in;
+
     private Long uid;
+
     private Boolean isRealName;
 
 }

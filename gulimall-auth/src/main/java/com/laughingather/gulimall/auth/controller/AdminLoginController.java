@@ -57,7 +57,7 @@ public class AdminLoginController {
 
 
     @PostMapping("/login")
-    public MyResult<String> login(@RequestBody @Valid AdminLoginTO adminLoginTO) {
+    public MyResult<String> login(@Valid @RequestBody AdminLoginTO adminLoginTO) {
         String token = adminLoginService.login(adminLoginTO);
         return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
     }

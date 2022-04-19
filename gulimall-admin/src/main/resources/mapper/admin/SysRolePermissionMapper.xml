@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laughingather.gulimall.admin.mapper.SysRolePermissionMapper">
+
+    <select id="listPermissionsByUserid"
+            resultType="com.laughingather.gulimall.admin.entity.SysPermissionEntity">
+        SELECT p.permission_id,
+               p.permission_name,
+               p.permission_value,
+               p.url,
+               p.parent_id,
+               p.type,
+               p.icon,
+               p.sort_no,
+               p.status,
+               p.description,
+               p.create_by,
+               p.create_time,
+               p.update_by,
+               p.update_time
+        FROM sys_user u
+                 INNER JOIN sys_user_role ur ON u.userid = ur.userid
+                 INNER JOIN sys_role_permission rp ON ur.role_id = rp.role_id
+                 INNER JOIN sys_permission p ON rp.permission_id = p.permission_id
+        WHERE u.userid = #{userid}
+    </select>
+
+    <select id="listPermissionsByRoleIds"
+            resultType="com.laughingather.gulimall.admin.entity.SysPermissionEntity">
+        SELECT p.permission_id,
+               p.permission_name,
+               p.permission_value,
+               p.url,
+               p.parent_id,
+               p.type,
+               p.icon,
+               p.sort_no,
+               p.status,
+               p.description,
+               p.create_by,
+               p.create_time,
+               p.update_by,
+               p.update_time
+        FROM sys_role_permission rp
+            INNER JOIN sys_permission p ON rp.permission_id = p.permission_id
+        WHERE rp.role_id IN
+        <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+    </select>
+</mapper>

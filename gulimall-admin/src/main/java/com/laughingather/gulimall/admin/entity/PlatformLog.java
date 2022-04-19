@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @TableName(value = "sys_platform_log")
 public class PlatformLog {
 
-    private Long id;
+    private Long logId;
 
     /**
      * 请求URI

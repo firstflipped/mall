@@ -1,6 +1,10 @@
 package com.laughingather.gulimall.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户角色关联实体
@@ -10,6 +14,10 @@ import lombok.Data;
  * @since 2022-04-11 19:35:16
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName(value = "sys_user_role")
 public class SysUserRoleEntity {
     /**
      * 主键id

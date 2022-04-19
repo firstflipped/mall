@@ -30,7 +30,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void saveRole(SysRoleEntity sysRoleEntity) {
-        sysRoleEntity.setId(snowflake.nextId());
+        sysRoleEntity.setRoleId(snowflake.nextId());
         sysRoleEntity.setCreateTime(LocalDateTime.now());
 
         sysRoleMapper.insert(sysRoleEntity);

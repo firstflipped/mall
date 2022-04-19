@@ -15,12 +15,34 @@ import java.util.List;
 @Data
 public class PermissionsWithTreeVO {
 
-    private Long id;
+    /**
+     * id
+     */
+    private Long permissionId;
 
-    private Long parentId;
-
+    /**
+     * 权限名称
+     */
     private String permissionName;
 
+    /**
+     * 权限值
+     */
+    private String permissionValue;
+
+    /**
+     * 前端url
+     */
+    private String url;
+
+    /**
+     * 父id
+     */
+    private Long parentId;
+
+    /**
+     * 创建时间
+     */
     private LocalDateTime createTime;
 
     private List<PermissionsWithTreeVO> children;

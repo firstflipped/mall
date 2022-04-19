@@ -26,7 +26,7 @@ public class SysRoleEntity {
      * 主键id
      */
     @Id
-    private Long id;
+    private Long roleId;
 
     /**
      * 角色名称

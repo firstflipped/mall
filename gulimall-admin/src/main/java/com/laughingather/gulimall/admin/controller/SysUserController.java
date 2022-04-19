@@ -40,8 +40,8 @@ public class SysUserController {
     @DeleteMapping
     @ApiOperation(value = "批量删除用户")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除用户")
-    public MyResult<Void> deleteBatchUserByIds(@RequestBody List<Long> userIds) {
-        sysUserService.deleteBatchUserByIds(userIds);
+    public MyResult<Void> deleteBatchUserByIds(@RequestBody List<Long> useridList) {
+        sysUserService.deleteBatchUserByIds(useridList);
         return MyResult.success();
     }
 
@@ -57,8 +57,8 @@ public class SysUserController {
     @GetMapping("/{uid}")
     @ApiOperation(value = "获取用户详情")
     @PlatformLogAnnotation(value = "获取用户详情")
-    public MyResult<SysUserEntity> getUserById(@PathVariable("uid") Long userId) {
-        SysUserEntity sysUserEntity = sysUserService.getUserById(userId);
+    public MyResult<SysUserEntity> getUserById(@PathVariable("uid") Long userid) {
+        SysUserEntity sysUserEntity = sysUserService.getUserById(userid);
         return MyResult.success(sysUserEntity);
     }
 

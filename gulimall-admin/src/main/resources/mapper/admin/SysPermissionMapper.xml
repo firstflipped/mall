@@ -3,9 +3,11 @@
 
 <mapper namespace="com.laughingather.gulimall.admin.mapper.SysPermissionMapper">
     <resultMap id="permissionsWithTreeVOMap" type="com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO">
-        <id property="id" column="id"/>
-        <result property="parentId" column="parent_id"/>
+        <id property="permissionId" column="permission_id"/>
         <result property="permissionName" column="permission_name"/>
+        <result property="permissionValue" column="permission_value"/>
+        <result property="url" column="url"/>
+        <result property="parentId" column="parent_id"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
 
@@ -13,7 +15,7 @@
     <update id="batchUpdatePermissionDelete">
         UPDATE sys_permission
         <set>
-            `delete` = #{status}
+            `status` = #{status}
         </set>
         <where>
             <if test="permissionIds != null and permissionIds.size() != 0">
@@ -28,13 +30,13 @@
     <update id="updatePermissionDelete">
         UPDATE sys_permission
         <set>
-            `delete` = #{status}
+            `status` = #{status}
         </set>
         WHERE id = #{permissionId}
     </update>
 
     <select id="selectPermissionsVO" resultMap="permissionsWithTreeVOMap">
-        SELECT id, parent_id, permission_name, create_time
+        SELECT permission_id, permission_name, permission_value, url, parent_id, create_time
         FROM sys_permission
     </select>
 </mapper>
