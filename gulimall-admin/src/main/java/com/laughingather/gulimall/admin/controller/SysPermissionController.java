@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,6 +33,7 @@ public class SysPermissionController {
     private SysPermissionService sysPermissionService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('admin:permission:add')")
     @ApiOperation(value = "保存权限")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存权限")
     public MyResult<Void> savePermission(@RequestBody SysPermissionEntity sysPermissionEntity) {
@@ -40,6 +42,7 @@ public class SysPermissionController {
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAuthority('admin:permission:delete')")
     @ApiOperation(value = "批量删除权限")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除权限")
     public MyResult<Void> deletePermissionByIds(@RequestBody List<Long> permissionIds) {
@@ -48,6 +51,7 @@ public class SysPermissionController {
     }
 
     @DeleteMapping("/{pid}")
+    @PreAuthorize("hasAuthority('admin:permission:delete')")
     @ApiOperation(value = "删除权限")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除权限")
     public MyResult<Void> deletePermissionById(@PathVariable("pid") Long permissionId) {
@@ -56,6 +60,7 @@ public class SysPermissionController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('admin:permission:update')")
     @ApiOperation(value = "更新权限")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新权限")
     public MyResult<Void> updatePermissionById(@RequestBody SysPermissionEntity sysPermissionEntity) {
@@ -64,6 +69,7 @@ public class SysPermissionController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     @ApiOperation("查询权限列表")
     @PlatformLogAnnotation(value = "查询权限列表")
     public MyResult<List<SysPermissionEntity>> listPermissions() {
@@ -72,6 +78,7 @@ public class SysPermissionController {
     }
 
     @GetMapping("/page")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     @ApiOperation(value = "分页查询权限列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pn", value = "当前页码", defaultValue = "1", dataTypeClass = Integer.class, example = "1"),
@@ -84,8 +91,8 @@ public class SysPermissionController {
         return MyResult.success(permissionsWithPage);
     }
 
-
     @GetMapping("/tree")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     @ApiOperation("树形查询权限列表")
     @PlatformLogAnnotation(value = "树形查询权限列表")
     public MyResult<List<PermissionsWithTreeVO>> listPermissionsWithTree() {

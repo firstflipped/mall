@@ -3,6 +3,7 @@ package com.laughingather.gulimall.admin.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
 import com.laughingather.gulimall.admin.entity.SysRolePermissionEntity;
+import com.laughingather.gulimall.admin.entity.param.RolePermissionParam;
 
 import java.util.List;
 
@@ -32,4 +33,10 @@ public interface SysRolePermissionService extends IService<SysRolePermissionEnti
      */
     List<SysPermissionEntity> listPermissionsByRoleIds(List<Long> roleIds);
 
+    /**
+     * 保存角色权限关系
+     *
+     * @param rolePermissionParam 角色权限关联关系
+     */
+    void saveRolePermissions(RolePermissionParam rolePermissionParam);
 }

@@ -3,6 +3,7 @@ package com.laughingather.gulimall.admin.service.impl;
 import cn.hutool.core.lang.Snowflake;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.admin.mapper.SysRoleMapper;
 import com.laughingather.gulimall.admin.service.SysRoleService;
@@ -21,7 +22,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Service
-public class SysRoleServiceImpl implements SysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> implements SysRoleService {
 
     @Resource
     private SysRoleMapper sysRoleMapper;

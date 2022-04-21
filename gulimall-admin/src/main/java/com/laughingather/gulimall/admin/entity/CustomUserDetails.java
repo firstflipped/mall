@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.admin.entity;
 
+import com.laughingather.gulimall.common.constant.AdminConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -7,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -34,10 +36,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return permissions.stream()
-                .filter(permission -> StringUtils.isNotBlank(permission.getPermissionValue()))
+        List<SimpleGrantedAuthority> collect = permissions.stream()
+                .filter(permission -> StringUtils.isNotBlank(permission.getPermissionValue()) && Objects.equals(permission.getStatus(), AdminConstants.ENABLE))
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermissionValue()))
                 .collect(Collectors.toList());
+        System.out.println(collect);
+        return collect;
     }
 
     @Override

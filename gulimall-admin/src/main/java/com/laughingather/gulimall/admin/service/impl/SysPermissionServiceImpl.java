@@ -3,6 +3,7 @@ package com.laughingather.gulimall.admin.service.impl;
 import cn.hutool.core.lang.Snowflake;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.mapper.SysPermissionMapper;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  * @since 2022-04-11 19:35:16
  */
 @Service
-public class SysPermissionServiceImpl implements SysPermissionService {
+public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermissionEntity> implements SysPermissionService {
 
     @Resource
     private SysPermissionMapper sysPermissionMapper;
@@ -37,7 +38,6 @@ public class SysPermissionServiceImpl implements SysPermissionService {
     public void savePermission(SysPermissionEntity sysPermissionEntity) {
         // 填入默认值
         sysPermissionEntity.setPermissionId(snowflake.nextId());
-        sysPermissionEntity.setStatus(AdminConstants.NO);
         sysPermissionEntity.setCreateTime(LocalDateTime.now());
 
         sysPermissionMapper.insert(sysPermissionEntity);

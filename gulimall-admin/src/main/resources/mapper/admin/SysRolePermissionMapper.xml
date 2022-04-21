@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.laughingather.gulimall.admin.mapper.SysRolePermissionMapper">
-
     <select id="listPermissionsByUserid"
             resultType="com.laughingather.gulimall.admin.entity.SysPermissionEntity">
         SELECT p.permission_id,
@@ -49,4 +48,8 @@
             #{roleId}
         </foreach>
     </select>
+
+    <delete id="deleteByRoleId">
+        DELETE FROM sys_role_permission WHERE role_id = #{roleId}
+    </delete>
 </mapper>

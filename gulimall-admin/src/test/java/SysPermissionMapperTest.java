@@ -8,8 +8,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author：laughingather
- * @create：2021-12-02 2021/12/2
+ * @author <a href="#">flipped</a>
+ * @version v1.0
+ * @since 2022-04-21 10:34:06
  */
 @Slf4j
 @SpringBootTest(classes = com.laughingather.gulimall.admin.GulimallAdminApplication.class)

@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.admin.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.common.api.MyPage;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-public interface SysRoleService {
+public interface SysRoleService extends IService<SysRoleEntity> {
 
     /**
      * 添加角色

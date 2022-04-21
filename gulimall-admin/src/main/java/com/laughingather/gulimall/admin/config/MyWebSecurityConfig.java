@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MySecurityConfig extends WebSecurityConfigurerAdapter {
+public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -54,6 +54,12 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(userinfoFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
+    /**
+     * 获取用户信息过滤类
+     * 必须使用@bean注入，要不然可能会发生filter注入service异常问题
+     *
+     * @return 用户信息过滤器
+     */
     @Bean
     public UserinfoFilter userinfoFilter() {
         return new UserinfoFilter();
