@@ -7,11 +7,14 @@ import com.laughingather.gulimall.admin.service.SysPermissionService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
+import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.UpdateGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -36,7 +39,7 @@ public class SysPermissionController {
     @PreAuthorize("hasAuthority('admin:permission:add')")
     @ApiOperation(value = "保存权限")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存权限")
-    public MyResult<Void> savePermission(@RequestBody SysPermissionEntity sysPermissionEntity) {
+    public MyResult<Void> savePermission(@Validated(AddGroup.class) @RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.savePermission(sysPermissionEntity);
         return MyResult.success();
     }
@@ -63,7 +66,7 @@ public class SysPermissionController {
     @PreAuthorize("hasAuthority('admin:permission:update')")
     @ApiOperation(value = "更新权限")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新权限")
-    public MyResult<Void> updatePermissionById(@RequestBody SysPermissionEntity sysPermissionEntity) {
+    public MyResult<Void> updatePermissionById(@Validated(UpdateGroup.class) @RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.updatePermission(sysPermissionEntity);
         return MyResult.success();
     }

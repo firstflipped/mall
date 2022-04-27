@@ -3,9 +3,13 @@ package com.laughingather.gulimall.admin.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.UpdateGroup;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
 /**
@@ -18,19 +22,24 @@ import java.time.LocalDateTime;
 @Data
 @TableName(value = "sys_permission")
 public class SysPermissionEntity {
+
     /**
      * 主键id
      */
+    @Null(groups = AddGroup.class, message = "新增时，权限id必须为空")
+    @NotBlank(groups = UpdateGroup.class, message = "更新时，权限id不能为空")
     private Long permissionId;
 
     /**
-     * 菜单标题
+     * 权限名称
      */
+    @NotBlank(message = "权限标题不能为空")
     private String permissionName;
 
     /**
-     * 菜单标题
+     * 权限值
      */
+    @NotBlank(message = "权限值不能为空")
     private String permissionValue;
 
     /**
@@ -41,7 +50,7 @@ public class SysPermissionEntity {
     /**
      * 权限类型
      */
-    private String type;
+    private Integer type;
 
     /**
      * 父id
