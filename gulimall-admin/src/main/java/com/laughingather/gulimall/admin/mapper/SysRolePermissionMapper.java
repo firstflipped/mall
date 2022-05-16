@@ -31,4 +31,11 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermissionEnt
      * @return
      */
     List<SysPermissionEntity> listPermissionsByRoleIds(@Param("roleIds") List<Long> roleIds);
+
+    /**
+     * 删除角色权限关联关系
+     *
+     * @param roleId 角色id
+     */
+    void deleteByRoleId(@Param("roleId") Long roleId);
 }

@@ -8,6 +8,7 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,6 +30,7 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('admin:user:add')")
     @ApiOperation(value = "保存用户")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存用户")
     public MyResult<Void> saveUser(@RequestBody SysUserEntity sysUserEntity) {
@@ -38,6 +40,7 @@ public class SysUserController {
 
 
     @DeleteMapping
+    @PreAuthorize("hasAuthority('admin:user:delete')")
     @ApiOperation(value = "批量删除用户")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除用户")
     public MyResult<Void> deleteBatchUserByIds(@RequestBody List<Long> useridList) {
@@ -46,6 +49,7 @@ public class SysUserController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('admin:user:update')")
     @ApiOperation(value = "更新用户")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户")
     public MyResult<Void> updateUserById(@RequestBody SysUserEntity sysUserEntity) {
@@ -55,6 +59,7 @@ public class SysUserController {
 
 
     @GetMapping("/{uid}")
+    @PreAuthorize("hasAuthority('admin:user:view')")
     @ApiOperation(value = "获取用户详情")
     @PlatformLogAnnotation(value = "获取用户详情")
     public MyResult<SysUserEntity> getUserById(@PathVariable("uid") Long userid) {
@@ -64,6 +69,7 @@ public class SysUserController {
 
 
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('admin:user:view')")
     @ApiOperation(value = "获取用户列表")
     @PlatformLogAnnotation(value = "获取用户列表")
     public MyResult<List<SysUserEntity>> listUsers() {
@@ -73,6 +79,7 @@ public class SysUserController {
 
 
     @GetMapping("/page")
+    @PreAuthorize("hasAuthority('admin:user:view')")
     @ApiOperation(value = "分页获取用户列表")
     @PlatformLogAnnotation(value = "分页获取用户列表")
     public MyResult<MyPage<SysUserEntity>> listUserWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,

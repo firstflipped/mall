@@ -2,6 +2,11 @@ package com.laughingather.gulimall.admin.service;
 
 
 import com.laughingather.gulimall.admin.entity.PlatformLog;
+import com.laughingather.gulimall.admin.entity.query.PlatformLogQuery;
+import com.laughingather.gulimall.admin.entity.vo.PlatformLogExcelVO;
+import com.laughingather.gulimall.common.api.MyPage;
+
+import java.util.List;
 
 /**
  * 平台日志逻辑接口
@@ -15,9 +20,24 @@ public interface PlatformLogService {
     /**
      * 保存日志
      *
-     * @param platformLog
+     * @param platformLog 日志实体
      */
     void saveLog(PlatformLog platformLog);
 
+    /**
+     * 分页查询日志列表
+     *
+     * @param platformLogQuery 日志列表查询条件
+     * @return 日志列表
+     */
+    MyPage<PlatformLog> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery);
+
+    /**
+     * 查询导出日志列表
+     *
+     * @param platformLogQuery 日志列表查询条件
+     * @return 日志列表
+     */
+    List<PlatformLogExcelVO> listPlatformLogsWithExport(PlatformLogQuery platformLogQuery);
 }
 

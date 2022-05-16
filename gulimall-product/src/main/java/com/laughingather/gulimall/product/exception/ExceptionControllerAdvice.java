@@ -4,6 +4,7 @@ import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,9 +25,9 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public MyResult<Map<String, String>> handleValidException(MethodArgumentNotValidException e) {
-        log.error("数据校验出现问题{}，异常类型{}", e.getMessage(), e.getClass());
-        Map<String, String> errorMap = new HashMap<>(8);
+        log.error("数据校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
 
+        Map<String, String> errorMap = new HashMap<>(8);
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(error -> {
@@ -37,13 +38,21 @@ public class ExceptionControllerAdvice {
                 errorMap.put(field, message);
             });
         }
-        return MyResult.failed(ErrorCodeEnum.VERIFY_EXCEPTION, errorMap);
+        return MyResult.failed(ErrorCodeEnum.PARAMS_VERIFY_EXCEPTION, errorMap);
     }
+
+
+    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    public MyResult<Map<String, String>> handleRequestMethodException(HttpRequestMethodNotSupportedException e) {
+        log.error("请求方法异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
+    }
+
 
     @ExceptionHandler(value = Throwable.class)
     public MyResult<String> handleThrowable(Throwable throwable) {
         throwable.printStackTrace();
-        log.error("出现异常{}，异常类型{}", throwable.getMessage(), throwable.getClass());
+        log.error("系统异常：{}，异常类型：{}", throwable.getMessage(), throwable.getClass());
         return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION, throwable.getMessage());
     }
 

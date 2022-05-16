@@ -51,12 +51,12 @@ public class PlatformLog {
     private String className;
 
     /**
-     * 请求方法
+     * 请求函数
      */
     private String methodName;
 
     /**
-     * 请求类型
+     * 操作类型
      */
     private Integer methodType;
 

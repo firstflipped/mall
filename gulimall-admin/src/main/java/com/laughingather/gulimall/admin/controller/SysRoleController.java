@@ -8,6 +8,7 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -29,6 +30,7 @@ public class SysRoleController {
     private SysRoleService sysRoleService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('admin:role:add')")
     @ApiOperation(value = "保存角色")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色")
     public MyResult<Void> saveRole(@RequestBody SysRoleEntity sysRoleEntity) {
@@ -37,6 +39,7 @@ public class SysRoleController {
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAuthority('admin:permission:delete')")
     @ApiOperation(value = "批量删除角色")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除角色")
     public MyResult<Void> deleteBatchRoleByIds(@RequestBody List<Long> roleIds) {
@@ -45,6 +48,7 @@ public class SysRoleController {
     }
 
     @DeleteMapping("/{rid}")
+    @PreAuthorize("hasAuthority('admin:permission:delete')")
     @ApiOperation("删除角色")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除角色")
     public MyResult<Void> deleteRoleById(@PathVariable("rid") Long roleId) {
@@ -53,6 +57,7 @@ public class SysRoleController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('admin:permission:update')")
     @ApiOperation(value = "更新角色")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新角色")
     public MyResult<Void> updateRoleById(@RequestBody SysRoleEntity sysRoleEntity) {
@@ -61,6 +66,7 @@ public class SysRoleController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     @ApiOperation(value = "查询角色列表")
     @PlatformLogAnnotation(value = "查询角色列表")
     public MyResult<List<SysRoleEntity>> listRoles() {
@@ -69,6 +75,7 @@ public class SysRoleController {
     }
 
     @GetMapping("/page")
+    @PreAuthorize("hasAuthority('admin:permission:view')")
     @ApiOperation("分页查询角色列表")
     @PlatformLogAnnotation(value = "分页查询角色列表")
     public MyResult<MyPage<SysRoleEntity>> listRolesWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,

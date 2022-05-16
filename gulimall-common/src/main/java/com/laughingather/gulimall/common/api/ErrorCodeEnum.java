@@ -20,12 +20,17 @@ public enum ErrorCodeEnum {
     /**
      * 参数校验异常
      */
-    VERIFY_EXCEPTION(10001, "参数校验异常"),
+    PARAMS_VERIFY_EXCEPTION(10001, "参数校验异常"),
 
     /**
      * 请求类型异常
      */
     REQUEST_METHOD_EXCEPTION(10002, "请求类型异常"),
+
+    /**
+     * 权限校验异常
+     */
+    ACCESS_EXCEPTION(10003, "权限校验异常"),
 
     /**
      * 商品上架异常

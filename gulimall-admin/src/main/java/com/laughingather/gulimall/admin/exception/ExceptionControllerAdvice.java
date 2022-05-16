@@ -1,8 +1,9 @@
-package com.laughingather.gulimall.auth.exception;
+package com.laughingather.gulimall.admin.exception;
 
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,14 +14,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 统一异常处理处理
+ * 异常统一处理切面
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
 @Slf4j
-@RestControllerAdvice(basePackages = "com.laughingather.gulimall.auth.controller")
+@RestControllerAdvice(basePackages = "com.laughingather.gulimall.admin.controller")
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -48,6 +49,11 @@ public class ExceptionControllerAdvice {
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
 
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public MyResult<Map<String, String>> handleAccessException(AccessDeniedException e) {
+        log.error("权限校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
+    }
 
     @ExceptionHandler(value = Throwable.class)
     public MyResult<String> handleThrowable(Throwable throwable) {
@@ -55,5 +61,6 @@ public class ExceptionControllerAdvice {
         log.error("系统异常：{}，异常类型：{}", throwable.getMessage(), throwable.getClass());
         return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION, throwable.getMessage());
     }
+
 
 }
