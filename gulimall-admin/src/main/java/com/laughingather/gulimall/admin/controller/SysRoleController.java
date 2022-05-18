@@ -39,7 +39,7 @@ public class SysRoleController {
     }
 
     @DeleteMapping
-    @PreAuthorize("hasAuthority('admin:permission:delete')")
+    @PreAuthorize("hasAuthority('admin:role:delete')")
     @ApiOperation(value = "批量删除角色")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除角色")
     public MyResult<Void> deleteBatchRoleByIds(@RequestBody List<Long> roleIds) {
@@ -48,7 +48,7 @@ public class SysRoleController {
     }
 
     @DeleteMapping("/{rid}")
-    @PreAuthorize("hasAuthority('admin:permission:delete')")
+    @PreAuthorize("hasAuthority('admin:role:delete')")
     @ApiOperation("删除角色")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除角色")
     public MyResult<Void> deleteRoleById(@PathVariable("rid") Long roleId) {
@@ -57,7 +57,7 @@ public class SysRoleController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority('admin:permission:update')")
+    @PreAuthorize("hasAuthority('admin:role:update')")
     @ApiOperation(value = "更新角色")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新角色")
     public MyResult<Void> updateRoleById(@RequestBody SysRoleEntity sysRoleEntity) {
@@ -66,7 +66,7 @@ public class SysRoleController {
     }
 
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('admin:permission:view')")
+    @PreAuthorize("hasAuthority('admin:role:view')")
     @ApiOperation(value = "查询角色列表")
     @PlatformLogAnnotation(value = "查询角色列表")
     public MyResult<List<SysRoleEntity>> listRoles() {
@@ -75,7 +75,7 @@ public class SysRoleController {
     }
 
     @GetMapping("/page")
-    @PreAuthorize("hasAuthority('admin:permission:view')")
+    @PreAuthorize("hasAuthority('admin:role:view')")
     @ApiOperation("分页查询角色列表")
     @PlatformLogAnnotation(value = "分页查询角色列表")
     public MyResult<MyPage<SysRoleEntity>> listRolesWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,

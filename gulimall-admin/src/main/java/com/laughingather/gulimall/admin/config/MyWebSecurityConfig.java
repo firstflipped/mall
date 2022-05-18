@@ -3,6 +3,7 @@ package com.laughingather.gulimall.admin.config;
 import com.laughingather.gulimall.admin.filter.UserinfoFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(-1)
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
