@@ -80,7 +80,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public AdminTO checkLogin(AdminLoginTO adminLoginTO) {
+    public AdminTO login(AdminLoginTO adminLoginTO) {
         SysUserEntity user = sysUserRepository.getByUsernameEquals(adminLoginTO.getUsername());
         if (user == null) {
             return null;
@@ -90,6 +90,28 @@ public class SysUserServiceImpl implements SysUserService {
             return null;
         }
 
+        return Admin2AdminTO(user);
+    }
+
+
+    @Override
+    public AdminTO loginByMobile(String mobile) {
+        SysUserEntity user = sysUserRepository.getByPhoneEquals(mobile);
+        if (user == null) {
+            return null;
+        }
+
+        return Admin2AdminTO(user);
+    }
+
+
+    /**
+     * Admin实体转AdminTO
+     *
+     * @param user 用户信息
+     * @return 用户信息传输
+     */
+    private AdminTO Admin2AdminTO(SysUserEntity user) {
         AdminTO adminTO = new AdminTO();
         BeanUtils.copyProperties(user, adminTO);
         return adminTO;

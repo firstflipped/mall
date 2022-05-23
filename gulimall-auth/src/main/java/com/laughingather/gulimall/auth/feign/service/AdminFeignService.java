@@ -20,15 +20,24 @@ public interface AdminFeignService {
 
 
     /**
-     * 远程登录接口
+     * 远程用户名密码登录接口
      * <p>
      * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
      *
-     * @param adminLoginTO
-     * @return
+     * @param adminLoginTO 用户名密码传输类
+     * @return 用户信息
      */
     @PostMapping("/login")
     MyResult<AdminTO> login(@RequestBody AdminLoginTO adminLoginTO);
+
+    /**
+     * 远程手机号验证码登录接口
+     *
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    @PostMapping("/login/mobile")
+    MyResult<AdminTO> loginByMobile(@RequestParam(name = "mobile") String mobile);
 
     /**
      * 远程获取用户信息接口

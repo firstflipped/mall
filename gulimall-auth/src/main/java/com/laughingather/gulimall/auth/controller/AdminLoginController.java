@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.auth.controller;
 
 import cn.hutool.core.util.RandomUtil;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileTO;
 import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,12 +33,12 @@ public class AdminLoginController {
     @Resource
     private AdminLoginService adminLoginService;
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @GetMapping("/sms/send-code")
-    public MyResult<Void> sendCode(@RequestParam("phoneNum") String phoneNum) {
-        Object cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + phoneNum);
-        if (!Objects.isNull(cacheCode)) {
+    public MyResult<Void> sendSmsCode(@RequestParam("mobile") String mobile) {
+        Boolean hasSmsCode = redisTemplate.hasKey(AuthConstants.SMS_CODE_CACHE_PREFIX + mobile);
+        if (Boolean.TRUE.equals(hasSmsCode)) {
             // 如果缓存中存在验证码则不允许重发
             return MyResult.failed();
         }
@@ -47,18 +47,23 @@ public class AdminLoginController {
         String code = RandomUtil.randomNumbers(6);
 
         // TODO：第三方调用短信服务暂不可用
-        thirdPartyFeignService.sendCheckCode(phoneNum, code);
+        thirdPartyFeignService.sendCheckCode(mobile, code);
 
         // 把验证码放到缓存中
-        redisTemplate.opsForValue().set(AuthConstants.SMS_CODE_CACHE_PREFIX + phoneNum, code, 60, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(AuthConstants.SMS_CODE_CACHE_PREFIX + mobile, code, 5, TimeUnit.SECONDS);
 
         return MyResult.success();
     }
 
-
     @PostMapping("/login")
     public MyResult<String> login(@Valid @RequestBody AdminLoginTO adminLoginTO) {
         String token = adminLoginService.login(adminLoginTO);
+        return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
+    }
+
+    @PostMapping("/login/mobile")
+    public MyResult<String> loginByMobile(@Valid @RequestBody AdminLoginByMobileTO adminLoginByMobileTO) {
+        String token = adminLoginService.loginByMobile(adminLoginByMobileTO);
         return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
     }
 

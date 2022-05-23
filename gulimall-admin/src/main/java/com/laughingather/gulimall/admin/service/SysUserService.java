@@ -70,11 +70,19 @@ public interface SysUserService {
     MyPage<SysUserEntity> listUserWithPage(Integer pageNum, Integer pageSize);
 
     /**
-     * 校验用户登录
+     * 用户名密码登录
      *
-     * @param adminLoginTO
-     * @return
+     * @param adminLoginTO 用户名密码传输类
+     * @return 用户信息
      */
-    AdminTO checkLogin(AdminLoginTO adminLoginTO);
+    AdminTO login(AdminLoginTO adminLoginTO);
+
+    /**
+     * 手机号验证码登录
+     *
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    AdminTO loginByMobile(String mobile);
 }
 

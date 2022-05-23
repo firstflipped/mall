@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.auth.service;
 
 
+import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileTO;
 import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 
@@ -14,12 +15,20 @@ import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 public interface AdminLoginService {
 
     /**
-     * 管理员登录
+     * 管理员用户名密码登录
      *
      * @param adminLoginTO 管理员登录参数
      * @return token
      */
     String login(AdminLoginTO adminLoginTO);
+
+    /**
+     * 管理员手机号验证码登录
+     *
+     * @param adminLoginByMobileTO
+     * @return
+     */
+    String loginByMobile(AdminLoginByMobileTO adminLoginByMobileTO);
 
     /**
      * 获取用户信息
@@ -28,4 +37,6 @@ public interface AdminLoginService {
      * @return 用户展示视图类
      */
     AdminVO getUserinfo(String token);
+
+
 }

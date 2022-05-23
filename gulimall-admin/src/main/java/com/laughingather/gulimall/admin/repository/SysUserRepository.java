@@ -15,9 +15,16 @@ public interface SysUserRepository extends JpaRepository<SysUserEntity, Long> {
     /**
      * 根据用户名查询用户信息
      *
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     SysUserEntity getByUsernameEquals(String username);
 
+    /**
+     * 根据手机号查询用户信息
+     *
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    SysUserEntity getByPhoneEquals(String mobile);
 }
