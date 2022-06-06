@@ -20,21 +20,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface MemberFeignService {
 
     /**
-     * 远程注册接口
+     * 会员远程注册接口
      *
-     * @param memberRegisterTO
-     * @return MyResult
+     * @param memberRegisterTO 会员注册传输类
+     * @return 注册结果
      */
     @PostMapping("/gulimall-member/openapi/member/register")
     MyResult<Void> register(@RequestBody MemberRegisterTO memberRegisterTO);
 
     /**
-     * 远程登录接口
-     * <p>
+     * 会员远程登录接口
      * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
      *
-     * @param memberLoginTO
-     * @return
+     * @param memberLoginTO 会员登录传输类
+     * @return 会员信息
      */
     @PostMapping("/gulimall-member/openapi/member/login")
     MyResult<MemberTO> login(@RequestBody MemberLoginTO memberLoginTO);

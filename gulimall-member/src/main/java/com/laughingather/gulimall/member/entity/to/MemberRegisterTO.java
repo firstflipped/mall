@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.member.entity.dto;
+package com.laughingather.gulimall.member.entity.to;
 
 import lombok.Data;
 import lombok.ToString;
@@ -12,12 +12,21 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class MemberRegisterDTO {
+public class MemberRegisterTO {
 
+    /**
+     * 会员名
+     */
     private String username;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 手机
+     */
     private String mobile;
 
 }

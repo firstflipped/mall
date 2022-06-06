@@ -49,7 +49,7 @@ public class MyRabbitConfig {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
                 if (!ack) {
-                    log.info("消息发送到服务器失败，消息内容为：" + correlationData.getReturnedMessage());
+                    log.info("消息发送到服务器失败，消息内容为：" + correlationData.getReturned());
                 }
             }
         });
@@ -64,8 +64,8 @@ public class MyRabbitConfig {
          * @param exchange
          * @param routingKey
          */
-        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
-            log.info("消息发送到队列失败，消息内容为：" + message);
+        rabbitTemplate.setReturnsCallback(returnedMessage -> {
+            log.info("消息发送到队列失败，消息内容为：" + returnedMessage);
         });
 
         // 设置消息转换器

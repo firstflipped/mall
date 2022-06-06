@@ -4,18 +4,18 @@ import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.MemberReceiveAddressEntity;
-import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
-import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
-import com.laughingather.gulimall.member.entity.dto.SocialUser;
+import com.laughingather.gulimall.member.entity.to.*;
 import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
 import com.laughingather.gulimall.member.service.MemberReceiveAddressService;
 import com.laughingather.gulimall.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 会员服务对外提供接口
@@ -37,13 +37,13 @@ public class MemberOpenApi {
     /**
      * 用户注册
      *
-     * @param memberRegisterDTO
+     * @param memberRegisterTO
      * @return
      */
     @PostMapping("/register")
-    public MyResult<Void> register(@RequestBody MemberRegisterDTO memberRegisterDTO) {
+    public MyResult<Void> register(@RequestBody MemberRegisterTO memberRegisterTO) {
         try {
-            memberService.registerMember(memberRegisterDTO);
+            memberService.registerMember(memberRegisterTO);
         } catch (UsernameExistException e) {
             return MyResult.failed(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION);
         } catch (MobileExistException e) {
@@ -57,12 +57,12 @@ public class MemberOpenApi {
     /**
      * 用户登录
      *
-     * @param memberLoginDTO
+     * @param memberLoginTO
      * @return
      */
     @PostMapping("/login")
-    public MyResult<MemberEntity> login(@RequestBody MemberLoginDTO memberLoginDTO) {
-        MemberEntity member = memberService.checkLogin(memberLoginDTO);
+    public MyResult<MemberTO> login(@RequestBody MemberLoginTO memberLoginTO) {
+        MemberTO member = memberService.checkLogin(memberLoginTO);
         return member == null ? MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION) : MyResult.success(member);
     }
 
@@ -74,9 +74,25 @@ public class MemberOpenApi {
      * @return
      */
     @PostMapping("/oauth2/login")
-    public MyResult<MemberEntity> oauth2Login(@RequestBody SocialUser socialUser) {
-        MemberEntity member = memberService.login(socialUser);
+    public MyResult<MemberTO> oauth2Login(@RequestBody SocialUser socialUser) {
+        MemberTO member = memberService.login(socialUser);
         return member == null ? MyResult.failed(ErrorCodeEnum.OAUTH_LOGIN_EXCEPTION) : MyResult.success(member);
+    }
+
+
+    /**
+     * 获取会员信息
+     *
+     * @param memberId 会员id
+     * @return 会员信息
+     */
+    @GetMapping("/{mid}/info")
+    public MyResult<MemberTO> getMember(@PathVariable("mid") Long memberId) {
+        MemberEntity member = memberService.getById(memberId);
+
+        MemberTO memberTO = new MemberTO();
+        BeanUtils.copyProperties(member, memberTO);
+        return MyResult.success(memberTO);
     }
 
 
@@ -87,9 +103,15 @@ public class MemberOpenApi {
      * @return
      */
     @GetMapping("/{mid}/address")
-    public MyResult<List<MemberReceiveAddressEntity>> listMemberReceiveAddresses(@PathVariable("mid") Long memberId) {
-        List<MemberReceiveAddressEntity> memberReceiveAddress = memberReceiveAddressService.listMemberReceiveAddresses(memberId);
-        return MyResult.success(memberReceiveAddress);
+    public MyResult<List<MemberReceiveAddressTO>> listMemberReceiveAddresses(@PathVariable("mid") Long memberId) {
+        List<MemberReceiveAddressEntity> memberReceiveAddresses = memberReceiveAddressService.listMemberReceiveAddresses(memberId);
+
+        List<MemberReceiveAddressTO> memberReceiveAddressTOList = memberReceiveAddresses.stream().map(item -> {
+            MemberReceiveAddressTO memberReceiveAddressTO = new MemberReceiveAddressTO();
+            BeanUtils.copyProperties(item, memberReceiveAddressTO);
+            return memberReceiveAddressTO;
+        }).collect(Collectors.toList());
+        return MyResult.success(memberReceiveAddressTOList);
     }
 
 
@@ -100,9 +122,12 @@ public class MemberOpenApi {
      * @return
      */
     @GetMapping("/{aid}/info")
-    public MyResult<MemberReceiveAddressEntity> getAddressInfoById(@PathVariable("aid") Long addressId) {
+    public MyResult<MemberReceiveAddressTO> getAddressInfoById(@PathVariable("aid") Long addressId) {
         MemberReceiveAddressEntity memberReceiveAddress = memberReceiveAddressService.getById(addressId);
-        return MyResult.success(memberReceiveAddress);
+
+        MemberReceiveAddressTO memberReceiveAddressTO = new MemberReceiveAddressTO();
+        BeanUtils.copyProperties(memberReceiveAddress, memberReceiveAddressTO);
+        return MyResult.success(memberReceiveAddressTO);
     }
 
 }

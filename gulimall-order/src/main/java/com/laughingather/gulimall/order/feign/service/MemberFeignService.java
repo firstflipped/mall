@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.order.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.order.feign.entity.MemberTO;
 import com.laughingather.gulimall.order.feign.entity.MemberReceiveAddressTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,16 @@ public interface MemberFeignService {
      */
     @GetMapping("/{mid}/addresses")
     MyResult<List<MemberReceiveAddressTO>> listMemberReceiveAddress(@PathVariable("mid") Long memberId);
+
+
+    /**
+     * 获取会员信息
+     *
+     * @param memberId 会员id
+     * @return
+     */
+    @GetMapping("/{mid}/info")
+    MyResult<MemberTO> getMember(@PathVariable("mid") Long memberId);
 
 
 }

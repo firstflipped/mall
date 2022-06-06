@@ -17,6 +17,7 @@ import com.laughingather.gulimall.common.constant.OrderConstants;
 import com.laughingather.gulimall.order.dao.OrderDao;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.entity.OrderItemEntity;
+import com.laughingather.gulimall.order.entity.dto.OrderDTO;
 import com.laughingather.gulimall.order.entity.dto.PayDTO;
 import com.laughingather.gulimall.order.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.order.entity.param.OrderCreateParam;
@@ -29,6 +30,7 @@ import com.laughingather.gulimall.order.feign.service.CartFeignService;
 import com.laughingather.gulimall.order.feign.service.MemberFeignService;
 import com.laughingather.gulimall.order.feign.service.ProductFeignService;
 import com.laughingather.gulimall.order.feign.service.WareFeignService;
+import com.laughingather.gulimall.order.interceptor.LoginUserInterceptor;
 import com.laughingather.gulimall.order.service.OrderItemService;
 import com.laughingather.gulimall.order.service.OrderService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -116,7 +118,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     public OrderConfirmVO confirmOrder() throws ExecutionException, InterruptedException {
         OrderConfirmVO orderConfirmVO = new OrderConfirmVO();
         // 从拦截类中获取用户信息
-        MemberEntity member = LoginUserInterceptor.loginUser.get();
+        MemberTO member = LoginUserInterceptor.loginUser.get();
 
         // 拿到主线程的请求信息，将请求信息设置到副线程里面（每一个线程都共享请求信息）
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
@@ -186,7 +188,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         orderSubmitThreadLocal.set(orderSubmitParam);
 
         // 获取会员信息
-        MemberEntity member = LoginUserInterceptor.loginUser.get();
+        MemberTO member = LoginUserInterceptor.loginUser.get();
 
         OrderSubmitVO orderSubmitVO = new OrderSubmitVO();
 
@@ -341,7 +343,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         order.setOrderSn(orderSn);
 
         // 获取session的会员信息
-        MemberEntity member = LoginUserInterceptor.loginUser.get();
+        MemberTO member = LoginUserInterceptor.loginUser.get();
         // 设置会员信息
         order.setMemberId(member.getId());
         order.setMemberUsername(member.getUsername() != null ? member.getUsername() : member.getNickname());
