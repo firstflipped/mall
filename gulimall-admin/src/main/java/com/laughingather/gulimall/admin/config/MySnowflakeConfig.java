@@ -17,8 +17,7 @@ public class MySnowflakeConfig {
 
     @Bean
     public Snowflake snowflake() {
-        Snowflake snowflake = IdUtil.createSnowflake(1, 1);
-        return snowflake;
+        return IdUtil.createSnowflake(1, 1);
     }
 
 }

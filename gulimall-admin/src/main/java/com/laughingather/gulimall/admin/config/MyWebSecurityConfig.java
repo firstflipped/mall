@@ -19,10 +19,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @version v1.0
  * @since 2022-04-19 09:58:48
  */
+@Order(0)
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Order(0)
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
