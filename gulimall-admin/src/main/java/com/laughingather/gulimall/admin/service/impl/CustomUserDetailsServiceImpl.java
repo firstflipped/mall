@@ -39,10 +39,9 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
         log.info("{}", user);
 
-        // 角色信息与权限信息
+        // 返回自定义用户详情，包括用户信息与权限信息
         List<SysPermissionEntity> permissions = sysRolePermissionService.listPermissionsByUserid(user.getUserid());
         return new CustomUserDetails(user, permissions);
-
     }
 
 }

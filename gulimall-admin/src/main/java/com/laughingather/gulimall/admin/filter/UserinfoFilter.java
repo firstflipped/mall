@@ -37,6 +37,7 @@ public class UserinfoFilter extends OncePerRequestFilter {
         if (StringUtils.isNotBlank(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("request username:{}", username);
 
+            // 获取用户信息，并将用户信息存储到安全上下文中
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             if (userDetails != null) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

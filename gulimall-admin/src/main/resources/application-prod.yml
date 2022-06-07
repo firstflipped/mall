@@ -6,6 +6,7 @@ spring:
       url: jdbc:mysql://localhost:3306/gulimall_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: 123456
+
   # jpa
   jpa:
     show-sql: false

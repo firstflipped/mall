@@ -13,12 +13,12 @@
     <artifactId>gulimall-common</artifactId>
 
     <properties>
-        <mybatis-plus.version>3.4.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <druid.version>1.2.5</druid.version>
+        <druid.version>1.2.9</druid.version>
         <swagger.version>3.0.0</swagger.version>
-        <hutool.version>5.3.8</hutool.version>
-        <jjwt.version>0.11.2</jjwt.version>
+        <hutool.version>5.8.1</hutool.version>
+        <jjwt.version>0.11.5</jjwt.version>
     </properties>
 
     <dependencies>

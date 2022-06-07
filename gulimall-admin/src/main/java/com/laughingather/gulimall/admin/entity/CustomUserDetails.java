@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.entity;
 
 import com.laughingather.gulimall.common.constant.AdminConstants;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,16 +19,18 @@ import java.util.stream.Collectors;
  * @version v1.0
  * @since 2022-04-19 10:10:00
  */
+@Slf4j
 public class CustomUserDetails implements UserDetails {
 
     /**
      * 用户信息
      */
-    private SysUserEntity user;
+    private final SysUserEntity user;
+
     /**
      * 菜单列表
      */
-    private List<SysPermissionEntity> permissions;
+    private final List<SysPermissionEntity> permissions;
 
     public CustomUserDetails(SysUserEntity user, List<SysPermissionEntity> permissions) {
         this.user = user;
@@ -36,12 +39,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> collect = permissions.stream()
+        List<SimpleGrantedAuthority> permissionValues = permissions.stream()
                 .filter(permission -> StringUtils.isNotBlank(permission.getPermissionValue()) && Objects.equals(permission.getStatus(), AdminConstants.ENABLE))
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermissionValue()))
                 .collect(Collectors.toList());
-        System.out.println(collect);
-        return collect;
+        log.info("登录用户权限列表为{}", permissionValues);
+        return permissionValues;
     }
 
     @Override
