@@ -25,8 +25,6 @@ logging:
         gulimall:
           adminnew:
             mapper: debug
-          common:
-            aspect: debug
 
 springfox:
   documentation:

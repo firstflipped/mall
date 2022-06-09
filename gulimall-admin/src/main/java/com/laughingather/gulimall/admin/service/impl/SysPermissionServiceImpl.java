@@ -83,10 +83,9 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
                 .filter(item -> Objects.equals(AdminConstants.PERMISSION_ROOT_LEVEL, item.getParentId()))
                 .collect(Collectors.toList());
 
-        return permissions1Level.stream().map(item -> {
+        return permissions1Level.stream().peek(item -> {
             // 设置子类集合
             item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId()));
-            return item;
         }).collect(Collectors.toList());
     }
 
@@ -101,11 +100,8 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
         return permissionsWithTreeVOList.stream()
                 .filter(item -> Objects.equals(id, item.getParentId()))
-                .map(item -> {
-                            item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId()));
-                            return item;
-                        }
-                ).collect(Collectors.toList());
+                .peek(item -> item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId())))
+                .collect(Collectors.toList());
 
     }
 }
