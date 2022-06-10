@@ -123,7 +123,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     @Override
     public void checkMobileUnique(String mobile) throws MobileExistException {
-        Integer count = memberDao.selectCount(new QueryWrapper<MemberEntity>().lambda().eq(MemberEntity::getMobile, mobile));
+        Long count = memberDao.selectCount(new QueryWrapper<MemberEntity>().lambda().eq(MemberEntity::getMobile, mobile));
         if (count > 0) {
             throw new MobileExistException();
         }
@@ -136,7 +136,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     @Override
     public void checkUsernameUnique(String username) throws UsernameExistException {
-        Integer count = memberDao.selectCount(new QueryWrapper<MemberEntity>().lambda().eq(MemberEntity::getUsername, username));
+        Long count = memberDao.selectCount(new QueryWrapper<MemberEntity>().lambda().eq(MemberEntity::getUsername, username));
         if (count > 0) {
             throw new UsernameExistException();
         }
