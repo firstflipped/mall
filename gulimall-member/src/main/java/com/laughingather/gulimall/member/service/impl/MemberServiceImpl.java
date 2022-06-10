@@ -79,8 +79,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         memberEntity.setMobile(memberRegisterTO.getMobile());
 
         // 密码加密（利用算法规则把盐值加到密文中，然后比对的时候按照算法规则取出来）
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String bCryptPassword = bCryptPasswordEncoder.encode(memberRegisterTO.getPassword());
+        String bCryptPassword = BCryptPasswordEncoderUtil.encodingPassword(memberRegisterTO.getPassword());
         memberEntity.setPassword(bCryptPassword);
 
         // 查询默认的会员等级
@@ -93,7 +92,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     /**
      * 查询默认等级
      *
-     * @return
+     * @return 会员默认等级
      */
     private Long getDefaultLevel() {
         MemberLevelEntity defaultLevel = memberLevelDao.getDefaultLevel();
@@ -169,7 +168,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String sendUrl = String.format(AuthConstants.WEIBO_INFO_API_URL, socialUser.getAccess_token(), socialUser.getUid());
         ResponseEntity<WeiboUserInfo> result = restTemplate.getForEntity(sendUrl, WeiboUserInfo.class);
-        if (result.getStatusCode() == HttpStatus.OK) {
+        if (result.getStatusCode() == HttpStatus.OK && result.getBody() != null) {
             WeiboUserInfo weiboUserInfo = result.getBody();
             MemberEntity register = MemberEntity.builder().socialUid(weiboUserInfo.getId()).accessToken(socialUser.getAccess_token()).expiresIn(socialUser.getExpires_in())
                     .levelId(getDefaultLevel() != null ? getDefaultLevel() : null).nickname(weiboUserInfo.getScreen_name())
