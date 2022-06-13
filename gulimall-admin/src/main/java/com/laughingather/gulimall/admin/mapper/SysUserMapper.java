@@ -15,7 +15,7 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
      * 更新用户删除字段状态
      *
      * @param userid 用户id
-     * @param delete 删除字段状态
+     * @param status 用户状态字段
      */
-    void updateUserDeleteById(@Param("userid") Long userid, @Param("status") Integer delete);
+    void updateUserStatusById(@Param("userid") Long userid, @Param("status") Integer status);
 }

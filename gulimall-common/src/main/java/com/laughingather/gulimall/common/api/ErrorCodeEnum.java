@@ -45,17 +45,22 @@ public enum ErrorCodeEnum {
     /**
      * 手机号已存在异常
      */
-    MOBILE_EXIST_EXCEPTION(15001, "手机号已存在异常"),
+    MOBILE_EXIST_EXCEPTION(15001, "手机号码已存在异常"),
+
+    /**
+     * 手机号已存在异常
+     */
+    EMAIL_EXIST_EXCEPTION(15002, "邮箱已存在异常"),
 
     /**
      * 账号或密码错误
      */
-    ACCOUNT_PASSWORD_INVALID_EXCEPTION(15002, "账号或密码错误"),
+    ACCOUNT_PASSWORD_INVALID_EXCEPTION(15003, "账号或密码错误"),
 
     /**
      * 社交帐号登录异常
      */
-    OAUTH_LOGIN_EXCEPTION(15003, "社交帐号登录异常"),
+    OAUTH_LOGIN_EXCEPTION(15004, "社交帐号登录异常"),
 
     /**
      * 商品库存不足

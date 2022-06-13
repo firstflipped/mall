@@ -49,10 +49,34 @@ public class ExceptionControllerAdvice {
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
 
+    @ExceptionHandler(value = UsernameExistException.class)
+    public MyResult<Map<String, String>> handleUsernameExistException(UsernameExistException e) {
+        log.error("用户名唯一性校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION);
+    }
+
+    @ExceptionHandler(value = MobileExistException.class)
+    public MyResult<Map<String, String>> handleMobileExistException(MobileExistException e) {
+        log.error("手机号码唯一性校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.MOBILE_EXIST_EXCEPTION);
+    }
+
+    @ExceptionHandler(value = EmailExistException.class)
+    public MyResult<Map<String, String>> handleEmailExistException(EmailExistException e) {
+        log.error("邮箱唯一性校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.EMAIL_EXIST_EXCEPTION);
+    }
+
     @ExceptionHandler(value = AccessDeniedException.class)
     public MyResult<Map<String, String>> handleAccessException(AccessDeniedException e) {
         log.error("权限校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
+    }
+
+    @ExceptionHandler(value = RuntimeException.class)
+    public MyResult<Map<String, String>> handleRuntimeException(RuntimeException e) {
+        log.error("异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION);
     }
 
     @ExceptionHandler(value = Throwable.class)

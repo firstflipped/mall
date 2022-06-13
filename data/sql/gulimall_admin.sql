@@ -169,78 +169,80 @@ INSERT INTO `sys_role_permission` (`id`, `role_id`, `permission_id`) VALUES (5, 
 COMMIT;
 
 -- ----------------------------
--- Table structure for sys_third_account
--- ----------------------------
-DROP TABLE IF EXISTS `sys_third_account`;
-CREATE TABLE `sys_third_account` (
-  `id` bigint NOT NULL COMMENT '编号',
-  `userid` bigint DEFAULT NULL COMMENT '第三方登录id',
-  `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
-  `status` tinyint(1) DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
-  `is_del` tinyint(1) DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
-  `realname` varchar(100) DEFAULT NULL COMMENT '真实姓名',
-  `third_user_uuid` varchar(100) DEFAULT NULL COMMENT '第三方账号',
-  `third_userid` varchar(100) DEFAULT NULL COMMENT '第三方app用户账号',
-  `third_type` varchar(50) DEFAULT NULL COMMENT '登录来源',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `uniq_sys_third_account_third_type_third_user_id` (`third_type`,`third_userid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of sys_third_account
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
-CREATE TABLE `sys_user` (
-  `userid` varchar(32) NOT NULL COMMENT '主键id',
-  `username` varchar(100) DEFAULT NULL COMMENT '登录账号',
-  `real_name` varchar(100) DEFAULT NULL COMMENT '真实姓名',
-  `password` varchar(255) DEFAULT NULL COMMENT '密码',
-  `avatar` varchar(511) DEFAULT NULL COMMENT '头像',
-  `birthday` date DEFAULT NULL COMMENT '生日',
-  `gender` tinyint(1) DEFAULT NULL COMMENT '性别(0-默认保密,1-男,2-女)',
-  `email` varchar(45) DEFAULT NULL COMMENT '电子邮件',
-  `phone` varchar(45) DEFAULT NULL COMMENT '电话',
-  `status` tinyint(1) DEFAULT NULL COMMENT '状态(1-正常,2-冻结)',
-  `delete` tinyint(1) DEFAULT NULL COMMENT '删除状态(0-正常,1-已删除)',
-  `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`userid`),
-  UNIQUE KEY `uniq_su_email` (`email`),
-  UNIQUE KEY `uniq_su_username` (`username`),
-  UNIQUE KEY `uniq_su_phone` (`phone`),
-  KEY `idx_su_username` (`username`),
-  KEY `idx_su_status` (`status`),
-  KEY `idx_su_is_delete` (`delete`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+CREATE TABLE `sys_user`(
+                           `userid`      varchar(32) NOT NULL COMMENT '主键id',
+                           `username`    varchar(100) DEFAULT NULL COMMENT '登录账号',
+                           `real_name`   varchar(100) DEFAULT NULL COMMENT '真实姓名',
+                           `password`    varchar(255) DEFAULT NULL COMMENT '密码',
+                           `avatar`      varchar(511) DEFAULT NULL COMMENT '头像',
+                           `birthday`    date         DEFAULT NULL COMMENT '生日',
+                           `gender`      tinyint(1)   DEFAULT NULL COMMENT '性别(0-默认保密,1-男,2-女)',
+                           `email`       varchar(45)  DEFAULT NULL COMMENT '电子邮件',
+                           `mobile`      varchar(45)  DEFAULT NULL COMMENT '电话',
+                           `status`      tinyint(1)   DEFAULT NULL COMMENT '状态(1-正常,0-冻结)',
+                           `create_by`   varchar(32)  DEFAULT NULL COMMENT '创建人',
+                           `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+                           `update_by`   varchar(32)  DEFAULT NULL COMMENT '更新人',
+                           `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+                           PRIMARY KEY (`userid`),
+                           UNIQUE KEY `uniq_su_email` (`email`),
+                           UNIQUE KEY `uniq_su_username` (`username`),
+                           UNIQUE KEY `uniq_su_phone` (`mobile`),
+                           KEY `idx_su_username` (`username`),
+                           KEY `idx_su_status` (`status`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb3
+  ROW_FORMAT = DYNAMIC COMMENT ='用户表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES ('1', 'root', '超级管理员', '$2a$10$gFobhlfR21ZDCx/GBsA20uQPfSp5QgJs/jNEaALVzMUK5X7CAVrly', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31', '1998-08-20', 0, '0000000@163.com', '13312345678', 1, 0, '', '2022-02-15 14:20:17', NULL, '2022-04-21 14:11:10');
-INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES ('1463452828315029504', 'wangjie', '王杰', '$2a$10$pabNigivrJNadv7.CGus8.tfqnZ.jpWeYp/C2UoR2Y8.isnRHrykS', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp192244425.jpg&refer=http%3A%2F%2Fimg9.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647422947&t=56358da60f52c59b03eec3abc7dea6bf', '1998-08-30', 0, '18763096838@163.com', '18763096838', 1, 0, 'admin', '2021-11-24 18:21:59', NULL, NULL);
-INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES ('1493468819329519616', 'admin', '管理员', '$2a$10$KN7XTwFtpUwVgoVJrq2VZOthDHxfSnf0de5kVx7cwSi.Y/uPP8Ty.', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31', '1998-08-20', 0, '123456789@163.com', '13390908080', 1, 0, 'root', '2022-02-15 14:14:49', NULL, NULL);
-INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES ('1493469684618629120', 'zhangsan', '张三', '$2a$10$OAQQ3a6daUk8.cngekzUquQUO6DYCg9egyB2U3TqsMeXHqaGyaxHK', 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31', '1998-08-20', 0, '784217549@163.com', '13390907070', 1, 0, 'admin', '2022-02-15 14:18:15', NULL, NULL);
-INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES ('1493470641809133568', 'lisi', '李四', '$2a$10$.3ViS1pYsPZO5Pz6g83R0OTGEa6SmdEqlFZUisvCETvV5hIISn0/q', 'https://img0.baidu.com/it/u=4044314804,383808458&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', '1996-09-20', 0, '000123141@163.com', '13333335678', 1, 0, 'admin', '2022-02-15 14:22:03', NULL, NULL);
-INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`, `phone`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES ('1493471308288233472', 'wangwu', '王五', '$2a$10$ddYGFWXrGy5sCuqaO4qM7eVSqEagGbxAPfibx3QFCGToWswwe2AbW', 'https://img0.baidu.com/it/u=4044314804,383808458&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', '1996-09-20', 0, '9999999@qq.com', '13377777777', 1, 0, 'admin', '2022-02-15 14:24:42', NULL, NULL);
+INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`,
+                        `mobile`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES ('1', 'root', '超级管理员', '$2a$10$gFobhlfR21ZDCx/GBsA20uQPfSp5QgJs/jNEaALVzMUK5X7CAVrly',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31',
+        '1998-08-20', 0, '0000000@163.com', '13312345678', 1, 0, '', '2022-02-15 14:20:17', NULL,
+        '2022-04-21 14:11:10');
+INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`,
+                        `mobile`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES ('1463452828315029504', 'wangjie', '王杰', '$2a$10$pabNigivrJNadv7.CGus8.tfqnZ.jpWeYp/C2UoR2Y8.isnRHrykS',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg9.doubanio.com%2Fview%2Fgroup_topic%2Fl%2Fpublic%2Fp192244425.jpg&refer=http%3A%2F%2Fimg9.doubanio.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647422947&t=56358da60f52c59b03eec3abc7dea6bf',
+        '1998-08-30', 0, '18763096838@163.com', '18763096838', 1, 0, 'admin', '2021-11-24 18:21:59', NULL, NULL);
+INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`,
+                        `mobile`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES ('1493468819329519616', 'admin', '管理员', '$2a$10$KN7XTwFtpUwVgoVJrq2VZOthDHxfSnf0de5kVx7cwSi.Y/uPP8Ty.',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31',
+        '1998-08-20', 0, '123456789@163.com', '13390908080', 1, 0, 'root', '2022-02-15 14:14:49', NULL, NULL);
+INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`,
+                        `mobile`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES ('1493469684618629120', 'zhangsan', '张三', '$2a$10$OAQQ3a6daUk8.cngekzUquQUO6DYCg9egyB2U3TqsMeXHqaGyaxHK',
+        'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic%2F69%2F5f%2Fa7%2F695fa728c162c2cb073d7e0079dfdee5.jpeg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1647497570&t=ec87f37033839d93bfc8b10be8031e31',
+        '1998-08-20', 0, '784217549@163.com', '13390907070', 1, 0, 'admin', '2022-02-15 14:18:15', NULL, NULL);
+INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`,
+                        `mobile`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES ('1493470641809133568', 'lisi', '李四', '$2a$10$.3ViS1pYsPZO5Pz6g83R0OTGEa6SmdEqlFZUisvCETvV5hIISn0/q',
+        'https://img0.baidu.com/it/u=4044314804,383808458&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', '1996-09-20', 0,
+        '000123141@163.com', '13333335678', 1, 0, 'admin', '2022-02-15 14:22:03', NULL, NULL);
+INSERT INTO `sys_user` (`userid`, `username`, `real_name`, `password`, `avatar`, `birthday`, `gender`, `email`,
+                        `mobile`, `status`, `delete`, `create_by`, `create_time`, `update_by`, `update_time`)
+VALUES ('1493471308288233472', 'wangwu', '王五', '$2a$10$ddYGFWXrGy5sCuqaO4qM7eVSqEagGbxAPfibx3QFCGToWswwe2AbW',
+        'https://img0.baidu.com/it/u=4044314804,383808458&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500', '1996-09-20', 0,
+        '9999999@qq.com', '13377777777', 1, 0, 'admin', '2022-02-15 14:24:42', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
-CREATE TABLE `sys_user_role` (
-  `id` bigint NOT NULL COMMENT '主键id',
-  `userid` bigint DEFAULT NULL COMMENT '用户id',
-  `role_id` bigint DEFAULT NULL COMMENT '角色id',
+CREATE TABLE `sys_user_role`
+(
+    `id`      bigint NOT NULL COMMENT '主键id',
+    `userid`  bigint DEFAULT NULL COMMENT '用户id',
+    `role_id` bigint DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idx_sur_user_id` (`userid`) USING BTREE,
   KEY `idx_sur_role_id` (`role_id`) USING BTREE,

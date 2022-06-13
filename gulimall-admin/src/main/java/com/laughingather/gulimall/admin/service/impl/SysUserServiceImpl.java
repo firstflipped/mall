@@ -1,11 +1,16 @@
 package com.laughingather.gulimall.admin.service.impl;
 
 import cn.hutool.core.lang.Snowflake;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.admin.entity.to.AdminTO;
+import com.laughingather.gulimall.admin.exception.EmailExistException;
+import com.laughingather.gulimall.admin.exception.MobileExistException;
+import com.laughingather.gulimall.admin.exception.UsernameExistException;
 import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
 import com.laughingather.gulimall.admin.service.SysUserService;
@@ -37,6 +42,11 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void saveUser(SysUserEntity sysUserEntity) {
+        // 检验用户名、手机号、邮箱唯一性
+        checkUsernameUnique(sysUserEntity.getUsername());
+        checkMobileUnique(sysUserEntity.getMobile());
+        checkEmailUnique(sysUserEntity.getEmail());
+
         sysUserEntity.setUserid(snowflake.nextId());
         sysUserEntity.setPassword(BCryptPasswordEncoderUtil.encodingPassword(sysUserEntity.getPassword()));
         sysUserEntity.setCreateTime(LocalDateTime.now());
@@ -45,14 +55,14 @@ public class SysUserServiceImpl implements SysUserService {
 
 
     @Override
-    public void deleteBatchUserByIds(List<Long> useridList) {
-        sysUserMapper.deleteBatchIds(useridList);
-    }
-
-    @Override
     public void updateUserById(SysUserEntity sysUserEntity) {
         sysUserEntity.setUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(sysUserEntity);
+    }
+
+    @Override
+    public void updateUserStatusById(UserStatusParam userStatusParam) {
+        sysUserMapper.updateUserStatusById(userStatusParam.getUserid(), userStatusParam.getStatus());
     }
 
     @Override
@@ -115,6 +125,42 @@ public class SysUserServiceImpl implements SysUserService {
         AdminTO adminTO = new AdminTO();
         BeanUtils.copyProperties(user, adminTO);
         return adminTO;
+    }
+
+    /**
+     * 检验邮箱唯一性
+     *
+     * @param email 邮箱
+     */
+    private void checkEmailUnique(String email) {
+        Long count = sysUserMapper.selectCount(new QueryWrapper<SysUserEntity>().lambda().eq(SysUserEntity::getEmail, email));
+        if (count > 0) {
+            throw new EmailExistException();
+        }
+    }
+
+    /**
+     * 校验手机号码唯一性
+     *
+     * @param mobile 手机号码
+     */
+    private void checkMobileUnique(String mobile) {
+        Long count = sysUserMapper.selectCount(new QueryWrapper<SysUserEntity>().lambda().eq(SysUserEntity::getMobile, mobile));
+        if (count > 0) {
+            throw new MobileExistException();
+        }
+    }
+
+    /**
+     * 校验用户名唯一性
+     *
+     * @param username 用户名
+     */
+    private void checkUsernameUnique(String username) {
+        Long count = sysUserMapper.selectCount(new QueryWrapper<SysUserEntity>().lambda().eq(SysUserEntity::getUsername, username));
+        if (count > 0) {
+            throw new UsernameExistException();
+        }
     }
 
 }

@@ -2,13 +2,17 @@ package com.laughingather.gulimall.admin.controller;
 
 import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
+import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.UpdateGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,27 +37,28 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('admin:user:add')")
     @ApiOperation(value = "保存用户")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存用户")
-    public MyResult<Void> saveUser(@RequestBody SysUserEntity sysUserEntity) {
+    public MyResult<Void> saveUser(@Validated(value = AddGroup.class) @RequestBody SysUserEntity sysUserEntity) {
         sysUserService.saveUser(sysUserEntity);
         return MyResult.success();
     }
 
 
-    @DeleteMapping
-    @PreAuthorize("hasAuthority('admin:user:delete')")
-    @ApiOperation(value = "批量删除用户")
-    @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除用户")
-    public MyResult<Void> deleteBatchUserByIds(@RequestBody List<Long> useridList) {
-        sysUserService.deleteBatchUserByIds(useridList);
-        return MyResult.success();
-    }
-
     @PutMapping
     @PreAuthorize("hasAuthority('admin:user:update')")
     @ApiOperation(value = "更新用户")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户")
-    public MyResult<Void> updateUserById(@RequestBody SysUserEntity sysUserEntity) {
+    public MyResult<Void> updateUserById(@Validated(value = UpdateGroup.class) @RequestBody SysUserEntity sysUserEntity) {
         sysUserService.updateUserById(sysUserEntity);
+        return MyResult.success();
+    }
+
+
+    @PutMapping("/change/status")
+    @PreAuthorize("hasAuthority('admin:user:update')")
+    @ApiOperation(value = "更新用户状态")
+    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户状态")
+    public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserStatusParam userStatusParam) {
+        sysUserService.updateUserStatusById(userStatusParam);
         return MyResult.success();
     }
 

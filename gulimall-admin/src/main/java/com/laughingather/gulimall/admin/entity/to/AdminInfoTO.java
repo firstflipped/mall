@@ -53,7 +53,7 @@ public class AdminInfoTO {
     /**
      * 电话
      */
-    private String phone;
+    private String mobile;
 
     /**
      * 状态(1：正常  2：冻结 ）

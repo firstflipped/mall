@@ -1,10 +1,11 @@
 package com.laughingather.gulimall.admin.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -39,12 +42,15 @@ public class SysUserEntity {
     @Id
     @TableId
     @ApiModelProperty(value = "用户id")
+    @Null(message = "用户新增时用户id必须为空", groups = AddGroup.class)
+    @NotNull(message = "用户更新时用户id不能为空", groups = UpdateGroup.class)
     private Long userid;
 
     /**
      * 登录账号
      */
     @ApiModelProperty(value = "用户名")
+    @NotNull(message = "用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String username;
 
     /**
@@ -58,6 +64,7 @@ public class SysUserEntity {
      */
     @ApiModelProperty(value = "密码")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull(message = "密码不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String password;
 
 
@@ -85,26 +92,21 @@ public class SysUserEntity {
      * 电子邮件
      */
     @ApiModelProperty(value = "邮箱")
+    @NotNull(message = "邮箱不能为空", groups = AddGroup.class)
     private String email;
 
     /**
-     * 电话
+     * 手机号码
      */
-    @ApiModelProperty(value = "电话")
-    private String phone;
+    @ApiModelProperty(value = "手机号码")
+    @NotNull(message = "手机号码不能为空", groups = AddGroup.class)
+    private String mobile;
 
     /**
-     * 状态(1：正常  2：冻结 ）
+     * 状态(1：正常  0：冻结 ）
      */
     @ApiModelProperty(value = "状态")
     private Integer status;
-
-    /**
-     * 删除状态（0，正常，1已删除）
-     */
-    @ApiModelProperty(value = "是否删除")
-    @TableField(value = "`delete`")
-    private Integer delete;
 
     /**
      * 创建人

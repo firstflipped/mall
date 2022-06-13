@@ -27,7 +27,7 @@ public class AdminTO {
     /**
      * 电话
      */
-    private String phone;
+    private String mobile;
 
 
 }

@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.service;
 
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.admin.entity.to.AdminTO;
 import com.laughingather.gulimall.common.api.MyPage;
@@ -19,16 +20,9 @@ public interface SysUserService {
     /**
      * 添加用户
      *
-     * @param sysUser
+     * @param sysUserEntity
      */
-    void saveUser(SysUserEntity sysUser);
-
-    /**
-     * 批量删除用户
-     *
-     * @param useridList
-     */
-    void deleteBatchUserByIds(List<Long> useridList);
+    void saveUser(SysUserEntity sysUserEntity);
 
     /**
      * 更新用户数据
@@ -36,6 +30,13 @@ public interface SysUserService {
      * @param sysUserEntity
      */
     void updateUserById(SysUserEntity sysUserEntity);
+
+    /**
+     * 更新用户状态
+     *
+     * @param userStatusParam
+     */
+    void updateUserStatusById(UserStatusParam userStatusParam);
 
     /**
      * 获取用户详情
@@ -84,5 +85,7 @@ public interface SysUserService {
      * @return 用户信息
      */
     AdminTO loginByMobile(String mobile);
+
+
 }
 
