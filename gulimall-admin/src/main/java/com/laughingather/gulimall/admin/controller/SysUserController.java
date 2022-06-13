@@ -2,6 +2,7 @@ package com.laughingather.gulimall.admin.controller;
 
 import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
 import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyPage;
@@ -59,6 +60,15 @@ public class SysUserController {
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户状态")
     public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserStatusParam userStatusParam) {
         sysUserService.updateUserStatusById(userStatusParam);
+        return MyResult.success();
+    }
+
+    @PutMapping("/change/password")
+    @PreAuthorize("hasAuthority('admin:user:update')")
+    @ApiOperation(value = "更新用户密码")
+    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户密码")
+    public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserPasswordParam userPasswordParam) {
+        sysUserService.updateUserPasswordById(userPasswordParam);
         return MyResult.success();
     }
 

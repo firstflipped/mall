@@ -58,6 +58,16 @@ public enum ErrorCodeEnum {
     ACCOUNT_PASSWORD_INVALID_EXCEPTION(15003, "账号或密码错误"),
 
     /**
+     * 原密码校验失败
+     */
+    OLD_PASSWORD_CHECK_EXCEPTION(15004, "原密码校验失败"),
+
+    /**
+     * 新密码两次输入不一致
+     */
+    NEW_PASSWORD_MATCH_EXCEPTION(15005, "新密码两次输入不一致"),
+
+    /**
      * 社交帐号登录异常
      */
     OAUTH_LOGIN_EXCEPTION(15004, "社交帐号登录异常"),

@@ -8,4 +8,10 @@
         SET status = #{status}
         WHERE userid = #{userid}
     </update>
+
+    <update id="updateUserPasswordById">
+        UPDATE sys_user
+        SET password = #{password}
+        WHERE userid = #{userid}
+    </update>
 </mapper>

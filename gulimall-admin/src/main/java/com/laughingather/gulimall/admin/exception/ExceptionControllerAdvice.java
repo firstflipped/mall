@@ -49,6 +49,12 @@ public class ExceptionControllerAdvice {
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
 
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public MyResult<Map<String, String>> handleAccessException(AccessDeniedException e) {
+        log.error("权限校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
+    }
+
     @ExceptionHandler(value = UsernameExistException.class)
     public MyResult<Map<String, String>> handleUsernameExistException(UsernameExistException e) {
         log.error("用户名唯一性校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
@@ -67,10 +73,16 @@ public class ExceptionControllerAdvice {
         return MyResult.failed(ErrorCodeEnum.EMAIL_EXIST_EXCEPTION);
     }
 
-    @ExceptionHandler(value = AccessDeniedException.class)
-    public MyResult<Map<String, String>> handleAccessException(AccessDeniedException e) {
-        log.error("权限校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
-        return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
+    @ExceptionHandler(value = OldPasswordCheckException.class)
+    public MyResult<Map<String, String>> handleOldPasswordCheckException(OldPasswordCheckException e) {
+        log.error("邮箱唯一性校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.OLD_PASSWORD_CHECK_EXCEPTION);
+    }
+
+    @ExceptionHandler(value = NewPasswordMatchException.class)
+    public MyResult<Map<String, String>> handleNewPasswordMatchException(NewPasswordMatchException e) {
+        log.error("邮箱唯一性校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
+        return MyResult.failed(ErrorCodeEnum.NEW_PASSWORD_MATCH_EXCEPTION);
     }
 
     @ExceptionHandler(value = RuntimeException.class)

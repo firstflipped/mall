@@ -17,8 +17,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,8 +46,6 @@ import java.util.concurrent.TimeUnit;
 @Order(1)
 @Component
 public class PlatformLogAspect {
-
-    private final static Logger logger = LoggerFactory.getLogger(PlatformLogAspect.class);
 
     @Resource
     private PlatformLogService platformLogService;
@@ -131,7 +127,6 @@ public class PlatformLogAspect {
         platformLog.setSpendTime(time);
         platformLog.setOperationTime(LocalDateTime.now());
 
-        // logger.info(platformLog.toString());
         // 把日志放进消息队列
         // kafkaProducerService.sendMessage("user-logs", JsonUtil.obj2String(platformLog));
 

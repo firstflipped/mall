@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.service;
 
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
 import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.admin.entity.to.AdminTO;
@@ -20,23 +21,30 @@ public interface SysUserService {
     /**
      * 添加用户
      *
-     * @param sysUserEntity
+     * @param sysUserEntity 用户实体
      */
     void saveUser(SysUserEntity sysUserEntity);
 
     /**
      * 更新用户数据
      *
-     * @param sysUserEntity
+     * @param sysUserEntity 用户实体
      */
     void updateUserById(SysUserEntity sysUserEntity);
 
     /**
      * 更新用户状态
      *
-     * @param userStatusParam
+     * @param userStatusParam 用户状态实体
      */
     void updateUserStatusById(UserStatusParam userStatusParam);
+
+    /**
+     * 更新用户密码
+     *
+     * @param userPasswordParam 用户密码实体
+     */
+    void updateUserPasswordById(UserPasswordParam userPasswordParam);
 
     /**
      * 获取用户详情
@@ -49,7 +57,7 @@ public interface SysUserService {
     /**
      * 获取用户详情
      *
-     * @param username
+     * @param username 用户名
      * @return 用户信息
      */
     SysUserEntity getUserByUsername(String username);
@@ -57,7 +65,7 @@ public interface SysUserService {
     /**
      * 查询用户集合
      *
-     * @return
+     * @return 用户列表
      */
     List<SysUserEntity> listUsers();
 
@@ -66,7 +74,7 @@ public interface SysUserService {
      *
      * @param pageNum  页码
      * @param pageSize 每页显示条数
-     * @return
+     * @return 用户列表
      */
     MyPage<SysUserEntity> listUserWithPage(Integer pageNum, Integer pageSize);
 
@@ -85,7 +93,5 @@ public interface SysUserService {
      * @return 用户信息
      */
     AdminTO loginByMobile(String mobile);
-
-
 }
 

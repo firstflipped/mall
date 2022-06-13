@@ -1,16 +1,16 @@
 package com.laughingather.gulimall.admin.service.impl;
 
 import cn.hutool.core.lang.Snowflake;
+import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
 import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
 import com.laughingather.gulimall.admin.entity.to.AdminTO;
-import com.laughingather.gulimall.admin.exception.EmailExistException;
-import com.laughingather.gulimall.admin.exception.MobileExistException;
-import com.laughingather.gulimall.admin.exception.UsernameExistException;
+import com.laughingather.gulimall.admin.exception.*;
 import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
 import com.laughingather.gulimall.admin.service.SysUserService;
@@ -43,9 +43,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void saveUser(SysUserEntity sysUserEntity) {
         // 检验用户名、手机号、邮箱唯一性
-        checkUsernameUnique(sysUserEntity.getUsername());
-        checkMobileUnique(sysUserEntity.getMobile());
-        checkEmailUnique(sysUserEntity.getEmail());
+        check(sysUserEntity);
 
         sysUserEntity.setUserid(snowflake.nextId());
         sysUserEntity.setPassword(BCryptPasswordEncoderUtil.encodingPassword(sysUserEntity.getPassword()));
@@ -53,9 +51,11 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserMapper.insert(sysUserEntity);
     }
 
-
     @Override
     public void updateUserById(SysUserEntity sysUserEntity) {
+        // 检验用户名、手机号、邮箱唯一性
+        check(sysUserEntity);
+
         sysUserEntity.setUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(sysUserEntity);
     }
@@ -63,6 +63,24 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updateUserStatusById(UserStatusParam userStatusParam) {
         sysUserMapper.updateUserStatusById(userStatusParam.getUserid(), userStatusParam.getStatus());
+    }
+
+    @Override
+    public void updateUserPasswordById(UserPasswordParam userPasswordParam) {
+        // 校验原密码是否正确
+        SysUserEntity user = sysUserRepository.getById(userPasswordParam.getUserid());
+        if (!BCryptPasswordEncoderUtil.matchesPassword(userPasswordParam.getOldPassword(), user.getPassword())) {
+            throw new OldPasswordCheckException();
+        }
+
+        // 校验两次新密码一致性
+        if (!StringUtils.equals(userPasswordParam.getNewPassword(), userPasswordParam.getNewMatchPassword())) {
+            throw new NewPasswordMatchException();
+        }
+
+        // 加密传入密码
+        String password = BCryptPasswordEncoderUtil.encodingPassword(userPasswordParam.getNewPassword());
+        sysUserMapper.updateUserPasswordById(userPasswordParam.getUserid(), password);
     }
 
     @Override
@@ -125,6 +143,18 @@ public class SysUserServiceImpl implements SysUserService {
         AdminTO adminTO = new AdminTO();
         BeanUtils.copyProperties(user, adminTO);
         return adminTO;
+    }
+
+    /**
+     * 校验用户信息
+     *
+     * @param sysUserEntity 用户信息
+     */
+    private void check(SysUserEntity sysUserEntity) {
+        // 检验用户名、手机号、邮箱唯一性
+        checkUsernameUnique(sysUserEntity.getUsername());
+        checkMobileUnique(sysUserEntity.getMobile());
+        checkEmailUnique(sysUserEntity.getEmail());
     }
 
     /**

@@ -54,8 +54,8 @@ public class AdminOpenApi {
     /**
      * 获取用户信息接口
      *
-     * @param userid
-     * @return
+     * @param userid 用户id
+     * @return 用户信息
      */
     @GetMapping("/userinfo")
     MyResult<AdminInfoTO> getUserinfo(@RequestParam("userid") Long userid) {

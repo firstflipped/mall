@@ -32,8 +32,8 @@ public class SysUserRoleController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:user-role:add')")
-    @ApiOperation(value = "保存角色")
-    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色")
+    @ApiOperation(value = "保存用户角色信息")
+    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存用户角色信息")
     public MyResult<Void> saveUserRoles(@Valid @RequestBody UserRolesParam userRolesParam) {
         sysUserRoleService.saveUserRoles(userRolesParam);
         return MyResult.success();
@@ -43,7 +43,7 @@ public class SysUserRoleController {
     @GetMapping("/{uid}/roles")
     @PreAuthorize("hasAuthority('admin:user-role:view')")
     @ApiOperation(value = "获取用户对应角色列表")
-    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色")
+    @PlatformLogAnnotation(value = "获取用户对应角色列表")
     public MyResult<List<SysRoleEntity>> listRolesBuUserid(@PathVariable("uid") Long userid) {
         List<SysRoleEntity> roles = sysUserRoleService.listRolesByUserid(userid);
         return MyResult.success(roles);
