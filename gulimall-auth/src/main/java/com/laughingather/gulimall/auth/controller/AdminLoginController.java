@@ -64,7 +64,7 @@ public class AdminLoginController {
     @PostMapping("/login/mobile")
     public MyResult<String> loginByMobile(@Valid @RequestBody AdminLoginByMobileTO adminLoginByMobileTO) {
         String token = adminLoginService.loginByMobile(adminLoginByMobileTO);
-        return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
+        return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.MOBILE_LOGIN_EXCEPTION);
     }
 
 

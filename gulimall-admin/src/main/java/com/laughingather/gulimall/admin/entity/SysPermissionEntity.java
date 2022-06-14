@@ -8,7 +8,9 @@ import com.laughingather.gulimall.common.valid.UpdateGroup;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
@@ -26,20 +28,21 @@ public class SysPermissionEntity {
     /**
      * 主键id
      */
-    @Null(groups = AddGroup.class, message = "新增时，权限id必须为空")
-    @NotBlank(groups = UpdateGroup.class, message = "更新时，权限id不能为空")
+    @Id
+    @Null(message = "新增时，权限id必须为空", groups = AddGroup.class)
+    @NotBlank(message = "更新时，权限id不能为空", groups = UpdateGroup.class)
     private Long permissionId;
 
     /**
      * 权限名称
      */
-    @NotBlank(message = "权限标题不能为空")
+    @NotBlank(message = "权限名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String permissionName;
 
     /**
      * 权限值
      */
-    @NotBlank(message = "权限值不能为空")
+    @NotBlank(message = "权限值不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String permissionValue;
 
     /**
@@ -55,6 +58,7 @@ public class SysPermissionEntity {
     /**
      * 父id
      */
+    @NotNull(message = "权限父id不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private Long parentId;
 
     /**

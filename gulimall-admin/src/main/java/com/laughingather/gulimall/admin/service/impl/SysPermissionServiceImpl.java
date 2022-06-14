@@ -8,6 +8,7 @@ import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.mapper.SysPermissionMapper;
 import com.laughingather.gulimall.admin.service.SysPermissionService;
+import com.laughingather.gulimall.admin.util.SecurityUtil;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.constant.AdminConstants;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     public void savePermission(SysPermissionEntity sysPermissionEntity) {
         // 填入默认值
         sysPermissionEntity.setPermissionId(snowflake.nextId());
+        sysPermissionEntity.setCreateBy(SecurityUtil.getUsername());
         sysPermissionEntity.setCreateTime(LocalDateTime.now());
 
         sysPermissionMapper.insert(sysPermissionEntity);
@@ -56,6 +58,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 
     @Override
     public void updatePermission(SysPermissionEntity sysPermissionEntity) {
+        sysPermissionEntity.setUpdateBy(SecurityUtil.getUsername());
         sysPermissionEntity.setUpdateTime(LocalDateTime.now());
 
         sysPermissionMapper.updateById(sysPermissionEntity);

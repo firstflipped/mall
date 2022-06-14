@@ -34,7 +34,7 @@ public class SysRolePermissionController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role-permission:add')")
     @ApiOperation(value = "保存角色对应权限列表")
-    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色对应权限列表")
+    @PlatformLogAnnotation(value = "保存角色对应权限列表")
     public MyResult<Void> saveRolePermissions(@Valid @RequestBody RolePermissionParam rolePermissionParam) {
         sysRolePermissionService.saveRolePermissions(rolePermissionParam);
         return MyResult.success();

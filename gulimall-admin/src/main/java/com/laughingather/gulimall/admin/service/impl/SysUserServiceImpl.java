@@ -14,6 +14,7 @@ import com.laughingather.gulimall.admin.exception.*;
 import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
 import com.laughingather.gulimall.admin.service.SysUserService;
+import com.laughingather.gulimall.admin.util.SecurityUtil;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.util.BCryptPasswordEncoderUtil;
 import org.springframework.beans.BeanUtils;
@@ -47,6 +48,7 @@ public class SysUserServiceImpl implements SysUserService {
 
         sysUserEntity.setUserid(snowflake.nextId());
         sysUserEntity.setPassword(BCryptPasswordEncoderUtil.encodingPassword(sysUserEntity.getPassword()));
+        sysUserEntity.setCreateBy(SecurityUtil.getUsername());
         sysUserEntity.setCreateTime(LocalDateTime.now());
         sysUserMapper.insert(sysUserEntity);
     }
@@ -56,6 +58,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 检验用户名、手机号、邮箱唯一性
         check(sysUserEntity);
 
+        sysUserEntity.setUpdateBy(SecurityUtil.getUsername());
         sysUserEntity.setUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(sysUserEntity);
     }

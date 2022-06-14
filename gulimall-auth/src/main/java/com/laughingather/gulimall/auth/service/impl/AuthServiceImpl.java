@@ -4,10 +4,7 @@ import com.laughingather.gulimall.auth.service.AuthService;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import com.laughingather.gulimall.common.util.TokenProvider;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * 认证逻辑实现
@@ -19,8 +16,6 @@ import javax.annotation.Resource;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Resource
-    private RedisTemplate<String, Object> redisTemplate;
 
     @Override
     public String generateToken(JwtPayLoad jwtPayLoad) {

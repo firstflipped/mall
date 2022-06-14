@@ -6,9 +6,12 @@ import com.laughingather.gulimall.admin.service.SysRoleService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
+import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.UpdateGroup;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,7 +36,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('admin:role:add')")
     @ApiOperation(value = "保存角色")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色")
-    public MyResult<Void> saveRole(@RequestBody SysRoleEntity sysRoleEntity) {
+    public MyResult<Void> saveRole(@Validated(AddGroup.class) @RequestBody SysRoleEntity sysRoleEntity) {
         sysRoleService.saveRole(sysRoleEntity);
         return MyResult.success();
     }
@@ -60,7 +63,7 @@ public class SysRoleController {
     @PreAuthorize("hasAuthority('admin:role:update')")
     @ApiOperation(value = "更新角色")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新角色")
-    public MyResult<Void> updateRoleById(@RequestBody SysRoleEntity sysRoleEntity) {
+    public MyResult<Void> updateRoleById(@Validated(UpdateGroup.class) @RequestBody SysRoleEntity sysRoleEntity) {
         sysRoleService.updateRoleById(sysRoleEntity);
         return MyResult.success();
     }

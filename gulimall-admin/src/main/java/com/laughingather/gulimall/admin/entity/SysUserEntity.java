@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.laughingather.gulimall.common.valid.AddGroup;
+import com.laughingather.gulimall.common.valid.ListValue;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -96,6 +97,7 @@ public class SysUserEntity {
      * 状态(1：正常  0：冻结 ）
      */
     @NotNull(message = "用户状态不能为空", groups = AddGroup.class)
+    @ListValue(values = {1, 0}, message = "传入状态值不符合要求", groups = AddGroup.class)
     private Integer status;
 
     /**

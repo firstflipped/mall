@@ -37,7 +37,7 @@ public class AdminInfoTO {
      * 生日
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     /**

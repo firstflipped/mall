@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.admin.mapper.SysRoleMapper;
 import com.laughingather.gulimall.admin.service.SysRoleService;
+import com.laughingather.gulimall.admin.util.SecurityUtil;
 import com.laughingather.gulimall.common.api.MyPage;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
     @Override
     public void saveRole(SysRoleEntity sysRoleEntity) {
         sysRoleEntity.setRoleId(snowflake.nextId());
+        sysRoleEntity.setCreateBy(SecurityUtil.getUsername());
         sysRoleEntity.setCreateTime(LocalDateTime.now());
 
         sysRoleMapper.insert(sysRoleEntity);
@@ -49,6 +51,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
 
     @Override
     public void updateRoleById(SysRoleEntity sysRoleEntity) {
+        sysRoleEntity.setUpdateBy(SecurityUtil.getUsername());
+        sysRoleEntity.setUpdateTime(LocalDateTime.now());
+
         sysRoleMapper.updateById(sysRoleEntity);
     }
 

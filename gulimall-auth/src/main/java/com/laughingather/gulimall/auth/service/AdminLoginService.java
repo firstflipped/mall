@@ -25,8 +25,8 @@ public interface AdminLoginService {
     /**
      * 管理员手机号验证码登录
      *
-     * @param adminLoginByMobileTO
-     * @return
+     * @param adminLoginByMobileTO 管理员手机号登录参数
+     * @return token
      */
     String loginByMobile(AdminLoginByMobileTO adminLoginByMobileTO);
 
@@ -34,7 +34,7 @@ public interface AdminLoginService {
      * 获取用户信息
      *
      * @param token token
-     * @return 用户展示视图类
+     * @return 用户展示视图实体
      */
     AdminVO getUserinfo(String token);
 
