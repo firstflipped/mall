@@ -20,7 +20,7 @@ public class MyThreadConfig {
 
     @Bean
     public ThreadPoolExecutor threadPoolExecutor(ThreadPoolConfigProperties threadPoolConfigProperties) {
-        /**
+        /*
          * corePoolSize: 核心线程池数量
          * maximumPoolSize: 最大线程池数量
          * keepAliveTime: 空闲线程关闭时间

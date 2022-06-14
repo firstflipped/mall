@@ -5,7 +5,6 @@ import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,34 +17,33 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-product")
-@RequestMapping("/gulimall-product/openapi/product")
 public interface ProductFeignService {
 
     /**
      * 调用远程接口获取商品价格
      *
-     * @param skuId
-     * @return
+     * @param skuId 商品id
+     * @return 商品价格
      */
-    @GetMapping("/{sid}/price")
+    @GetMapping("/gulimall-product/openapi/product/{sid}/price")
     MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sid") Long skuId);
 
     /**
      * 调用远程接口获取商品详情
      *
-     * @param skuId
-     * @return
+     * @param skuId 商品id
+     * @return 商品信息
      */
-    @GetMapping("/{sid}/info")
+    @GetMapping("/gulimall-product/openapi/product/{sid}/info")
     MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
 
     /**
      * 调用远程端口获取销售属性列表
      *
-     * @param skuId
-     * @return
+     * @param skuId 商品id
+     * @return 销售属性列表
      */
-    @GetMapping("/sku-sale-attr-value/list/{sid}")
+    @GetMapping("/gulimall-product/openapi/product/sku-sale-attr-value/list/{sid}")
     MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("sid") Long skuId);
 
 }

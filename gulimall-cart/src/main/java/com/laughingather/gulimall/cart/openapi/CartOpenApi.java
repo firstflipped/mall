@@ -29,7 +29,7 @@ public class CartOpenApi {
      *
      * @return
      */
-    @GetMapping("/current-user-cart-items")
+    @GetMapping("/current-user/cart-items")
     MyResult<List<CartItemVO>> getCurrentUserCartItems() {
         List<CartItemVO> cartItemVOList = cartService.getCurrentUserCartItems();
         return MyResult.success(cartItemVOList);
