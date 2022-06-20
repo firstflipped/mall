@@ -24,7 +24,7 @@ public interface CartFeignService {
      *
      * @return 用户车购物项列表
      */
-    @GetMapping("/current-user-cart-items")
+    @GetMapping("/current-user/cart-items")
     MyResult<List<OrderItemTO>> getCurrentUserCartItems();
 
 }

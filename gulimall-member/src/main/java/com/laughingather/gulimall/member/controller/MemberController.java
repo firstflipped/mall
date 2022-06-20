@@ -7,10 +7,7 @@ import com.laughingather.gulimall.member.entity.query.MemberQuery;
 import com.laughingather.gulimall.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -35,6 +32,14 @@ public class MemberController {
     public MyResult<MyPage<MemberEntity>> listMembersWithPage(@ModelAttribute MemberQuery memberQuery) {
         MyPage<MemberEntity> memberPage = memberService.listMembersWithPage(memberQuery);
         return MyResult.success(memberPage);
+    }
+
+
+    @GetMapping("/{mid}")
+    @ApiOperation(value = "查询会员详情")
+    public MyResult<MemberEntity> getMember(@PathVariable(value = "mid") Long memberId) {
+        MemberEntity member = memberService.getById(memberId);
+        return MyResult.success(member);
     }
 
 
