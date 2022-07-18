@@ -95,6 +95,7 @@ public class PurchaseController {
     }
 
     @PutMapping("/done")
+    @ApiOperation(value = "关闭采购单")
     public MyResult<Void> donePurchase(@RequestBody DonePurchaseParam donePurchaseParam) {
         purchaseService.donePurchase(donePurchaseParam);
         return MyResult.success();

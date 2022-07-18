@@ -21,4 +21,5 @@ public class HomeFigureController {
     @Resource
     private HomeFigureService homeFigureService;
 
+
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-@Document(indexName = "gulimall_product", replicas = 0)
+@Document(indexName = "gulimall_product")
 public class EsSku {
 
     @Id

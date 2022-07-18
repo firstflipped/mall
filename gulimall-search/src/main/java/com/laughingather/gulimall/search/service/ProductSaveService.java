@@ -18,6 +18,8 @@ public interface ProductSaveService {
      * 商品上架
      *
      * @param esSkus 商品集合
+     * @return 是否上架成功
+     * @throws IOException
      */
     boolean productUp(List<EsSku> esSkus) throws IOException;
 }
