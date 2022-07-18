@@ -4,7 +4,9 @@ spring:
     nacos:
       discovery:
         server-addr: http://localhost:8848
+        namespace: gulimall
       config:
         server-addr: http://localhost:8848
+        namespace: gulimall
         file-extension: yaml
         group: GULIMALL-THIRD-PARTY

@@ -19,8 +19,8 @@ spring:
       seata:
         tx-service-group: gulimall-coupon-fescar-service-group
 
-#mybatis
+# mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  #实体扫描，多个package用逗号或者分号分隔
+  # 实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.laughingather.gulimall.coupon.entity
