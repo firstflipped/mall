@@ -127,7 +127,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public AdminTO loginByMobile(String mobile) {
-        SysUserEntity user = sysUserRepository.getByPhoneEquals(mobile);
+        SysUserEntity user = sysUserRepository.getByMobileEquals(mobile);
         if (user == null) {
             return null;
         }

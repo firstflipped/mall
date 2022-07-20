@@ -1,6 +1,8 @@
 package com.laughingather.gulimall.admin.entity;
 
 import com.laughingather.gulimall.common.constant.AdminConstants;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,22 +22,19 @@ import java.util.stream.Collectors;
  * @since 2022-04-19 10:10:00
  */
 @Slf4j
+@NoArgsConstructor
+@AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
     /**
      * 用户信息
      */
-    private final SysUserEntity user;
+    private SysUserEntity user;
 
     /**
      * 菜单列表
      */
-    private final List<SysPermissionEntity> permissions;
-
-    public CustomUserDetails(SysUserEntity user, List<SysPermissionEntity> permissions) {
-        this.user = user;
-        this.permissions = permissions;
-    }
+    private List<SysPermissionEntity> permissions;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
