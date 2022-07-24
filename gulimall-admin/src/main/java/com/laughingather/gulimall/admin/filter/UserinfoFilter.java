@@ -30,21 +30,21 @@ public class UserinfoFilter extends OncePerRequestFilter {
     @Resource
     private CustomUserDetailsService customUserDetailsService;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String username = request.getHeader(AuthConstants.USERNAME);
+
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+
         if (StringUtils.isNotBlank(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("request username:{}", username);
 
-            // 获取用户信息，并将用户信息存储到安全上下文中
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-            if (userDetails != null) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
 
+            // 获取用户信息，并将用户信息存储到安全上下文中
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         chain.doFilter(request, response);
     }
