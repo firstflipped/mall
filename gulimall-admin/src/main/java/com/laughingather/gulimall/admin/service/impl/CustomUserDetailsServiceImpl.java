@@ -39,7 +39,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO: 加入redis
+        // TODO: 加入redis缓存登陆用户信息
         String customUserDetailsJson = redisTemplate.opsForValue().get(username);
         if (StringUtils.isNotBlank(customUserDetailsJson)) {
             return JsonUtil.string2Obj(customUserDetailsJson, CustomUserDetails.class);

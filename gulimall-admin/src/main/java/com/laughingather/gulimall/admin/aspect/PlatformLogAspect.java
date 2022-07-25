@@ -180,7 +180,7 @@ public class PlatformLogAspect {
 
 
     /**
-     * TODO：此处需要优化
+     * TODO：此处需要优化，需要应对不同的参数类型
      * <p>
      * 组装请求参数
      *

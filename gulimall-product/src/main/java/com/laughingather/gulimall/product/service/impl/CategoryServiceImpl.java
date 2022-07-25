@@ -97,7 +97,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
 
     /**
-     * TODO：产生堆外内存溢出：OutOfDirectMemoryError
+     * ERROR：产生堆外内存溢出：OutOfDirectMemoryError
      * springboot2.0以后使用lettuce作为操作redis的客户端。它使用netty进行网络通信
      * lettuce的bug导致netty堆外内存溢出
      * <p>

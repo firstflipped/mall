@@ -54,13 +54,15 @@ public class SecKillSkuScheduled {
      * <p>
      * 秒杀时间结束的
      * <p>
-     * TODO:秒杀时间结束的商品从缓存中清理
+     *
      */
     @Async
     @Scheduled(cron = "*/10 * * * * ?")
     public void shelvesSecKillSku() {
-        log.info("下架秒杀产品");
 
+        // TODO:秒杀时间结束的商品从缓存中清理
+
+        log.info("下架秒杀产品");
     }
 
 
