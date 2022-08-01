@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.entity;
 
 import com.laughingather.gulimall.common.constant.AdminConstants;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
  * @since 2022-04-19 10:10:00
  */
 @Slf4j
+@Setter
 public class CustomUserDetails implements UserDetails {
 
     /**

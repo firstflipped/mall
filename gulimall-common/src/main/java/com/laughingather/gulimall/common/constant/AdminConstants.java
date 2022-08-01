@@ -21,5 +21,13 @@ public class AdminConstants {
 
     public static final Long ROOT_ID = 1L;
 
+
+    /**
+     * 用户信息及权限
+     */
+    public static final String ADMIN_INFO = "gulimall:admin:info:";
+    public static final String ADMIN_PERMISSION = "gulimall:admin:permission:";
+
+
 }
 

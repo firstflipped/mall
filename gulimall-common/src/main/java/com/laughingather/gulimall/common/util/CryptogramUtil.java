@@ -45,6 +45,7 @@ import java.util.Map;
 
 /**
  * 加密工具类
+ * 非对称加密
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -100,8 +101,8 @@ public class CryptogramUtil {
     /**
      * 提取公钥的比特编码经过Base64转换后保存到文件，注意公钥的比特编码是X.509格式
      *
-     * @param publicKey
-     * @param outPutFile
+     * @param publicKey  公钥
+     * @param outPutFile 文件
      */
     public static void savePublicKey2File(PublicKey publicKey, File outPutFile) throws Exception {
         byte[] publicKeyByte = Base64.encodeBase64(publicKey.getEncoded());
@@ -114,8 +115,8 @@ public class CryptogramUtil {
     /**
      * 提取私钥的比特编码经过Base64转换后保存到文件，注意私钥的比特编码是pkcs8格式
      *
-     * @param privateKey
-     * @param outPutFile
+     * @param privateKey 私钥
+     * @param outPutFile 文件
      */
     public static void savePrivateKey2File(PrivateKey privateKey, File outPutFile) throws Exception {
         byte[] privateKeyByte = Base64.encodeBase64(privateKey.getEncoded());
@@ -129,9 +130,9 @@ public class CryptogramUtil {
     /**
      * 从文件中获取公钥（公钥的比特编码是X.509格式）
      *
-     * @param certPath
-     * @return
-     * @throws Exception
+     * @param certPath 公钥路径
+     * @return 公钥
+     * @throws Exception 异常
      */
     public static RSAPublicKey getPublicKeyByFile(String certPath) throws Exception {
         FileInputStream fis = new FileInputStream(certPath);
@@ -149,11 +150,11 @@ public class CryptogramUtil {
     }
 
     /**
-     * 从文件中获取公钥（私钥的比特编码是pkcs8格式）
+     * 从文件中获取私钥（私钥的比特编码是pkcs8格式）
      *
-     * @param keyPath
-     * @return
-     * @throws Exception
+     * @param keyPath 私钥路径
+     * @return 私钥
+     * @throws Exception 异常
      */
     public static RSAPrivateKey getPrivateKeyByFile(String keyPath) throws Exception {
         FileInputStream fis = new FileInputStream(keyPath);
@@ -175,7 +176,7 @@ public class CryptogramUtil {
      * 得到公钥
      *
      * @param publicKey 密钥字符串（经过base64编码）
-     * @throws Exception
+     * @throws NoSuchAlgorithmException, InvalidKeySpecException
      */
     public static RSAPublicKey getPublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         // 通过X509编码的Key指令获得公钥对象
@@ -189,7 +190,7 @@ public class CryptogramUtil {
      * 得到私钥
      *
      * @param privateKey 密钥字符串（经过base64编码）
-     * @throws Exception
+     * @throws NoSuchAlgorithmException, InvalidKeySpecException
      */
     public static RSAPrivateKey getPrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         // 通过PKCS#8编码的Key指令获得私钥对象
@@ -202,9 +203,9 @@ public class CryptogramUtil {
     /**
      * 公钥加密
      *
-     * @param data
-     * @param publicKey
-     * @return
+     * @param data 数据
+     * @param publicKey 公钥
+     * @return 加密后的数据
      */
     public static String publicEncrypt(String data, RSAPublicKey publicKey) {
         try {
@@ -219,9 +220,9 @@ public class CryptogramUtil {
     /**
      * 私钥解密
      *
-     * @param data
-     * @param privateKey
-     * @return
+     * @param data 加密后的数据
+     * @param privateKey 私钥
+     * @return 解密后的数据
      */
 
     public static String privateDecrypt(String data, RSAPrivateKey privateKey) {
@@ -237,9 +238,9 @@ public class CryptogramUtil {
     /**
      * 私钥加密
      *
-     * @param data
-     * @param privateKey
-     * @return
+     * @param data 数据
+     * @param privateKey 私钥
+     * @return 加密后的数据
      */
 
     public static String privateEncrypt(String data, RSAPrivateKey privateKey) {
@@ -255,9 +256,9 @@ public class CryptogramUtil {
     /**
      * 公钥解密
      *
-     * @param data
-     * @param publicKey
-     * @return
+     * @param data 加密后的数据
+     * @param publicKey 公钥
+     * @return 解密后的数据
      */
 
     public static String publicDecrypt(String data, RSAPublicKey publicKey) {
