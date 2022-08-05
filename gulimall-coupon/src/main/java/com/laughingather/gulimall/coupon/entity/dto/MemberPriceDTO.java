@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.coupon.entity.to;
+package com.laughingather.gulimall.coupon.entity.dto;
 
 import lombok.Data;
 
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class MemberPriceTO {
+public class MemberPriceDTO {
     private Long id;
     private String name;
     private BigDecimal price;

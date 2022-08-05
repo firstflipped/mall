@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.coupon.entity.to;
+package com.laughingather.gulimall.product.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
+ * spu积分服务传输实体
+ *
  * @author <a href="#">flipped</a>
  * @version v1.0
  * @since 2022-04-11 19:35:16
@@ -16,8 +18,16 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SpuBoundTO {
+public class SpuBoundDTO {
     private Long spuId;
+
+    /**
+     * 购买积分
+     */
     private BigDecimal buyBounds;
+
+    /**
+     * 成长积分
+     */
     private BigDecimal growBounds;
 }

@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class SkuHasStockTO {
+public class SkuHasStockDTO {
 
     /**
      * skuId

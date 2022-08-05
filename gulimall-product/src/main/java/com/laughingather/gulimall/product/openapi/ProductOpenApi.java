@@ -3,7 +3,7 @@ package com.laughingather.gulimall.product.openapi;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
-import com.laughingather.gulimall.product.entity.to.AttrTO;
+import com.laughingather.gulimall.product.entity.dto.AttrDTO;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 import com.laughingather.gulimall.product.service.*;
@@ -119,12 +119,12 @@ public class ProductOpenApi {
      * @return 属性服务传输实体
      */
     @GetMapping("/{aid}")
-    public MyResult<AttrTO> getAttrById(@PathVariable("aid") Long attrId) {
+    public MyResult<AttrDTO> getAttrById(@PathVariable("aid") Long attrId) {
         AttrVO attrVO = attrService.getAttrVOById(attrId);
 
-        AttrTO attrTO = new AttrTO();
-        BeanUtils.copyProperties(attrVO, attrTO);
-        return MyResult.success(attrTO);
+        AttrDTO attrDTO = new AttrDTO();
+        BeanUtils.copyProperties(attrVO, attrDTO);
+        return MyResult.success(attrDTO);
     }
 
 

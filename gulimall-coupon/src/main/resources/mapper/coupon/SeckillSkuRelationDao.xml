@@ -15,7 +15,7 @@
     </resultMap>
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.laughingather.gulimall.coupon.entity.to.SecKillSkuRelationTO" id="secKillSkuRelationTOMap">
+    <resultMap type="com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO" id="secKillSkuRelationTOMap">
         <result property="id" column="id"/>
         <result property="skuId" column="sku_id"/>
         <result property="promotionSessionId" column="promotion_session_id"/>

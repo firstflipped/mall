@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.product.entity.to;
+package com.laughingather.gulimall.product.entity.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttrTO {
+public class AttrDTO {
 
     private Long attrId;
     /**

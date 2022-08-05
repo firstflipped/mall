@@ -2,7 +2,7 @@ package com.laughingather.gulimall.coupon.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.laughingather.gulimall.coupon.entity.SecKillSkuRelationEntity;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSkuRelationTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,6 +24,6 @@ public interface SecKillSkuRelationDao extends BaseMapper<SecKillSkuRelationEnti
      * @param promotionSessionId
      * @return
      */
-    List<SecKillSkuRelationTO> getRelationSkusByPromotionSessionId(@Param("promotionSessionId") Long promotionSessionId);
+    List<SecKillSkuRelationDTO> getRelationSkusByPromotionSessionId(@Param("promotionSessionId") Long promotionSessionId);
 
 }

@@ -3,7 +3,7 @@ package com.laughingather.gulimall.product.entity.vo;
 import com.laughingather.gulimall.product.entity.SkuImagesEntity;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
 import com.laughingather.gulimall.product.entity.SpuInfoDescEntity;
-import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -51,6 +51,6 @@ public class SkuItemVO {
     /**
      * 秒杀信息
      */
-    private SecKillSkuRedisTO secKill;
+    private SecKillSkuRedisDTO secKill;
 
 }

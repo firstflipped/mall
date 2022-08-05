@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member;
 
 import com.laughingather.gulimall.common.constant.AuthConstants;
-import com.laughingather.gulimall.member.entity.to.WeiboUserInfo;
+import com.laughingather.gulimall.member.entity.dto.WeiboUserInfo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.junit.jupiter.api.Test;

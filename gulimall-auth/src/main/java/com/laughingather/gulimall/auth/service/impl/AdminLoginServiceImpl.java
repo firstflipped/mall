@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.service.impl;
 
-import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileTO;
-import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileDTO;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 import com.laughingather.gulimall.auth.exception.SmsCodeCheckFailException;
 import com.laughingather.gulimall.auth.exception.SmsCodeExpireException;
@@ -40,8 +40,8 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     private RedisTemplate<String, String> redisTemplate;
 
     @Override
-    public String login(AdminLoginTO adminLoginTO) {
-        MyResult<AdminTO> adminLoginResult = adminFeignService.login(adminLoginTO);
+    public String login(AdminLoginDTO adminLoginDTO) {
+        MyResult<AdminTO> adminLoginResult = adminFeignService.login(adminLoginDTO);
         // 登录失败
         if (!adminLoginResult.isSuccess()) {
             return null;
@@ -54,15 +54,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     }
 
     @Override
-    public String loginByMobile(AdminLoginByMobileTO adminLoginByMobileTO) {
-        Boolean hasSmsCode = redisTemplate.hasKey(AuthConstants.SMS_CODE_CACHE_PREFIX + adminLoginByMobileTO.getMobile());
+    public String loginByMobile(AdminLoginByMobileDTO adminLoginByMobileDTO) {
+        Boolean hasSmsCode = redisTemplate.hasKey(AuthConstants.SMS_CODE_CACHE_PREFIX + adminLoginByMobileDTO.getMobile());
         if (Boolean.FALSE.equals(hasSmsCode)) {
             // 验证码过期
             throw new SmsCodeExpireException();
         }
 
-        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + adminLoginByMobileTO.getMobile());
-        if (!Objects.equals(adminLoginByMobileTO.getMobile(), cacheCode)) {
+        String cacheCode = redisTemplate.opsForValue().get(AuthConstants.SMS_CODE_CACHE_PREFIX + adminLoginByMobileDTO.getMobile());
+        if (!Objects.equals(adminLoginByMobileDTO.getMobile(), cacheCode)) {
             // 验证码校验失败
             throw new SmsCodeCheckFailException();
         }

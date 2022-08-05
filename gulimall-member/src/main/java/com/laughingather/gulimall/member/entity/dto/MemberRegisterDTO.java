@@ -1,10 +1,10 @@
-package com.laughingather.gulimall.member.entity.to;
+package com.laughingather.gulimall.member.entity.dto;
 
 import lombok.Data;
 import lombok.ToString;
 
 /**
- * 用户登录实体类
+ * 会员注册远程调用传输类
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -12,7 +12,7 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class MemberLoginTO {
+public class MemberRegisterDTO {
 
     /**
      * 会员名
@@ -23,5 +23,10 @@ public class MemberLoginTO {
      * 密码
      */
     private String password;
+
+    /**
+     * 手机
+     */
+    private String mobile;
 
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.entity.SecKillSkuRelationEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillSkuRelationQuery;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSkuRelationTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO;
 
 import java.util.List;
 
@@ -28,9 +28,9 @@ public interface SecKillSkuRelationService extends IService<SecKillSkuRelationEn
     /**
      * 查询秒杀活动关联商品
      *
-     * @param promotionSessionId
+     * @param promotionSessionId 秒杀活动id
      * @return
      */
-    List<SecKillSkuRelationTO> getRelationSkusByPromotionSessionId(Long promotionSessionId);
+    List<SecKillSkuRelationDTO> getRelationSkusByPromotionSessionId(Long promotionSessionId);
 }
 

@@ -2,7 +2,7 @@ package com.laughingather.gulimall.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.coupon.entity.SpuBoundsEntity;
-import com.laughingather.gulimall.coupon.entity.to.SpuBoundTO;
+import com.laughingather.gulimall.coupon.entity.dto.SpuBoundDTO;
 
 /**
  * 商品spu积分设置
@@ -13,6 +13,11 @@ import com.laughingather.gulimall.coupon.entity.to.SpuBoundTO;
  */
 public interface SpuBoundsService extends IService<SpuBoundsEntity> {
 
-    void saveSpuBounds(SpuBoundTO spuBoundTO);
+    /**
+     * 保存spu积分信息
+     *
+     * @param spuBoundDTO spu积分信息
+     */
+    void saveSpuBounds(SpuBoundDTO spuBoundDTO);
 }
 

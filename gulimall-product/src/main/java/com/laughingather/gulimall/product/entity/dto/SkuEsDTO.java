@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.product.entity.to;
+package com.laughingather.gulimall.product.entity.dto;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class SkuEsTO {
+public class SkuEsDTO {
 
     private Long skuId;
     private Long spuId;

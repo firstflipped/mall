@@ -2,7 +2,7 @@ package com.laughingather.gulimall.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.coupon.entity.SkuFullReductionEntity;
-import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
+import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
 
 /**
  * 商品满减信息
@@ -13,6 +13,11 @@ import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
  */
 public interface SkuFullReductionService extends IService<SkuFullReductionEntity> {
 
-    void saveSkuFullReduction(SkuOtherInfoTO skuOtherInfoTO);
+    /**
+     * 保存商品满减信息
+     *
+     * @param skuOtherInfoDTO 商品满减信息
+     */
+    void saveSkuFullReduction(SkuOtherInfoDTO skuOtherInfoDTO);
 }
 

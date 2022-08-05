@@ -8,7 +8,7 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.dao.SecKillSkuRelationDao;
 import com.laughingather.gulimall.coupon.entity.SecKillSkuRelationEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillSkuRelationQuery;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSkuRelationTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO;
 import com.laughingather.gulimall.coupon.service.SecKillSkuRelationService;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class SeckillSkuRelationServiceImpl extends ServiceImpl<SecKillSkuRelatio
     }
 
     @Override
-    public List<SecKillSkuRelationTO> getRelationSkusByPromotionSessionId(Long promotionSessionId) {
+    public List<SecKillSkuRelationDTO> getRelationSkusByPromotionSessionId(Long promotionSessionId) {
         return baseMapper.getRelationSkusByPromotionSessionId(promotionSessionId);
     }
 

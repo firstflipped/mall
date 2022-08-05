@@ -9,13 +9,13 @@ import com.laughingather.gulimall.common.constant.ProductConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.product.dao.SpuInfoDao;
 import com.laughingather.gulimall.product.entity.*;
+import com.laughingather.gulimall.product.entity.dto.SkuEsDTO;
+import com.laughingather.gulimall.product.entity.dto.SkuOtherInfoDTO;
+import com.laughingather.gulimall.product.entity.dto.SpuBoundDTO;
 import com.laughingather.gulimall.product.entity.param.*;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
-import com.laughingather.gulimall.product.entity.to.SkuEsTO;
-import com.laughingather.gulimall.product.entity.to.SkuOtherInfoTO;
-import com.laughingather.gulimall.product.entity.to.SpuBoundTO;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
-import com.laughingather.gulimall.product.feign.entity.SkuHasStockTO;
+import com.laughingather.gulimall.product.feign.entity.SkuHasStockDTO;
 import com.laughingather.gulimall.product.feign.service.CouponFeignService;
 import com.laughingather.gulimall.product.feign.service.SearchFeignService;
 import com.laughingather.gulimall.product.feign.service.WareFeignService;
@@ -111,13 +111,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         List<SkuInfoEntity> skuInfoList = skuInfoService.listSkusBySpuId(spuId);
 
         // 查询当前spu对应的所有sku可被检索的规格属性
-        List<SkuEsTO.Attr> attrList = getAttrsBySpuId(spuId);
+        List<SkuEsDTO.Attr> attrList = getAttrsBySpuId(spuId);
 
         // 调用仓储服务，查询每个sku是否有库存
         Map<Long, Boolean> stockMap = getHasStock(skuInfoList);
 
         // 封装每个sku的信息
-        List<SkuEsTO> skuESModels = generateSkuES(skuInfoList, attrList, stockMap);
+        List<SkuEsDTO> skuESModels = generateSkuES(skuInfoList, attrList, stockMap);
 
         // 发送给es服务进行保存
         // TODO：保存到es的时候如果发生异常应该怎么处理
@@ -164,7 +164,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param spuId spuId
      * @return es所需属性集合
      */
-    private List<SkuEsTO.Attr> getAttrsBySpuId(Long spuId) {
+    private List<SkuEsDTO.Attr> getAttrsBySpuId(Long spuId) {
         // 查询出所有属性及属性值集合
         List<ProductAttrValueEntity> productAttrValues = productAttrValueService.listAttrValuesBySpuId(spuId);
         List<Long> attrIds = productAttrValues.stream().map(ProductAttrValueEntity::getAttrId).collect(Collectors.toList());
@@ -177,7 +177,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         return productAttrValues.stream().filter(item ->
                         searchAttrIdsSet.contains(item.getAttrId()))
                 .map(item -> {
-                    SkuEsTO.Attr attr = new SkuEsTO.Attr();
+                    SkuEsDTO.Attr attr = new SkuEsDTO.Attr();
                     BeanUtils.copyProperties(item, attr);
                     return attr;
                 }).collect(Collectors.toList());
@@ -196,9 +196,9 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // 发送远程调用，查询库存系统是否有库存
         Map<Long, Boolean> stockMap = null;
         try {
-            MyResult<List<SkuHasStockTO>> skusHasStockResult = wareFeignService.getSkusHasStock(skuIds);
+            MyResult<List<SkuHasStockDTO>> skusHasStockResult = wareFeignService.getSkusHasStock(skuIds);
             if (skusHasStockResult.isSuccess()) {
-                stockMap = skusHasStockResult.getData().stream().collect(Collectors.toMap(SkuHasStockTO::getSkuId, SkuHasStockTO::getHasStock));
+                stockMap = skusHasStockResult.getData().stream().collect(Collectors.toMap(SkuHasStockDTO::getSkuId, SkuHasStockDTO::getHasStock));
             }
         } catch (Exception e) {
             log.error("远程调用库存查询服务异常", e);
@@ -214,31 +214,31 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param stockMap    是否有库存
      * @return skuEs集合
      */
-    private List<SkuEsTO> generateSkuES(List<SkuInfoEntity> skuInfoList,
-                                        List<SkuEsTO.Attr> attrList,
-                                        Map<Long, Boolean> stockMap) {
+    private List<SkuEsDTO> generateSkuES(List<SkuInfoEntity> skuInfoList,
+                                         List<SkuEsDTO.Attr> attrList,
+                                         Map<Long, Boolean> stockMap) {
         return skuInfoList.stream().map(skuInfo -> {
-            SkuEsTO skuEsTO = new SkuEsTO();
-            BeanUtils.copyProperties(skuInfo, skuEsTO);
+            SkuEsDTO skuEsDTO = new SkuEsDTO();
+            BeanUtils.copyProperties(skuInfo, skuEsDTO);
 
-            skuEsTO.setSkuPrice(skuInfo.getPrice());
-            skuEsTO.setSkuImg(skuInfo.getSkuDefaultImg());
+            skuEsDTO.setSkuPrice(skuInfo.getPrice());
+            skuEsDTO.setSkuImg(skuInfo.getSkuDefaultImg());
 
             // 是否有库存
-            skuEsTO.setHasStock(stockMap == null || stockMap.get(skuInfo.getSkuId()));
+            skuEsDTO.setHasStock(stockMap == null || stockMap.get(skuInfo.getSkuId()));
 
             // 热度评分，先设置为0
-            skuEsTO.setHotScore(0L);
+            skuEsDTO.setHotScore(0L);
 
             // 查询品牌和分类的名字
-            BrandEntity brand = brandService.getById(skuEsTO.getBrandId());
-            skuEsTO.setBrandName(brand.getBrandName());
-            skuEsTO.setBrandImg(brand.getLogo());
-            skuEsTO.setCategoryName(categoryService.getCategoryNameByCategoryId(skuEsTO.getCategoryId()));
+            BrandEntity brand = brandService.getById(skuEsDTO.getBrandId());
+            skuEsDTO.setBrandName(brand.getBrandName());
+            skuEsDTO.setBrandImg(brand.getLogo());
+            skuEsDTO.setCategoryName(categoryService.getCategoryNameByCategoryId(skuEsDTO.getCategoryId()));
 
             // 设置检索属性
-            skuEsTO.setAttrs(attrList);
-            return skuEsTO;
+            skuEsDTO.setAttrs(attrList);
+            return skuEsDTO;
         }).collect(Collectors.toList());
     }
 
@@ -248,7 +248,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param spuId       spuId
      * @param skuESModels skuEs实体集合
      */
-    private void saveSpu2ES(Long spuId, List<SkuEsTO> skuESModels) {
+    private void saveSpu2ES(Long spuId, List<SkuEsDTO> skuESModels) {
         MyResult<Void> result = searchFeignService.productStatusUp(skuESModels);
         if (result.isSuccess()) {
             // 远程调用成功，修改当前spu的状态
@@ -339,14 +339,14 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param bound     spu积分信息
      */
     private void saveSpuBounds(Long spuInfoId, SpuBoundParam bound) {
-        SpuBoundTO spuBoundTO = SpuBoundTO.builder()
+        SpuBoundDTO spuBoundDTO = SpuBoundDTO.builder()
                 .spuId(spuInfoId)
                 .buyBounds(bound.getBuyBounds())
                 .growBounds(bound.getGrowBounds())
                 .build();
 
         // 调用优惠服务保存积分信息
-        MyResult<Void> saveSpuBoundsResult = couponFeignService.saveSpuBounds(spuBoundTO);
+        MyResult<Void> saveSpuBoundsResult = couponFeignService.saveSpuBounds(spuBoundDTO);
         if (!saveSpuBoundsResult.isSuccess()) {
             log.error("远程调用服务失败，保存spu的积分信息");
         }
@@ -456,13 +456,13 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      * @param sku   sku前端传入实体
      */
     private void saveSkuOther(Long skuId, SkuParam sku) {
-        SkuOtherInfoTO skuOtherInfoTO = new SkuOtherInfoTO();
-        BeanUtils.copyProperties(sku, skuOtherInfoTO);
-        skuOtherInfoTO.setSkuId(skuId);
+        SkuOtherInfoDTO skuOtherInfoDTO = new SkuOtherInfoDTO();
+        BeanUtils.copyProperties(sku, skuOtherInfoDTO);
+        skuOtherInfoDTO.setSkuId(skuId);
 
         // 过滤没有优惠的sku
-        if (skuOtherInfoTO.getFullCount() > 0 && (skuOtherInfoTO.getFullPrice().compareTo(BigDecimal.ZERO) > 0)) {
-            MyResult<Void> saveSkuOtherInfoResult = couponFeignService.saveSkuOtherInfo(skuOtherInfoTO);
+        if (skuOtherInfoDTO.getFullCount() > 0 && (skuOtherInfoDTO.getFullPrice().compareTo(BigDecimal.ZERO) > 0)) {
+            MyResult<Void> saveSkuOtherInfoResult = couponFeignService.saveSkuOtherInfo(skuOtherInfoDTO);
             if (!saveSkuOtherInfoResult.isSuccess()) {
                 log.error("远程调用服务失败，保存sku优惠、满减等信息");
             }

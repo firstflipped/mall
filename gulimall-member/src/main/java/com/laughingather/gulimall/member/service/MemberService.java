@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
-import com.laughingather.gulimall.member.entity.to.MemberLoginTO;
-import com.laughingather.gulimall.member.entity.to.MemberRegisterTO;
-import com.laughingather.gulimall.member.entity.to.MemberTO;
-import com.laughingather.gulimall.member.entity.to.SocialUser;
+import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
+import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.member.entity.dto.MemberDTO;
+import com.laughingather.gulimall.member.entity.dto.SocialUser;
 import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
 
@@ -34,7 +34,7 @@ public interface MemberService extends IService<MemberEntity> {
      * @param memberRegisterDTO
      * @return
      */
-    void registerMember(MemberRegisterTO memberRegisterDTO);
+    void registerMember(MemberRegisterDTO memberRegisterDTO);
 
     /**
      * 会员登陆校验
@@ -42,7 +42,7 @@ public interface MemberService extends IService<MemberEntity> {
      * @param memberLoginDTO
      * @return 会员信息传输类
      */
-    MemberTO checkLogin(MemberLoginTO memberLoginDTO);
+    MemberDTO checkLogin(MemberLoginDTO memberLoginDTO);
 
     /**
      * 检验手机号码唯一性
@@ -74,6 +74,6 @@ public interface MemberService extends IService<MemberEntity> {
      * @param socialUser
      * @return
      */
-    MemberTO login(SocialUser socialUser);
+    MemberDTO login(SocialUser socialUser);
 }
 

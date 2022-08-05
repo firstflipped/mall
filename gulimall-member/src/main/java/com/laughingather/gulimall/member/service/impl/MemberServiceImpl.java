@@ -14,7 +14,7 @@ import com.laughingather.gulimall.member.dao.MemberLevelDao;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
-import com.laughingather.gulimall.member.entity.to.*;
+import com.laughingather.gulimall.member.entity.dto.*;
 import com.laughingather.gulimall.member.exception.MobileExistException;
 import com.laughingather.gulimall.member.exception.UsernameExistException;
 import com.laughingather.gulimall.member.service.MemberService;
@@ -68,18 +68,18 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
 
     @Override
-    public void registerMember(MemberRegisterTO memberRegisterTO) {
+    public void registerMember(MemberRegisterDTO memberRegisterDTO) {
         MemberEntity memberEntity = new MemberEntity();
 
         // 校验数据唯一性
-        checkUsernameUnique(memberRegisterTO.getUsername());
-        checkMobileUnique(memberRegisterTO.getMobile());
-        memberEntity.setUsername(memberRegisterTO.getUsername());
-        memberEntity.setNickname(memberRegisterTO.getUsername());
-        memberEntity.setMobile(memberRegisterTO.getMobile());
+        checkUsernameUnique(memberRegisterDTO.getUsername());
+        checkMobileUnique(memberRegisterDTO.getMobile());
+        memberEntity.setUsername(memberRegisterDTO.getUsername());
+        memberEntity.setNickname(memberRegisterDTO.getUsername());
+        memberEntity.setMobile(memberRegisterDTO.getMobile());
 
         // 密码加密（利用算法规则把盐值加到密文中，然后比对的时候按照算法规则取出来）
-        String bCryptPassword = BCryptPasswordEncoderUtil.encodingPassword(memberRegisterTO.getPassword());
+        String bCryptPassword = BCryptPasswordEncoderUtil.encodingPassword(memberRegisterDTO.getPassword());
         memberEntity.setPassword(bCryptPassword);
 
         // 查询默认的会员等级
@@ -100,23 +100,23 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     @Override
-    public MemberTO checkLogin(MemberLoginTO memberLoginTO) {
+    public MemberDTO checkLogin(MemberLoginDTO memberLoginDTO) {
         MemberEntity member = memberDao.selectOne(new QueryWrapper<MemberEntity>().lambda()
-                .eq(MemberEntity::getUsername, memberLoginTO.getUsername()).or()
-                .eq(MemberEntity::getMobile, memberLoginTO.getUsername()));
+                .eq(MemberEntity::getUsername, memberLoginDTO.getUsername()).or()
+                .eq(MemberEntity::getMobile, memberLoginDTO.getUsername()));
 
         if (member == null) {
             return null;
         }
 
         // 密码不匹配
-        if (!BCryptPasswordEncoderUtil.matchesPassword(memberLoginTO.getPassword(), member.getPassword())) {
+        if (!BCryptPasswordEncoderUtil.matchesPassword(memberLoginDTO.getPassword(), member.getPassword())) {
             return null;
         }
 
-        MemberTO memberTO = new MemberTO();
-        BeanUtils.copyProperties(member, memberTO);
-        return memberTO;
+        MemberDTO memberDTO = new MemberDTO();
+        BeanUtils.copyProperties(member, memberDTO);
+        return memberDTO;
     }
 
 
@@ -142,8 +142,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
     }
 
     @Override
-    public MemberTO login(SocialUser socialUser) {
-        MemberTO memberTO = new MemberTO();
+    public MemberDTO login(SocialUser socialUser) {
+        MemberDTO memberDTO = new MemberDTO();
 
         // 判断当前社交用户是否登陆过本系统
         MemberEntity member = memberDao.getMemberBySocialUid(socialUser.getUid());
@@ -159,8 +159,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             member.setExpiresIn(socialUser.getExpires_in());
 
             // 返回会员信息
-            BeanUtils.copyProperties(member, memberTO);
-            return memberTO;
+            BeanUtils.copyProperties(member, memberDTO);
+            return memberDTO;
         }
 
         // 如果没有该用户，则调用第三方社交接口获取用户唯一信息，进行注册
@@ -176,8 +176,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
                     .gender(Objects.equals("m", weiboUserInfo.getGender()) ? 1 : 2).city(weiboUserInfo.getCity()).createTime(LocalDateTime.now()).build();
             memberDao.insert(register);
 
-            BeanUtils.copyProperties(register, memberTO);
-            return memberTO;
+            BeanUtils.copyProperties(register, memberDTO);
+            return memberDTO;
         }
 
         return null;

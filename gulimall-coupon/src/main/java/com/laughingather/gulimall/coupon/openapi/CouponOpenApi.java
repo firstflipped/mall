@@ -1,9 +1,9 @@
 package com.laughingather.gulimall.coupon.openapi;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSessionTO;
-import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
-import com.laughingather.gulimall.coupon.entity.to.SpuBoundTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSessionDTO;
+import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
+import com.laughingather.gulimall.coupon.entity.dto.SpuBoundDTO;
 import com.laughingather.gulimall.coupon.service.CouponOpenService;
 import com.laughingather.gulimall.coupon.service.SecKillSessionService;
 import com.laughingather.gulimall.coupon.service.SpuBoundsService;
@@ -34,21 +34,21 @@ public class CouponOpenApi {
     private SecKillSessionService secKillSessionService;
 
     @PostMapping("/spu-bounds")
-    public MyResult<Void> saveSpuBounds(@RequestBody SpuBoundTO spuBoundTO) {
-        spuBoundsService.saveSpuBounds(spuBoundTO);
+    public MyResult<Void> saveSpuBounds(@RequestBody SpuBoundDTO spuBoundDTO) {
+        spuBoundsService.saveSpuBounds(spuBoundDTO);
         return MyResult.success();
     }
 
     @PostMapping("/sku-other-info")
-    public MyResult<Void> saveSkuOtherInfo(@RequestBody SkuOtherInfoTO skuOtherInfoTO) {
-        couponOpenService.saveSkuOtherInfo(skuOtherInfoTO);
+    public MyResult<Void> saveSkuOtherInfo(@RequestBody SkuOtherInfoDTO skuOtherInfoDTO) {
+        couponOpenService.saveSkuOtherInfo(skuOtherInfoDTO);
         return MyResult.success();
     }
 
     @GetMapping("/last-3days-session")
-    public MyResult<List<SecKillSessionTO>> getLast3DaysSession() {
-        List<SecKillSessionTO> secKillSessionTOList = secKillSessionService.getLast3DaysSession();
-        return CollectionUtils.isNotEmpty(secKillSessionTOList) ? MyResult.success(secKillSessionTOList) :
+    public MyResult<List<SecKillSessionDTO>> getLast3DaysSession() {
+        List<SecKillSessionDTO> secKillSessionDTOList = secKillSessionService.getLast3DaysSession();
+        return CollectionUtils.isNotEmpty(secKillSessionDTOList) ? MyResult.success(secKillSessionDTOList) :
                 MyResult.failed();
     }
 

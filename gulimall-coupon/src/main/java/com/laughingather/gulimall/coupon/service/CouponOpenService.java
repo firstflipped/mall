@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.coupon.service;
 
-import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
+import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
 
 /**
  *
@@ -14,7 +14,7 @@ public interface CouponOpenService {
     /**
      * 保存sku其他信息
      *
-     * @param skuOtherInfoTO
+     * @param skuOtherInfoDTO sku其他信息
      */
-    void saveSkuOtherInfo(SkuOtherInfoTO skuOtherInfoTO);
+    void saveSkuOtherInfo(SkuOtherInfoDTO skuOtherInfoDTO);
 }

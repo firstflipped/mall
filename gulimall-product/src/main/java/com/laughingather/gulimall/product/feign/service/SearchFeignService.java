@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.product.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.product.entity.to.SkuEsTO;
+import com.laughingather.gulimall.product.entity.dto.SkuEsDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,9 +22,9 @@ public interface SearchFeignService {
     /**
      * 商品上架，保存至ES
      *
-     * @param skuEsTOList skuEs传输实体集合
+     * @param skuEsDTOList skuEs传输实体集合
      */
     @PostMapping("/gulimall-search/openapi/search/product")
-    MyResult<Void> productStatusUp(@RequestBody List<SkuEsTO> skuEsTOList);
+    MyResult<Void> productStatusUp(@RequestBody List<SkuEsDTO> skuEsDTOList);
 
 }

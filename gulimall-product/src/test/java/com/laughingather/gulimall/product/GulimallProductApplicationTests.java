@@ -2,7 +2,7 @@ package com.laughingather.gulimall.product;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
-import com.laughingather.gulimall.product.entity.to.SpuBoundTO;
+import com.laughingather.gulimall.product.entity.dto.SpuBoundDTO;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemAttrGroupWithAttrVO;
 import com.laughingather.gulimall.product.feign.service.CouponFeignService;
@@ -30,7 +30,7 @@ class GulimallProductApplicationTests {
 
     @Test
     public void testFeign() {
-        SpuBoundTO build = SpuBoundTO.builder().spuId(1L).growBounds(BigDecimal.ONE).buyBounds(BigDecimal.TEN).build();
+        SpuBoundDTO build = SpuBoundDTO.builder().spuId(1L).growBounds(BigDecimal.ONE).buyBounds(BigDecimal.TEN).build();
         MyResult<Void> myResult = couponFeignService.saveSpuBounds(build);
 
         System.out.println("执行结果" + myResult);

@@ -14,7 +14,7 @@ import com.laughingather.gulimall.product.entity.query.SkuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;
 import com.laughingather.gulimall.product.entity.vo.SkuItemVO;
 import com.laughingather.gulimall.product.entity.vo.SpuItemAttrGroupWithAttrVO;
-import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisDTO;
 import com.laughingather.gulimall.product.feign.service.SecKillFeignService;
 import com.laughingather.gulimall.product.service.*;
 import org.springframework.stereotype.Service;
@@ -108,7 +108,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         // 不需要依赖skuInfo信息结果，开启一个新的异步
         CompletableFuture<Void> skuSecKillCompletableFuture = CompletableFuture.runAsync(() -> {
             // 查询sku的秒杀信息
-            MyResult<SecKillSkuRedisTO> secKillSkuResult = secKillFeignService.getSecKillSkuInfo(skuId);
+            MyResult<SecKillSkuRedisDTO> secKillSkuResult = secKillFeignService.getSecKillSkuInfo(skuId);
             if (secKillSkuResult.isSuccess()) {
                 skuItemVO.setSecKill(secKillSkuResult.getData());
             }

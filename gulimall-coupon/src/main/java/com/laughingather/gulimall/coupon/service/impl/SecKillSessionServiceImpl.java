@@ -8,8 +8,8 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.dao.SecKillSessionDao;
 import com.laughingather.gulimall.coupon.entity.SecKillSessionEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillSessionQuery;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSessionTO;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSkuRelationTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSessionDTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO;
 import com.laughingather.gulimall.coupon.service.SecKillSessionService;
 import com.laughingather.gulimall.coupon.service.SecKillSkuRelationService;
 import org.springframework.beans.BeanUtils;
@@ -49,7 +49,7 @@ public class SecKillSessionServiceImpl extends ServiceImpl<SecKillSessionDao, Se
 
 
     @Override
-    public List<SecKillSessionTO> getLast3DaysSession() {
+    public List<SecKillSessionDTO> getLast3DaysSession() {
         // 拼接日期区间（最近三天内）
         LocalDate now = LocalDate.now();
         LocalDate twoDayLater = now.plusDays(2);
@@ -59,11 +59,11 @@ public class SecKillSessionServiceImpl extends ServiceImpl<SecKillSessionDao, Se
         List<SecKillSessionEntity> secKillSessions = secKillSessionDao.selectList(new QueryWrapper<SecKillSessionEntity>().lambda()
                 .between(SecKillSessionEntity::getStartTime, startTime, endTime));
 
-        List<SecKillSessionTO> secKillSessionTOList = secKillSessions.stream().map(secKillSession -> {
-            SecKillSessionTO secKillSessionTO = new SecKillSessionTO();
+        List<SecKillSessionDTO> secKillSessionTOList = secKillSessions.stream().map(secKillSession -> {
+            SecKillSessionDTO secKillSessionTO = new SecKillSessionDTO();
             BeanUtils.copyProperties(secKillSession, secKillSessionTO);
             // 根据场次id查询该场次下的所有关联商品
-            List<SecKillSkuRelationTO> secKillSkuRelationTO = secKillSkuRelationService.getRelationSkusByPromotionSessionId(secKillSession.getId());
+            List<SecKillSkuRelationDTO> secKillSkuRelationTO = secKillSkuRelationService.getRelationSkusByPromotionSessionId(secKillSession.getId());
             secKillSessionTO.setSkuRelations(secKillSkuRelationTO);
             return secKillSessionTO;
         }).collect(Collectors.toList());

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.product.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.product.feign.entity.SecKillSkuRedisDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +25,6 @@ public interface SecKillFeignService {
      * @return sku秒杀信息传输实体
      */
     @GetMapping("/sec-kill-sku/{sid}/info")
-    MyResult<SecKillSkuRedisTO> getSecKillSkuInfo(@PathVariable("sid") Long skuId);
+    MyResult<SecKillSkuRedisDTO> getSecKillSkuInfo(@PathVariable("sid") Long skuId);
 }
 

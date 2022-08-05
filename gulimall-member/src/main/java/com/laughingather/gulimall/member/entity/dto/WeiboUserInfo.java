@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.member.entity.to;
+package com.laughingather.gulimall.member.entity.dto;
 
 import lombok.Data;
 

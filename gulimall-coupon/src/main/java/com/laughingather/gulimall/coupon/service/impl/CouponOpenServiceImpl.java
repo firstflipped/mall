@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.coupon.service.impl;
 
-import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
+import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
 import com.laughingather.gulimall.coupon.service.CouponOpenService;
 import com.laughingather.gulimall.coupon.service.MemberPriceService;
 import com.laughingather.gulimall.coupon.service.SkuFullReductionService;
@@ -25,14 +25,14 @@ public class CouponOpenServiceImpl implements CouponOpenService {
     private MemberPriceService memberPriceService;
 
     @Override
-    public void saveSkuOtherInfo(SkuOtherInfoTO skuOtherInfoTO) {
+    public void saveSkuOtherInfo(SkuOtherInfoDTO skuOtherInfoDTO) {
         // sku满减信息
-        skuFullReductionService.saveSkuFullReduction(skuOtherInfoTO);
+        skuFullReductionService.saveSkuFullReduction(skuOtherInfoDTO);
 
         // sku阶梯价格信息
-        skuLadderService.saveSkuLadder(skuOtherInfoTO);
+        skuLadderService.saveSkuLadder(skuOtherInfoDTO);
 
         // sku会员价格信息
-        memberPriceService.saveMemberPrice(skuOtherInfoTO);
+        memberPriceService.saveMemberPrice(skuOtherInfoDTO);
     }
 }

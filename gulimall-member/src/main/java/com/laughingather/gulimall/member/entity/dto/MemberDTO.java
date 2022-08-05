@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.member.entity.to;
+package com.laughingather.gulimall.member.entity.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberTO {
+public class MemberDTO {
 
     private Long id;
 

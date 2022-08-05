@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 用户登录实体类
+ * 会员登录传输类
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @ToString
-public class AdminLoginTO {
+public class MemberLoginDTO {
 
     @NotBlank(message = "用户名不能为空")
     private String username;

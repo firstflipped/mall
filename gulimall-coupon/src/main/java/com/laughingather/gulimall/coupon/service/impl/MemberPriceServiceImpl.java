@@ -7,8 +7,8 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.dao.MemberPriceDao;
 import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
 import com.laughingather.gulimall.coupon.entity.query.MemberPriceQuery;
-import com.laughingather.gulimall.coupon.entity.to.MemberPriceTO;
-import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
+import com.laughingather.gulimall.coupon.entity.dto.MemberPriceDTO;
+import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
 import com.laughingather.gulimall.coupon.service.MemberPriceService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -33,11 +33,11 @@ public class MemberPriceServiceImpl extends ServiceImpl<MemberPriceDao, MemberPr
     private MemberPriceDao memberPriceDao;
 
     @Override
-    public void saveMemberPrice(SkuOtherInfoTO skuOtherInfoTO) {
-        List<MemberPriceTO> memberPriceTO = skuOtherInfoTO.getMemberPriceTO();
-        if (CollectionUtils.isNotEmpty(memberPriceTO)) {
-            List<MemberPriceEntity> memberPrices = memberPriceTO.stream().map(item ->
-                    MemberPriceEntity.builder().skuId(skuOtherInfoTO.getSkuId()).memberLevelId(item.getId())
+    public void saveMemberPrice(SkuOtherInfoDTO skuOtherInfoDTO) {
+        List<MemberPriceDTO> memberPriceDTO = skuOtherInfoDTO.getMemberPriceDTO();
+        if (CollectionUtils.isNotEmpty(memberPriceDTO)) {
+            List<MemberPriceEntity> memberPrices = memberPriceDTO.stream().map(item ->
+                    MemberPriceEntity.builder().skuId(skuOtherInfoDTO.getSkuId()).memberLevelId(item.getId())
                             .memberLevelName(item.getName()).memberPrice(item.getPrice()).build()
             ).filter(price -> price.getMemberPrice().compareTo(BigDecimal.ZERO) == 1
             ).collect(Collectors.toList());

@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.auth.controller;
 
 import cn.hutool.core.util.RandomUtil;
-import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileTO;
-import com.laughingather.gulimall.auth.entity.to.AdminLoginTO;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileDTO;
+import com.laughingather.gulimall.auth.entity.to.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
 import com.laughingather.gulimall.auth.service.AdminLoginService;
@@ -56,14 +56,14 @@ public class AdminLoginController {
     }
 
     @PostMapping("/login")
-    public MyResult<String> login(@Valid @RequestBody AdminLoginTO adminLoginTO) {
-        String token = adminLoginService.login(adminLoginTO);
+    public MyResult<String> login(@Valid @RequestBody AdminLoginDTO adminLoginDTO) {
+        String token = adminLoginService.login(adminLoginDTO);
         return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
     }
 
     @PostMapping("/login/mobile")
-    public MyResult<String> loginByMobile(@Valid @RequestBody AdminLoginByMobileTO adminLoginByMobileTO) {
-        String token = adminLoginService.loginByMobile(adminLoginByMobileTO);
+    public MyResult<String> loginByMobile(@Valid @RequestBody AdminLoginByMobileDTO adminLoginByMobileDTO) {
+        String token = adminLoginService.loginByMobile(adminLoginByMobileDTO);
         return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.MOBILE_LOGIN_EXCEPTION);
     }
 

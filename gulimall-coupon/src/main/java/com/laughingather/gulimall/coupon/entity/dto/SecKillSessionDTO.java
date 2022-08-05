@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.coupon.entity.to;
+package com.laughingather.gulimall.coupon.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class SecKillSessionTO {
+public class SecKillSessionDTO {
 
     private Long id;
     /**
@@ -55,6 +55,6 @@ public class SecKillSessionTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
-    private List<SecKillSkuRelationTO> skuRelations;
+    private List<SecKillSkuRelationDTO> skuRelations;
 }
 

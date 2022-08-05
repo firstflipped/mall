@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.entity.MemberPriceEntity;
 import com.laughingather.gulimall.coupon.entity.query.MemberPriceQuery;
-import com.laughingather.gulimall.coupon.entity.to.SkuOtherInfoTO;
+import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
 
 /**
  * 商品会员价格
@@ -18,9 +18,9 @@ public interface MemberPriceService extends IService<MemberPriceEntity> {
     /**
      * 保存会员价格信息
      *
-     * @param skuOtherInfoTO
+     * @param skuOtherInfoDTO
      */
-    void saveMemberPrice(SkuOtherInfoTO skuOtherInfoTO);
+    void saveMemberPrice(SkuOtherInfoDTO skuOtherInfoDTO);
 
     /**
      * 分页查询会员价格列表

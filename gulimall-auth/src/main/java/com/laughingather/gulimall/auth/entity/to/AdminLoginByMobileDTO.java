@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
  * @since 2022-05-23 15:02:16
  */
 @Data
-public class AdminLoginByMobileTO {
+public class AdminLoginByMobileDTO {
 
     /**
      * 手机号

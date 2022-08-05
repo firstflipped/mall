@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.member.entity.to;
+package com.laughingather.gulimall.member.entity.dto;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class MemberReceiveAddressTO {
+public class MemberReceiveAddressDTO {
 
     /**
      * id

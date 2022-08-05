@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.entity.SecKillSessionEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillSessionQuery;
-import com.laughingather.gulimall.coupon.entity.to.SecKillSessionTO;
+import com.laughingather.gulimall.coupon.entity.dto.SecKillSessionDTO;
 
 import java.util.List;
 
@@ -30,6 +30,6 @@ public interface SecKillSessionService extends IService<SecKillSessionEntity> {
      *
      * @return
      */
-    List<SecKillSessionTO> getLast3DaysSession();
+    List<SecKillSessionDTO> getLast3DaysSession();
 }
 
