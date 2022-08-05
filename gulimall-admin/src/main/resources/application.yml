@@ -1,13 +1,13 @@
 # Tomcat
 server:
-  port: 9090
+  port: ${SERVER.PORT:9090}
   servlet:
     context-path: /gulimall-admin
 
 spring:
   # 环境 dev|test|prod
   profiles:
-    active: dev
+    active: ${PROFILES.ACTIVE:dev}
 
   main:
     allow-bean-definition-overriding: true

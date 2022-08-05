@@ -3,8 +3,8 @@ package com.laughingather.gulimall.admin.service;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
 import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
-import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
-import com.laughingather.gulimall.admin.entity.to.AdminTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.common.api.MyPage;
 
 import java.util.List;
@@ -81,10 +81,10 @@ public interface SysUserService {
     /**
      * 用户名密码登录
      *
-     * @param adminLoginTO 用户名密码传输类
+     * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息
      */
-    AdminTO login(AdminLoginTO adminLoginTO);
+    AdminDTO login(AdminLoginDTO adminLoginDTO);
 
     /**
      * 手机号验证码登录
@@ -92,6 +92,6 @@ public interface SysUserService {
      * @param mobile 手机号
      * @return 用户信息
      */
-    AdminTO loginByMobile(String mobile);
+    AdminDTO loginByMobile(String mobile);
 }
 

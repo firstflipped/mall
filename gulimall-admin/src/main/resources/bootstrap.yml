@@ -2,4 +2,4 @@ spring:
   application:
     name: gulimall-admin
   profiles:
-    active: dev
+    active: ${PROFILES.ACTIVE:dev}

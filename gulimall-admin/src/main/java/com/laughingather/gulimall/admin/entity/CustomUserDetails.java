@@ -44,12 +44,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> permissionValues = permissions.stream()
+        return permissions.stream()
                 .filter(permission -> StringUtils.isNotBlank(permission.getPermissionValue()) && Objects.equals(permission.getStatus(), AdminConstants.ENABLE))
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermissionValue()))
                 .collect(Collectors.toList());
-        log.info("登录用户权限列表为{}", permissionValues);
-        return permissionValues;
     }
 
     @Override

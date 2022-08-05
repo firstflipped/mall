@@ -4,7 +4,6 @@ import com.laughingather.gulimall.admin.service.CustomUserDetailsService;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,14 +29,10 @@ public class UserinfoFilter extends OncePerRequestFilter {
 
     @Resource
     private CustomUserDetailsService customUserDetailsService;
-    @Resource
-    private RedisTemplate<String, UserDetails> redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String username = request.getHeader(AuthConstants.USERNAME);
-
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
 
         if (StringUtils.isNotBlank(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("request username:{}", username);

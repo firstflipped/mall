@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
 import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
-import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
-import com.laughingather.gulimall.admin.entity.to.AdminTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.admin.exception.*;
 import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
@@ -111,28 +111,28 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public AdminTO login(AdminLoginTO adminLoginTO) {
-        SysUserEntity user = sysUserRepository.getByUsernameEquals(adminLoginTO.getUsername());
+    public AdminDTO login(AdminLoginDTO adminLoginDTO) {
+        SysUserEntity user = sysUserRepository.getByUsernameEquals(adminLoginDTO.getUsername());
         if (user == null) {
             return null;
         }
 
-        if (!BCryptPasswordEncoderUtil.matchesPassword(adminLoginTO.getPassword(), user.getPassword())) {
+        if (!BCryptPasswordEncoderUtil.matchesPassword(adminLoginDTO.getPassword(), user.getPassword())) {
             return null;
         }
 
-        return Admin2AdminTO(user);
+        return Admin2AdminDTO(user);
     }
 
 
     @Override
-    public AdminTO loginByMobile(String mobile) {
+    public AdminDTO loginByMobile(String mobile) {
         SysUserEntity user = sysUserRepository.getByMobileEquals(mobile);
         if (user == null) {
             return null;
         }
 
-        return Admin2AdminTO(user);
+        return Admin2AdminDTO(user);
     }
 
 
@@ -142,10 +142,10 @@ public class SysUserServiceImpl implements SysUserService {
      * @param user 用户信息
      * @return 用户信息传输
      */
-    private AdminTO Admin2AdminTO(SysUserEntity user) {
-        AdminTO adminTO = new AdminTO();
-        BeanUtils.copyProperties(user, adminTO);
-        return adminTO;
+    private AdminDTO Admin2AdminDTO(SysUserEntity user) {
+        AdminDTO adminDTO = new AdminDTO();
+        BeanUtils.copyProperties(user, adminDTO);
+        return adminDTO;
     }
 
     /**

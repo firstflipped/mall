@@ -1,9 +1,9 @@
 package com.laughingather.gulimall.admin.openapi;
 
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
-import com.laughingather.gulimall.admin.entity.to.AdminInfoTO;
-import com.laughingather.gulimall.admin.entity.to.AdminLoginTO;
-import com.laughingather.gulimall.admin.entity.to.AdminTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminInfoDTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
+import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.beans.BeanUtils;
@@ -30,13 +30,13 @@ public class AdminOpenApi {
      * <p>
      * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
      *
-     * @param adminLoginTO 用户名密码传输类
+     * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息
      */
     @PostMapping("/login")
-    MyResult<AdminTO> login(@RequestBody AdminLoginTO adminLoginTO) {
-        AdminTO adminTO = sysUserService.login(adminLoginTO);
-        return adminTO != null ? MyResult.success(adminTO) : MyResult.failed();
+    MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO) {
+        AdminDTO adminDTO = sysUserService.login(adminLoginDTO);
+        return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();
     }
 
     /**
@@ -46,9 +46,9 @@ public class AdminOpenApi {
      * @return 用户信息
      */
     @PostMapping("/login/mobile")
-    MyResult<AdminTO> loginByMobile(@RequestParam(name = "mobile") String mobile) {
-        AdminTO adminTO = sysUserService.loginByMobile(mobile);
-        return adminTO != null ? MyResult.success(adminTO) : MyResult.failed();
+    MyResult<AdminDTO> loginByMobile(@RequestParam(name = "mobile") String mobile) {
+        AdminDTO adminDTO = sysUserService.loginByMobile(mobile);
+        return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();
     }
 
     /**
@@ -58,16 +58,16 @@ public class AdminOpenApi {
      * @return 用户信息
      */
     @GetMapping("/userinfo")
-    MyResult<AdminInfoTO> getUserinfo(@RequestParam("userid") Long userid) {
+    MyResult<AdminInfoDTO> getUserinfo(@RequestParam("userid") Long userid) {
         SysUserEntity user = sysUserService.getUserById(userid);
 
         if (user == null) {
             return MyResult.failed();
         }
 
-        AdminInfoTO adminInfoTO = new AdminInfoTO();
-        BeanUtils.copyProperties(user, adminInfoTO);
-        return MyResult.success(adminInfoTO);
+        AdminInfoDTO adminInfoDTO = new AdminInfoDTO();
+        BeanUtils.copyProperties(user, adminInfoDTO);
+        return MyResult.success(adminInfoDTO);
     }
 
 }

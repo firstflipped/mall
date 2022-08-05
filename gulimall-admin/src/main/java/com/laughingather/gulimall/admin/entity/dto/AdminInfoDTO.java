@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.admin.entity.to;
+package com.laughingather.gulimall.admin.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class AdminInfoTO {
+public class AdminInfoDTO {
 
     private Long userid;
 
