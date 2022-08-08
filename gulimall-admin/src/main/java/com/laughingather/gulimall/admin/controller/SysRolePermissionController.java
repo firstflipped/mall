@@ -4,7 +4,6 @@ import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.param.RolePermissionParam;
 import com.laughingather.gulimall.admin.service.SysRolePermissionService;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.constant.LogConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;

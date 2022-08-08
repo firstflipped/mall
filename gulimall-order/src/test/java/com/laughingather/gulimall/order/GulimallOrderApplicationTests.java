@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.order;
 
 import cn.hutool.core.util.IdUtil;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -27,7 +28,7 @@ class GulimallOrderApplicationTests {
         order.setOrderSn(IdUtil.simpleUUID());
         order.setMemberId(1L);
 
-        rabbitTemplate.convertAndSend("order.event.exchange", "order.create.order", order);
+        rabbitTemplate.convertAndSend("order.event.exchange", "order.create.order", JsonUtil.obj2String(order));
         System.out.println("发送成功");
     }
 

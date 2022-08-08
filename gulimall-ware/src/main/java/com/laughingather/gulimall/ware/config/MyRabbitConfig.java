@@ -58,8 +58,8 @@ public class MyRabbitConfig {
             }
         });
 
-        // 设置消息发送到队列回调
         /**
+         * 设置消息发送到队列回调
          * 只要消息没有发送到指定的队列就触发这个失败回调
          *
          * @param message
@@ -68,8 +68,8 @@ public class MyRabbitConfig {
          * @param exchange
          * @param routingKey
          */
-        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> {
-            log.info("消息发送到队列失败");
+        rabbitTemplate.setReturnsCallback(returnedMessage -> {
+            log.info("消息发送到队列失败，消息内容为：" + returnedMessage);
         });
     }
 

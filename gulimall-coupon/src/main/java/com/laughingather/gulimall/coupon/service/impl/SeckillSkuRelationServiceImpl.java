@@ -7,16 +7,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.dao.SecKillSkuRelationDao;
 import com.laughingather.gulimall.coupon.entity.SecKillSkuRelationEntity;
-import com.laughingather.gulimall.coupon.entity.query.SecKillSkuRelationQuery;
 import com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO;
+import com.laughingather.gulimall.coupon.entity.query.SecKillSkuRelationQuery;
 import com.laughingather.gulimall.coupon.service.SecKillSkuRelationService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- *
- *
  * @author <a href="#">flipped</a>
  * @version v1.0
  * @since 2022-04-11 19:35:16

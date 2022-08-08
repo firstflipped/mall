@@ -7,8 +7,6 @@ import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -54,8 +52,9 @@ public class MyRabbitConfig {
             }
         });
 
-        // 设置消息发送到队列回调
+
         /**
+         * 设置消息发送到队列回调
          * 只要消息没有发送到指定的队列就触发这个失败回调
          *
          * @param message
@@ -68,16 +67,7 @@ public class MyRabbitConfig {
             log.info("消息发送到队列失败，消息内容为：" + returnedMessage);
         });
 
-        // 设置消息转换器
-        rabbitTemplate.setMessageConverter(messageConverter());
-
         return rabbitTemplate;
-    }
-
-
-    @Bean
-    public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
     }
 
 

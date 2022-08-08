@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.entity.dto;
 
-import com.laughingather.gulimall.order.feign.entity.OrderItemTO;
+import com.laughingather.gulimall.order.feign.entity.OrderItemDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class WareSkuLockDTO {
     /**
      * 订单项
      */
-    private List<OrderItemTO> locks;
+    private List<OrderItemDTO> locks;
 
 }
 

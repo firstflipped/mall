@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.WareConstants;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.ware.dao.WareSkuDao;
 import com.laughingather.gulimall.ware.entity.SkuWareHasStock;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
@@ -211,7 +212,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
                     // 库存锁定成功就把库存工作单消息添加到rabbitmq
                     rabbitTemplate.convertAndSend(WareConstants.MQEnum.EXCHANGE.getName(),
-                            WareConstants.MQEnum.LOCKED_ROUTING_KEY.getName(), stockLockedDTO);
+                            WareConstants.MQEnum.LOCKED_ROUTING_KEY.getName(), JsonUtil.obj2String(stockLockedDTO));
 
                     break;
                 }

@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
  * 订单
  * <p>
  * 时间类型转换报错需要加上以下注解
- * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
- * @JsonSerialize(using = LocalDateTimeSerializer.class)
- * </P>
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
+ * @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+ * @JsonSerialize(using = LocalDateTimeSerializer.class)
+ * </P>
  * @since 2022-04-11 19:35:16
  */
 @Data

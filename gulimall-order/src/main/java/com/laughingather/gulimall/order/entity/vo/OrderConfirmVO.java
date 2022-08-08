@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.order.entity.vo;
 
-import com.laughingather.gulimall.order.feign.entity.MemberReceiveAddressTO;
-import com.laughingather.gulimall.order.feign.entity.OrderItemTO;
+import com.laughingather.gulimall.order.feign.entity.MemberReceiveAddressDTO;
+import com.laughingather.gulimall.order.feign.entity.OrderItemDTO;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,14 +25,14 @@ public class OrderConfirmVO {
      */
     @Getter
     @Setter
-    private List<MemberReceiveAddressTO> addresses;
+    private List<MemberReceiveAddressDTO> addresses;
 
     /**
      * 所有选中的购物项
      */
     @Getter
     @Setter
-    private List<OrderItemTO> items;
+    private List<OrderItemDTO> items;
 
     /**
      * 发票信息
@@ -69,7 +69,7 @@ public class OrderConfirmVO {
         BigDecimal sum = new BigDecimal("0");
 
         if (CollectionUtils.isNotEmpty(items)) {
-            for (OrderItemTO item : items) {
+            for (OrderItemDTO item : items) {
                 BigDecimal multiply = item.getPrice().multiply(new BigDecimal(item.getCount()));
                 sum = sum.add(multiply);
             }
@@ -85,7 +85,7 @@ public class OrderConfirmVO {
         Integer count = 0;
 
         if (CollectionUtils.isNotEmpty(items)) {
-            for (OrderItemTO item : items) {
+            for (OrderItemDTO item : items) {
                 count += item.getCount();
             }
         }
