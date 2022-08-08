@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.seckill.controller;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.dto.SecKillSkuRedisDTO;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +31,9 @@ public class SecKillController {
      * @return
      */
     @GetMapping("/current-sec-kill-skus")
-    public MyResult<List<SecKillSkuRedisTO>> getCurrentSecKillSkus() {
-        List<SecKillSkuRedisTO> secKillSkuRedisTO = secKillSkuService.getCurrentSecKillSkus();
-        return CollectionUtils.isNotEmpty(secKillSkuRedisTO) ? MyResult.success(secKillSkuRedisTO) : MyResult.failed();
+    public MyResult<List<SecKillSkuRedisDTO>> getCurrentSecKillSkus() {
+        List<SecKillSkuRedisDTO> secKillSkuRedisDTO = secKillSkuService.getCurrentSecKillSkus();
+        return CollectionUtils.isNotEmpty(secKillSkuRedisDTO) ? MyResult.success(secKillSkuRedisDTO) : MyResult.failed();
     }
 
 }

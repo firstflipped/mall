@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.ware.entity.to;
+package com.laughingather.gulimall.ware.entity.dto;
 
 import com.laughingather.gulimall.ware.entity.vo.OrderItemVO;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class WareSkuLockTO {
+public class WareSkuLockDTO {
 
     /**
      * 订单号

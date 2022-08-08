@@ -12,8 +12,10 @@ import com.laughingather.gulimall.ware.entity.SkuWareHasStock;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskEntity;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
+import com.laughingather.gulimall.ware.entity.dto.StockDetailDTO;
+import com.laughingather.gulimall.ware.entity.dto.StockLockedDTO;
+import com.laughingather.gulimall.ware.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
-import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
 import com.laughingather.gulimall.ware.entity.vo.OrderItemVO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 import com.laughingather.gulimall.ware.exception.NoStockException;
@@ -65,8 +67,8 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             queryWrapper.lambda().eq(WareSkuEntity::getSkuId, wareSkuQuery.getSkuId());
         }
 
-        IPage<WareSkuEntity> wareSkuIPage = wareSkuDao.selectPage(page, queryWrapper);
-        return MyPage.restPage(wareSkuIPage);
+        IPage<WareSkuEntity> wareSkuPage = wareSkuDao.selectPage(page, queryWrapper);
+        return MyPage.restPage(wareSkuPage);
     }
 
 
@@ -121,7 +123,8 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
      */
     @Override
     public List<SkuHasStockVO> getSkusHasStock(List<Long> skuIds) {
-        List<SkuHasStockVO> skuHasStockVOList = skuIds.stream().map(skuId -> {
+
+        return skuIds.stream().map(skuId -> {
             SkuHasStockVO skuHasStockVO = new SkuHasStockVO();
             skuHasStockVO.setSkuId(skuId);
             // 根据skuId查询库存信息
@@ -129,20 +132,18 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             skuHasStockVO.setHasStock(stockCount == null ? Boolean.FALSE : stockCount > 0);
             return skuHasStockVO;
         }).collect(Collectors.toList());
-
-        return skuHasStockVOList;
     }
 
 
     @Override
     @Transactional(rollbackFor = {Exception.class, RuntimeException.class})
-    public Boolean orderLockStock(WareSkuLockTO wareSkuLockTO) {
+    public Boolean orderLockStock(WareSkuLockDTO wareSkuLockDTO) {
         // 保存库存工作单详情，便于回溯
-        WareOrderTaskEntity wareOrderTask = WareOrderTaskEntity.builder().orderSn(wareSkuLockTO.getOrderSn()).build();
+        WareOrderTaskEntity wareOrderTask = WareOrderTaskEntity.builder().orderSn(wareSkuLockDTO.getOrderSn()).build();
         wareOrderTaskService.save(wareOrderTask);
 
         // 拼装实体
-        List<SkuWareHasStock> skuWareHasStocks = assembleSkuWareHasStocks(wareSkuLockTO);
+        List<SkuWareHasStock> skuWareHasStocks = assembleSkuWareHasStocks(wareSkuLockDTO);
 
         // 锁定库存
         lockStock(skuWareHasStocks, wareOrderTask.getId());
@@ -226,12 +227,12 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     /**
      * 拼装商品对应仓库数据
      *
-     * @param wareSkuLockTO
+     * @param wareSkuLockDTO
      * @return
      */
-    private List<SkuWareHasStock> assembleSkuWareHasStocks(WareSkuLockTO wareSkuLockTO) {
-        List<OrderItemVO> locks = wareSkuLockTO.getLocks();
-        List<SkuWareHasStock> skuWareHasStocks = locks.stream().map(lock -> {
+    private List<SkuWareHasStock> assembleSkuWareHasStocks(WareSkuLockDTO wareSkuLockDTO) {
+        List<OrderItemVO> locks = wareSkuLockDTO.getLocks();
+        return locks.stream().map(lock -> {
             SkuWareHasStock skuWareHasStock = new SkuWareHasStock();
             skuWareHasStock.setSkuId(lock.getSkuId());
             skuWareHasStock.setSkuName(lock.getTitle());
@@ -241,6 +242,5 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
             skuWareHasStock.setWareIds(wareIds);
             return skuWareHasStock;
         }).collect(Collectors.toList());
-        return skuWareHasStocks;
     }
 }

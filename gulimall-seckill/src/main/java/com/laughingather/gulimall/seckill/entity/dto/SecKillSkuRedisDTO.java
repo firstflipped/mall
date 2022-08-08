@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.seckill.entity;
+package com.laughingather.gulimall.seckill.entity.dto;
 
 import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class SecKillSkuRedisTO {
+public class SecKillSkuRedisDTO {
 
     /**
      * 商品id
