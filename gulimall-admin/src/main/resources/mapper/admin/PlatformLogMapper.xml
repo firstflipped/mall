@@ -39,10 +39,10 @@
         FROM sys_platform_log
         <where>
             <if test="login != null">
-                AND login = #{login}
+                AND is_login = #{login}
             </if>
             <if test="success != null">
-                AND success = #{success}
+                AND is_success = #{success}
             </if>
             <if test="operation != null and operation != ''">
                 AND (operation_userid = #{operation} OR operation_username = #{operation})
