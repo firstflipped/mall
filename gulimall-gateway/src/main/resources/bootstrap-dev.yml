@@ -3,10 +3,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: http://localhost:8848
-        namespace: gulimall
+        server-addr: ${NACOS.SERVE-ADDR:http://localhost:8848}
+        namespace: ${NACOS.NAMESPACE:gulimall}
       config:
-        server-addr: http://localhost:8848
-        namespace: gulimall
+        server-addr: ${NACOS.SERVE-ADDR:http://localhost:8848}
+        namespace: ${NACOS.NAMESPACE:gulimall}
         file-extension: yaml
         group: GULIMALL-GATEWAY

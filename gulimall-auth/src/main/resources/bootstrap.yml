@@ -1,5 +1,6 @@
 spring:
   application:
     name: gulimall-auth
+
   profiles:
-    active: dev
+    active: ${PROFILES.ACTIVE:dev}

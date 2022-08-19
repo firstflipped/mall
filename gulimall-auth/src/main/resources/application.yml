@@ -1,11 +1,11 @@
 server:
-  port: 199
+  port: ${SEREVER.PORT:199}
   servlet:
     context-path: /gulimall-auth
 
 spring:
   profiles:
-    active: dev
+    active: ${PROFILES.ACTIVE:dev}
 
 
 
