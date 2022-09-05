@@ -3,7 +3,7 @@ package com.laughingather.gulimall.order.interceptor;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import com.laughingather.gulimall.common.util.TokenProvider;
-import com.laughingather.gulimall.order.feign.entity.MemberTO;
+import com.laughingather.gulimall.order.feign.entity.MemberDTO;
 import com.laughingather.gulimall.order.feign.service.MemberFeignService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -20,10 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginUserInterceptor implements HandlerInterceptor {
 
+    public static ThreadLocal<MemberDTO> loginUser = new ThreadLocal<>();
     @Resource
     private MemberFeignService memberFeignService;
-
-    public static ThreadLocal<MemberTO> loginUser = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -32,7 +31,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
             // 解析token，获取会员信息
             JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
             Long userid = jwtPayLoad.getUserid();
-            MyResult<MemberTO> memberResult = memberFeignService.getMember(userid);
+            MyResult<MemberDTO> memberResult = memberFeignService.getMember(userid);
             if (!memberResult.isSuccess()) {
                 response.sendRedirect("https://auth.gulimall.com/login.html");
                 return false;

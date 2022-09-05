@@ -2,9 +2,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: http://nacos-registry:8848
-        namespace: gulimall
+        server-addr: ${NACOS.SERVER-ADDR:http://nacos-registry:8848}
+        namespace: ${NACOS.NAMESPACE:gulimall}
       config:
-        server-addr: http://nacos-registry:8848
-        namespace: gulimall
+        server-addr: ${NACOS.SERVER-ADDR:http://nacos-registry:8848}
+        namespace: ${NACOS.NAMESPACE:gulimall}
         file-extension: yaml

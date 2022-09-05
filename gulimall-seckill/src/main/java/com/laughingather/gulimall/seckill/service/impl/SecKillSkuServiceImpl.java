@@ -2,7 +2,7 @@ package com.laughingather.gulimall.seckill.service.impl;
 
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.SecKillConstants;
-import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.dto.SecKillSkuRedisDTO;
 import com.laughingather.gulimall.seckill.feign.entity.SeckillSessionTO;
 import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
 import com.laughingather.gulimall.seckill.feign.service.CouponFeignService;
@@ -49,17 +49,17 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     public void uploadSecKillSkuLatest3Days() {
         MyResult<List<SeckillSessionTO>> last3DaysSession = couponFeignService.getLast3DaysSession();
         if (last3DaysSession.isSuccess()) {
-            List<SeckillSessionTO> secKillSessionTOList = last3DaysSession.getData();
+            List<SeckillSessionTO> secKillSessionDTOList = last3DaysSession.getData();
 
             // 将秒杀商品添加到缓存中
-            saveSessionsInfo(secKillSessionTOList);
-            saveSessionSkusInfo(secKillSessionTOList);
+            saveSessionsInfo(secKillSessionDTOList);
+            saveSessionSkusInfo(secKillSessionDTOList);
         }
     }
 
     @Override
-    public List<SecKillSkuRedisTO> getCurrentSecKillSkus() {
-        List<SecKillSkuRedisTO> result = new ArrayList<>();
+    public List<SecKillSkuRedisDTO> getCurrentSecKillSkus() {
+        List<SecKillSkuRedisDTO> result = new ArrayList<>();
 
         // 确定当前时间属于哪个秒杀场次
         long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
@@ -74,7 +74,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
             if (now >= startTime && now < endTime) {
                 List<String> skuIds = redisTemplate.opsForList().range(key, -100, 100);
                 BoundHashOperations skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
-                List<SecKillSkuRedisTO> skus = skuOperations.multiGet(skuIds);
+                List<SecKillSkuRedisDTO> skus = skuOperations.multiGet(skuIds);
                 // 当前秒杀开始就需要随机码
                 // skus.stream().forEach(sku -> sku.setRandomCode(null));
                 result.addAll(skus);
@@ -86,8 +86,8 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     }
 
     @Override
-    public SecKillSkuRedisTO getSecKillSkuInfo(Long skuId) {
-        BoundHashOperations<String, String, SecKillSkuRedisTO> skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
+    public SecKillSkuRedisDTO getSecKillSkuInfo(Long skuId) {
+        BoundHashOperations<String, String, SecKillSkuRedisDTO> skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
         Set<String> keys = skuOperations.keys();
 
         // TODO:此处需要处理同一商品处于不同秒杀场次下的问题
@@ -95,19 +95,19 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
             String regx = "\\d-" + skuId;
             for (String key : keys) {
                 if (Pattern.matches(regx, key)) {
-                    SecKillSkuRedisTO seckillSkuRedisTO = skuOperations.get(key);
+                    SecKillSkuRedisDTO secKillSkuRedisDTO = skuOperations.get(key);
 
                     long now = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
                     // 如果已经过了秒杀时间段则直接进行下一次遍历
-                    if (now >= seckillSkuRedisTO.getEndTime()) {
+                    if (now >= secKillSkuRedisDTO.getEndTime()) {
                         continue;
                     }
 
                     // 如果不在秒杀时间内则需要把随机码置空
-                    if (now < seckillSkuRedisTO.getStartTime()) {
-                        seckillSkuRedisTO.setRandomCode(null);
+                    if (now < secKillSkuRedisDTO.getStartTime()) {
+                        secKillSkuRedisDTO.setRandomCode(null);
                     }
-                    return seckillSkuRedisTO;
+                    return secKillSkuRedisDTO;
                 }
             }
         }
@@ -119,19 +119,19 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     /**
      * 保存秒杀活动信息
      *
-     * @param secKillSessionTOList
+     * @param secKillSessionDTOList
      */
-    private void saveSessionsInfo(List<SeckillSessionTO> secKillSessionTOList) {
-        secKillSessionTOList.stream().forEach(secKillSessionTO -> {
+    private void saveSessionsInfo(List<SeckillSessionTO> secKillSessionDTOList) {
+        secKillSessionDTOList.stream().forEach(secKillSessionDTO -> {
             // 返回开始时间和结束时间的时间戳
-            long startTime = secKillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-            long endTime = secKillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            long startTime = secKillSessionDTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+            long endTime = secKillSessionDTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
             String key = SecKillConstants.SESSION_CACHE_PREFIX + startTime + "-" + endTime;
             // 如果不存在当前的键才添加
             if (!redisTemplate.hasKey(key)) {
-                List<String> skuIds = secKillSessionTO.getSkuRelations().stream().map(skuRelationTO ->
-                        skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId()
+                List<String> skuIds = secKillSessionDTO.getSkuRelations().stream().map(skuRelationDTO ->
+                        skuRelationDTO.getPromotionSessionId() + "-" + skuRelationDTO.getSkuId()
                 ).collect(Collectors.toList());
                 redisTemplate.opsForList().leftPushAll(key, skuIds);
             }
@@ -142,39 +142,39 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     /**
      * 保存秒杀活动商品信息
      *
-     * @param secKillSessionTOList
+     * @param secKillSessionDTOList
      */
-    private void saveSessionSkusInfo(List<SeckillSessionTO> secKillSessionTOList) {
-        secKillSessionTOList.stream().forEach(secKillSessionTO -> {
+    private void saveSessionSkusInfo(List<SeckillSessionTO> secKillSessionDTOList) {
+        secKillSessionDTOList.forEach(secKillSessionDTO -> {
             BoundHashOperations skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
-            secKillSessionTO.getSkuRelations().stream().forEach(skuRelationTO -> {
+            secKillSessionDTO.getSkuRelations().forEach(skuRelationDTO -> {
                 // 判断是否存在该商品的信息
-                Boolean has = skuOperations.hasKey(skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId());
-                if (!has) {
+                Boolean has = skuOperations.hasKey(skuRelationDTO.getPromotionSessionId() + "-" + skuRelationDTO.getSkuId());
+                if (Boolean.FALSE.equals(has)) {
 
                     // 商品秒杀信息
-                    SecKillSkuRedisTO secKillSkuRedisTO = new SecKillSkuRedisTO();
-                    BeanUtils.copyProperties(skuRelationTO, secKillSkuRedisTO);
+                    SecKillSkuRedisDTO secKillSkuRedisDTO = new SecKillSkuRedisDTO();
+                    BeanUtils.copyProperties(skuRelationDTO, secKillSkuRedisDTO);
 
                     // 商品基本信息
-                    MyResult<SkuInfoTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuRelationTO.getSkuId());
+                    MyResult<SkuInfoTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuRelationDTO.getSkuId());
                     if (skuInfoResult.isSuccess()) {
-                        secKillSkuRedisTO.setSkuInfo(skuInfoResult.getData());
+                        secKillSkuRedisDTO.setSkuInfo(skuInfoResult.getData());
                     }
 
                     // 商品场次时间
-                    secKillSkuRedisTO.setStartTime(secKillSessionTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
-                    secKillSkuRedisTO.setEndTime(secKillSessionTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
+                    secKillSkuRedisDTO.setStartTime(secKillSessionDTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
+                    secKillSkuRedisDTO.setEndTime(secKillSessionDTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli());
 
                     // 商品随机码
                     String randomCode = UUID.randomUUID().toString().replace("-", "");
-                    secKillSkuRedisTO.setRandomCode(randomCode);
+                    secKillSkuRedisDTO.setRandomCode(randomCode);
 
-                    skuOperations.put(skuRelationTO.getPromotionSessionId() + "-" + skuRelationTO.getSkuId(), secKillSkuRedisTO);
+                    skuOperations.put(skuRelationDTO.getPromotionSessionId() + "-" + skuRelationDTO.getSkuId(), secKillSkuRedisDTO);
 
                     // 信号量 商品可以秒杀的数量作为信号量
                     RSemaphore semaphore = redissonClient.getSemaphore(SecKillConstants.SKU_STOCK_SEMAPHORE + randomCode);
-                    semaphore.trySetPermits(skuRelationTO.getSeckillCount());
+                    semaphore.trySetPermits(skuRelationDTO.getSeckillCount());
                 }
             });
         });

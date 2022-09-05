@@ -1,7 +1,12 @@
 server:
-  port: 88
+  port: ${SERVER.PORT:88}
 
 spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: ${PROFILES.ACTIVE:dev}
+
+  # 网关控制
   cloud:
     gateway:
       routes:

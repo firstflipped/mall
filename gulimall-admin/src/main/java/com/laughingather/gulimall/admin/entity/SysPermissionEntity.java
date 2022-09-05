@@ -48,18 +48,12 @@ public class SysPermissionEntity {
     /**
      * 路径
      */
-    private String url;
+    private String path;
 
     /**
      * 权限类型
      */
     private Integer type;
-
-    /**
-     * 父id
-     */
-    @NotNull(message = "权限父id不能为空", groups = {AddGroup.class, UpdateGroup.class})
-    private Long parentId;
 
     /**
      * 菜单图标
@@ -81,6 +75,12 @@ public class SysPermissionEntity {
      * 描述
      */
     private String description;
+
+    /**
+     * 父id
+     */
+    @NotNull(message = "权限父id不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    private Long parentId;
 
     /**
      * 创建人

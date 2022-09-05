@@ -3,8 +3,8 @@ package com.laughingather.gulimall.ware.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.ware.entity.WareSkuEntity;
+import com.laughingather.gulimall.ware.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.ware.entity.query.WareSkuQuery;
-import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 
 import java.util.List;
@@ -60,10 +60,10 @@ public interface WareSkuService extends IService<WareSkuEntity> {
     /**
      * 订单商品库存锁定
      *
-     * @param wareSkuLockTO
+     * @param wareSkuLockDTO
      * @return
      */
-    Boolean orderLockStock(WareSkuLockTO wareSkuLockTO);
+    Boolean orderLockStock(WareSkuLockDTO wareSkuLockDTO);
 
     /**
      * 解锁库存锁定

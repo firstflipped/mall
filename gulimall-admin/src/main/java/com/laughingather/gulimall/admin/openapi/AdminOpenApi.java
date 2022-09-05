@@ -1,9 +1,9 @@
 package com.laughingather.gulimall.admin.openapi;
 
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminInfoDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
-import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.beans.BeanUtils;

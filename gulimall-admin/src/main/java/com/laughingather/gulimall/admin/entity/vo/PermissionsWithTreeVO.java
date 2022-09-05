@@ -45,6 +45,9 @@ public class PermissionsWithTreeVO {
      */
     private LocalDateTime createTime;
 
+    /**
+     * 子集
+     */
     private List<PermissionsWithTreeVO> children;
 
 }

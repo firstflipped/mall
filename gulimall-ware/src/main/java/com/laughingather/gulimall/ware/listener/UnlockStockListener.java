@@ -3,11 +3,12 @@ package com.laughingather.gulimall.ware.listener;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.OrderConstants;
 import com.laughingather.gulimall.common.constant.WareConstants;
-import com.laughingather.gulimall.common.entity.OrderDTO;
-import com.laughingather.gulimall.common.entity.StockDetailDTO;
-import com.laughingather.gulimall.common.entity.StockLockedDTO;
+import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskDetailEntity;
 import com.laughingather.gulimall.ware.entity.WareOrderTaskEntity;
+import com.laughingather.gulimall.ware.entity.dto.OrderDTO;
+import com.laughingather.gulimall.ware.entity.dto.StockDetailDTO;
+import com.laughingather.gulimall.ware.entity.dto.StockLockedDTO;
 import com.laughingather.gulimall.ware.feign.entity.OrderTO;
 import com.laughingather.gulimall.ware.feign.service.OrderFeignService;
 import com.laughingather.gulimall.ware.service.WareOrderTaskDetailService;
@@ -51,24 +52,23 @@ public class UnlockStockListener {
     /**
      * 解锁锁定库存
      * 收到库存锁定消息
-     *
      * <p>
      * 拿到消息后去数据库查询是否存在该库存锁定清单
      * 如果存在则证明库存锁定没有问题，还需要判断订单状态
      * 如果订单不存在或者订单取消才需要执行需要执行库存解锁任务，订单完成则不需要执行库存解锁任务
      * 如果不存在则表示可能执行业务过程中出现异常，持久层数据进行了回滚，这种情况直接签收消息即可
      *
-     * @param stockLockedDTO
-     * @param message
-     * @param channel
+     * @param stockLockedDTO 消息体
+     * @param message        消息
+     * @param channel        队列
      */
     @RabbitHandler
-    public void handleStockLockRelease(StockLockedDTO stockLockedDTO, Message message, Channel channel) throws IOException {
+    public void handleStockLockRelease(String stockLockedDTO, Message message, Channel channel) throws IOException {
 
         log.info("定时补偿机制解锁库存");
 
         try {
-            unlockStock(stockLockedDTO);
+            unlockStock(JsonUtil.string2Obj(stockLockedDTO, StockLockedDTO.class));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
             log.error(e);
@@ -90,12 +90,12 @@ public class UnlockStockListener {
      * @throws IOException
      */
     @RabbitHandler
-    public void handleOrderCloseRelease(OrderDTO orderDTO, Message message, Channel channel) throws IOException {
+    public void handleOrderCloseRelease(String orderDTO, Message message, Channel channel) throws IOException {
 
         log.info("订单关闭主动解锁库存");
 
         try {
-            unlockStock(orderDTO);
+            unlockStock(JsonUtil.string2Obj(orderDTO, OrderDTO.class));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
             log.error(e);

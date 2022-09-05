@@ -28,21 +28,21 @@
     <select id="listPermissionsByRoleIds"
             resultType="com.laughingather.gulimall.admin.entity.SysPermissionEntity">
         SELECT p.permission_id,
-               p.permission_name,
-               p.permission_value,
-               p.url,
-               p.parent_id,
-               p.type,
-               p.icon,
-               p.sort_no,
-               p.status,
-               p.description,
-               p.create_by,
-               p.create_time,
-               p.update_by,
-               p.update_time
+        p.permission_name,
+        p.permission_value,
+        p.url,
+        p.parent_id,
+        p.type,
+        p.icon,
+        p.sort_no,
+        p.status,
+        p.description,
+        p.create_by,
+        p.create_time,
+        p.update_by,
+        p.update_time
         FROM sys_role_permission rp
-            INNER JOIN sys_permission p ON rp.permission_id = p.permission_id
+        INNER JOIN sys_permission p ON rp.permission_id = p.permission_id
         WHERE rp.role_id IN
         <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
             #{roleId}
@@ -50,6 +50,8 @@
     </select>
 
     <delete id="deleteByRoleId">
-        DELETE FROM sys_role_permission WHERE role_id = #{roleId}
+        DELETE
+        FROM sys_role_permission
+        WHERE role_id = #{roleId}
     </delete>
 </mapper>

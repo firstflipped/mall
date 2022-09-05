@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.service;
 
-import com.laughingather.gulimall.seckill.entity.SecKillSkuRedisTO;
+import com.laughingather.gulimall.seckill.entity.dto.SecKillSkuRedisDTO;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface SecKillSkuService {
      *
      * @return
      */
-    List<SecKillSkuRedisTO> getCurrentSecKillSkus();
+    List<SecKillSkuRedisDTO> getCurrentSecKillSkus();
 
     /**
      * 获取秒杀商品详情信息
@@ -31,5 +31,5 @@ public interface SecKillSkuService {
      * @param skuId
      * @return
      */
-    SecKillSkuRedisTO getSecKillSkuInfo(Long skuId);
+    SecKillSkuRedisDTO getSecKillSkuInfo(Long skuId);
 }

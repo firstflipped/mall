@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberTO {
+public class MemberDTO {
 
     private Long id;
 

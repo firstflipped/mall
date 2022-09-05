@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.order.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.order.feign.entity.OrderItemTO;
+import com.laughingather.gulimall.order.feign.entity.OrderItemDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,7 @@ public interface CartFeignService {
      * @return 用户车购物项列表
      */
     @GetMapping("/current-user/cart-items")
-    MyResult<List<OrderItemTO>> getCurrentUserCartItems();
+    MyResult<List<OrderItemDTO>> getCurrentUserCartItems();
 
 }
 

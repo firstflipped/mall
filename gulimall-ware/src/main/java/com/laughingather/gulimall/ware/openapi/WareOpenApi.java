@@ -2,7 +2,7 @@ package com.laughingather.gulimall.ware.openapi;
 
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.ware.entity.to.WareSkuLockTO;
+import com.laughingather.gulimall.ware.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;
 import com.laughingather.gulimall.ware.service.WareInfoService;
@@ -64,13 +64,13 @@ public class WareOpenApi {
     /**
      * 订单库存锁定
      *
-     * @param wareSkuLockTO
+     * @param wareSkuLockDTO
      * @return
      */
     @PostMapping("/lock/order")
-    public MyResult<Void> orderLockStock(@RequestBody WareSkuLockTO wareSkuLockTO) {
+    public MyResult<Void> orderLockStock(@RequestBody WareSkuLockDTO wareSkuLockDTO) {
         try {
-            Boolean result = wareSkuService.orderLockStock(wareSkuLockTO);
+            Boolean result = wareSkuService.orderLockStock(wareSkuLockDTO);
             return result ? MyResult.success() : MyResult.failed();
         } catch (Exception e) {
             return MyResult.failed(ErrorCodeEnum.NO_STOCK_EXCEPTION);

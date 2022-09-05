@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class OrderItemTO {
+public class OrderItemDTO {
 
     /**
      * skuId

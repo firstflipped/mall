@@ -54,7 +54,6 @@ public class SecKillSkuScheduled {
      * <p>
      * 秒杀时间结束的
      * <p>
-     *
      */
     @Async
     @Scheduled(cron = "*/10 * * * * ?")

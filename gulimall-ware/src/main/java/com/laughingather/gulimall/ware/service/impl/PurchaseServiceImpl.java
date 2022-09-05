@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author <a href="#">flipped</a>
  * @version v1.0
  * @since 2022-04-11 19:35:16
@@ -53,8 +52,8 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
                     .or().like(PurchaseEntity::getPhone, purchaseQuery.getKey());
         }
 
-        IPage<PurchaseEntity> purchaseIPage = purchaseDao.selectPage(page, queryWrapper);
-        return MyPage.restPage(purchaseIPage);
+        IPage<PurchaseEntity> purchasePage = purchaseDao.selectPage(page, queryWrapper);
+        return MyPage.restPage(purchasePage);
     }
 
     @Override
@@ -100,7 +99,7 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void receivedPurchase(List<Long> ids) {
         // 确认当前采购单的状态是否为新增或已分配
         List<PurchaseEntity> unreceivedPurchase = getUnreceivedPurchase(ids);
@@ -236,9 +235,9 @@ public class PurchaseServiceImpl extends ServiceImpl<PurchaseDao, PurchaseEntity
      * @return
      */
     private Boolean updateDonePurchaseDetails(DonePurchaseParam donePurchaseParam) {
-        Boolean flag = true;
+        boolean flag = true;
         List<DonePurchaseItemParam> items = donePurchaseParam.getItems();
-        List<PurchaseDetailEntity> purchaseDetails = new ArrayList();
+        List<PurchaseDetailEntity> purchaseDetails = new ArrayList<>();
         for (DonePurchaseItemParam item : items) {
             PurchaseDetailEntity purchaseDetail = new PurchaseDetailEntity();
             if (WareConstants.PurchaseDetailEnum.ERROR.getCode().equals(item.getStatus())) {

@@ -12,12 +12,12 @@ import java.math.BigDecimal;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class FareTO {
+public class FareDTO {
 
     /**
      * 收获地址信息
      */
-    private MemberReceiveAddressTO address;
+    private MemberReceiveAddressDTO address;
 
     /**
      * 运费信息

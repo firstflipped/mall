@@ -203,7 +203,7 @@ public class CryptogramUtil {
     /**
      * 公钥加密
      *
-     * @param data 数据
+     * @param data      数据
      * @param publicKey 公钥
      * @return 加密后的数据
      */
@@ -220,7 +220,7 @@ public class CryptogramUtil {
     /**
      * 私钥解密
      *
-     * @param data 加密后的数据
+     * @param data       加密后的数据
      * @param privateKey 私钥
      * @return 解密后的数据
      */
@@ -238,7 +238,7 @@ public class CryptogramUtil {
     /**
      * 私钥加密
      *
-     * @param data 数据
+     * @param data       数据
      * @param privateKey 私钥
      * @return 加密后的数据
      */
@@ -256,7 +256,7 @@ public class CryptogramUtil {
     /**
      * 公钥解密
      *
-     * @param data 加密后的数据
+     * @param data      加密后的数据
      * @param publicKey 公钥
      * @return 解密后的数据
      */

@@ -3,8 +3,8 @@ package com.laughingather.gulimall.coupon.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.coupon.entity.SecKillSkuRelationEntity;
-import com.laughingather.gulimall.coupon.entity.query.SecKillSkuRelationQuery;
 import com.laughingather.gulimall.coupon.entity.dto.SecKillSkuRelationDTO;
+import com.laughingather.gulimall.coupon.entity.query.SecKillSkuRelationQuery;
 
 import java.util.List;
 
