@@ -10,7 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,7 +29,7 @@ public class ExceptionControllerAdvice {
     public MyResult<Map<String, String>> handleValidException(MethodArgumentNotValidException e) {
         log.error("数据校验异常：{}，异常类型：{}", e.getMessage(), e.getClass());
 
-        Map<String, String> errorMap = new HashMap<>(8);
+        List<String> errorMessages = new ArrayList<>();
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors().forEach(error -> {
@@ -36,10 +37,10 @@ public class ExceptionControllerAdvice {
                 String field = error.getField();
                 // 获取到错误提示
                 String message = error.getDefaultMessage();
-                errorMap.put(field, message);
+                errorMessages.add(message);
             });
         }
-        return MyResult.failed(ErrorCodeEnum.PARAMS_VERIFY_EXCEPTION, errorMap);
+        return MyResult.failed(ErrorCodeEnum.PARAMS_VERIFY_EXCEPTION, String.join(",", errorMessages));
     }
 
 

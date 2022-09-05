@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.auth.feign.service;
 
-import com.laughingather.gulimall.auth.entity.to.MemberLoginDTO;
-import com.laughingather.gulimall.auth.entity.to.MemberRegisterDTO;
-import com.laughingather.gulimall.auth.entity.to.SocialUserDTO;
+import com.laughingather.gulimall.auth.entity.dto.MemberLoginDTO;
+import com.laughingather.gulimall.auth.entity.dto.MemberRegisterDTO;
+import com.laughingather.gulimall.auth.entity.dto.SocialUserDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;

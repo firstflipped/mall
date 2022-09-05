@@ -46,9 +46,9 @@ public class MyResult<T> {
                 .message(errorCodeEnum.getMessage()).data(null).build();
     }
 
-    public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum, T data) {
+    public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum, String errorMessage) {
         return MyResult.<T>builder().code(errorCodeEnum.getCode())
-                .message(errorCodeEnum.getMessage()).data(data).build();
+                .message(errorCodeEnum.getMessage() + ":" + errorMessage).build();
     }
 
     public static <T> MyResult<T> errMsg(String msg) {
