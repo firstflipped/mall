@@ -20,11 +20,30 @@ import java.util.Objects;
 @AllArgsConstructor
 public class MyResult<T> {
 
+    /**
+     * 返回状态码
+     */
     private Integer code;
 
+    /**
+     * 返回信息
+     */
     private String message;
 
+    /**
+     * 返回数据
+     */
     private T data;
+
+    /**
+     * 是否成功
+     */
+    private Boolean success;
+
+    /**
+     * 时间戳
+     */
+    private Long timestamp = System.currentTimeMillis();
 
     public static <T> MyResult<T> success() {
         return MyResult.<T>builder().code(ResultCodeEnum.SUCCESS.getCode())
@@ -59,9 +78,9 @@ public class MyResult<T> {
     /**
      * 是否成功
      *
-     * @return
+     * @return True Or False
      */
-    public boolean isSuccess() {
+    public Boolean isSuccess() {
         return Objects.equals(ResultCodeEnum.SUCCESS.getCode(), code);
     }
 
