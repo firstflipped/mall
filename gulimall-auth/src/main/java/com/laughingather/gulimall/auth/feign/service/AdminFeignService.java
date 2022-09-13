@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.auth.feign.service;
 
-import com.laughingather.gulimall.auth.entity.to.AdminLoginDTO;
+import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.auth.feign.entity.AdminInfoTO;
 import com.laughingather.gulimall.auth.feign.entity.AdminTO;
 import com.laughingather.gulimall.common.api.MyResult;

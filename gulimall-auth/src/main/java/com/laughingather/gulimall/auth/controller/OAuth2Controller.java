@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.auth.controller;
 
-import com.laughingather.gulimall.auth.entity.to.SocialUserDTO;
+import com.laughingather.gulimall.auth.entity.dto.SocialUserDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;

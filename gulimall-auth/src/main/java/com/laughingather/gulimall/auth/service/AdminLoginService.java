@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.auth.service;
 
 
-import com.laughingather.gulimall.auth.entity.to.AdminLoginByMobileDTO;
-import com.laughingather.gulimall.auth.entity.to.AdminLoginDTO;
+import com.laughingather.gulimall.auth.entity.dto.AdminLoginByMobileDTO;
+import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 
 /**
