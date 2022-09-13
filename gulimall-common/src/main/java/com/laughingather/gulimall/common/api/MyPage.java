@@ -20,19 +20,23 @@ public class MyPage<T> {
     /**
      * 总记录数
      */
-    private long total;
+    private Long total;
+
     /**
      * 总页数
      */
-    private long pages;
+    private Long pages;
+
     /**
      * 每页记录数
      */
-    private long pageSize;
+    private Long pageSize;
+
     /**
      * 当前页数
      */
-    private long pageNumber;
+    private Long pageNumber;
+
     /**
      * 列表数据
      */

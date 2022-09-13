@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 自定义统一返回结果封装类
  * 记得要加入默认构造器，要不然会报序列化异常错误
  *
  * @author <a href="#">flipped</a>
