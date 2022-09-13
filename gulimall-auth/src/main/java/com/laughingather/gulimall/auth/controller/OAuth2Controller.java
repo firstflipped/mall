@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.auth.controller;
 
 import com.laughingather.gulimall.auth.entity.dto.SocialUserDTO;
-import com.laughingather.gulimall.auth.feign.entity.MemberTO;
+import com.laughingather.gulimall.auth.feign.entity.MemberDTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.api.ResultCodeEnum;
@@ -56,9 +56,9 @@ public class OAuth2Controller {
             log.info("获取到的凭证信息{}", socialUserDTO);
 
             // 当前用户如果是第一次登陆此网址，则自动进行用户注册
-            MyResult<MemberTO> myResult = memberFeignService.oauth2Login(socialUserDTO);
+            MyResult<MemberDTO> myResult = memberFeignService.oauth2Login(socialUserDTO);
             if (Objects.equals(ResultCodeEnum.SUCCESS.getCode(), myResult.getCode())) {
-                MemberTO data = myResult.getData();
+                MemberDTO data = myResult.getData();
                 log.info("用户名：{}", data.getNickname());
                 session.setAttribute(AuthConstants.LOGIN_USER, data);
                 return "redirect:http://gulimall.com";

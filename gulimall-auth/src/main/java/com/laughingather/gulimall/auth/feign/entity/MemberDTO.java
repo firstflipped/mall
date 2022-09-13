@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class MemberTO {
+public class MemberDTO {
     private Long id;
 
     /**

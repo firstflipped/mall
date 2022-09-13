@@ -5,8 +5,8 @@ import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
 import com.laughingather.gulimall.auth.exception.SmsCodeCheckFailException;
 import com.laughingather.gulimall.auth.exception.SmsCodeExpireException;
-import com.laughingather.gulimall.auth.feign.entity.AdminInfoTO;
-import com.laughingather.gulimall.auth.feign.entity.AdminTO;
+import com.laughingather.gulimall.auth.feign.entity.AdminInfoDTO;
+import com.laughingather.gulimall.auth.feign.entity.AdminDTO;
 import com.laughingather.gulimall.auth.feign.service.AdminFeignService;
 import com.laughingather.gulimall.auth.service.AdminLoginService;
 import com.laughingather.gulimall.auth.service.AuthService;
@@ -41,15 +41,15 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
     @Override
     public String login(AdminLoginDTO adminLoginDTO) {
-        MyResult<AdminTO> adminLoginResult = adminFeignService.login(adminLoginDTO);
+        MyResult<AdminDTO> adminLoginResult = adminFeignService.login(adminLoginDTO);
         // 登录失败
         if (!adminLoginResult.isSuccess()) {
             return null;
         }
 
         // 登录成功，生成token
-        AdminTO adminTO = adminLoginResult.getData();
-        JwtPayLoad jwtPayLoad = new JwtPayLoad(adminTO.getUserid(), adminTO.getUsername());
+        AdminDTO adminDTO = adminLoginResult.getData();
+        JwtPayLoad jwtPayLoad = new JwtPayLoad(adminDTO.getUserid(), adminDTO.getUsername());
         return authService.generateToken(jwtPayLoad);
     }
 
@@ -78,18 +78,18 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
         Long userid = jwtPayLoad.getUserid();
 
-        MyResult<AdminInfoTO> getUserinfoResult = adminFeignService.getUserinfo(userid);
+        MyResult<AdminInfoDTO> getUserinfoResult = adminFeignService.getUserinfo(userid);
 
         // 登录成功
         if (!getUserinfoResult.isSuccess()) {
             return null;
         }
 
-        AdminInfoTO adminInfoTO = getUserinfoResult.getData();
+        AdminInfoDTO adminInfoDTO = getUserinfoResult.getData();
 
         // 生成token
         AdminVO adminVO = new AdminVO();
-        BeanUtils.copyProperties(adminInfoTO, adminVO);
+        BeanUtils.copyProperties(adminInfoDTO, adminVO);
         return adminVO;
     }
 }

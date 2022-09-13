@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 /**
  * 记得要加入默认构造器，要不然会报序列化异常错误
  *
@@ -43,46 +41,63 @@ public class MyResult<T> {
     /**
      * 时间戳
      */
-    private Long timestamp = System.currentTimeMillis();
+    private Long timestamp;
 
     public static <T> MyResult<T> success() {
         return MyResult.<T>builder().code(ResultCodeEnum.SUCCESS.getCode())
-                .message(ResultCodeEnum.SUCCESS.getMessage()).data(null).build();
+                .message(ResultCodeEnum.SUCCESS.getMessage())
+                .data(null)
+                .success(Boolean.TRUE)
+                .timestamp(System.currentTimeMillis())
+                .build();
     }
 
     public static <T> MyResult<T> success(T data) {
         return MyResult.<T>builder().code(ResultCodeEnum.SUCCESS.getCode())
-                .message(ResultCodeEnum.SUCCESS.getMessage()).data(data).build();
+                .message(ResultCodeEnum.SUCCESS.getMessage())
+                .data(data)
+                .success(Boolean.TRUE)
+                .timestamp(System.currentTimeMillis())
+                .build();
     }
 
     public static <T> MyResult<T> failed() {
         return MyResult.<T>builder().code(ResultCodeEnum.FAILED.getCode())
-                .message(ResultCodeEnum.FAILED.getMessage()).data(null).build();
+                .message(ResultCodeEnum.FAILED.getMessage())
+                .data(null)
+                .success(Boolean.FALSE)
+                .timestamp(System.currentTimeMillis())
+                .build();
     }
 
     public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum) {
         return MyResult.<T>builder().code(errorCodeEnum.getCode())
-                .message(errorCodeEnum.getMessage()).data(null).build();
+                .message(errorCodeEnum.getMessage())
+                .data(null)
+                .success(Boolean.FALSE)
+                .timestamp(System.currentTimeMillis())
+                .build();
     }
 
-    public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum, String errorMessage) {
-        return MyResult.<T>builder().code(errorCodeEnum.getCode())
-                .message(errorCodeEnum.getMessage() + ":" + errorMessage).build();
-    }
-
-    public static <T> MyResult<T> errMsg(String msg) {
-        return MyResult.<T>builder().code(ResultCodeEnum.FAILED.getCode())
-                .message(msg).data(null).build();
-    }
 
     /**
-     * 是否成功
+     * 自定义返回异常信息
      *
-     * @return True Or False
+     * @param errorCodeEnum 异常枚举
+     * @param errorMessage  异常信息
+     * @return 自定义返回结果
      */
-    public Boolean isSuccess() {
-        return Objects.equals(ResultCodeEnum.SUCCESS.getCode(), code);
+    public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum, String errorMessage) {
+        return MyResult.<T>builder()
+                .code(errorCodeEnum.getCode())
+                .message(errorCodeEnum.getMessage() + ":" + errorMessage)
+                .data(null)
+                .success(Boolean.FALSE)
+                .timestamp(System.currentTimeMillis())
+                .build();
     }
 
-
+    public Boolean isSuccess() {
+        return success;
+    }
 }

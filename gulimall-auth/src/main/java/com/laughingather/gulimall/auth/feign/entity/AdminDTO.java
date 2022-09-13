@@ -10,7 +10,11 @@ import lombok.Data;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class AdminTO {
+public class AdminDTO {
+
+    /**
+     * 用户id
+     */
     private Long userid;
 
     /**

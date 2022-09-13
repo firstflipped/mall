@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class AdminInfoTO {
+public class AdminInfoDTO {
 
     private Long userid;
 

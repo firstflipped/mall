@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.auth.feign.service;
 
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
-import com.laughingather.gulimall.auth.feign.entity.AdminInfoTO;
-import com.laughingather.gulimall.auth.feign.entity.AdminTO;
+import com.laughingather.gulimall.auth.feign.entity.AdminDTO;
+import com.laughingather.gulimall.auth.feign.entity.AdminInfoDTO;
 import com.laughingather.gulimall.common.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +30,7 @@ public interface AdminFeignService {
      * @return 用户信息
      */
     @PostMapping("/gulimall-admin/openapi/admin/login")
-    MyResult<AdminTO> login(@RequestBody AdminLoginDTO adminLoginDTO);
+    MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO);
 
     /**
      * 远程手机号验证码登录接口
@@ -39,7 +39,7 @@ public interface AdminFeignService {
      * @return 用户信息
      */
     @PostMapping("/gulimall-admin/openapi/admin/login/mobile")
-    MyResult<AdminTO> loginByMobile(@RequestParam(name = "mobile") String mobile);
+    MyResult<AdminDTO> loginByMobile(@RequestParam(name = "mobile") String mobile);
 
     /**
      * 远程获取用户信息接口
@@ -48,5 +48,5 @@ public interface AdminFeignService {
      * @return
      */
     @GetMapping("/gulimall-admin/openapi/admin/userinfo")
-    MyResult<AdminInfoTO> getUserinfo(@RequestParam("userid") Long userid);
+    MyResult<AdminInfoDTO> getUserinfo(@RequestParam("userid") Long userid);
 }
