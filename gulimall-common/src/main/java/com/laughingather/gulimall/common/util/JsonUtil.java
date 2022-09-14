@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.common.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -166,4 +168,58 @@ public class JsonUtil {
             return "{}";
         }
     }
+
+
+    public static Map<String, String> entityToMap(Object object) {
+        Map<String, String> map = new HashMap<>(8);
+        for (Field field : object.getClass().getDeclaredFields()) {
+            try {
+                boolean flag = field.isAccessible();
+                field.setAccessible(true);
+                String value = field.get(object).toString();
+                map.put(field.getName(), value);
+                field.setAccessible(flag);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
+    }
+
+
+    public static <T> T mapToEntity(Map<String, String> map, Class<T> entity) {
+        T t = null;
+        try {
+            t = entity.newInstance();
+            for (Field field : entity.getDeclaredFields()) {
+                if (map.containsKey(field.getName())) {
+                    boolean flag = field.isAccessible();
+                    field.setAccessible(true);
+                    Object object = map.get(field.getName());
+                    if (object != null && field.getType().isAssignableFrom(object.getClass())) {
+                        field.set(t, object);
+                    }
+                    field.setAccessible(flag);
+                }
+            }
+            return t;
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return t;
+    }
+
+
+    /**
+     * 驼峰转下划线
+     *
+     * @param map
+     * @return
+     */
+    public static Map<String, String> humpToUnderline(Map<String, String> map) {
+        Map<String, String> transitionMap = new HashMap<>(16);
+        map.forEach((k, v) -> transitionMap.put(StrUtil.toUnderlineCase(k), v));
+        return transitionMap;
+    }
+
 }
