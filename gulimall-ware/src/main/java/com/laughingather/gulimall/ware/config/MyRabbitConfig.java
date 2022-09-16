@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -57,15 +55,9 @@ public class MyRabbitConfig {
             }
         });
 
-        /**
+        /*
          * 设置消息发送到队列回调
          * 只要消息没有发送到指定的队列就触发这个失败回调
-         *
-         * @param message
-         * @param replyCode
-         * @param replyText
-         * @param exchange
-         * @param routingKey
          */
         rabbitTemplate.setReturnsCallback(returnedMessage -> {
             log.info("消息发送到队列失败，消息内容为：" + returnedMessage);
@@ -74,21 +66,9 @@ public class MyRabbitConfig {
 
 
     /**
-     * 消息转换器
-     * 把消息转换为json格式
-     *
-     * @return
-     */
-    @Bean
-    public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
-    }
-
-
-    /**
      * 库存交换机
      *
-     * @return
+     * @return 交换机
      */
     @Bean
     public Exchange stockEventExchange() {
@@ -99,7 +79,7 @@ public class MyRabbitConfig {
     /**
      * 库存释放队列
      *
-     * @return
+     * @return 队列
      */
     @Bean
     public Queue stockReleaseStockQueue() {
@@ -110,13 +90,14 @@ public class MyRabbitConfig {
     /**
      * 库存延时队列
      *
-     * @return
+     * @return 延时队列
      */
     @Bean
     public Queue stockDelayQueue() {
         return QueueBuilder.durable(WareConstants.MQEnum.DELAY_QUEUE.getName())
                 .deadLetterExchange(WareConstants.MQEnum.EXCHANGE.getName())
                 .deadLetterRoutingKey("stock.release")
+                // 两小时
                 .ttl(2 * 60 * 1000)
                 .build();
     }
@@ -125,7 +106,7 @@ public class MyRabbitConfig {
     /**
      * 库存释放队列绑定关系
      *
-     * @return
+     * @return 绑定关系
      */
     @Bean
     public Binding stockReleaseBinding() {
@@ -139,7 +120,7 @@ public class MyRabbitConfig {
     /**
      * 库存延时队列绑定关系
      *
-     * @return
+     * @return 绑定关系
      */
     @Bean
     public Binding stockLockedBinding() {
