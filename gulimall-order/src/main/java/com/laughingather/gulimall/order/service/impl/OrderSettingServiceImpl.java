@@ -3,7 +3,7 @@ package com.laughingather.gulimall.order.service.impl;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.query.PageQuery;
+import com.laughingather.gulimall.common.entity.query.PageQuery;
 import com.laughingather.gulimall.order.dao.OrderSettingDao;
 import com.laughingather.gulimall.order.entity.OrderSettingEntity;
 import com.laughingather.gulimall.order.service.OrderSettingService;

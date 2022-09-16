@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-collect-spu")
-@Api(tags = "会员收藏商品模块")
+@Tag(name = "会员收藏商品模块")
 public class MemberCollectSpuController {
 
     @Resource

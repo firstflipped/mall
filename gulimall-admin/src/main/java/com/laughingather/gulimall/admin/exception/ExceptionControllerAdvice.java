@@ -88,6 +88,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = RuntimeException.class)
     public MyResult<Map<String, String>> handleRuntimeException(RuntimeException e) {
+        e.printStackTrace();
         log.error("异常：{}，异常类型：{}", e.getMessage(), e.getClass());
         return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION);
     }

@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.admin.annotation;
+package com.laughingather.gulimall.common.annotation;
 
 import com.laughingather.gulimall.common.constant.LogConstants;
 

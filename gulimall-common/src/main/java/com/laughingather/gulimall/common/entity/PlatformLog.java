@@ -1,11 +1,7 @@
-package com.laughingather.gulimall.admin.entity;
+package com.laughingather.gulimall.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -17,10 +13,6 @@ import java.time.LocalDateTime;
  * @since 2022-04-11 19:35:16
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@TableName(value = "sys_platform_log")
 public class PlatformLog {
 
     private Long logId;

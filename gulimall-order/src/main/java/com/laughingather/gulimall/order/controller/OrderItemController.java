@@ -23,14 +23,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("order/order-item")
-@Api(tags = "订单项模块")
+@Tag(name = "订单项模块")
 public class OrderItemController {
 
     @Resource
     private OrderItemService orderItemService;
 
     @GetMapping("/{osn}/items")
-    @ApiOperation(value = "根据订单号查询订单项列表")
+    @Operation(summary = "根据订单号查询订单项列表")
     public MyResult<List<OrderItemEntity>> listOrderItemsByOrderSn(@PathVariable("osn") String orderSn) {
         List<OrderItemEntity> orderItems = orderItemService.listOrderItemsByOrderSn(orderSn);
         return MyResult.success(orderItems);

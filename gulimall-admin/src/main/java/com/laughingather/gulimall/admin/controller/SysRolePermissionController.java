@@ -1,11 +1,11 @@
 package com.laughingather.gulimall.admin.controller;
 
-import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.param.RolePermissionParam;
 import com.laughingather.gulimall.admin.service.SysRolePermissionService;
+import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +24,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/admin/role-permission")
-@Api(tags = "角色权限管理模块")
+@Tag(name = "角色权限管理模块")
 public class SysRolePermissionController {
 
     @Resource
@@ -32,7 +32,7 @@ public class SysRolePermissionController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role-permission:add')")
-    @ApiOperation(value = "保存角色对应权限列表")
+    @Operation(summary = "保存角色对应权限列表")
     @PlatformLogAnnotation(value = "保存角色对应权限列表")
     public MyResult<Void> saveRolePermissions(@Valid @RequestBody RolePermissionParam rolePermissionParam) {
         sysRolePermissionService.saveRolePermissions(rolePermissionParam);

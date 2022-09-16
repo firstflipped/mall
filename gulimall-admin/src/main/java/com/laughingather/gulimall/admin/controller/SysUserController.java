@@ -1,17 +1,17 @@
 package com.laughingather.gulimall.admin.controller;
 
-import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
 import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.service.SysUserService;
+import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/user")
-@Api(tags = "用户管理模块")
+@Tag(name = "用户管理模块")
 public class SysUserController {
 
     @Resource
@@ -36,7 +36,7 @@ public class SysUserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:user:add')")
-    @ApiOperation(value = "保存用户")
+    @Operation(summary = "保存用户")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存用户")
     public MyResult<Void> saveUser(@Validated(value = AddGroup.class) @RequestBody SysUserEntity sysUserEntity) {
         sysUserService.saveUser(sysUserEntity);
@@ -46,7 +46,7 @@ public class SysUserController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('admin:user:update')")
-    @ApiOperation(value = "更新用户")
+    @Operation(summary = "更新用户")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户")
     public MyResult<Void> updateUserById(@Validated(value = UpdateGroup.class) @RequestBody SysUserEntity sysUserEntity) {
         sysUserService.updateUserById(sysUserEntity);
@@ -56,7 +56,7 @@ public class SysUserController {
 
     @PutMapping("/change/status")
     @PreAuthorize("hasAuthority('admin:user:update')")
-    @ApiOperation(value = "更新用户状态")
+    @Operation(summary = "更新用户状态")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户状态")
     public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserStatusParam userStatusParam) {
         sysUserService.updateUserStatusById(userStatusParam);
@@ -65,7 +65,7 @@ public class SysUserController {
 
     @PutMapping("/change/password")
     @PreAuthorize("hasAuthority('admin:user:update')")
-    @ApiOperation(value = "更新用户密码")
+    @Operation(summary = "更新用户密码")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户密码")
     public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserPasswordParam userPasswordParam) {
         sysUserService.updateUserPasswordById(userPasswordParam);
@@ -75,7 +75,7 @@ public class SysUserController {
 
     @GetMapping("/{uid}")
     @PreAuthorize("hasAuthority('admin:user:view')")
-    @ApiOperation(value = "获取用户详情")
+    @Operation(summary = "获取用户详情")
     @PlatformLogAnnotation(value = "获取用户详情")
     public MyResult<SysUserEntity> getUserById(@PathVariable("uid") Long userid) {
         SysUserEntity sysUserEntity = sysUserService.getUserById(userid);
@@ -85,7 +85,7 @@ public class SysUserController {
 
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:user:view')")
-    @ApiOperation(value = "获取用户列表")
+    @Operation(summary = "获取用户列表")
     @PlatformLogAnnotation(value = "获取用户列表")
     public MyResult<List<SysUserEntity>> listUsers() {
         List<SysUserEntity> users = sysUserService.listUsers();
@@ -95,14 +95,13 @@ public class SysUserController {
 
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:user:view')")
-    @ApiOperation(value = "分页获取用户列表")
+    @Operation(summary = "分页获取用户列表")
     @PlatformLogAnnotation(value = "分页获取用户列表")
     public MyResult<MyPage<SysUserEntity>> listUserWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,
                                                             @RequestParam(value = "ps", defaultValue = "10") Integer pageSize) {
         MyPage<SysUserEntity> usersWithPage = sysUserService.listUserWithPage(pageNum, pageSize);
         return MyResult.success(usersWithPage);
     }
-
 
 }
 

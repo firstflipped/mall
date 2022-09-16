@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-statistics-info")
-@Api(tags = "会员统计信息模块")
+@Tag(name = "会员统计信息模块")
 public class MemberStatisticsInfoController {
 
     @Resource

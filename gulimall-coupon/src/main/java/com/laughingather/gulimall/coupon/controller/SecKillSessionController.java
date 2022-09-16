@@ -22,27 +22,27 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequestMapping("/coupon/sec-kill-session")
-@Api(tags = "秒杀活动场次模块")
+@Tag(name = "秒杀活动场次模块")
 public class SecKillSessionController {
     @Resource
     private SecKillSessionService secKillSessionService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询秒杀活动场次列表")
+    @Operation(summary = "分页查询秒杀活动场次列表")
     public MyResult<MyPage<SecKillSessionEntity>> pageSecKillSession(@ModelAttribute SecKillSessionQuery secKillSessionQuery) {
         MyPage<SecKillSessionEntity> secKillSessionPage = secKillSessionService.pageSecKillSession(secKillSessionQuery);
         return MyResult.success(secKillSessionPage);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询秒杀活动场次详情")
+    @Operation(summary = "查询秒杀活动场次详情")
     public MyResult<SecKillSessionEntity> getSecKillSessionById(@PathVariable Long id) {
         SecKillSessionEntity secKillSession = secKillSessionService.getById(id);
         return MyResult.success(secKillSession);
     }
 
     @PostMapping
-    @ApiOperation(value = "保存秒杀活动场次信息")
+    @Operation(summary = "保存秒杀活动场次信息")
     public MyResult<Void> saveSecKillSession(@RequestBody SecKillSessionEntity secKillSession) {
         secKillSession.setCreateTime(LocalDateTime.now());
         secKillSessionService.save(secKillSession);
@@ -50,7 +50,7 @@ public class SecKillSessionController {
     }
 
     @PutMapping
-    @ApiOperation(value = "更新秒杀活动场次信息")
+    @Operation(summary = "更新秒杀活动场次信息")
     public MyResult<Void> updateSecKillSessionById(@RequestBody SecKillSessionEntity secKillSession) {
         secKillSessionService.updateById(secKillSession);
         return MyResult.success();

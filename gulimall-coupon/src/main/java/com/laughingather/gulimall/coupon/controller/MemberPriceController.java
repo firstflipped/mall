@@ -24,14 +24,14 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/member-price")
-@Api(tags = "商品会员价格模块")
+@Tag(name = "商品会员价格模块")
 public class MemberPriceController {
 
     @Resource
     private MemberPriceService memberPriceService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询商品会员价格列表")
+    @Operation(summary = "分页查询商品会员价格列表")
     public MyResult<MyPage<MemberPriceEntity>> pageMemberPrice(@ModelAttribute MemberPriceQuery memberPriceQuery) {
         MyPage<MemberPriceEntity> memberPricePage = memberPriceService.pageMemberPrice(memberPriceQuery);
         return MyResult.success(memberPricePage);

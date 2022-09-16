@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-collect-subject")
-@Api(tags = "会员收藏专题活动模块")
+@Tag(name = "会员收藏专题活动模块")
 public class MemberCollectSubjectController {
 
     @Resource

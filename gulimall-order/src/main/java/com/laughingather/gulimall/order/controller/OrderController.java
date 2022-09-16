@@ -24,14 +24,14 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("order/order")
-@Api(tags = "订单模块")
+@Tag(name = "订单模块")
 public class OrderController {
 
     @Resource
     private OrderService orderService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询订单列表")
+    @Operation(summary = "分页查询订单列表")
     public MyResult<MyPage<OrderEntity>> listOrdersWithPage(@ModelAttribute OrderQuery orderQuery) {
         MyPage<OrderEntity> orderPage = orderService.listOrdersWithPage(orderQuery);
         return MyResult.success(orderPage);

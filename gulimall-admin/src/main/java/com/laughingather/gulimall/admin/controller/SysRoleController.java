@@ -1,15 +1,15 @@
 package com.laughingather.gulimall.admin.controller;
 
-import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.admin.service.SysRoleService;
+import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/role")
-@Api(tags = "角色管理模块")
+@Tag(name = "角色管理模块")
 public class SysRoleController {
 
     @Resource
@@ -34,7 +34,7 @@ public class SysRoleController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role:add')")
-    @ApiOperation(value = "保存角色")
+    @Operation(summary = "保存角色")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色")
     public MyResult<Void> saveRole(@Validated(AddGroup.class) @RequestBody SysRoleEntity sysRoleEntity) {
         sysRoleService.saveRole(sysRoleEntity);
@@ -43,7 +43,7 @@ public class SysRoleController {
 
     @DeleteMapping
     @PreAuthorize("hasAuthority('admin:role:delete')")
-    @ApiOperation(value = "批量删除角色")
+    @Operation(summary = "批量删除角色")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除角色")
     public MyResult<Void> deleteBatchRoleByIds(@RequestBody List<Long> roleIds) {
         sysRoleService.deleteBatchRoleByIds(roleIds);
@@ -52,7 +52,7 @@ public class SysRoleController {
 
     @DeleteMapping("/{rid}")
     @PreAuthorize("hasAuthority('admin:role:delete')")
-    @ApiOperation("删除角色")
+    @Operation(summary = "删除角色")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除角色")
     public MyResult<Void> deleteRoleById(@PathVariable("rid") Long roleId) {
         sysRoleService.deleteRoleById(roleId);
@@ -61,7 +61,7 @@ public class SysRoleController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('admin:role:update')")
-    @ApiOperation(value = "更新角色")
+    @Operation(summary = "更新角色")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新角色")
     public MyResult<Void> updateRoleById(@Validated(UpdateGroup.class) @RequestBody SysRoleEntity sysRoleEntity) {
         sysRoleService.updateRoleById(sysRoleEntity);
@@ -70,7 +70,7 @@ public class SysRoleController {
 
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:role:view')")
-    @ApiOperation(value = "查询角色列表")
+    @Operation(summary = "查询角色列表")
     @PlatformLogAnnotation(value = "查询角色列表")
     public MyResult<List<SysRoleEntity>> listRoles() {
         List<SysRoleEntity> roles = sysRoleService.listRoles();
@@ -79,14 +79,13 @@ public class SysRoleController {
 
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:role:view')")
-    @ApiOperation("分页查询角色列表")
+    @Operation(summary = "分页查询角色列表")
     @PlatformLogAnnotation(value = "分页查询角色列表")
     public MyResult<MyPage<SysRoleEntity>> listRolesWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,
                                                              @RequestParam(value = "ps", defaultValue = "10") Integer pageSize) {
         MyPage<SysRoleEntity> rolesWithPage = sysRoleService.listRolesWithPage(pageNum, pageSize);
         return MyResult.success(rolesWithPage);
     }
-
 
 }
 

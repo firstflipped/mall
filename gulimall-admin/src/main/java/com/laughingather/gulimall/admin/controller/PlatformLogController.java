@@ -1,14 +1,14 @@
 package com.laughingather.gulimall.admin.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.laughingather.gulimall.admin.entity.PlatformLog;
 import com.laughingather.gulimall.admin.entity.query.PlatformLogQuery;
 import com.laughingather.gulimall.admin.entity.vo.PlatformLogExcelVO;
 import com.laughingather.gulimall.admin.service.PlatformLogService;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import com.laughingather.gulimall.common.entity.PlatformLog;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,14 +29,14 @@ import java.net.URLEncoder;
  */
 @RestController
 @RequestMapping("/admin/log")
-@Api(tags = "日志管理模块")
+@Tag(name = "日志管理模块")
 public class PlatformLogController {
 
     @Resource
     private PlatformLogService platformLogService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询日志列表")
+    @Operation(summary = "分页查询日志列表")
     @PreAuthorize("hasAuthority('admin:log:view')")
     public MyResult<MyPage<PlatformLog>> listPlatformLogsWithPage(@ModelAttribute PlatformLogQuery platformLogQuery) {
         MyPage<PlatformLog> platformLogPage = platformLogService.listPlatformLogsWithPage(platformLogQuery);
@@ -45,7 +45,7 @@ public class PlatformLogController {
 
 
     @GetMapping("/export")
-    @ApiOperation(value = "导出日志文件")
+    @Operation(summary = "导出日志文件")
     @PreAuthorize("hasAuthority('admin:log:export')")
     public void exportPlatformLogs(HttpServletResponse response, @ModelAttribute PlatformLogQuery platformLogQuery) throws IOException {
         // 设置返回头信息

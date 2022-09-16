@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("order/order-return-apply")
-@Api(tags = "订单退货申请模块")
+@Tag(name = "订单退货申请模块")
 public class OrderReturnApplyController {
 
     @Resource
@@ -32,7 +32,7 @@ public class OrderReturnApplyController {
 
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询清单退货申请列表")
+    @Operation(summary = "分页查询清单退货申请列表")
     public MyResult<MyPage<OrderReturnApplyEntity>> listOrderReturnAppliesWithPage(@ModelAttribute OrderReturnApplyQuery orderReturnApplyQuery) {
         MyPage<OrderReturnApplyEntity> appliesWithPage = orderReturnApplyService.listOrderReturnAppliesWithPage(orderReturnApplyQuery);
         return MyResult.success(appliesWithPage);

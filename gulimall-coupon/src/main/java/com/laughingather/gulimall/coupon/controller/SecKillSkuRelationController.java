@@ -22,14 +22,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/coupon/sec-kill-sku-relation")
-@Api(tags = "秒杀活动&商品关联模块")
+@Tag(name = "秒杀活动&商品关联模块")
 public class SecKillSkuRelationController {
 
     @Resource
     private SecKillSkuRelationService secKillSkuRelationService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询秒杀活动&商品关联关系列表")
+    @Operation(summary = "分页查询秒杀活动&商品关联关系列表")
     public MyResult<MyPage<SecKillSkuRelationEntity>> pageSecKillSkuRelation(@ModelAttribute SecKillSkuRelationQuery secKillSkuRelationQuery) {
         MyPage<SecKillSkuRelationEntity> secKillSkuRelationPage = secKillSkuRelationService.pageSecKillSkuRelation(secKillSkuRelationQuery);
         return MyResult.success(secKillSkuRelationPage);
@@ -37,14 +37,14 @@ public class SecKillSkuRelationController {
 
 
     @PostMapping
-    @ApiOperation(value = "保存秒杀活动&商品关联关系")
+    @Operation(summary = "保存秒杀活动&商品关联关系")
     public MyResult<Void> saveSecKillSkuRelation(@RequestBody SecKillSkuRelationEntity secKillSkuRelation) {
         secKillSkuRelationService.save(secKillSkuRelation);
         return MyResult.success();
     }
 
     @PutMapping
-    @ApiOperation(value = "更新秒杀活动&商品关联关系")
+    @Operation(summary = "更新秒杀活动&商品关联关系")
     public MyResult<Void> updateSecKillSkuRelation(@RequestBody SecKillSkuRelationEntity secKillSkuRelation) {
         secKillSkuRelationService.updateById(secKillSkuRelation);
         return MyResult.success();
@@ -52,7 +52,7 @@ public class SecKillSkuRelationController {
 
 
     @DeleteMapping
-    @ApiOperation(value = "批量删除秒杀活动&商品关联关系")
+    @Operation(summary = "批量删除秒杀活动&商品关联关系")
     public MyResult<Void> deleteSecKillSkuRelation(@RequestBody List<Long> ids) {
         secKillSkuRelationService.removeByIds(ids);
         return MyResult.success();

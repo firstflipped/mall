@@ -1,14 +1,15 @@
 package com.laughingather.gulimall.admin.service.impl;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.laughingather.gulimall.admin.entity.PlatformLog;
 import com.laughingather.gulimall.admin.entity.query.PlatformLogQuery;
 import com.laughingather.gulimall.admin.entity.vo.PlatformLogExcelVO;
 import com.laughingather.gulimall.admin.mapper.PlatformLogMapper;
 import com.laughingather.gulimall.admin.service.PlatformLogService;
 import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.PlatformLog;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,6 @@ public class PlatformLogServiceImpl implements PlatformLogService {
 
     @Resource
     private PlatformLogMapper platformLogMapper;
-
-    @Override
-    public void saveLog(PlatformLog platformLog) {
-        platformLogMapper.insert(platformLog);
-    }
 
     @Override
     public MyPage<PlatformLog> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery) {
@@ -59,6 +55,5 @@ public class PlatformLogServiceImpl implements PlatformLogService {
     public List<PlatformLogExcelVO> listPlatformLogsWithExport(PlatformLogQuery platformLogQuery) {
         return platformLogMapper.listPlatformLogsWithExport(platformLogQuery);
     }
-
 }
 

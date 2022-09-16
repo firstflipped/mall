@@ -22,42 +22,42 @@ import java.util.Arrays;
  */
 @RestController
 @RequestMapping("/ware/ware-sku")
-@Api(tags = "商品库存模块")
+@Tag(name = "商品库存模块")
 public class WareSkuController {
 
     @Resource
     private WareSkuService wareSkuService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询商品库存列表")
+    @Operation(summary = "分页查询商品库存列表")
     public MyResult<MyPage<WareSkuEntity>> listWareSkusWithPage(@ModelAttribute WareSkuQuery wareSkuQuery) {
         MyPage<WareSkuEntity> wareSkuMyPage = wareSkuService.listWareSkusWithPage(wareSkuQuery);
         return MyResult.success(wareSkuMyPage);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "获取商品库存详情")
+    @Operation(summary = "获取商品库存详情")
     public MyResult<WareSkuEntity> getWareSkuById(@PathVariable("id") Long id) {
         WareSkuEntity wareSku = wareSkuService.getById(id);
         return MyResult.success(wareSku);
     }
 
     @PostMapping
-    @ApiOperation(value = "保存商品库存信息")
+    @Operation(summary = "保存商品库存信息")
     public MyResult<Void> saveWareSku(@RequestBody WareSkuEntity wareSku) {
         wareSkuService.saveWareSku(wareSku);
         return MyResult.success();
     }
 
     @DeleteMapping
-    @ApiOperation(value = "批量删除商品库存信息")
+    @Operation(summary = "批量删除商品库存信息")
     public MyResult<Void> deleteBatchWareSkuByIds(@RequestBody Long[] ids) {
         wareSkuService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
     }
 
     @PutMapping
-    @ApiOperation(value = "更新商品库存信息")
+    @Operation(summary = "更新商品库存信息")
     public MyResult<Void> updateWareSkuById(@RequestBody WareSkuEntity wareSku) {
         wareSkuService.updateWareSkuById(wareSku);
         return MyResult.success();

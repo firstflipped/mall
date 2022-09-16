@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/integration-change-history")
-@Api(tags = "积分变化历史记录模块")
+@Tag(name = "积分变化历史记录模块")
 public class IntegrationChangeHistoryController {
 
     @Resource

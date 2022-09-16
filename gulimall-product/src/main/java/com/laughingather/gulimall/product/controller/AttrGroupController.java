@@ -9,10 +9,10 @@ import com.laughingather.gulimall.product.entity.query.AttrGroupQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupVO;
 import com.laughingather.gulimall.product.entity.vo.AttrGroupWithAttrsVO;
 import com.laughingather.gulimall.product.service.AttrGroupService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,31 +31,31 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product/attr-group")
-@Api(tags = "属性分组管理")
+@Tag(name = "属性分组管理")
 public class AttrGroupController {
 
     @Resource
     private AttrGroupService attrGroupService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询属性分组列表")
+    @Operation(summary = "分页查询属性分组列表")
     public MyResult<MyPage<AttrGroupVO>> listAttrGroupsWithPage(@ModelAttribute AttrGroupQuery attrGroupQuery) {
         MyPage<AttrGroupVO> attrGroupPage = attrGroupService.listAttrGroupsWithPage(attrGroupQuery);
         return MyResult.success(attrGroupPage);
     }
 
     @GetMapping("/list")
-    @ApiOperation(value = "查询属性分组列表")
+    @Operation(summary = "查询属性分组列表")
     public MyResult<List<AttrGroupEntity>> listAttrGroups() {
         List<AttrGroupEntity> attrGroups = attrGroupService.list();
         return MyResult.success(attrGroups);
     }
 
     @GetMapping("/{cid}/page")
-    @ApiOperation(value = "根据分类id分页查询属性分组列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "cid", value = "属性分组分类id", dataTypeClass = Long.class),
-            @ApiImplicitParam(name = "attrGroupQuery", value = "属性分组过滤条件", dataTypeClass = AttrGroupQuery.class)
+    @Operation(summary = "根据分类id分页查询属性分组列表")
+    @Parameters({
+            @Parameter(name = "cid", description = "属性分组分类id"),
+            @Parameter(name = "attrGroupQuery", description = "属性分组过滤条件")
     })
     public MyResult<MyPage<AttrGroupEntity>> listAttrGroupsByCategoryIdWithPage(@PathVariable("cid") Long categoryId,
                                                                                 @ModelAttribute AttrGroupQuery attrGroupQuery) {
@@ -66,8 +66,8 @@ public class AttrGroupController {
     }
 
     @GetMapping("/{gid}")
-    @ApiOperation(value = "查询属性分组详情信息")
-    @ApiImplicitParam(name = "ag-id", value = "属性分组id", dataTypeClass = Long.class)
+    @Operation(summary = "查询属性分组详情信息")
+    @Parameter(name = "ag-id", description = "属性分组id")
     public MyResult<AttrGroupVO> getAttrGroupById(@PathVariable("gid") Long attrGroupId) {
         AttrGroupVO attrGroupVO = attrGroupService.getAttrGroupById(attrGroupId);
         return MyResult.success(attrGroupVO);
@@ -75,15 +75,15 @@ public class AttrGroupController {
 
 
     @GetMapping("/{cid}/with-attrs")
-    @ApiOperation(value = "查询当前分类下的所有分组以及分组下的属性信息")
-    @ApiImplicitParam(name = "cid", value = "分类id", dataTypeClass = Long.class)
+    @Operation(summary = "查询当前分类下的所有分组以及分组下的属性信息")
+    @Parameter(name = "cid", description = "分类id")
     public MyResult<List<AttrGroupWithAttrsVO>> getAttrGroupWithAttrsByCategoryId(@PathVariable("cid") Long categoryId) {
         List<AttrGroupWithAttrsVO> attrGroupWithAttrsVOList = attrGroupService.getAttrGroupWithAttrsByCategoryId(categoryId);
         return MyResult.success(attrGroupWithAttrsVOList);
     }
 
     @PostMapping
-    @ApiOperation(value = "保存属性分组信息")
+    @Operation(summary = "保存属性分组信息")
     public MyResult<Void> saveAttrGroup(@Validated(value = {AddGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
         attrGroup.setCreateTime(LocalDateTime.now());
         attrGroupService.save(attrGroup);
@@ -92,22 +92,22 @@ public class AttrGroupController {
     }
 
     @DeleteMapping("/{gid}")
-    @ApiOperation(value = "删除属性分组信息")
-    @ApiImplicitParam(name = "ag-id", value = "属性分组id", dataTypeClass = Long.class)
+    @Operation(summary = "删除属性分组信息")
+    @Parameter(name = "ag-id", description = "属性分组id")
     public MyResult<Void> deleteAttrGroupById(@PathVariable("gid") Long attrGroupId) {
         attrGroupService.removeById(attrGroupId);
         return MyResult.success();
     }
 
     @DeleteMapping
-    @ApiOperation(value = "批量删除属性分组信息")
+    @Operation(summary = "批量删除属性分组信息")
     public MyResult<Void> deleteAttrGroupsByIds(@RequestBody Long[] attrGroupIds) {
         attrGroupService.removeByIds(Arrays.asList(attrGroupIds));
         return MyResult.success();
     }
 
     @PutMapping
-    @ApiOperation(value = "更新属性分组信息")
+    @Operation(summary = "更新属性分组信息")
     public MyResult<Void> updateAttrGroupById(@Validated(value = {UpdateGroup.class}) @RequestBody AttrGroupEntity attrGroup) {
         attrGroup.setUpdateTime(LocalDateTime.now());
         attrGroupService.updateById(attrGroup);

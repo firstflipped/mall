@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.common.query;
+package com.laughingather.gulimall.common.entity.query;
 
 import lombok.Data;
 

@@ -8,10 +8,9 @@ import com.laughingather.gulimall.product.entity.param.AttrParam;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;
 import com.laughingather.gulimall.product.entity.vo.AttrVO;
 import com.laughingather.gulimall.product.service.AttrService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,14 +26,14 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/product/attr")
-@Api(tags = "属性管理")
+@Tag(name = "属性管理")
 public class AttrController {
 
     @Resource
     private AttrService attrService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询属性列表")
+    @Operation(summary = "分页查询属性列表")
     public MyResult<MyPage<AttrVO>> listAttrsWithPage(@ModelAttribute AttrQuery attrQuery) {
         MyPage<AttrVO> attrsWithPage = attrService.listAttrsWithPage(attrQuery);
         return MyResult.success(attrsWithPage);
@@ -42,10 +41,10 @@ public class AttrController {
 
 
     @GetMapping("/{cid}/page")
-    @ApiOperation("根据属性类型和属性分类分页查询属性列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "cid", value = "属性分类id", dataTypeClass = Long.class, example = "225"),
-            @ApiImplicitParam(name = "attrQuery", value = "属性查询过滤条件", dataTypeClass = AttrQuery.class)
+    @Operation("根据属性类型和属性分类分页查询属性列表")
+    @Parameters({
+            @Parameter(name = "cid", value = "属性分类id", dataTypeClass = Long.class, example = "225"),
+            @Parameter(name = "attrQuery", value = "属性查询过滤条件", dataTypeClass = AttrQuery.class)
     })
     public MyResult<MyPage<AttrVO>> listAttrsWithPageByCategoryId(@PathVariable("cid") Long categoryId,
                                                                   @ModelAttribute AttrQuery attrQuery) {
@@ -55,22 +54,22 @@ public class AttrController {
 
 
     @GetMapping("/{aid}")
-    @ApiOperation(value = "查询属性详情信息")
-    @ApiImplicitParam(name = "aid", value = "属性id", dataTypeClass = Long.class, example = "7")
+    @Operation(summary = "查询属性详情信息")
+    @Parameter(name = "aid", value = "属性id", dataTypeClass = Long.class, example = "7")
     public MyResult<AttrVO> getAttrVOById(@PathVariable("aid") Long attrId) {
         AttrVO attrVO = attrService.getAttrVOById(attrId);
         return MyResult.success(attrVO);
     }
 
     @PostMapping
-    @ApiOperation(value = "保存属性信息")
+    @Operation(summary = "保存属性信息")
     public MyResult<Void> saveAttr(@Validated({AddGroup.class}) @RequestBody AttrParam attrParam) {
         attrService.saveAttr(attrParam);
         return MyResult.success();
     }
 
     @PutMapping
-    @ApiOperation(value = "更新属性信息")
+    @Operation(summary = "更新属性信息")
     public MyResult<Void> updateAttrById(@Validated({UpdateGroup.class}) @RequestBody AttrParam attrParam) {
         attrService.updateAttrById(attrParam);
         return MyResult.success();

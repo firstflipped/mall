@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("order/order-operate-history")
-@Api(tags = "订单操作历史模块")
+@Tag(name = "订单操作历史模块")
 public class OrderOperateHistoryController {
 
     @Resource

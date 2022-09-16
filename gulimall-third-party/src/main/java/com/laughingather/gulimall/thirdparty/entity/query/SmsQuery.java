@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.thirdparty.entity.query;
 
-import com.laughingather.gulimall.common.query.PageQuery;
+import com.laughingather.gulimall.common.entity.query.PageQuery;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

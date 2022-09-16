@@ -1,9 +1,9 @@
 package com.laughingather.gulimall.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.laughingather.gulimall.admin.entity.PlatformLog;
 import com.laughingather.gulimall.admin.entity.query.PlatformLogQuery;
 import com.laughingather.gulimall.admin.entity.vo.PlatformLogExcelVO;
+import com.laughingather.gulimall.common.entity.PlatformLog;
 
 import java.util.List;
 
@@ -23,5 +23,6 @@ public interface PlatformLogMapper extends BaseMapper<PlatformLog> {
      * @return 日志列表导出类
      */
     List<PlatformLogExcelVO> listPlatformLogsWithExport(PlatformLogQuery platformLogQuery);
+
 }
 

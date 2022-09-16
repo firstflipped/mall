@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-receive-address")
-@Api(value = "会员收货地址模块")
+@Tag(value = "会员收货地址模块")
 public class MemberReceiveAddressController {
 
     @Resource

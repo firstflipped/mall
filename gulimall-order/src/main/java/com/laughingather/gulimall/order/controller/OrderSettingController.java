@@ -2,7 +2,7 @@ package com.laughingather.gulimall.order.controller;
 
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.common.query.PageQuery;
+import com.laughingather.gulimall.common.entity.query.PageQuery;
 import com.laughingather.gulimall.order.entity.OrderSettingEntity;
 import com.laughingather.gulimall.order.service.OrderSettingService;
 import io.swagger.annotations.Api;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("order/order-setting")
-@Api(tags = "订单配置信息模块")
+@Tag(name = "订单配置信息模块")
 public class OrderSettingController {
 
     @Resource
@@ -30,7 +30,7 @@ public class OrderSettingController {
 
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询订单配置信息列表")
+    @Operation(summary = "分页查询订单配置信息列表")
     public MyResult<MyPage<OrderSettingEntity>> listOrderSettingsWithPage(@ModelAttribute PageQuery pageQuery) {
         MyPage<OrderSettingEntity> orderSettingPage = orderSettingService.listOrderSettingsWithPage(pageQuery);
         return MyResult.success(orderSettingPage);
@@ -38,7 +38,7 @@ public class OrderSettingController {
 
 
     @GetMapping("/{sid}")
-    @ApiOperation(value = "查询订单配置信息详情")
+    @Operation(summary = "查询订单配置信息详情")
     public MyResult<OrderSettingEntity> getOrderSetting(@PathVariable("sid") Long id) {
         OrderSettingEntity orderSetting = orderSettingService.getById(id);
         return MyResult.success(orderSetting);
@@ -46,7 +46,7 @@ public class OrderSettingController {
 
 
     @PostMapping
-    @ApiOperation(value = "保存订单配置信息")
+    @Operation(summary = "保存订单配置信息")
     public MyResult saveOrderSetting(@RequestBody OrderSettingEntity orderSetting) {
         orderSettingService.saveOrderSetting(orderSetting);
         return MyResult.success();
@@ -54,7 +54,7 @@ public class OrderSettingController {
 
 
     @PutMapping
-    @ApiOperation(value = "更新订单配置信息")
+    @Operation(summary = "更新订单配置信息")
     public MyResult<Void> updateOrderSetting(@RequestBody OrderSettingEntity orderSetting) {
         orderSettingService.updateOrderSetting(orderSetting);
         return MyResult.success();
@@ -62,7 +62,7 @@ public class OrderSettingController {
 
 
     @DeleteMapping
-    @ApiOperation(value = "批量删除订单配置信息")
+    @Operation(summary = "批量删除订单配置信息")
     public MyResult<Void> deleteBatchOrderSetting(@RequestBody List<Long> ids) {
         orderSettingService.removeByIds(ids);
         return MyResult.success();

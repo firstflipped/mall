@@ -22,14 +22,14 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequestMapping("/coupon/sec-kill-promotion")
-@Api(tags = "秒杀活动模块")
+@Tag(name = "秒杀活动模块")
 public class SecKillPromotionController {
 
     @Resource
     private SecKillPromotionService secKillPromotionService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询秒杀活动列表")
+    @Operation(summary = "分页查询秒杀活动列表")
     public MyResult<MyPage<SecKillPromotionEntity>> pageSecKillPromotion(@ModelAttribute SecKillPromotionQuery secKillPromotionQuery) {
         MyPage<SecKillPromotionEntity> secKillPromotion = secKillPromotionService.pageSecKillPromotion(secKillPromotionQuery);
         return MyResult.success(secKillPromotion);
@@ -37,7 +37,7 @@ public class SecKillPromotionController {
 
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询秒杀活动详情")
+    @Operation(summary = "查询秒杀活动详情")
     public MyResult<SecKillPromotionEntity> getSecKillPromotionById(@PathVariable Long id) {
         SecKillPromotionEntity secKillPromotion = secKillPromotionService.getById(id);
         return MyResult.success(secKillPromotion);
@@ -45,7 +45,7 @@ public class SecKillPromotionController {
 
 
     @PostMapping
-    @ApiOperation(value = "保存秒杀活动信息")
+    @Operation(summary = "保存秒杀活动信息")
     public MyResult<Void> saveSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
         secKillPromotion.setCreateTime(LocalDateTime.now());
         secKillPromotionService.save(secKillPromotion);
@@ -54,7 +54,7 @@ public class SecKillPromotionController {
 
 
     @PutMapping
-    @ApiOperation(value = "更新秒杀活动信息")
+    @Operation(summary = "更新秒杀活动信息")
     public MyResult<Void> updateSecKillPromotion(@RequestBody SecKillPromotionEntity secKillPromotion) {
         secKillPromotionService.updateById(secKillPromotion);
         return MyResult.success();

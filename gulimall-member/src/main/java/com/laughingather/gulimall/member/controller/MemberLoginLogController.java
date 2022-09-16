@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-login-log")
-@Api(tags = "会员登录记录模块")
+@Tag(name = "会员登录记录模块")
 public class MemberLoginLogController {
 
     @Resource

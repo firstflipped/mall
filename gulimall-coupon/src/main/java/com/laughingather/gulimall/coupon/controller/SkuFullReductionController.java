@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/sku-full-reduction")
-@Api(tags = "商品满减信息模块")
+@Tag(name = "商品满减信息模块")
 public class SkuFullReductionController {
 
     @Resource

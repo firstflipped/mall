@@ -1,18 +1,18 @@
 package com.laughingather.gulimall.admin.controller;
 
-import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.service.SysPermissionService;
+import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/permission")
-@Api(tags = "权限管理模块")
+@Tag(name = "权限管理模块")
 public class SysPermissionController {
 
     @Resource
@@ -37,7 +37,7 @@ public class SysPermissionController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:permission:add')")
-    @ApiOperation(value = "保存权限")
+    @Operation(summary = "保存权限")
     @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存权限")
     public MyResult<Void> savePermission(@Validated(AddGroup.class) @RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.savePermission(sysPermissionEntity);
@@ -46,7 +46,7 @@ public class SysPermissionController {
 
     @DeleteMapping
     @PreAuthorize("hasAuthority('admin:permission:delete')")
-    @ApiOperation(value = "批量删除权限")
+    @Operation(summary = "批量删除权限")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除权限")
     public MyResult<Void> deletePermissionByIds(@RequestBody List<Long> permissionIds) {
         sysPermissionService.batchDeletePermission(permissionIds);
@@ -55,7 +55,7 @@ public class SysPermissionController {
 
     @DeleteMapping("/{pid}")
     @PreAuthorize("hasAuthority('admin:permission:delete')")
-    @ApiOperation(value = "删除权限")
+    @Operation(summary = "删除权限")
     @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除权限")
     public MyResult<Void> deletePermissionById(@PathVariable("pid") Long permissionId) {
         sysPermissionService.deletePermission(permissionId);
@@ -64,7 +64,7 @@ public class SysPermissionController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('admin:permission:update')")
-    @ApiOperation(value = "更新权限")
+    @Operation(summary = "更新权限")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新权限")
     public MyResult<Void> updatePermissionById(@Validated(UpdateGroup.class) @RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.updatePermission(sysPermissionEntity);
@@ -73,7 +73,7 @@ public class SysPermissionController {
 
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:permission:view')")
-    @ApiOperation("查询权限列表")
+    @Operation(summary = "查询权限列表")
     @PlatformLogAnnotation(value = "查询权限列表")
     public MyResult<List<SysPermissionEntity>> listPermissions() {
         List<SysPermissionEntity> permissions = sysPermissionService.listPermissions();
@@ -82,10 +82,10 @@ public class SysPermissionController {
 
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:permission:view')")
-    @ApiOperation(value = "分页查询权限列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pn", value = "当前页码", defaultValue = "1", dataTypeClass = Integer.class, example = "1"),
-            @ApiImplicitParam(name = "ps", value = "每页展示条数", defaultValue = "10", dataTypeClass = Integer.class, example = "10")
+    @Operation(summary = "分页查询权限列表")
+    @Parameters({
+            @Parameter(name = "pn", description = "当前页码", example = "1"),
+            @Parameter(name = "ps", description = "每页展示条数", example = "10")
     })
     @PlatformLogAnnotation(value = "分页查询权限列表")
     public MyResult<MyPage<SysPermissionEntity>> listPermissionsWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,
@@ -96,7 +96,7 @@ public class SysPermissionController {
 
     @GetMapping("/tree")
     @PreAuthorize("hasAuthority('admin:permission:view')")
-    @ApiOperation("树形查询权限列表")
+    @Operation(summary = "树形查询权限列表")
     @PlatformLogAnnotation(value = "树形查询权限列表")
     public MyResult<List<PermissionsWithTreeVO>> listPermissionsWithTree() {
         List<PermissionsWithTreeVO> permissionsWithTree = sysPermissionService.listPermissionsWithTree();

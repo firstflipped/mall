@@ -6,9 +6,8 @@ import com.laughingather.gulimall.product.entity.param.SpuParam;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 import com.laughingather.gulimall.product.service.SpuInfoService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,14 +22,14 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/product/spu")
-@Api(tags = "spu模块")
+@Tag(name = "spu模块")
 public class SpuInfoController {
 
     @Resource
     private SpuInfoService spuInfoService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询spu列表")
+    @Operation(summary = "分页查询spu列表")
     public MyResult<MyPage<SpuInfoVO>> listSpuWithPage(@ModelAttribute SpuInfoQuery spuInfoQuery) {
         MyPage<SpuInfoVO> spuInfoMyPage = spuInfoService.listSpuWithPage(spuInfoQuery);
         return MyResult.success(spuInfoMyPage);
@@ -38,8 +37,8 @@ public class SpuInfoController {
 
 
     @PostMapping("/{sid}/up")
-    @ApiOperation(value = "商品上架")
-    @ApiImplicitParam(name = "sid", value = "spuId")
+    @Operation(summary = "商品上架")
+    @Parameter(name = "sid", value = "spuId")
     public MyResult<Void> upSpuBySpuId(@PathVariable("sid") Long spuId) {
         spuInfoService.upSpu(spuId);
         return MyResult.success();
@@ -47,7 +46,7 @@ public class SpuInfoController {
 
 
     @PostMapping
-    @ApiOperation(value = "保存spu信息")
+    @Operation(summary = "保存spu信息")
     public MyResult<Void> saveSpuInfo(@RequestBody SpuParam spuParam) {
         spuInfoService.saveSpuInfo(spuParam);
         return MyResult.success();

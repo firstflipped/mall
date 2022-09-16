@@ -22,14 +22,14 @@ import java.util.Arrays;
  */
 @RestController
 @RequestMapping("/member/member-level")
-@Api(tags = "会员等级模块")
+@Tag(name = "会员等级模块")
 public class MemberLevelController {
 
     @Resource
     private MemberLevelService memberLevelService;
 
     @GetMapping("/page")
-    @ApiOperation(value = "分页查询会员等级列表")
+    @Operation(summary = "分页查询会员等级列表")
     public MyResult<MyPage<MemberLevelEntity>> listMemberLevelsWithPage(@ModelAttribute MemberLevelQuery memberLevelQuery) {
         MyPage<MemberLevelEntity> memberLevelMyPage = memberLevelService.listMemberLevelsWithPage(memberLevelQuery);
         return MyResult.success(memberLevelMyPage);
@@ -37,7 +37,7 @@ public class MemberLevelController {
 
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "查询会员等级详情")
+    @Operation(summary = "查询会员等级详情")
     public MyResult<MemberLevelEntity> getMemberLevelById(@PathVariable("id") Long id) {
         MemberLevelEntity memberLevel = memberLevelService.getById(id);
         return MyResult.success(memberLevel);
@@ -45,7 +45,7 @@ public class MemberLevelController {
 
 
     @PostMapping
-    @ApiOperation(value = "保存会员等级信息")
+    @Operation(summary = "保存会员等级信息")
     public MyResult<Void> saveMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
         memberLevelService.save(memberLevelEntity);
         return MyResult.success();
@@ -53,7 +53,7 @@ public class MemberLevelController {
 
 
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "删除会员等级信息")
+    @Operation(summary = "删除会员等级信息")
     public MyResult<Void> deleteMemberLevel(@PathVariable("id") Long id) {
         memberLevelService.removeById(id);
         return MyResult.success();
@@ -61,7 +61,7 @@ public class MemberLevelController {
 
 
     @DeleteMapping
-    @ApiOperation(value = "批量删除会员等级信息")
+    @Operation(summary = "批量删除会员等级信息")
     public MyResult<Void> deleteBatchMemberLevel(@RequestBody Long[] ids) {
         memberLevelService.removeByIds(Arrays.asList(ids));
         return MyResult.success();
@@ -69,7 +69,7 @@ public class MemberLevelController {
 
 
     @PutMapping
-    @ApiOperation(value = "更新会员等级信息")
+    @Operation(summary = "更新会员等级信息")
     public MyResult<Void> updateMemberLevel(@RequestBody MemberLevelEntity memberLevelEntity) {
         memberLevelService.updateById(memberLevelEntity);
         return MyResult.success();

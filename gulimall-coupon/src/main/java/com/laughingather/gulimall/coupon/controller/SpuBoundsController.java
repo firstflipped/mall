@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/spu-bounds")
-@Api(tags = "商品spu积分设置模块")
+@Tag(name = "商品spu积分设置模块")
 public class SpuBoundsController {
 
     @Resource

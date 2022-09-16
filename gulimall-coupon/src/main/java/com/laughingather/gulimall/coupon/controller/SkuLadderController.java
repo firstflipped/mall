@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/sku-ladder")
-@Api(tags = "商品阶梯价格模块")
+@Tag(name = "商品阶梯价格模块")
 public class SkuLadderController {
 
     @Resource

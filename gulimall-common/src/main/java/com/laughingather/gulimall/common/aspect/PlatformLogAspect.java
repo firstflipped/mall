@@ -1,15 +1,15 @@
-package com.laughingather.gulimall.admin.aspect;
+package com.laughingather.gulimall.common.aspect;
 
 
 import cn.hutool.core.net.NetUtil;
-import com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.admin.entity.PlatformLog;
-import com.laughingather.gulimall.admin.service.PlatformLogService;
+import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
+import com.laughingather.gulimall.common.entity.PlatformLog;
 import com.laughingather.gulimall.common.util.HttpContextUtil;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.common.util.RequestUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -42,16 +41,17 @@ import java.util.concurrent.TimeUnit;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
+@Slf4j
 @Aspect
 @Order(1)
 @Component
 public class PlatformLogAspect {
 
-    @Resource
-    private PlatformLogService platformLogService;
+    // @Resource
+    // private PlatformLogService platformLogService;
 
 
-    @Pointcut("@annotation(com.laughingather.gulimall.admin.annotation.PlatformLogAnnotation)")
+    @Pointcut("@annotation(com.laughingather.gulimall.common.annotation.PlatformLogAnnotation)")
     public void platformLog() {
     }
 
@@ -134,7 +134,9 @@ public class PlatformLogAspect {
         // esSaveService.savePlatformLog2Es(platformLog);
 
         // 把日志放进数据库
-        platformLogService.saveLog(platformLog);
+        // platformLogService.saveLog(platformLog);
+
+        log.info("日志输出:{}", platformLog);
     }
 
     /**
