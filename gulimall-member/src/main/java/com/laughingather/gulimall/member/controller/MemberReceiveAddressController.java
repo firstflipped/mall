@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member.controller;
 
 import com.laughingather.gulimall.member.service.MemberReceiveAddressService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +16,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/member/member-receive-address")
-@Tag(value = "会员收货地址模块")
+@Tag(name = "会员收货地址模块")
 public class MemberReceiveAddressController {
 
     @Resource

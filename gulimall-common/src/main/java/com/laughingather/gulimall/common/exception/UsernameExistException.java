@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.admin.exception;
+package com.laughingather.gulimall.common.exception;
 
 /**
  * 用户名存在异常

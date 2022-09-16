@@ -5,7 +5,6 @@ import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 商品服务第三方调用类
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-product")
-@RequestMapping("/gulimall-product/openapi/product")
 public interface ProductFeignService {
 
 
@@ -25,7 +23,7 @@ public interface ProductFeignService {
      * @param skuId
      * @return
      */
-    @GetMapping("/{sid}/info")
+    @GetMapping("/gulimall-product/openapi/product/{sid}/info")
     MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
 
 }

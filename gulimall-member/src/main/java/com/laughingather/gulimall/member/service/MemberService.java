@@ -2,14 +2,14 @@ package com.laughingather.gulimall.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.exception.MobileExistException;
+import com.laughingather.gulimall.common.exception.UsernameExistException;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.dto.MemberDTO;
 import com.laughingather.gulimall.member.entity.dto.MemberLoginDTO;
 import com.laughingather.gulimall.member.entity.dto.MemberRegisterDTO;
 import com.laughingather.gulimall.member.entity.dto.SocialUser;
 import com.laughingather.gulimall.member.entity.query.MemberQuery;
-import com.laughingather.gulimall.member.exception.MobileExistException;
-import com.laughingather.gulimall.member.exception.UsernameExistException;
 
 /**
  * 会员逻辑接口

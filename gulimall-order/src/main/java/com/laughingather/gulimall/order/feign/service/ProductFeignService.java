@@ -4,7 +4,6 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.order.feign.entity.SpuInfoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-product")
-@RequestMapping("/gulimall-product/openapi/product")
 public interface ProductFeignService {
 
     /**
@@ -24,7 +22,7 @@ public interface ProductFeignService {
      * @param skuId 商品id
      * @returD spu信息
      */
-    @GetMapping("/spu-info")
+    @GetMapping("/gulimall-product/openapi/product/spu-info")
     MyResult<SpuInfoDTO> getSpuInfoBySkuId(@RequestParam("sid") Long skuId);
 
 }

@@ -15,11 +15,11 @@ public class PageQuery {
     /**
      * 设置默认分页为第一页
      */
-    private Integer pn = 1;
+    private Long pn = 1L;
 
     /**
      * 设置默认每页条数为十条
      */
-    private Integer ps = 10;
+    private Long ps = 10L;
 
 }

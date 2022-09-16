@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author <a href="#">flipped</a>
  * @version v1.0
  * @since 2022-04-11 19:35:16
+ * <p>
+ * exception @RequestMapping annotation not allowed on @FeignClient interfaces
+ * 两个注解不能同时出现在类上
  */
 @FeignClient("gulimall-coupon")
 public interface CouponFeignService {

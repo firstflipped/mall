@@ -2,11 +2,11 @@ package com.laughingather.gulimall.member.openapi;
 
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.exception.MobileExistException;
+import com.laughingather.gulimall.common.exception.UsernameExistException;
 import com.laughingather.gulimall.member.entity.MemberEntity;
 import com.laughingather.gulimall.member.entity.MemberReceiveAddressEntity;
 import com.laughingather.gulimall.member.entity.dto.*;
-import com.laughingather.gulimall.member.exception.MobileExistException;
-import com.laughingather.gulimall.member.exception.UsernameExistException;
 import com.laughingather.gulimall.member.service.MemberReceiveAddressService;
 import com.laughingather.gulimall.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;

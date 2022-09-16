@@ -6,7 +6,6 @@ import com.laughingather.gulimall.order.feign.entity.MemberReceiveAddressDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-member")
-@RequestMapping("/gulimall-member/openapi/member")
 public interface MemberFeignService {
 
     /**
@@ -27,7 +25,7 @@ public interface MemberFeignService {
      * @param memberId 会员id
      * @return 会员收货地址列表
      */
-    @GetMapping("/{mid}/addresses")
+    @GetMapping("/gulimall-member/openapi/member/{mid}/addresses")
     MyResult<List<MemberReceiveAddressDTO>> listMemberReceiveAddress(@PathVariable("mid") Long memberId);
 
 
@@ -37,7 +35,7 @@ public interface MemberFeignService {
      * @param memberId 会员id
      * @return
      */
-    @GetMapping("/{mid}/info")
+    @GetMapping("/gulimall-member/openapi/member/{mid}/info")
     MyResult<MemberDTO> getMember(@PathVariable("mid") Long memberId);
 
 

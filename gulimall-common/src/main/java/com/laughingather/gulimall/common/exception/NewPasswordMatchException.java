@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.admin.exception;
+package com.laughingather.gulimall.common.exception;
 
 /**
  * 新密码两次输入不一致

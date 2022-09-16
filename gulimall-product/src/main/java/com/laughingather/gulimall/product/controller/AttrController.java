@@ -11,6 +11,7 @@ import com.laughingather.gulimall.product.service.AttrService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,10 +42,10 @@ public class AttrController {
 
 
     @GetMapping("/{cid}/page")
-    @Operation("根据属性类型和属性分类分页查询属性列表")
+    @Operation(summary = "根据属性类型和属性分类分页查询属性列表")
     @Parameters({
-            @Parameter(name = "cid", value = "属性分类id", dataTypeClass = Long.class, example = "225"),
-            @Parameter(name = "attrQuery", value = "属性查询过滤条件", dataTypeClass = AttrQuery.class)
+            @Parameter(name = "cid", description = "属性分类id", example = "225"),
+            @Parameter(name = "attrQuery", description = "属性查询过滤条件")
     })
     public MyResult<MyPage<AttrVO>> listAttrsWithPageByCategoryId(@PathVariable("cid") Long categoryId,
                                                                   @ModelAttribute AttrQuery attrQuery) {
@@ -55,7 +56,7 @@ public class AttrController {
 
     @GetMapping("/{aid}")
     @Operation(summary = "查询属性详情信息")
-    @Parameter(name = "aid", value = "属性id", dataTypeClass = Long.class, example = "7")
+    @Parameter(name = "aid", description = "属性id", example = "7")
     public MyResult<AttrVO> getAttrVOById(@PathVariable("aid") Long attrId) {
         AttrVO attrVO = attrService.getAttrVOById(attrId);
         return MyResult.success(attrVO);

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.coupon.controller;
 
 import com.laughingather.gulimall.coupon.service.SpuBoundsService;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -67,7 +67,7 @@ public class PurchaseController {
 
     @DeleteMapping
     @Operation(summary = "批量删除采购单信息")
-    @Parameter(name = "ids", value = "采购单id集合", dataTypeClass = Long.class)
+    @Parameter(name = "ids", description = "采购单id集合")
     public MyResult<Void> deleteBatchPurchaseByIds(@RequestBody Long[] ids) {
         purchaseService.removeByIds(Arrays.asList(ids));
         return MyResult.success();

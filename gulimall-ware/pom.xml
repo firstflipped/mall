@@ -9,7 +9,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.laughingather.gulimall</groupId>
     <artifactId>gulimall-ware</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gulimall-ware</name>

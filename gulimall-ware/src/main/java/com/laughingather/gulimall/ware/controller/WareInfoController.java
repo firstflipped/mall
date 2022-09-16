@@ -38,7 +38,7 @@ public class WareInfoController {
     }
 
     @GetMapping("/list")
-    @Operation("查询仓库列表")
+    @Operation(summary = "查询仓库列表")
     public MyResult<List<WareInfoEntity>> listWares() {
         List<WareInfoEntity> wareInfoList = wareInfoService.list();
         return MyResult.success(wareInfoList);

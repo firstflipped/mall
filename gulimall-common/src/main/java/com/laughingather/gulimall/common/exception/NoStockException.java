@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.ware.exception;
+package com.laughingather.gulimall.common.exception;
 
 /**
  * 库存为空异常

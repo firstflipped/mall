@@ -4,7 +4,6 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.order.feign.entity.OrderItemDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -16,7 +15,6 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @FeignClient("gulimall-cart")
-@RequestMapping("/gulimall-cart/openapi/cart")
 public interface CartFeignService {
 
     /**
@@ -24,7 +22,7 @@ public interface CartFeignService {
      *
      * @return 用户车购物项列表
      */
-    @GetMapping("/current-user/cart-items")
+    @GetMapping("/gulimall-cart/openapi/cart/current-user/cart-items")
     MyResult<List<OrderItemDTO>> getCurrentUserCartItems();
 
 }

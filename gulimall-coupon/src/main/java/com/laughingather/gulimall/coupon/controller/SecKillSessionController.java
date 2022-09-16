@@ -5,8 +5,8 @@ import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.SecKillSessionEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillSessionQuery;
 import com.laughingather.gulimall.coupon.service.SecKillSessionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

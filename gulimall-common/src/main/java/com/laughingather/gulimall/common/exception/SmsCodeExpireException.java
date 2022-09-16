@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.auth.exception;
+package com.laughingather.gulimall.common.exception;
 
 /**
  * 验证码过期异常

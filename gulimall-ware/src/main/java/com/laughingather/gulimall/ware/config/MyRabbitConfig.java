@@ -33,8 +33,7 @@ public class MyRabbitConfig {
      * 自定义化模板配置类
      * 实现消息发送回调功能
      *
-     * @return
-     * @PostConstruct 表示在当前对象创建完之后执行
+     * <p> @PostConstruct 表示在当前对象创建完之后执行 </p>
      */
     @PostConstruct
     public void initRabbitTemplate() {

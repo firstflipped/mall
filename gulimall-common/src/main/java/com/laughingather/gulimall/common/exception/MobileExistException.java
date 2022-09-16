@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.admin.exception;
+package com.laughingather.gulimall.common.exception;
 
 /**
  * 手机号码存在异常

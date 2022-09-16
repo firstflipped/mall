@@ -49,10 +49,10 @@ public class MemberPriceServiceImpl extends ServiceImpl<MemberPriceDao, MemberPr
     @Override
     public MyPage<MemberPriceEntity> pageMemberPrice(MemberPriceQuery memberPriceQuery) {
         if (memberPriceQuery.getPn() == null || memberPriceQuery.getPn() <= 0) {
-            memberPriceQuery.setPn(1);
+            memberPriceQuery.setPn(1L);
         }
         if (memberPriceQuery.getPs() == null || memberPriceQuery.getPs() <= 0) {
-            memberPriceQuery.setPs(10);
+            memberPriceQuery.setPs(10L);
         }
 
         IPage<MemberPriceEntity> page = new Page<>(memberPriceQuery.getPn(), memberPriceQuery.getPs());

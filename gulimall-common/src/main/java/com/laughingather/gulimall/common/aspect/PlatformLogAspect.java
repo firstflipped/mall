@@ -136,7 +136,7 @@ public class PlatformLogAspect {
         // 把日志放进数据库
         // platformLogService.saveLog(platformLog);
 
-        log.info("日志输出:{}", platformLog);
+        log.info("日志输出: {}", JsonUtil.obj2String(platformLog));
     }
 
     /**

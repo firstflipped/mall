@@ -8,6 +8,7 @@ import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;
 import com.laughingather.gulimall.product.service.SpuInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,7 +39,7 @@ public class SpuInfoController {
 
     @PostMapping("/{sid}/up")
     @Operation(summary = "商品上架")
-    @Parameter(name = "sid", value = "spuId")
+    @Parameter(name = "sid", description = "spuId")
     public MyResult<Void> upSpuBySpuId(@PathVariable("sid") Long spuId) {
         spuInfoService.upSpu(spuId);
         return MyResult.success();

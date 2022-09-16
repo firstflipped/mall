@@ -21,7 +21,7 @@ public class MyRedisConfig {
 
     /**
      * @param redisConnectionFactory redis连接工厂
-     * @return
+     * @return redis操作模版类
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
