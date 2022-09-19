@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.laughingather.gulimall.common.valid.AddGroup;
@@ -29,6 +30,7 @@ public class SysPermissionEntity {
      * 主键id
      */
     @Id
+    @TableId
     @Null(message = "新增时，权限id必须为空", groups = AddGroup.class)
     @NotBlank(message = "更新时，权限id不能为空", groups = UpdateGroup.class)
     private Long permissionId;

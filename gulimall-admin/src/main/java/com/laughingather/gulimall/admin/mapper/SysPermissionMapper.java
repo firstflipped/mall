@@ -25,17 +25,17 @@ public interface SysPermissionMapper extends BaseMapper<SysPermissionEntity> {
     void batchUpdatePermissionDelete(@Param("permissionIds") List<Long> permissionIds, @Param("status") Integer status);
 
     /**
-     * 单条更新权限删除状态
+     * 单条更新权限状态
      *
-     * @param permissionId
-     * @param status
+     * @param permissionId 权限id
+     * @param status       状态
      */
     void updatePermissionDelete(@Param("permissionId") Long permissionId, @Param("status") Integer status);
 
     /**
-     * 查询树形展示结构列表
+     * 查询树形结构权限列表
      *
-     * @return
+     * @return 树形结构列表
      */
     List<PermissionsWithTreeVO> selectPermissionsVO();
 }

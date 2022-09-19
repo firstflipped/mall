@@ -27,8 +27,7 @@ public class AdminOpenApi {
 
     /**
      * 远程用户名密码登录接口
-     * <p>
-     * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换
+     * 返回的数据就是一个JSON串，只要属性匹配就可以进行转换，名称不强制要求一致
      *
      * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息

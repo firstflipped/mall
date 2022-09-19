@@ -20,7 +20,7 @@ public interface SysRolePermissionService extends IService<SysRolePermissionEnti
      * 查询权限列表
      *
      * @param userid 用户id
-     * @return
+     * @return 权限列表
      */
     List<SysPermissionEntity> listPermissionsByUserid(Long userid);
 
@@ -29,7 +29,7 @@ public interface SysRolePermissionService extends IService<SysRolePermissionEnti
      * 查询权限列表
      *
      * @param roleIds 角色id集合
-     * @return
+     * @return 权限列表
      */
     List<SysPermissionEntity> listPermissionsByRoleIds(List<Long> roleIds);
 

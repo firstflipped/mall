@@ -19,51 +19,51 @@ public interface SysPermissionService extends IService<SysPermissionEntity> {
     /**
      * 保存权限
      *
-     * @param sysPermissionEntity
+     * @param sysPermissionEntity 权限实体
      */
     void savePermission(SysPermissionEntity sysPermissionEntity);
 
     /**
      * 批量删除权限
      *
-     * @param permissionIds
+     * @param permissionIds 权限id集合
      */
     void batchDeletePermission(List<Long> permissionIds);
 
     /**
      * 删除权限
      *
-     * @param permissionId
+     * @param permissionId 权限id
      */
     void deletePermission(Long permissionId);
 
     /**
      * 更新权限
      *
-     * @param sysPermissionEntity
+     * @param sysPermissionEntity 权限实体
      */
     void updatePermission(SysPermissionEntity sysPermissionEntity);
 
     /**
      * 权限列表
      *
-     * @return
+     * @return 权限列表
      */
     List<SysPermissionEntity> listPermissions();
 
     /**
      * 分页查询权限列表
      *
-     * @param pageNum
-     * @param pageSize
-     * @return
+     * @param pageNum  页码
+     * @param pageSize 每页条数
+     * @return 分页权限列表
      */
     MyPage<SysPermissionEntity> listPermissionsWithPage(Integer pageNum, Integer pageSize);
 
     /**
-     * 树形展示权限列表
+     * 查询树形权限列表
      *
-     * @return
+     * @return 树形结构权限列表
      */
     List<PermissionsWithTreeVO> listPermissionsWithTree();
 }

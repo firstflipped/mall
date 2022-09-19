@@ -20,7 +20,7 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermissionEnt
      * 查询权限列表
      *
      * @param userid 用户id
-     * @return
+     * @return 用户的权限列表
      */
     List<SysPermissionEntity> listPermissionsByUserid(@Param("userid") Long userid);
 
@@ -28,7 +28,7 @@ public interface SysRolePermissionMapper extends BaseMapper<SysRolePermissionEnt
      * 查询权限列表
      *
      * @param roleIds 角色id集合
-     * @return
+     * @return 角色的权限列表
      */
     List<SysPermissionEntity> listPermissionsByRoleIds(@Param("roleIds") List<Long> roleIds);
 

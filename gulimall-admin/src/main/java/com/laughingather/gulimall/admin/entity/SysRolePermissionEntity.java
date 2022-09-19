@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,9 @@ import lombok.NoArgsConstructor;
 @TableName("sys_role_permission")
 public class SysRolePermissionEntity {
     /**
-     *
+     * 主键id
      */
+    @TableId
     private Long id;
 
     /**

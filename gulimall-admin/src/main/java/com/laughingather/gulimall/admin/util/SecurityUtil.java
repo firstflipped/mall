@@ -41,7 +41,5 @@ public class SecurityUtil {
     public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
-
-
 }
 

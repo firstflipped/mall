@@ -18,44 +18,44 @@ public interface SysRoleService extends IService<SysRoleEntity> {
     /**
      * 添加角色
      *
-     * @param sysRoleEntity
+     * @param sysRoleEntity 角色实体
      */
     void saveRole(SysRoleEntity sysRoleEntity);
 
     /**
      * 批量删除角色
      *
-     * @param roleIds
+     * @param roleIds 角色id集合
      */
     void deleteBatchRoleByIds(List<Long> roleIds);
 
     /**
      * 删除角色
      *
-     * @param roleId
+     * @param roleId 角色id
      */
     void deleteRoleById(Long roleId);
 
     /**
      * 更新角色
      *
-     * @param sysRoleEntity
+     * @param sysRoleEntity 角色实体
      */
     void updateRoleById(SysRoleEntity sysRoleEntity);
 
     /**
      * 查询角色列表
      *
-     * @return
+     * @return 角色列表
      */
     List<SysRoleEntity> listRoles();
 
     /**
      * 分页查询角色列表
      *
-     * @param pageNum
-     * @param pageSize
-     * @return
+     * @param pageNum  页面
+     * @param pageSize 每页条数
+     * @return 分页角色列表
      */
     MyPage<SysRoleEntity> listRolesWithPage(Integer pageNum, Integer pageSize);
 }

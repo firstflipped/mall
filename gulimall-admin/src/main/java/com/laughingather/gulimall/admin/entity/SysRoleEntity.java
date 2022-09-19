@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.laughingather.gulimall.common.valid.AddGroup;
@@ -27,6 +28,7 @@ public class SysRoleEntity {
      * 主键id
      */
     @Id
+    @TableId
     @Null(message = "新增时角色id必须为空", groups = AddGroup.class)
     @NotNull(message = "更新时角色id不能为空", groups = UpdateGroup.class)
     private Long roleId;
