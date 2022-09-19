@@ -44,8 +44,8 @@ public interface AdminFeignService {
     /**
      * 远程获取用户信息接口
      *
-     * @param userid
-     * @return
+     * @param userid 用户id
+     * @return 用户信息
      */
     @GetMapping("/gulimall-admin/openapi/admin/userinfo")
     MyResult<AdminInfoDTO> getUserinfo(@RequestParam("userid") Long userid);

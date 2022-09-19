@@ -41,8 +41,8 @@ public interface MemberFeignService {
     /**
      * oauth2登录接口
      *
-     * @param socialUserDTO
-     * @return
+     * @param socialUserDTO oauth2返回信息
+     * @return 会员信息
      */
     @PostMapping("/gulimall-member/openapi/member/oauth2/login")
     MyResult<MemberDTO> oauth2Login(@RequestBody SocialUserDTO socialUserDTO);

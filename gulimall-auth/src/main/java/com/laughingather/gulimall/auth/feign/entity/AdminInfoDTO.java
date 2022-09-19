@@ -41,7 +41,7 @@ public class AdminInfoDTO {
     private LocalDate birthday;
 
     /**
-     * 性别（1：男 2：女）
+     * 性别（1: 男 2: 女）
      */
     private Integer sex;
 
@@ -56,12 +56,12 @@ public class AdminInfoDTO {
     private String mobile;
 
     /**
-     * 状态(1：正常  2：冻结 ）
+     * 状态(1: 正常  2: 冻结 ）
      */
     private Integer status;
 
     /**
-     * 删除状态（0，正常，1已删除）
+     * 删除状态（0: 正常，1: 已删除）
      */
     private Integer delete;
 

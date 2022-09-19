@@ -6,7 +6,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.laughingather.gulimall.thirdparty.entity.query.SmsQuery;
 
 /**
- * 短信发送逻辑接口
+ * 自定义短信发送逻辑接口
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -17,21 +17,21 @@ public interface MySmsService {
     /**
      * 发送短信
      *
-     * @param phoneNumber 手机号
-     * @param code        验证码
+     * @param mobile 手机号
+     * @param code   验证码
      * @return
      */
-    SendSmsResponse sendCheckCode(String phoneNumber, String code);
+    SendSmsResponse sendCheckCode(String mobile, String code);
 
 
     /**
      * 批量发送短信
      *
-     * @param phoneNumber 手机号
-     * @param code        验证码
+     * @param mobile 手机号
+     * @param code   验证码
      * @return
      */
-    SendBatchSmsResponse batchSendCheckCode(String phoneNumber, String code);
+    SendBatchSmsResponse batchSendCheckCode(String mobile, String code);
 
 
     /**

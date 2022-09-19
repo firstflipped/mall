@@ -38,8 +38,8 @@ public interface AuthService {
     /**
      * 生成token
      *
-     * @param jwtPayLoad
-     * @return
+     * @param jwtPayLoad jwt实体信息
+     * @return token
      */
     String generateToken(JwtPayLoad jwtPayLoad);
 
@@ -47,8 +47,8 @@ public interface AuthService {
     /**
      * 解析token获取信息
      *
-     * @param token
-     * @return
+     * @param token token
+     * @return 用户信息
      */
     JwtPayLoad parseToken(String token);
 
@@ -56,8 +56,8 @@ public interface AuthService {
     /**
      * 校验token
      *
-     * @param token
-     * @return
+     * @param token token
+     * @return token是否有效
      */
     Boolean checkToken(String token);
 

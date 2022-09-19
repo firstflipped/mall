@@ -70,6 +70,7 @@ public class AdminLoginController {
 
     @PostMapping("/logout")
     public MyResult<Void> logout() {
+        // TODO: 退出登录功能待实现
         return null;
     }
 

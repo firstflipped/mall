@@ -14,7 +14,7 @@ public interface OssService {
     /**
      * 获取文件上传所需签名
      *
-     * @return
+     * @return 签名信息
      */
     Map<String, String> policy();
 

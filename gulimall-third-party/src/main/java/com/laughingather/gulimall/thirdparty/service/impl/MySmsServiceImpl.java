@@ -34,13 +34,13 @@ public class MySmsServiceImpl implements MySmsService {
 
 
     @Override
-    public SendSmsResponse sendCheckCode(String phoneNumber, String code) {
+    public SendSmsResponse sendCheckCode(String mobile, String code) {
         SendSmsResponse sendSmsResponse = null;
 
         // 组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         // 必填:待发送手机号
-        request.setPhoneNumbers(phoneNumber);
+        request.setPhoneNumbers(mobile);
         // 必填:短信签名-可在短信控制台中找到
         request.setSignName(smsProperties.getSignName());
         // 必填:短信模板-可在短信控制台中找到
@@ -63,13 +63,13 @@ public class MySmsServiceImpl implements MySmsService {
     }
 
     @Override
-    public SendBatchSmsResponse batchSendCheckCode(String phoneNumber, String code) {
+    public SendBatchSmsResponse batchSendCheckCode(String mobile, String code) {
         // 组装请求对象
         SendBatchSmsRequest request = new SendBatchSmsRequest();
         // 使用post提交
         request.setSysMethod(MethodType.GET);
         // 必填:待发送手机号。支持JSON格式的批量调用，批量上限为100个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式
-        request.setPhoneNumberJson("[" + phoneNumber + "]");
+        request.setPhoneNumberJson("[" + mobile + "]");
         // 必填:短信签名-支持不同的号码发送不同的短信签名
         request.setSignNameJson("[" + smsProperties.getSignName() + "]");
         // 必填:短信模板-可在短信控制台中找到
@@ -108,9 +108,9 @@ public class MySmsServiceImpl implements MySmsService {
         // 必填-短信发送的日期 支持30天内记录查询（可查其中一天的发送数据），格式yyyyMMdd
         request.setSendDate(date.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         // 必填-当前页码从1开始计数
-        request.setCurrentPage(smsQuery.getPn().longValue());
+        request.setCurrentPage(smsQuery.getPn());
         // 必填-页大小
-        request.setPageSize(smsQuery.getPs().longValue());
+        request.setPageSize(smsQuery.getPs());
 
         try {
             querySendDetailsResponse = aliSmsService.querySendDetails(request);

@@ -18,12 +18,12 @@ public interface ThirdPartyFeignService {
     /**
      * 第三方发送短信接口
      *
-     * @param phoneNumber 电话号码
-     * @param code        验证码
+     * @param mobile 手机号码
+     * @param code   验证码
      * @return Void
      */
-    @GetMapping("/gulimall-third-party/sms/sms-send.do")
-    MyResult<Void> sendCheckCode(@RequestParam(name = "phoneNumber") String phoneNumber,
+    @GetMapping("/gulimall-third-party/openapi/third-party/sms/sms-send.do")
+    MyResult<Void> sendCheckCode(@RequestParam(name = "mobile") String mobile,
                                  @RequestParam(name = "code") String code);
 
 }

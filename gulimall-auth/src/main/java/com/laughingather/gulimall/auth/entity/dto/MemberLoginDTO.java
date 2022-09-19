@@ -1,7 +1,6 @@
 package com.laughingather.gulimall.auth.entity.dto;
 
 import lombok.Data;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
@@ -14,7 +13,6 @@ import javax.validation.constraints.NotBlank;
  * @since 2022-04-11 19:35:16
  */
 @Data
-@ToString
 public class MemberLoginDTO {
 
     @NotBlank(message = "用户名不能为空")
