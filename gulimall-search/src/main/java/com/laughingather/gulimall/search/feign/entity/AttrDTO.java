@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttrTO {
+public class AttrDTO {
 
     private Long attrId;
     /**

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.ware.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.ware.feign.entity.OrderTO;
+import com.laughingather.gulimall.ware.feign.entity.OrderDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +23,6 @@ public interface OrderFeignService {
      * @return
      */
     @GetMapping("/gulimall-order/openapi/order/{osn}/info")
-    MyResult<OrderTO> getOrderByOrderSn(@PathVariable("osn") String orderSn);
+    MyResult<OrderDTO> getOrderByOrderSn(@PathVariable("osn") String orderSn);
 
 }

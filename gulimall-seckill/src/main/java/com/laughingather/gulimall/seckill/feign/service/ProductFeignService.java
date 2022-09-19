@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.seckill.feign.service;
 
 import com.laughingather.gulimall.common.api.MyResult;
-import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
+import com.laughingather.gulimall.seckill.feign.entity.SkuInfoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +24,6 @@ public interface ProductFeignService {
      * @return
      */
     @GetMapping("/gulimall-product/openapi/product/{sid}/info")
-    MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
+    MyResult<SkuInfoDTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
 
 }

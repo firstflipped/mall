@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class BrandTO {
+public class BrandDTO {
 
     /**
      * 品牌id

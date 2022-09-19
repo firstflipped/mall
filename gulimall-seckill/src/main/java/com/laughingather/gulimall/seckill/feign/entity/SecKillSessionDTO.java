@@ -18,7 +18,7 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class SeckillSessionTO {
+public class SecKillSessionDTO {
 
     private Long id;
     /**
@@ -55,6 +55,6 @@ public class SeckillSessionTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
-    private List<SeckillSkuRelationTO> skuRelations;
+    private List<SecKillSkuRelationDTO> skuRelations;
 }
 

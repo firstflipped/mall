@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.entity.dto;
 
-import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
+import com.laughingather.gulimall.seckill.feign.entity.SkuInfoDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -46,13 +46,13 @@ public class SecKillSkuRedisDTO {
     private Integer secKillSort;
 
 
-    private SkuInfoTO skuInfo;
+    private SkuInfoDTO skuInfo;
 
     /**
      * 活动的开始时间和结束时间
      * 转换为long型字符戳有利于进行时间比对
      */
-    private long startTime;
-    private long endTime;
+    private Long startTime;
+    private Long endTime;
 }
 

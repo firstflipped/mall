@@ -3,8 +3,8 @@ package com.laughingather.gulimall.seckill.service.impl;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.SecKillConstants;
 import com.laughingather.gulimall.seckill.entity.dto.SecKillSkuRedisDTO;
-import com.laughingather.gulimall.seckill.feign.entity.SeckillSessionTO;
-import com.laughingather.gulimall.seckill.feign.entity.SkuInfoTO;
+import com.laughingather.gulimall.seckill.feign.entity.SecKillSessionDTO;
+import com.laughingather.gulimall.seckill.feign.entity.SkuInfoDTO;
 import com.laughingather.gulimall.seckill.feign.service.CouponFeignService;
 import com.laughingather.gulimall.seckill.feign.service.ProductFeignService;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
@@ -47,9 +47,9 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
 
     @Override
     public void uploadSecKillSkuLatest3Days() {
-        MyResult<List<SeckillSessionTO>> last3DaysSession = couponFeignService.getLast3DaysSession();
+        MyResult<List<SecKillSessionDTO>> last3DaysSession = couponFeignService.getLast3DaysSession();
         if (last3DaysSession.isSuccess()) {
-            List<SeckillSessionTO> secKillSessionDTOList = last3DaysSession.getData();
+            List<SecKillSessionDTO> secKillSessionDTOList = last3DaysSession.getData();
 
             // 将秒杀商品添加到缓存中
             saveSessionsInfo(secKillSessionDTOList);
@@ -121,8 +121,8 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
      *
      * @param secKillSessionDTOList
      */
-    private void saveSessionsInfo(List<SeckillSessionTO> secKillSessionDTOList) {
-        secKillSessionDTOList.stream().forEach(secKillSessionDTO -> {
+    private void saveSessionsInfo(List<SecKillSessionDTO> secKillSessionDTOList) {
+        secKillSessionDTOList.forEach(secKillSessionDTO -> {
             // 返回开始时间和结束时间的时间戳
             long startTime = secKillSessionDTO.getStartTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
             long endTime = secKillSessionDTO.getEndTime().toInstant(ZoneOffset.of("+8")).toEpochMilli();
@@ -144,7 +144,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
      *
      * @param secKillSessionDTOList
      */
-    private void saveSessionSkusInfo(List<SeckillSessionTO> secKillSessionDTOList) {
+    private void saveSessionSkusInfo(List<SecKillSessionDTO> secKillSessionDTOList) {
         secKillSessionDTOList.forEach(secKillSessionDTO -> {
             BoundHashOperations skuOperations = redisTemplate.boundHashOps(SecKillConstants.SESSION_SKUS_CACHE_PREFIX);
             secKillSessionDTO.getSkuRelations().forEach(skuRelationDTO -> {
@@ -157,7 +157,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
                     BeanUtils.copyProperties(skuRelationDTO, secKillSkuRedisDTO);
 
                     // 商品基本信息
-                    MyResult<SkuInfoTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuRelationDTO.getSkuId());
+                    MyResult<SkuInfoDTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuRelationDTO.getSkuId());
                     if (skuInfoResult.isSuccess()) {
                         secKillSkuRedisDTO.setSkuInfo(skuInfoResult.getData());
                     }
@@ -174,7 +174,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
 
                     // 信号量 商品可以秒杀的数量作为信号量
                     RSemaphore semaphore = redissonClient.getSemaphore(SecKillConstants.SKU_STOCK_SEMAPHORE + randomCode);
-                    semaphore.trySetPermits(skuRelationDTO.getSeckillCount());
+                    semaphore.trySetPermits(skuRelationDTO.getSecKillCount());
                 }
             });
         });

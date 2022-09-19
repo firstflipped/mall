@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class SkuInfoTO {
+public class SkuInfoDTO {
     private Long skuId;
 
     /**

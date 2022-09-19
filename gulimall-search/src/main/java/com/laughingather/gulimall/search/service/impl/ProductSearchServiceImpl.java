@@ -7,8 +7,8 @@ import com.laughingather.gulimall.search.config.MyElasticSearchConfig;
 import com.laughingather.gulimall.search.entity.EsSku;
 import com.laughingather.gulimall.search.entity.query.SearchQuery;
 import com.laughingather.gulimall.search.entity.vo.SearchVO;
-import com.laughingather.gulimall.search.feign.entity.AttrTO;
-import com.laughingather.gulimall.search.feign.entity.BrandTO;
+import com.laughingather.gulimall.search.feign.entity.AttrDTO;
+import com.laughingather.gulimall.search.feign.entity.BrandDTO;
 import com.laughingather.gulimall.search.feign.service.ProductFeignService;
 import com.laughingather.gulimall.search.service.ProductSearchService;
 import lombok.extern.slf4j.Slf4j;
@@ -268,9 +268,9 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 
                 String[] split = attr.split(SearchConstants.ATTR_SPLIT);
                 navVO.setNavValue(split[1]);
-                MyResult<AttrTO> attrTOResult = productFeignService.getAttrById(Long.parseLong(split[0]));
-                if (attrTOResult.isSuccess()) {
-                    navVO.setNavName(attrTOResult.getData().getAttrName());
+                MyResult<AttrDTO> attrDTOResult = productFeignService.getAttrById(Long.parseLong(split[0]));
+                if (attrDTOResult.isSuccess()) {
+                    navVO.setNavName(attrDTOResult.getData().getAttrName());
                 } else {
                     navVO.setNavName(split[0]);
                 }
@@ -292,12 +292,12 @@ public class ProductSearchServiceImpl implements ProductSearchService {
 
             navVO.setNavName("品牌");
             List<Long> brandId = searchQuery.getBrandId();
-            MyResult<List<BrandTO>> brandsResult = productFeignService.listBrandsByIds(brandId);
+            MyResult<List<BrandDTO>> brandsResult = productFeignService.listBrandsByIds(brandId);
             if (brandsResult.isSuccess()) {
-                List<BrandTO> brands = brandsResult.getData();
+                List<BrandDTO> brands = brandsResult.getData();
                 StringBuffer buffer = new StringBuffer();
                 String replace = "";
-                for (BrandTO brand : brands) {
+                for (BrandDTO brand : brands) {
                     buffer.append(brand.getBrandName()).append(";");
                     replace = replaceQueryString(searchQuery, "brandId", brand.getBrandId().toString());
                 }

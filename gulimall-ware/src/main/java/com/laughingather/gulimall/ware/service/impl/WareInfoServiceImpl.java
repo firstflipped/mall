@@ -10,7 +10,7 @@ import com.laughingather.gulimall.ware.dao.WareInfoDao;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
-import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddressTO;
+import com.laughingather.gulimall.ware.feign.entity.MemberReceiveAddressDTO;
 import com.laughingather.gulimall.ware.feign.service.MemberFeignService;
 import com.laughingather.gulimall.ware.service.WareInfoService;
 import org.apache.commons.lang3.RandomUtils;
@@ -56,8 +56,8 @@ public class WareInfoServiceImpl extends ServiceImpl<WareInfoDao, WareInfoEntity
     public FareVO getFare(Long addressId) {
         FareVO fareVO = new FareVO();
 
-        MyResult<MemberReceiveAddressTO> addressInfoResult = memberFeignService.getAddressInfoById(addressId);
-        MemberReceiveAddressTO address = addressInfoResult.getData();
+        MyResult<MemberReceiveAddressDTO> addressInfoResult = memberFeignService.getAddressInfoById(addressId);
+        MemberReceiveAddressDTO address = addressInfoResult.getData();
 
         // TODO：模拟运费计算
         if (address == null) {
