@@ -57,6 +57,7 @@ public class AdminLoginController {
 
     @PostMapping("/login")
     public MyResult<String> login(@Valid @RequestBody AdminLoginDTO adminLoginDTO) {
+        // TODO: 还有优化空间
         String token = adminLoginService.login(adminLoginDTO);
         return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
     }

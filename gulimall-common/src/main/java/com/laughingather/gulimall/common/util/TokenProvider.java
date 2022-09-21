@@ -44,13 +44,12 @@ public class TokenProvider {
      */
     private static byte[] jwtSecret;
 
-    /**
+    /*
      * 获取配置文件中的密钥
      *
      */
     static {
-        try {
-            FileInputStream fis = new FileInputStream("private.key");
+        try (FileInputStream fis = new FileInputStream("private.key")) {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int len;
@@ -113,7 +112,7 @@ public class TokenProvider {
      */
     public static JwtPayLoad getJwtPayLoad(String token) {
         Claims claims = getClaimsFromToken(token);
-        return BeanUtil.mapToBean(claims, JwtPayLoad.class, false);
+        return BeanUtil.toBean(claims, JwtPayLoad.class, null);
     }
 
     /**
@@ -138,7 +137,7 @@ public class TokenProvider {
     public static Boolean isTokenExpired(String token) {
         try {
             Claims claims = getClaimsFromToken(token);
-            final Date expiration = claims.getExpiration();
+            Date expiration = claims.getExpiration();
             return expiration.before(new Date());
         } catch (ExpiredJwtException expiredJwtException) {
             log.error("登录凭证已失效", expiredJwtException);
