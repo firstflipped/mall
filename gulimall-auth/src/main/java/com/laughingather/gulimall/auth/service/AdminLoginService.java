@@ -4,6 +4,7 @@ package com.laughingather.gulimall.auth.service;
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginByMobileDTO;
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
+import com.laughingather.gulimall.auth.entity.vo.TokenVO;
 
 /**
  * 管理登录逻辑接口
@@ -20,7 +21,7 @@ public interface AdminLoginService {
      * @param adminLoginDTO 管理员登录参数
      * @return token
      */
-    String login(AdminLoginDTO adminLoginDTO);
+    TokenVO login(AdminLoginDTO adminLoginDTO);
 
     /**
      * 管理员手机号验证码登录
@@ -28,7 +29,7 @@ public interface AdminLoginService {
      * @param adminLoginByMobileDTO 管理员手机号登录参数
      * @return token
      */
-    String loginByMobile(AdminLoginByMobileDTO adminLoginByMobileDTO);
+    TokenVO loginByMobile(AdminLoginByMobileDTO adminLoginByMobileDTO);
 
     /**
      * 获取用户信息

@@ -32,6 +32,11 @@ public class AuthServiceImpl implements AuthService {
         return TokenProvider.checkToken(token);
     }
 
+    @Override
+    public Long getTokenExpire(String token) {
+        return TokenProvider.getTokenExpire(token);
+    }
+
 
 }
 

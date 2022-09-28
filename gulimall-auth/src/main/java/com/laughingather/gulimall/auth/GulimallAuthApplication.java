@@ -1,9 +1,12 @@
 package com.laughingather.gulimall.auth;
 
+import com.laughingather.gulimall.common.aspect.PlatformLogAspect;
+import com.laughingather.gulimall.common.exception.ExceptionControllerAdvice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Import;
 
 /**
  * 认证服务启动类
@@ -15,6 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
+@Import({PlatformLogAspect.class, ExceptionControllerAdvice.class})
 public class GulimallAuthApplication {
 
     public static void main(String[] args) {

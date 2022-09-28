@@ -4,12 +4,12 @@ import cn.hutool.core.util.RandomUtil;
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginByMobileDTO;
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
+import com.laughingather.gulimall.auth.entity.vo.TokenVO;
 import com.laughingather.gulimall.auth.feign.service.ThirdPartyFeignService;
 import com.laughingather.gulimall.auth.service.AdminLoginService;
 import com.laughingather.gulimall.common.api.ErrorCodeEnum;
 import com.laughingather.gulimall.common.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,16 +56,16 @@ public class AdminLoginController {
     }
 
     @PostMapping("/login")
-    public MyResult<String> login(@Valid @RequestBody AdminLoginDTO adminLoginDTO) {
+    public MyResult<TokenVO> login(@Valid @RequestBody AdminLoginDTO adminLoginDTO) {
         // TODO: 还有优化空间
-        String token = adminLoginService.login(adminLoginDTO);
-        return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
+        TokenVO tokenVO = adminLoginService.login(adminLoginDTO);
+        return tokenVO != null ? MyResult.success(tokenVO) : MyResult.failed(ErrorCodeEnum.ACCOUNT_PASSWORD_INVALID_EXCEPTION);
     }
 
     @PostMapping("/login/mobile")
-    public MyResult<String> loginByMobile(@Valid @RequestBody AdminLoginByMobileDTO adminLoginByMobileDTO) {
-        String token = adminLoginService.loginByMobile(adminLoginByMobileDTO);
-        return StringUtils.isNotBlank(token) ? MyResult.success(token) : MyResult.failed(ErrorCodeEnum.MOBILE_LOGIN_EXCEPTION);
+    public MyResult<TokenVO> loginByMobile(@Valid @RequestBody AdminLoginByMobileDTO adminLoginByMobileDTO) {
+        TokenVO tokenVO = adminLoginService.loginByMobile(adminLoginByMobileDTO);
+        return tokenVO != null ? MyResult.success(tokenVO) : MyResult.failed(ErrorCodeEnum.MOBILE_LOGIN_EXCEPTION);
     }
 
 

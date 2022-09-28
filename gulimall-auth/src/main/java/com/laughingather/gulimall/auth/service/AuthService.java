@@ -61,4 +61,12 @@ public interface AuthService {
      */
     Boolean checkToken(String token);
 
+    /**
+     * 获取token有效期
+     *
+     * @param token token
+     * @return token有效期（秒为单位）
+     */
+    Long getTokenExpire(String token);
+
 }

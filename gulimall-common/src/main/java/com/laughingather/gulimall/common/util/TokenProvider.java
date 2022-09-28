@@ -3,6 +3,7 @@ package com.laughingather.gulimall.common.util;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import com.laughingather.gulimall.common.constant.AuthConstants;
@@ -137,11 +138,35 @@ public class TokenProvider {
     public static Boolean isTokenExpired(String token) {
         try {
             Claims claims = getClaimsFromToken(token);
+            if (claims == null || claims.isEmpty()) {
+                return true;
+            }
             Date expiration = claims.getExpiration();
             return expiration.before(new Date());
         } catch (ExpiredJwtException expiredJwtException) {
             log.error("登录凭证已失效", expiredJwtException);
             return true;
+        }
+    }
+
+
+    /**
+     * 获取token有效期（秒为单位）
+     *
+     * @param token
+     * @return
+     */
+    public static Long getTokenExpire(String token) {
+        try {
+            Claims claims = getClaimsFromToken(token);
+            if (claims == null || claims.isEmpty()) {
+                return -1L;
+            }
+            Date expiration = claims.getExpiration();
+            return DateUtil.between(new Date(), expiration, DateUnit.SECOND);
+        } catch (ExpiredJwtException expiredJwtException) {
+            log.error("登录凭证已失效", expiredJwtException);
+            return -1L;
         }
     }
 

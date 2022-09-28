@@ -42,6 +42,13 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
     @Value("${auth.ignore.urls}")
     private String authIgnoreUrls;
 
+    /**
+     * <p> @SneakyThrows注解用于异常语法糖 </p>
+     *
+     * @param exchange
+     * @param chain
+     * @return
+     */
     @Override
     @SneakyThrows
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

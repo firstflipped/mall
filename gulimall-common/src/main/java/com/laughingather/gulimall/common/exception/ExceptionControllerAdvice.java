@@ -21,7 +21,7 @@ import java.util.Map;
  * @since 2022-04-11 19:35:16
  */
 @Slf4j
-@RestControllerAdvice(basePackages = "com.laughingather.gulimall.admin.controller")
+@RestControllerAdvice
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

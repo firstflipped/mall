@@ -1,6 +1,9 @@
 package com.laughingather.gulimall.auth.entity.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * token视图展示类
@@ -10,6 +13,9 @@ import lombok.Data;
  * @since 2022-09-21 10:32:40
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TokenVO {
 
     /**

@@ -3,6 +3,7 @@ package com.laughingather.gulimall.auth.service.impl;
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginByMobileDTO;
 import com.laughingather.gulimall.auth.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.auth.entity.vo.AdminVO;
+import com.laughingather.gulimall.auth.entity.vo.TokenVO;
 import com.laughingather.gulimall.auth.feign.entity.AdminDTO;
 import com.laughingather.gulimall.auth.feign.entity.AdminInfoDTO;
 import com.laughingather.gulimall.auth.feign.service.AdminFeignService;
@@ -40,7 +41,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     private RedisTemplate<String, String> redisTemplate;
 
     @Override
-    public String login(AdminLoginDTO adminLoginDTO) {
+    public TokenVO login(AdminLoginDTO adminLoginDTO) {
         MyResult<AdminDTO> adminLoginResult = adminFeignService.login(adminLoginDTO);
         // 登录失败
         if (!adminLoginResult.isSuccess()) {
@@ -50,11 +51,14 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         // 登录成功，生成token
         AdminDTO adminDTO = adminLoginResult.getData();
         JwtPayLoad jwtPayLoad = new JwtPayLoad(adminDTO.getUserid(), adminDTO.getUsername());
-        return authService.generateToken(jwtPayLoad);
+        String token = authService.generateToken(jwtPayLoad);
+        Long tokenExpire = authService.getTokenExpire(token.replace(AuthConstants.TOKEN_PREFIX, ""));
+
+        return TokenVO.builder().token(token).expiresIn(tokenExpire).build();
     }
 
     @Override
-    public String loginByMobile(AdminLoginByMobileDTO adminLoginByMobileDTO) {
+    public TokenVO loginByMobile(AdminLoginByMobileDTO adminLoginByMobileDTO) {
         Boolean hasSmsCode = redisTemplate.hasKey(AuthConstants.SMS_CODE_CACHE_PREFIX + adminLoginByMobileDTO.getMobile());
         if (Boolean.FALSE.equals(hasSmsCode)) {
             // 验证码过期
