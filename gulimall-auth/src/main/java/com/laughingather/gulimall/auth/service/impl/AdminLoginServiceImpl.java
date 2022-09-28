@@ -51,7 +51,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         // 登录成功，生成token
         AdminDTO adminDTO = adminLoginResult.getData();
         JwtPayLoad jwtPayLoad = new JwtPayLoad(adminDTO.getUserid(), adminDTO.getUsername());
-        String token = authService.generateToken(jwtPayLoad);
+        String token = AuthConstants.TOKEN_PREFIX + authService.generateToken(jwtPayLoad);
         Long tokenExpire = authService.getTokenExpire(token.replace(AuthConstants.TOKEN_PREFIX, ""));
 
         return TokenVO.builder().token(token).expiresIn(tokenExpire).build();

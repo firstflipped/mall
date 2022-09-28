@@ -90,7 +90,7 @@ public class TokenProvider {
                 .signWith(SIGNING_KEY, SIGNATURE_ALGORITHM)
                 .compact();
 
-        return AuthConstants.TOKEN_PREFIX + token;
+        return token;
     }
 
     /**
@@ -177,6 +177,7 @@ public class TokenProvider {
         jwtPayLoad.setUsername("admin");
         jwtPayLoad.setUserid(111L);
         String token = generateToken(jwtPayLoad);
+
         log.info("token:{}", token);
 
         Boolean isToken = checkToken(token);

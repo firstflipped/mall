@@ -33,14 +33,13 @@ public class SysPermissionServiceTest {
     @Test
     public void testSavePermission() {
         SysPermissionEntity permission = new SysPermissionEntity();
-        permission.setPermissionName("权限添加");
-        permission.setPermissionValue("admin:permission:add");
+        permission.setPermissionName("角色删除");
+        permission.setPermissionValue("admin:permission:delete");
         permission.setType(3);
         permission.setStatus(1);
         permission.setSortNo(1);
-        permission.setParentId(1466211672942317568L);
-        permission.setDescription("权限添加控制");
-        permission.setCreateBy("root");
+        permission.setParentId(1466211572253855744L);
+        permission.setDescription("角色删除控制");
 
         sysPermissionService.savePermission(permission);
     }

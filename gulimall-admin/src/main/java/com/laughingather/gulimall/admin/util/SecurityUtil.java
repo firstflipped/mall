@@ -19,7 +19,7 @@ public class SecurityUtil {
      * @return 用户名
      */
     public static String getUsername() {
-        return getLoginUser().getUsername();
+        return getLoginUser() != null ? getLoginUser().getUsername() : null;
     }
 
 
@@ -29,7 +29,7 @@ public class SecurityUtil {
      * @return 自定义用户信息
      */
     public static CustomUserDetails getLoginUser() {
-        return (CustomUserDetails) getAuthentication().getPrincipal();
+        return getAuthentication() != null ? (CustomUserDetails) getAuthentication().getPrincipal() : null;
     }
 
 

@@ -48,6 +48,7 @@ public class ExceptionControllerAdvice {
         log.error("请求方法异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
+    
 
     @ExceptionHandler(value = UsernameExistException.class)
     public MyResult<Map<String, String>> handleUsernameExistException(UsernameExistException e) {

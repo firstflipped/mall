@@ -6,7 +6,7 @@
         <id property="permissionId" column="permission_id"/>
         <result property="permissionName" column="permission_name"/>
         <result property="permissionValue" column="permission_value"/>
-        <result property="url" column="url"/>
+        <result property="path" column="path"/>
         <result property="parentId" column="parent_id"/>
         <result property="createTime" column="create_time"/>
     </resultMap>
@@ -19,7 +19,7 @@
         </set>
         <where>
             <if test="permissionIds != null and permissionIds.size() != 0">
-                id IN
+                permission_id IN
                 <foreach collection="permissionIds" item="permissionId" index="index" separator="," open="(" close=")">
                     #{permissionId}
                 </foreach>
@@ -32,11 +32,11 @@
         <set>
             `status` = #{status}
         </set>
-        WHERE id = #{permissionId}
+        WHERE permission_id = #{permissionId}
     </update>
 
     <select id="selectPermissionsVO" resultMap="permissionsWithTreeVOMap">
-        SELECT permission_id, permission_name, permission_value, url, parent_id, create_time
+        SELECT permission_id, permission_name, permission_value, path, parent_id, create_time
         FROM sys_permission
     </select>
 </mapper>

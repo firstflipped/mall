@@ -33,7 +33,7 @@ public class PermissionsWithTreeVO {
     /**
      * 前端url
      */
-    private String url;
+    private String path;
 
     /**
      * 父id
