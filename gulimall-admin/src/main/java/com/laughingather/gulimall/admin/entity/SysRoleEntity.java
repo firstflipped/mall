@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName(value = "sys_role")
 public class SysRoleEntity {
+
     /**
      * 主键id
      */
