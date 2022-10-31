@@ -11,11 +11,27 @@
  Target Server Version : 80028
  File Encoding         : 65001
 
- Date: 28/09/2022 16:30:13
+ Date: 31/10/2022 15:44:46
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+  `dict_id` bigint DEFAULT NULL COMMENT '字典id',
+  `dict_code` int DEFAULT NULL,
+  `dict_value` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- ----------------------------
+-- Records of sys_dict
+-- ----------------------------
+BEGIN;
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_permission
@@ -52,6 +68,7 @@ CREATE TABLE `sys_permission` (
 -- Records of sys_permission
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_permission` (`permission_id`, `permission_name`, `permission_value`, `path`, `type`, `icon`, `sort_no`, `status`, `description`, `parent_id`, `create_by`, `create_time`, `update_by`, `update_time`, `title`) VALUES (1, '系统管理', 'admin', '/system', 1, NULL, 1, 1, '系统管理模块', 0, 'root', '2021-12-02 08:57:59', NULL, NULL, NULL);
 INSERT INTO `sys_permission` (`permission_id`, `permission_name`, `permission_value`, `path`, `type`, `icon`, `sort_no`, `status`, `description`, `parent_id`, `create_by`, `create_time`, `update_by`, `update_time`, `title`) VALUES (1466209998387417088, '用户管理', 'admin:user', '/system/user', 2, NULL, 1, 1, NULL, 1, 'root', '2021-12-02 08:57:59', NULL, NULL, NULL);
 INSERT INTO `sys_permission` (`permission_id`, `permission_name`, `permission_value`, `path`, `type`, `icon`, `sort_no`, `status`, `description`, `parent_id`, `create_by`, `create_time`, `update_by`, `update_time`, `title`) VALUES (1466211572253855744, '角色管理', 'admin:role', '/system/role', 2, NULL, 1, 1, NULL, 1, 'root', '2021-12-02 09:04:14', NULL, NULL, NULL);
 INSERT INTO `sys_permission` (`permission_id`, `permission_name`, `permission_value`, `path`, `type`, `icon`, `sort_no`, `status`, `description`, `parent_id`, `create_by`, `create_time`, `update_by`, `update_time`, `title`) VALUES (1466211672942317568, '权限管理', 'admin:permission', '/system/permission', 2, NULL, 1, 1, NULL, 1, 'root', '2021-12-02 09:04:38', NULL, NULL, NULL);
