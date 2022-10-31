@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("sys_department")
-public class SysDepartment {
+public class SysDepartmentEntity {
 
     /**
      * ID
@@ -34,11 +34,6 @@ public class SysDepartment {
      * 机构/部门名称
      */
     private String departmentName;
-
-    /**
-     * 英文名
-     */
-    private String departmentNameEn;
 
     /**
      * 缩写
@@ -58,17 +53,7 @@ public class SysDepartment {
     /**
      * 机构类别 1=公司，2=组织机构，3=岗位
      */
-    private String orgCategory;
-
-    /**
-     * 机构类型
-     */
-    private String orgType;
-
-    /**
-     * 机构编码
-     */
-    private String orgCode;
+    private String departmentCategory;
 
     /**
      * 手机号
