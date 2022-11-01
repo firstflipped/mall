@@ -13,7 +13,7 @@
     <artifactId>gulimall-search</artifactId>
 
     <properties>
-        <elasticsearch.version>7.9.3</elasticsearch.version>
+        <elasticsearch.version>7.14.2</elasticsearch.version>
     </properties>
 
     <dependencies>
