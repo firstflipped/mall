@@ -26,11 +26,10 @@ public class MyElasticSearchConfig {
 
     @Bean
     public RestHighLevelClient restHighLevelClient() {
-        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(RestClient.builder(
+
+        return new RestHighLevelClient(RestClient.builder(
                 new HttpHost("127.0.0.1", 9200, "http")
         ));
-
-        return restHighLevelClient;
     }
 
 }

@@ -75,6 +75,11 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         return searchVO;
     }
 
+    @Override
+    public SearchVO searchByEasyEs(SearchQuery searchQuery) {
+        return null;
+    }
+
 
     /**
      * 构建检索请求

@@ -34,6 +34,7 @@ public class SearchVO {
      * 总页码
      */
     private Long totalPage;
+    
     /**
      * 页面导航条
      */

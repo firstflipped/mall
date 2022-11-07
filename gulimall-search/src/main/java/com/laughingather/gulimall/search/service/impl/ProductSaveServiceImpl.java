@@ -4,6 +4,7 @@ import com.laughingather.gulimall.common.constant.SearchConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.search.config.MyElasticSearchConfig;
 import com.laughingather.gulimall.search.entity.EsSku;
+import com.laughingather.gulimall.search.mapper.ProductMapper;
 import com.laughingather.gulimall.search.service.ProductSaveService;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -26,6 +27,8 @@ public class ProductSaveServiceImpl implements ProductSaveService {
 
     @Resource
     private RestHighLevelClient restHighLevelClient;
+    @Resource
+    private ProductMapper productMapper;
 
     @Override
     public boolean productUp(List<EsSku> esSkus) throws IOException {
@@ -50,5 +53,10 @@ public class ProductSaveServiceImpl implements ProductSaveService {
         // TODO: 如果批量错误可以进行后续处理
         boolean hasFailures = bulk.hasFailures();
         return hasFailures;
+    }
+
+    @Override
+    public void productUpNew(List<EsSku> esSkus) {
+        productMapper.insertBatch(esSkus);
     }
 }

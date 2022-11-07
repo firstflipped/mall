@@ -17,4 +17,14 @@ public interface ProductSearchService {
      * @return
      */
     SearchVO search(SearchQuery searchQuery);
+
+    /**
+     * 使用easy-es查询
+     *
+     * @param searchQuery
+     * @return
+     */
+    SearchVO searchByEasyEs(SearchQuery searchQuery);
+
+
 }
