@@ -133,8 +133,8 @@ public class CryptogramUtil {
      * @return 公钥
      */
     public static RSAPublicKey getPublicKeyByFile(String certPath) {
-        try (FileInputStream fis = new FileInputStream(certPath);
-             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(certPath)) {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int len;
             while ((len = fis.read(buffer)) > 0) {
@@ -156,8 +156,8 @@ public class CryptogramUtil {
      * @return 私钥
      */
     public static RSAPrivateKey getPrivateKeyByFile(String keyPath) {
-        try (FileInputStream fis = new FileInputStream(keyPath);
-             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(keyPath)) {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int len;
             while ((len = fis.read(buffer)) > 0) {
