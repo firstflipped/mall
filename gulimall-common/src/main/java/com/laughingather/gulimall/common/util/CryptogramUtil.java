@@ -26,13 +26,9 @@ package com.laughingather.gulimall.common.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import javax.crypto.Cipher;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -104,12 +100,14 @@ public class CryptogramUtil {
      * @param publicKey  公钥
      * @param outPutFile 文件
      */
-    public static void savePublicKey2File(PublicKey publicKey, File outPutFile) throws Exception {
+    public static void savePublicKey2File(PublicKey publicKey, File outPutFile) {
         byte[] publicKeyByte = Base64.encodeBase64(publicKey.getEncoded());
-        FileOutputStream fos = new FileOutputStream(outPutFile);
-        fos.write(publicKeyByte);
-        fos.flush();
-        fos.close();
+
+        try (FileOutputStream fos = new FileOutputStream(outPutFile)) {
+            fos.write(publicKeyByte);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -118,12 +116,13 @@ public class CryptogramUtil {
      * @param privateKey 私钥
      * @param outPutFile 文件
      */
-    public static void savePrivateKey2File(PrivateKey privateKey, File outPutFile) throws Exception {
+    public static void savePrivateKey2File(PrivateKey privateKey, File outPutFile) {
         byte[] privateKeyByte = Base64.encodeBase64(privateKey.getEncoded());
-        FileOutputStream fos = new FileOutputStream(outPutFile);
-        fos.write(privateKeyByte);
-        fos.flush();
-        fos.close();
+        try (FileOutputStream fos = new FileOutputStream(outPutFile)) {
+            fos.write(privateKeyByte);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -132,21 +131,22 @@ public class CryptogramUtil {
      *
      * @param certPath 公钥路径
      * @return 公钥
-     * @throws Exception 异常
      */
-    public static RSAPublicKey getPublicKeyByFile(String certPath) throws Exception {
-        FileInputStream fis = new FileInputStream(certPath);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = fis.read(buffer)) > 0) {
-            bos.write(buffer, 0, len);
-        }
-        byte[] publicKeyByte = Base64.decodeBase64(bos.toByteArray());
+    public static RSAPublicKey getPublicKeyByFile(String certPath) {
+        try (FileInputStream fis = new FileInputStream(certPath);
+             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) > 0) {
+                bos.write(buffer, 0, len);
+            }
 
-        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(publicKeyByte);
-        RSAPublicKey rsaPublicKey = (RSAPublicKey) KeyFactory.getInstance(RSA_ALGORITHM).generatePublic(x509EncodedKeySpec);
-        return rsaPublicKey;
+            byte[] publicKeyByte = Base64.decodeBase64(bos.toByteArray());
+            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(publicKeyByte);
+            return (RSAPublicKey) KeyFactory.getInstance(RSA_ALGORITHM).generatePublic(x509EncodedKeySpec);
+        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -154,21 +154,22 @@ public class CryptogramUtil {
      *
      * @param keyPath 私钥路径
      * @return 私钥
-     * @throws Exception 异常
      */
-    public static RSAPrivateKey getPrivateKeyByFile(String keyPath) throws Exception {
-        FileInputStream fis = new FileInputStream(keyPath);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len = 0;
-        while ((len = fis.read(buffer)) > 0) {
-            bos.write(buffer, 0, len);
-        }
-        byte[] privateKeyByte = Base64.decodeBase64(bos.toByteArray());
+    public static RSAPrivateKey getPrivateKeyByFile(String keyPath) {
+        try (FileInputStream fis = new FileInputStream(keyPath);
+             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = fis.read(buffer)) > 0) {
+                bos.write(buffer, 0, len);
+            }
 
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKeyByte);
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance(RSA_ALGORITHM).generatePrivate(pkcs8EncodedKeySpec);
-        return rsaPrivateKey;
+            byte[] privateKeyByte = Base64.decodeBase64(bos.toByteArray());
+            PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(privateKeyByte);
+            return (RSAPrivateKey) KeyFactory.getInstance(RSA_ALGORITHM).generatePrivate(pkcs8EncodedKeySpec);
+        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -182,8 +183,7 @@ public class CryptogramUtil {
         // 通过X509编码的Key指令获得公钥对象
         KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKey));
-        RSAPublicKey key = (RSAPublicKey) keyFactory.generatePublic(x509KeySpec);
-        return key;
+        return (RSAPublicKey) keyFactory.generatePublic(x509KeySpec);
     }
 
     /**
@@ -196,8 +196,7 @@ public class CryptogramUtil {
         // 通过PKCS#8编码的Key指令获得私钥对象
         KeyFactory keyFactory = KeyFactory.getInstance(RSA_ALGORITHM);
         PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKey));
-        RSAPrivateKey key = (RSAPrivateKey) keyFactory.generatePrivate(pkcs8KeySpec);
-        return key;
+        return (RSAPrivateKey) keyFactory.generatePrivate(pkcs8KeySpec);
     }
 
     /**
@@ -278,11 +277,11 @@ public class CryptogramUtil {
         } else {
             maxBlock = keySize / 8 - 11;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        int offSet = 0;
-        byte[] buff;
-        int i = 0;
-        try {
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            int offSet = 0;
+            byte[] buff;
+            int i = 0;
             while (data.length > offSet) {
                 if (data.length - offSet > maxBlock) {
                     buff = cipher.doFinal(data, offSet, maxBlock);
@@ -293,12 +292,10 @@ public class CryptogramUtil {
                 i++;
                 offSet = i * maxBlock;
             }
+            return out.toByteArray();
         } catch (Exception e) {
             throw new RuntimeException("加解密阀值为[" + maxBlock + "]的数据时发生异常", e);
         }
-        byte[] resultData = out.toByteArray();
-        IOUtils.closeQuietly(out);
-        return resultData;
     }
 
     public static void main(String[] args) throws Exception {
