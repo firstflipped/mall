@@ -14,7 +14,7 @@ import com.laughingather.gulimall.ware.service.WareOrderTaskDetailService;
 import com.laughingather.gulimall.ware.service.WareOrderTaskService;
 import com.laughingather.gulimall.ware.service.WareSkuService;
 import com.rabbitmq.client.Channel;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -34,7 +34,7 @@ import java.util.Objects;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@Log4j2
+@Slf4j
 @Component
 @RabbitListener(queues = "stock.release.stock.queue")
 public class UnlockStockListener {
@@ -70,7 +70,7 @@ public class UnlockStockListener {
             unlockStock(JsonUtil.string2Obj(stockLockedDTO, StockLockedDTO.class));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
-            log.error(e);
+            log.error("{}", e.getMessage());
             channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
         }
 
@@ -97,7 +97,7 @@ public class UnlockStockListener {
             unlockStock(JsonUtil.string2Obj(orderDTO, OrderDTO.class));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.getMessage());
             channel.basicReject(message.getMessageProperties().getDeliveryTag(), true);
         }
 
