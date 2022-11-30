@@ -21,6 +21,9 @@ public class MyThreadConfig {
     @Bean
     public ThreadPoolExecutor threadPoolExecutor(ThreadPoolConfigProperties threadPoolConfigProperties) {
         /*
+         * 核心线程池是否已满 -> 阻塞队列是否已满 -> 线程池是否已满
+         *
+         *
          * corePoolSize: 核心线程池数量
          * maximumPoolSize: 最大线程池数量
          * keepAliveTime: 空闲线程关闭时间
@@ -33,7 +36,7 @@ public class MyThreadConfig {
                 threadPoolConfigProperties.getMaximumPoolSize(),
                 threadPoolConfigProperties.getKeepAliveTime(),
                 TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(100000),
+                new LinkedBlockingDeque<>(1000),
                 Executors.defaultThreadFactory(),
                 new ThreadPoolExecutor.AbortPolicy());
     }
