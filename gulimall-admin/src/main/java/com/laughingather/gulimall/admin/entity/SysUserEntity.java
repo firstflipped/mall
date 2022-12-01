@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.common.valid.ListValue;
+import com.laughingather.gulimall.common.valid.Phone;
 import com.laughingather.gulimall.common.valid.UpdateGroup;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -72,25 +71,29 @@ public class SysUserEntity {
     /**
      * 生日
      */
+    @PastOrPresent(message = "生日不能晚于当前日期")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
     /**
-     * 性别（1：男 2：女）
+     * 性别（0：保密 1：男 2：女）
      */
+    @ListValue(values = {0, 1, 2}, message = "性别不符合要求", groups = {AddGroup.class, UpdateGroup.class})
     private Integer gender;
 
     /**
      * 电子邮件
      */
     @NotBlank(message = "邮箱不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @Email(message = "邮箱格式不正确", groups = {AddGroup.class, UpdateGroup.class})
     private String email;
 
     /**
      * 手机号码
      */
     @NotBlank(message = "手机号码不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @Phone(message = "手机号码格式不正确", groups = {AddGroup.class, UpdateGroup.class})
     private String mobile;
 
     /**

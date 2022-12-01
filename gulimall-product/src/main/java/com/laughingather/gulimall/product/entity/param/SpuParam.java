@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Data
 public class SpuParam {
+
     /**
      * spu名称
      */

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.common.valid;
 
 /**
- * 分组校验，新增分组
+ * 分组校验，更新分组
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
