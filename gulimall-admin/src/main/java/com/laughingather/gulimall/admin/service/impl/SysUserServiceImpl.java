@@ -21,7 +21,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -49,7 +48,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserEntity.setUserid(snowflake.nextId());
         sysUserEntity.setPassword(BCryptPasswordEncoderUtil.encodingPassword(sysUserEntity.getPassword()));
         sysUserEntity.setCreateBy(SecurityUtil.getUsername());
-        sysUserEntity.setCreateTime(LocalDateTime.now());
         sysUserMapper.insert(sysUserEntity);
     }
 
@@ -59,7 +57,6 @@ public class SysUserServiceImpl implements SysUserService {
         check(sysUserEntity);
 
         sysUserEntity.setUpdateBy(SecurityUtil.getUsername());
-        sysUserEntity.setUpdateTime(LocalDateTime.now());
         sysUserMapper.updateById(sysUserEntity);
     }
 

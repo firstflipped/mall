@@ -2,6 +2,7 @@ package com.laughingather.gulimall.admin;
 
 import com.laughingather.gulimall.common.aspect.PlatformLogAspect;
 import com.laughingather.gulimall.common.exception.ExceptionControllerAdvice;
+import com.laughingather.gulimall.common.handle.MyMetaObjectHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -18,7 +19,7 @@ import org.springframework.context.annotation.Import;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@Import({PlatformLogAspect.class, ExceptionControllerAdvice.class})
+@Import({PlatformLogAspect.class, ExceptionControllerAdvice.class, MyMetaObjectHandler.class})
 public class GulimallAdminApplication {
 
     public static void main(String[] args) {
