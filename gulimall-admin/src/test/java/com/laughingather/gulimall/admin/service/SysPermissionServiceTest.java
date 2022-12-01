@@ -1,7 +1,8 @@
+package com.laughingather.gulimall.admin.service;
+
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.mapper.SysPermissionMapper;
-import com.laughingather.gulimall.admin.service.SysPermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

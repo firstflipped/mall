@@ -1,3 +1,5 @@
+package com.laughingather.gulimall.admin.service;
+
 import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.admin.mapper.SysUserRoleMapper;
 import lombok.extern.slf4j.Slf4j;
