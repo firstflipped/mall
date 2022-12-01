@@ -20,13 +20,13 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        log.info("start insert fill ....");
+        log.info("创建时间字段自动填充");
         this.strictInsertFill(metaObject, "createTime", LocalDateTime::now, LocalDateTime.class);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        log.info("start update fill ....");
+        log.info("更新时间字段自动填充");
         this.strictUpdateFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
     }
 }
