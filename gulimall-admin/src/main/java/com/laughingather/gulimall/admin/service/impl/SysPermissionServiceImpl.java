@@ -18,7 +18,9 @@ import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 权限逻辑实现
@@ -102,7 +104,10 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
      */
     private List<PermissionsWithTreeVO> getChild(List<PermissionsWithTreeVO> permissionsWithTreeVOList, Long id) {
 
-        return permissionsWithTreeVOList.stream()
+        // 防止空指针抛出异常
+        return Optional.ofNullable(permissionsWithTreeVOList)
+                .map(List::stream)
+                .orElseGet(Stream::empty)
                 .filter(item -> Objects.equals(id, item.getParentId()))
                 .peek(item -> item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId())))
                 .collect(Collectors.toList());

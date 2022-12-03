@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * springdoc配置
+ * 访问地址 /gulimall-admin/swagger-ui/index.html
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

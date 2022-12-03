@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpHeaders;
 import reactor.core.publisher.Mono;
 
+import java.util.Objects;
+
 /**
  * 限流配置
  *
@@ -22,7 +24,7 @@ public class RateLimiterConfig {
     @Bean
     @Primary
     public KeyResolver ipKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
+        return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getAddress().getHostAddress());
     }
 
     /**
@@ -31,7 +33,7 @@ public class RateLimiterConfig {
     @Bean
     public KeyResolver userKeyResolver() {
         // 使用这种方式限流，请求Header中必须携带Authorization参数
-        return exchange -> Mono.just(exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION));
+        return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION)));
     }
 
     /**
