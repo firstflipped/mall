@@ -15,9 +15,9 @@ public interface SysUserMapper extends BaseMapper<SysUserEntity> {
      * 更新用户状态
      *
      * @param userid 用户id
-     * @param status 用户状态字段
+     * @param enable 用户状态字段
      */
-    void updateUserStatusById(@Param("userid") Long userid, @Param("status") Integer status);
+    void updateUserStatusById(@Param("userid") Long userid, @Param("enable") Integer enable);
 
     /**
      * 更新用户密码

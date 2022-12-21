@@ -1,5 +1,7 @@
 package com.laughingather.gulimall.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -35,16 +37,21 @@ public class SysRoleEntity {
     private Long roleId;
 
     /**
+     * 角色编码
+     */
+    @NotBlank(message = "角色编码不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    private String roleCode;
+
+    /**
      * 角色名称
      */
     @NotBlank(message = "角色名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String roleName;
 
     /**
-     * 角色编码
+     * 是否启用
      */
-    @NotBlank(message = "角色编码不能为空", groups = {AddGroup.class, UpdateGroup.class})
-    private String roleCode;
+    private Integer enable;
 
     /**
      * 描述
@@ -61,6 +68,7 @@ public class SysRoleEntity {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
@@ -73,6 +81,7 @@ public class SysRoleEntity {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 }
 

@@ -12,7 +12,6 @@ import com.laughingather.gulimall.common.api.MyPage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -34,7 +33,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
     public void saveRole(SysRoleEntity sysRoleEntity) {
         sysRoleEntity.setRoleId(snowflake.nextId());
         sysRoleEntity.setCreateBy(SecurityUtil.getUsername());
-        sysRoleEntity.setCreateTime(LocalDateTime.now());
 
         sysRoleMapper.insert(sysRoleEntity);
     }
@@ -52,7 +50,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
     @Override
     public void updateRoleById(SysRoleEntity sysRoleEntity) {
         sysRoleEntity.setUpdateBy(SecurityUtil.getUsername());
-        sysRoleEntity.setUpdateTime(LocalDateTime.now());
 
         sysRoleMapper.updateById(sysRoleEntity);
     }

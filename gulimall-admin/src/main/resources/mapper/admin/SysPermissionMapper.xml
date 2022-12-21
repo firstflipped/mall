@@ -11,32 +11,18 @@
         <result property="createTime" column="create_time"/>
     </resultMap>
 
-    <!-- 更新权限删除标志位 -->
-    <update id="batchUpdatePermissionDelete">
+    <update id="updatePermissionEnable">
         UPDATE sys_permission
         <set>
-            `status` = #{status}
-        </set>
-        <where>
-            <if test="permissionIds != null and permissionIds.size() != 0">
-                permission_id IN
-                <foreach collection="permissionIds" item="permissionId" index="index" separator="," open="(" close=")">
-                    #{permissionId}
-                </foreach>
-            </if>
-        </where>
-    </update>
-
-    <update id="updatePermissionDelete">
-        UPDATE sys_permission
-        <set>
-            `status` = #{status}
+            enable = #{enable},
         </set>
         WHERE permission_id = #{permissionId}
     </update>
 
+    <!-- 查询已启用的权限列表 -->
     <select id="selectPermissionsVO" resultMap="permissionsWithTreeVOMap">
         SELECT permission_id, permission_name, permission_value, path, parent_id, create_time
         FROM sys_permission
+        WHERE enable = 1
     </select>
 </mapper>

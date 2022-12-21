@@ -2,6 +2,7 @@ package com.laughingather.gulimall.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
+import com.laughingather.gulimall.admin.entity.param.PermissionEnableParam;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.common.api.MyPage;
 
@@ -43,6 +44,13 @@ public interface SysPermissionService extends IService<SysPermissionEntity> {
      * @param sysPermissionEntity 权限实体
      */
     void updatePermission(SysPermissionEntity sysPermissionEntity);
+
+    /**
+     * 启用/关闭权限
+     *
+     * @param permissionEnableParam 权限启用/关闭参数
+     */
+    void enableOrClosePermission(PermissionEnableParam permissionEnableParam);
 
     /**
      * 权限列表

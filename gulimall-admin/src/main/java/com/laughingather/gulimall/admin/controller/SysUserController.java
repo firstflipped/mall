@@ -1,8 +1,8 @@
 package com.laughingather.gulimall.admin.controller;
 
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.param.UserEnableParam;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
-import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyPage;
@@ -58,8 +58,8 @@ public class SysUserController {
     @PreAuthorize("hasAuthority('admin:user:update')")
     @Operation(summary = "更新用户状态")
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新用户状态")
-    public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserStatusParam userStatusParam) {
-        sysUserService.updateUserStatusById(userStatusParam);
+    public MyResult<Void> updateUserStatusById(@Validated @RequestBody UserEnableParam userEnableParam) {
+        sysUserService.updateUserEnableById(userEnableParam);
         return MyResult.success();
     }
 
