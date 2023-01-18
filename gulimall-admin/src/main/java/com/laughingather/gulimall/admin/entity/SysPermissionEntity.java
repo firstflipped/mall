@@ -1,5 +1,6 @@
 package com.laughingather.gulimall.admin.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -65,13 +66,12 @@ public class SysPermissionEntity {
     /**
      * 状态 1已启用 0未启用
      */
-    @TableField(value = "`status`")
-    private Integer status;
+    private Integer enable;
 
     /**
      * 菜单排序
      */
-    private Integer sortNo;
+    private Integer sort;
 
     /**
      * 描述
@@ -94,6 +94,7 @@ public class SysPermissionEntity {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
@@ -106,6 +107,7 @@ public class SysPermissionEntity {
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 }
 

@@ -17,20 +17,12 @@ import java.util.List;
 public interface SysPermissionMapper extends BaseMapper<SysPermissionEntity> {
 
     /**
-     * 批量更新权限删除状态
-     *
-     * @param permissionIds 权限id集合
-     * @param status        权限删除状态
-     */
-    void batchUpdatePermissionDelete(@Param("permissionIds") List<Long> permissionIds, @Param("status") Integer status);
-
-    /**
-     * 单条更新权限状态
+     * 单条更新权限启用/关闭状态
      *
      * @param permissionId 权限id
-     * @param status       状态
+     * @param enable       启用状态
      */
-    void updatePermissionDelete(@Param("permissionId") Long permissionId, @Param("status") Integer status);
+    void updatePermissionEnable(@Param("permissionId") Long permissionId, @Param("enable") Integer enable);
 
     /**
      * 查询树形结构权限列表

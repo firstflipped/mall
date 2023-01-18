@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @since 2022-06-13 10:33:55
  */
 @Data
-public class UserStatusParam {
+public class UserEnableParam {
 
     /**
      * 用户id
@@ -26,7 +26,7 @@ public class UserStatusParam {
      */
     @NotNull(message = "用户状态不能为空")
     @ListValue(values = {1, 0}, message = "传入状态值不符合要求")
-    private Integer status;
+    private Integer enable;
 
 }
 

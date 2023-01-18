@@ -1,10 +1,12 @@
 package com.laughingather.gulimall.admin.service.impl;
 
 import cn.hutool.core.lang.Snowflake;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
+import com.laughingather.gulimall.admin.entity.param.PermissionEnableParam;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.mapper.SysPermissionMapper;
 import com.laughingather.gulimall.admin.service.SysPermissionService;
@@ -43,20 +45,20 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
         // 填入默认值
         sysPermissionEntity.setPermissionId(snowflake.nextId());
         sysPermissionEntity.setCreateBy(StringUtils.isNotBlank(SecurityUtil.getUsername()) ? SecurityUtil.getUsername() : "root");
-        sysPermissionEntity.setCreateTime(LocalDateTime.now());
+        sysPermissionEntity.setEnable(AdminConstants.ENABLE);
 
         sysPermissionMapper.insert(sysPermissionEntity);
     }
 
     @Override
     public void batchDeletePermission(List<Long> permissionIds) {
-        // 修改删除标志位为已删除（逻辑删除）
-        sysPermissionMapper.batchUpdatePermissionDelete(permissionIds, AdminConstants.YES);
+        // 修改为未启用
+        sysPermissionMapper.deleteBatchIds(permissionIds);
     }
 
     @Override
     public void deletePermission(Long permissionId) {
-        sysPermissionMapper.updatePermissionDelete(permissionId, AdminConstants.YES);
+        sysPermissionMapper.deleteById(permissionId);
     }
 
     @Override
@@ -68,14 +70,24 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
     }
 
     @Override
+    public void enableOrClosePermission(PermissionEnableParam permissionEnableParam) {
+        sysPermissionMapper.updatePermissionEnable(permissionEnableParam.getPermissionId(), permissionEnableParam.getEnable());
+    }
+
+    @Override
     public List<SysPermissionEntity> listPermissions() {
         return sysPermissionMapper.selectList(null);
     }
 
     @Override
     public MyPage<SysPermissionEntity> listPermissionsWithPage(Integer pageNum, Integer pageSize) {
-        // 数据库查询从0开始
-        IPage<SysPermissionEntity> permissionsWithPage = sysPermissionMapper.selectPage(new Page<>(pageNum, pageSize), null);
+        // 分页
+        Page<SysPermissionEntity> page = new Page<>(pageNum, pageSize);
+        // 排序
+        QueryWrapper<SysPermissionEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().orderByAsc(SysPermissionEntity::getSort);
+
+        IPage<SysPermissionEntity> permissionsWithPage = sysPermissionMapper.selectPage(page, queryWrapper);
 
         return MyPage.restPage(permissionsWithPage);
     }

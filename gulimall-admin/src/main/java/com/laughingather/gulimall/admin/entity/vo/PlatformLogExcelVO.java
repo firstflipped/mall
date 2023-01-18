@@ -125,5 +125,4 @@ public class PlatformLogExcelVO {
     @ColumnWidth(20)
     private LocalDateTime operationTime;
 
-
 }

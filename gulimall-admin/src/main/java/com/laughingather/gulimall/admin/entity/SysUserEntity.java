@@ -103,7 +103,7 @@ public class SysUserEntity {
      */
     @NotNull(message = "用户状态不能为空", groups = AddGroup.class)
     @ListValue(values = {1, 0}, message = "传入状态值不符合要求", groups = AddGroup.class)
-    private Integer status;
+    private Integer enable;
 
     /**
      * 创建人
@@ -113,9 +113,9 @@ public class SysUserEntity {
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
@@ -126,9 +126,9 @@ public class SysUserEntity {
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 }
 

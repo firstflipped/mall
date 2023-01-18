@@ -3,8 +3,8 @@ package com.laughingather.gulimall.admin.service;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
+import com.laughingather.gulimall.admin.entity.param.UserEnableParam;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
-import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.common.api.MyPage;
 
 import java.util.List;
@@ -35,9 +35,9 @@ public interface SysUserService {
     /**
      * 更新用户状态
      *
-     * @param userStatusParam 用户状态实体
+     * @param userEnableParam 用户状态实体
      */
-    void updateUserStatusById(UserStatusParam userStatusParam);
+    void updateUserEnableById(UserEnableParam userEnableParam);
 
     /**
      * 更新用户密码

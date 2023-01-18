@@ -1,6 +1,7 @@
 package com.laughingather.gulimall.admin.controller;
 
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
+import com.laughingather.gulimall.admin.entity.param.PermissionEnableParam;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.service.SysPermissionService;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
@@ -68,6 +69,15 @@ public class SysPermissionController {
     @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新权限")
     public MyResult<Void> updatePermissionById(@Validated(UpdateGroup.class) @RequestBody SysPermissionEntity sysPermissionEntity) {
         sysPermissionService.updatePermission(sysPermissionEntity);
+        return MyResult.success();
+    }
+
+    @PutMapping("/enable")
+    @PreAuthorize("hasAuthority('admin:permission:update')")
+    @Operation(summary = "启用/关闭权限")
+    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "启用/关闭权限")
+    public MyResult<Void> enableOrClosePermission(@Validated @RequestBody PermissionEnableParam permissionEnableParam) {
+        sysPermissionService.enableOrClosePermission(permissionEnableParam);
         return MyResult.success();
     }
 

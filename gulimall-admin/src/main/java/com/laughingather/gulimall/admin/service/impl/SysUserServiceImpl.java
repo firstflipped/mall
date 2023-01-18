@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.laughingather.gulimall.admin.entity.SysUserEntity;
 import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
+import com.laughingather.gulimall.admin.entity.param.UserEnableParam;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
-import com.laughingather.gulimall.admin.entity.param.UserStatusParam;
 import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
 import com.laughingather.gulimall.admin.service.SysUserService;
@@ -48,6 +48,7 @@ public class SysUserServiceImpl implements SysUserService {
         sysUserEntity.setUserid(snowflake.nextId());
         sysUserEntity.setPassword(BCryptPasswordEncoderUtil.encodingPassword(sysUserEntity.getPassword()));
         sysUserEntity.setCreateBy(SecurityUtil.getUsername());
+
         sysUserMapper.insert(sysUserEntity);
     }
 
@@ -57,12 +58,13 @@ public class SysUserServiceImpl implements SysUserService {
         check(sysUserEntity);
 
         sysUserEntity.setUpdateBy(SecurityUtil.getUsername());
+
         sysUserMapper.updateById(sysUserEntity);
     }
 
     @Override
-    public void updateUserStatusById(UserStatusParam userStatusParam) {
-        sysUserMapper.updateUserStatusById(userStatusParam.getUserid(), userStatusParam.getStatus());
+    public void updateUserEnableById(UserEnableParam userEnableParam) {
+        sysUserMapper.updateUserStatusById(userEnableParam.getUserid(), userEnableParam.getEnable());
     }
 
     @Override
