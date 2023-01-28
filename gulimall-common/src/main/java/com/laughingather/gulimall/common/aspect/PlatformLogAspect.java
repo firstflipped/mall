@@ -67,7 +67,12 @@ public class PlatformLogAspect {
         long time = stopWatch.getTime(TimeUnit.MILLISECONDS);
 
         // 保存日志
-        saveLog(point, result, time);
+        try {
+            saveLog(point, result, time);
+        } catch (Exception e) {
+            // 记录日志错误不要影响业务
+            log.error("log record parse exception", e);
+        }
 
         return result;
     }
