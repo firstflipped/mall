@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
  * @since 2022-04-11 19:35:16
  */
 @Component
-public class GlobalBlackListUrlFilter extends AbstractGatewayFilterFactory<GlobalBlackListUrlFilter.Config> {
+public class GlobalBlockListUrlFilter extends AbstractGatewayFilterFactory<GlobalBlockListUrlFilter.Config> {
 
-    public GlobalBlackListUrlFilter() {
+    public GlobalBlockListUrlFilter() {
         super(Config.class);
     }
 
@@ -26,7 +26,7 @@ public class GlobalBlackListUrlFilter extends AbstractGatewayFilterFactory<Globa
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             String url = exchange.getRequest().getURI().getPath();
-            if (config.matchBlacklist(url)) {
+            if (config.matchBlockList(url)) {
                 return exchange.getResponse().setComplete();
             }
 
@@ -35,21 +35,21 @@ public class GlobalBlackListUrlFilter extends AbstractGatewayFilterFactory<Globa
     }
 
     public static class Config {
-        private final List<Pattern> blacklistUrlPattern = new ArrayList<>();
-        private List<String> blacklistUrl;
+        private final List<Pattern> blockListUrlPattern = new ArrayList<>();
+        private List<String> blockListUrl;
 
-        public boolean matchBlacklist(String url) {
-            return !blacklistUrlPattern.isEmpty() && blacklistUrlPattern.stream().anyMatch(p -> p.matcher(url).find());
+        public boolean matchBlockList(String url) {
+            return !blockListUrlPattern.isEmpty() && blockListUrlPattern.stream().anyMatch(p -> p.matcher(url).find());
         }
 
         public List<String> getBlacklistUrl() {
-            return blacklistUrl;
+            return blockListUrl;
         }
 
-        public void setBlacklistUrl(List<String> blacklistUrl) {
-            this.blacklistUrl = blacklistUrl;
-            this.blacklistUrlPattern.clear();
-            this.blacklistUrl.forEach(url -> this.blacklistUrlPattern.add(Pattern.compile(url.replaceAll("\\*\\*", "(.*?)"), Pattern.CASE_INSENSITIVE)));
+        public void setBlacklistUrl(List<String> blockListUrl) {
+            this.blockListUrl = blockListUrl;
+            this.blockListUrlPattern.clear();
+            this.blockListUrl.forEach(url -> this.blockListUrlPattern.add(Pattern.compile(url.replaceAll("\\*\\*", "(.*?)"), Pattern.CASE_INSENSITIVE)));
         }
     }
 
