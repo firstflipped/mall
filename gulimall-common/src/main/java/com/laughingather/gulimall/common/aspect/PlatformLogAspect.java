@@ -55,7 +55,6 @@ public class PlatformLogAspect {
     public void platformLog() {
     }
 
-
     @Around("platformLog()")
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
         StopWatch stopWatch = StopWatch.createStarted();
@@ -197,8 +196,7 @@ public class PlatformLogAspect {
      * @param i            遍历计数器
      * @param value        注解标注值，例如@RequestParam(value = "xxx")
      */
-    private void assembleParams(Parameter[] paramsKeys, Object[] paramsValues,
-                                int i, String value, Map<String, Object> params) {
+    private void assembleParams(Parameter[] paramsKeys, Object[] paramsValues, int i, String value, Map<String, Object> params) {
         String key = paramsKeys[i].getName();
         // 如果注解中设置了键值，则覆盖默认的属性名
         if (StringUtils.isNotBlank(value)) {
@@ -206,6 +204,4 @@ public class PlatformLogAspect {
         }
         params.put(key, paramsValues[i]);
     }
-
-
 }
