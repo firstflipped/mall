@@ -37,8 +37,8 @@ public class SysPermissionServiceTest {
         permission.setPermissionName("角色删除");
         permission.setPermissionValue("admin:permission:delete");
         permission.setType(3);
-        permission.setStatus(1);
-        permission.setSortNo(1);
+        permission.setEnable(1);
+        permission.setSort(1);
         permission.setParentId(1466211572253855744L);
         permission.setDescription("角色删除控制");
 
