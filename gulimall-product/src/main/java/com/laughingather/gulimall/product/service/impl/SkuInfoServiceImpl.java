@@ -109,7 +109,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         CompletableFuture<Void> skuSecKillCompletableFuture = CompletableFuture.runAsync(() -> {
             // 查询sku的秒杀信息
             MyResult<SecKillSkuRedisDTO> secKillSkuResult = secKillFeignService.getSecKillSkuInfo(skuId);
-            if (secKillSkuResult.isSuccess()) {
+            if (secKillSkuResult.getSuccess()) {
                 skuItemVO.setSecKill(secKillSkuResult.getData());
             }
         }, threadPoolExecutor);

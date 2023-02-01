@@ -48,7 +48,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
     @Override
     public void uploadSecKillSkuLatest3Days() {
         MyResult<List<SecKillSessionDTO>> last3DaysSession = couponFeignService.getLast3DaysSession();
-        if (last3DaysSession.isSuccess()) {
+        if (last3DaysSession.getSuccess()) {
             List<SecKillSessionDTO> secKillSessionDTOList = last3DaysSession.getData();
 
             // 将秒杀商品添加到缓存中
@@ -158,7 +158,7 @@ public class SecKillSkuServiceImpl implements SecKillSkuService {
 
                     // 商品基本信息
                     MyResult<SkuInfoDTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuRelationDTO.getSkuId());
-                    if (skuInfoResult.isSuccess()) {
+                    if (skuInfoResult.getSuccess()) {
                         secKillSkuRedisDTO.setSkuInfo(skuInfoResult.getData());
                     }
 

@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 /**
  * Security自定义配置
+ * <p> @EnableGlobalMethodSecurity(prePostEnabled = true) 开启对 Spring Security 注解的方法，进行权限验证 </p>
+ * WebSecurityConfig配置的权限和注解配置的权限，两者是叠加的。
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

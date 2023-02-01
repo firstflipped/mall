@@ -55,7 +55,7 @@ public class CartServiceImpl implements CartService {
             CompletableFuture<Void> getSkuInfoCompletableFuture = CompletableFuture.runAsync(() -> {
                 // 1、远程查询当前要添加的商品的信息
                 MyResult<SkuInfoTO> skuInfoResult = productFeignService.getSkuInfoBySkuId(skuId);
-                if (skuInfoResult.isSuccess()) {
+                if (skuInfoResult.getSuccess()) {
                     SkuInfoTO skuInfo = skuInfoResult.getData();
                     cartItemVO.setImage(skuInfo.getSkuDefaultImg());
                     cartItemVO.setTitle(skuInfo.getSkuTitle());
@@ -71,7 +71,7 @@ public class CartServiceImpl implements CartService {
             CompletableFuture<Void> getSkuSaleAttrValuesCompletableFuture = CompletableFuture.runAsync(() -> {
                 // 2、远程查询sku的组合信息
                 MyResult<List<String>> skuSaleAttrValuesResult = productFeignService.getSkuSaleAttrValues(skuId);
-                if (skuSaleAttrValuesResult.isSuccess()) {
+                if (skuSaleAttrValuesResult.getSuccess()) {
                     List<String> skuSaleAttrValues = skuSaleAttrValuesResult.getData();
                     cartItemVO.setSkuAttr(skuSaleAttrValues);
                 }
@@ -181,7 +181,7 @@ public class CartServiceImpl implements CartService {
         List<CartItemVO> result = cartItemVOList.stream().filter(CartItemVO::getCheck).map(item -> {
             // 更新价格为当前最新价格（需要调用第三方服务）
             MyResult<BigDecimal> skuPriceBySkuId = productFeignService.getSkuPriceBySkuId(item.getSkuId());
-            if (skuPriceBySkuId.isSuccess()) {
+            if (skuPriceBySkuId.getSuccess()) {
                 item.setPrice(skuPriceBySkuId.getData());
             }
             return item;

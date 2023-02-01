@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 自定义分页实体
+ * 自定义统一分页封装实体
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

@@ -57,7 +57,7 @@ public class OAuth2Controller {
 
             // 当前用户如果是第一次登陆此网址，则自动进行用户注册
             MyResult<MemberDTO> memberResult = memberFeignService.oauth2Login(socialUserDTO);
-            if (memberResult.isSuccess()) {
+            if (memberResult.getSuccess()) {
                 MemberDTO data = memberResult.getData();
                 log.info("用户名：{}", data.getNickname());
                 session.setAttribute(AuthConstants.LOGIN_USER, data);

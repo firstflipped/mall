@@ -118,7 +118,7 @@ public class PlatformLogAspect {
         // 判断请求是否成功
         if (result instanceof MyResult) {
             MyResult myResult = (MyResult) result;
-            if (myResult.isSuccess()) {
+            if (myResult.getSuccess()) {
                 platformLog.setSuccess(1);
             } else {
                 platformLog.setSuccess(0);

@@ -44,7 +44,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     public TokenVO login(AdminLoginDTO adminLoginDTO) {
         MyResult<AdminDTO> adminLoginResult = adminFeignService.login(adminLoginDTO);
         // 登录失败
-        if (!adminLoginResult.isSuccess()) {
+        if (!adminLoginResult.getSuccess()) {
             return null;
         }
 
@@ -80,7 +80,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         MyResult<AdminInfoDTO> getUserinfoResult = adminFeignService.getUserinfo(userid);
 
         // 登录成功
-        if (!getUserinfoResult.isSuccess()) {
+        if (!getUserinfoResult.getSuccess()) {
             return null;
         }
 

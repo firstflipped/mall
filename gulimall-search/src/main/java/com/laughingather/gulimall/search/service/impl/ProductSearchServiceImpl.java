@@ -274,7 +274,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
                 String[] split = attr.split(SearchConstants.ATTR_SPLIT);
                 navVO.setNavValue(split[1]);
                 MyResult<AttrDTO> attrDTOResult = productFeignService.getAttrById(Long.parseLong(split[0]));
-                if (attrDTOResult.isSuccess()) {
+                if (attrDTOResult.getSuccess()) {
                     navVO.setNavName(attrDTOResult.getData().getAttrName());
                 } else {
                     navVO.setNavName(split[0]);
@@ -298,7 +298,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
             navVO.setNavName("品牌");
             List<Long> brandId = searchQuery.getBrandId();
             MyResult<List<BrandDTO>> brandsResult = productFeignService.listBrandsByIds(brandId);
-            if (brandsResult.isSuccess()) {
+            if (brandsResult.getSuccess()) {
                 List<BrandDTO> brands = brandsResult.getData();
                 StringBuffer buffer = new StringBuffer();
                 String replace = "";

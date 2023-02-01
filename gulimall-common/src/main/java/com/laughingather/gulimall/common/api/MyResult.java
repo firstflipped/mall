@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 自定义统一返回结果封装类
+ * 自定义统一返回结果封装实体
  * 记得要加入默认构造器，要不然会报序列化异常错误
  *
  * @author <a href="#">flipped</a>
@@ -96,9 +96,5 @@ public class MyResult<T> {
                 .success(Boolean.FALSE)
                 .timestamp(System.currentTimeMillis())
                 .build();
-    }
-
-    public Boolean isSuccess() {
-        return success;
     }
 }

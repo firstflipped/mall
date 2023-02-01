@@ -32,7 +32,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
             JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
             Long userid = jwtPayLoad.getUserid();
             MyResult<MemberDTO> memberResult = memberFeignService.getMember(userid);
-            if (!memberResult.isSuccess()) {
+            if (!memberResult.getSuccess()) {
                 response.sendRedirect("https://auth.gulimall.com/login.html");
                 return false;
             }

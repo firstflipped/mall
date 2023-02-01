@@ -197,7 +197,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         Map<Long, Boolean> stockMap = null;
         try {
             MyResult<List<SkuHasStockDTO>> skusHasStockResult = wareFeignService.getSkusHasStock(skuIds);
-            if (skusHasStockResult.isSuccess()) {
+            if (skusHasStockResult.getSuccess()) {
                 stockMap = skusHasStockResult.getData().stream().collect(Collectors.toMap(SkuHasStockDTO::getSkuId, SkuHasStockDTO::getHasStock));
             }
         } catch (Exception e) {
@@ -250,7 +250,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
      */
     private void saveSpu2ES(Long spuId, List<SkuEsDTO> skuESModels) {
         MyResult<Void> result = searchFeignService.productStatusUp(skuESModels);
-        if (result.isSuccess()) {
+        if (result.getSuccess()) {
             // 远程调用成功，修改当前spu的状态
             spuInfoDao.updateSpuStatus(spuId, ProductConstants.StatusEnum.SPU_UP.getCode());
         } else {
@@ -347,7 +347,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
         // 调用优惠服务保存积分信息
         MyResult<Void> saveSpuBoundsResult = couponFeignService.saveSpuBounds(spuBoundDTO);
-        if (!saveSpuBoundsResult.isSuccess()) {
+        if (!saveSpuBoundsResult.getSuccess()) {
             log.error("远程调用服务失败，保存spu的积分信息");
         }
     }
@@ -463,7 +463,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         // 过滤没有优惠的sku
         if (skuOtherInfoDTO.getFullCount() > 0 && (skuOtherInfoDTO.getFullPrice().compareTo(BigDecimal.ZERO) > 0)) {
             MyResult<Void> saveSkuOtherInfoResult = couponFeignService.saveSkuOtherInfo(skuOtherInfoDTO);
-            if (!saveSkuOtherInfoResult.isSuccess()) {
+            if (!saveSkuOtherInfoResult.getSuccess()) {
                 log.error("远程调用服务失败，保存sku优惠、满减等信息");
             }
         }

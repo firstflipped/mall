@@ -4,6 +4,7 @@ import com.laughingather.gulimall.admin.service.CustomUserDetailsService;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,8 @@ import java.io.IOException;
 public class UserinfoFilter extends OncePerRequestFilter {
 
     @Resource
+    private AuthenticationManager authenticationManager;
+    @Resource
     private CustomUserDetailsService customUserDetailsService;
 
     @Override
@@ -36,7 +39,7 @@ public class UserinfoFilter extends OncePerRequestFilter {
 
         if (StringUtils.isNotBlank(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.info("request username:{}", username);
-
+            // 校验用户
             UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
             // 获取用户信息，并将用户信息存储到安全上下文中

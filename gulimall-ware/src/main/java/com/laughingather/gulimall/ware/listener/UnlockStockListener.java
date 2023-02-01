@@ -129,7 +129,7 @@ public class UnlockStockListener {
         MyResult<OrderDTO> orderResult = orderFeignService.getOrderByOrderSn(orderSn);
 
         // 如果远程失败则抛出异常
-        if (!orderResult.isSuccess()) {
+        if (!orderResult.getSuccess()) {
             throw new RuntimeException("远程调用失败");
         }
 

@@ -83,7 +83,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
         // 如果没有当前的sku和仓库信息，则表示新增
         else {
             MyResult<String> skuNameResult = productFeignService.getSkuNameBySkuId(skuId);
-            if (!skuNameResult.isSuccess()) {
+            if (!skuNameResult.getSuccess()) {
                 log.info("当前sku不存在，skuId：{}", skuId);
             }
             WareSkuEntity wareSku = WareSkuEntity.builder().skuId(skuId).skuName(skuNameResult.getData())
@@ -96,7 +96,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Override
     public void saveWareSku(WareSkuEntity wareSku) {
         MyResult<String> skuNameResult = productFeignService.getSkuNameBySkuId(wareSku.getSkuId());
-        if (!skuNameResult.isSuccess()) {
+        if (!skuNameResult.getSuccess()) {
             log.info("当前sku不存在，skuId：{}", wareSku.getSkuId());
         }
 
@@ -107,7 +107,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Override
     public void updateWareSkuById(WareSkuEntity wareSku) {
         MyResult<String> skuNameResult = productFeignService.getSkuNameBySkuId(wareSku.getSkuId());
-        if (!skuNameResult.isSuccess()) {
+        if (!skuNameResult.getSuccess()) {
             log.info("当前sku不存在，skuId：{}", wareSku.getSkuId());
         }
 

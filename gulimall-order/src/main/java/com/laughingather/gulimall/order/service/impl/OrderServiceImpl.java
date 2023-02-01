@@ -128,7 +128,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             RequestContextHolder.setRequestAttributes(requestAttributes);
             // 1、远程调用会员服务获取收货地址信息
             MyResult<List<MemberReceiveAddressDTO>> memberReceiveAddressResult = memberFeignService.listMemberReceiveAddress(member.getId());
-            if (memberReceiveAddressResult.isSuccess()) {
+            if (memberReceiveAddressResult.getSuccess()) {
                 List<MemberReceiveAddressDTO> addresses = memberReceiveAddressResult.getData();
                 orderConfirmVO.setAddresses(addresses);
             }
@@ -138,7 +138,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             RequestContextHolder.setRequestAttributes(requestAttributes);
             // 2、远程调用购物车服务获取购物车项信息
             MyResult<List<OrderItemDTO>> currentUserCartItemsResult = cartFeignService.getCurrentUserCartItems();
-            if (currentUserCartItemsResult.isSuccess()) {
+            if (currentUserCartItemsResult.getSuccess()) {
                 List<OrderItemDTO> items = currentUserCartItemsResult.getData();
                 orderConfirmVO.setItems(items);
             }
@@ -148,7 +148,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             if (CollectionUtils.isNotEmpty(items)) {
                 List<Long> skuIds = items.stream().map(OrderItemDTO::getSkuId).collect(Collectors.toList());
                 MyResult<List<SkuHashStockDTO>> skusHasStockResult = wareFeignService.getSkusHasStock(skuIds);
-                if (skusHasStockResult.isSuccess()) {
+                if (skusHasStockResult.getSuccess()) {
                     for (OrderItemDTO item : items) {
                         for (SkuHashStockDTO skuHashStockDTO : skusHasStockResult.getData()) {
                             if (item.getSkuId().equals(skuHashStockDTO.getSkuId())) {
@@ -234,7 +234,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         MyResult<Void> lockStockResult = wareFeignService.orderLockStock(wareSkuLockDTO);
         // 如果锁定库存失败，则返回错误
-        if (!lockStockResult.isSuccess()) {
+        if (!lockStockResult.getSuccess()) {
             orderSubmitVO.setCode(ErrorCodeEnum.NO_STOCK_EXCEPTION.getCode());
             orderSubmitVO.setMessage(ErrorCodeEnum.NO_STOCK_EXCEPTION.getMessage());
             return orderSubmitVO;
@@ -350,7 +350,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         // 远程调用库存服务获取收货地址及运费信息
         MyResult<FareDTO> fareResult = wareFeignService.getFare(orderSubmitParam.getAddressId());
-        if (fareResult.isSuccess()) {
+        if (fareResult.getSuccess()) {
             FareDTO fareDTO = fareResult.getData();
             // 设置运费信息
             order.setFreightAmount(fareDTO.getFare());
@@ -407,7 +407,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
 
         // 商品的spu信息
         MyResult<SpuInfoDTO> spuInfoResult = productFeignService.getSpuInfoBySkuId(orderItemDTO.getSkuId());
-        if (spuInfoResult.isSuccess()) {
+        if (spuInfoResult.getSuccess()) {
             SpuInfoDTO spuInfo = spuInfoResult.getData();
             orderItem.setSpuId(spuInfo.getId());
             orderItem.setSpuName(spuInfo.getSpuName());
