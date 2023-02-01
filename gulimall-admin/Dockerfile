@@ -1,6 +1,6 @@
 FROM openjdk:8
 # 镜像作者及邮箱
-MAINTAINER wangjie firstflipped@163.com
+LABEL maintainer=firstflipped@163.com
 # 指定应用名
 ARG APP_NAME="gulimall-admin"
 # 从宿主机把目标文件拷贝到目标镜像中
