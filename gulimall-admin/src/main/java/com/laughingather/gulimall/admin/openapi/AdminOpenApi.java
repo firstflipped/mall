@@ -5,7 +5,9 @@ import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminInfoDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.admin.service.SysUserService;
+import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
 import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.constant.LogConstants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +35,7 @@ public class AdminOpenApi {
      * @return 用户信息
      */
     @PostMapping("/login")
+    @PlatformLogAnnotation(value = "管理员用户登录", login = LogConstants.LOGIN)
     MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO) {
         AdminDTO adminDTO = sysUserService.login(adminLoginDTO);
         return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();

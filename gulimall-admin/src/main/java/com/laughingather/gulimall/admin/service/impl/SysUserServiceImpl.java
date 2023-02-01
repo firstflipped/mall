@@ -18,6 +18,7 @@ import com.laughingather.gulimall.common.api.MyPage;
 import com.laughingather.gulimall.common.exception.*;
 import com.laughingather.gulimall.common.util.BCryptPasswordEncoderUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,6 +40,12 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper sysUserMapper;
     @Resource
     private SysUserRepository sysUserRepository;
+
+    /**
+     * 验证码的开关，默认为 true
+     */
+    @Value("${gulimall.captcha.enable:false}")
+    private Boolean captchaEnable;
 
     @Override
     public void saveUser(SysUserEntity sysUserEntity) {
@@ -111,6 +118,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public AdminDTO login(AdminLoginDTO adminLoginDTO) {
+        // 检验验证码
+        checkCaptcha(adminLoginDTO.getCaptcha());
+
         SysUserEntity user = sysUserRepository.getByUsernameEquals(adminLoginDTO.getUsername());
         if (user == null) {
             return null;
@@ -193,6 +203,21 @@ public class SysUserServiceImpl implements SysUserService {
         if (count > 0) {
             throw new UsernameExistException();
         }
+    }
+
+    /**
+     * 校验登录验证码是否一致
+     *
+     * @param captcha 验证码
+     */
+    private void checkCaptcha(String captcha) {
+        // 如果验证码关闭则不进行校验
+        if (!captchaEnable) {
+            return;
+        }
+
+        // 校验验证码
+
     }
 
 }

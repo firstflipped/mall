@@ -50,11 +50,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         // 登录成功，生成token
         AdminDTO adminDTO = adminLoginResult.getData();
-        JwtPayLoad jwtPayLoad = new JwtPayLoad(adminDTO.getUserid(), adminDTO.getUsername());
-        String token = AuthConstants.TOKEN_PREFIX + authService.generateToken(jwtPayLoad);
-        Long tokenExpire = authService.getTokenExpire(token.replace(AuthConstants.TOKEN_PREFIX, ""));
-
-        return TokenVO.builder().token(token).expiresIn(tokenExpire).build();
+        return generateTokenVO(adminDTO);
     }
 
     @Override
@@ -70,7 +66,6 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             // 验证码校验失败
             throw new SmsCodeCheckFailException();
         }
-
 
         return null;
     }
@@ -90,11 +85,25 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         }
 
         AdminInfoDTO adminInfoDTO = getUserinfoResult.getData();
-
-        // 生成token
         AdminVO adminVO = new AdminVO();
         BeanUtils.copyProperties(adminInfoDTO, adminVO);
         return adminVO;
     }
+
+
+    /**
+     * 生成token
+     *
+     * @param adminDTO 管理员登录返回信息
+     * @return token视图信息
+     */
+    private TokenVO generateTokenVO(AdminDTO adminDTO) {
+        JwtPayLoad jwtPayLoad = new JwtPayLoad(adminDTO.getUserid(), adminDTO.getUsername());
+        String token = AuthConstants.TOKEN_PREFIX + authService.generateToken(jwtPayLoad);
+        Long tokenExpire = authService.getTokenExpire(token.replace(AuthConstants.TOKEN_PREFIX, ""));
+
+        return TokenVO.builder().token(token).expiresIn(tokenExpire).build();
+    }
+
 }
 
