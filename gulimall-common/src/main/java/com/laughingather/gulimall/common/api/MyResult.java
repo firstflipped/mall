@@ -85,7 +85,7 @@ public class MyResult<T> {
      * 自定义返回异常信息
      *
      * @param errorCodeEnum 异常枚举
-     * @param errorMessage  异常信息
+     * @param errorMessage  异常提示信息
      * @return 自定义返回结果
      */
     public static <T> MyResult<T> failed(ErrorCodeEnum errorCodeEnum, String errorMessage) {

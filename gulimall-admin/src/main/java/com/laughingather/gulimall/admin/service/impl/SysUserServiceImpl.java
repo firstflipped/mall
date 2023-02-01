@@ -177,7 +177,7 @@ public class SysUserServiceImpl implements SysUserService {
     private void checkEmailUnique(String email) {
         Long count = sysUserMapper.selectCount(new QueryWrapper<SysUserEntity>().lambda().eq(SysUserEntity::getEmail, email));
         if (count > 0) {
-            throw new EmailExistException();
+            throw new EmailExistException("email is:" + email);
         }
     }
 
@@ -189,7 +189,7 @@ public class SysUserServiceImpl implements SysUserService {
     private void checkMobileUnique(String mobile) {
         Long count = sysUserMapper.selectCount(new QueryWrapper<SysUserEntity>().lambda().eq(SysUserEntity::getMobile, mobile));
         if (count > 0) {
-            throw new MobileExistException();
+            throw new MobileExistException("mobile is:" + mobile);
         }
     }
 
@@ -201,7 +201,7 @@ public class SysUserServiceImpl implements SysUserService {
     private void checkUsernameUnique(String username) {
         Long count = sysUserMapper.selectCount(new QueryWrapper<SysUserEntity>().lambda().eq(SysUserEntity::getUsername, username));
         if (count > 0) {
-            throw new UsernameExistException();
+            throw new UsernameExistException("username is:" + username);
         }
     }
 

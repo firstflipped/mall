@@ -48,35 +48,35 @@ public class ExceptionControllerAdvice {
         log.error("请求方法异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
-    
+
 
     @ExceptionHandler(value = UsernameExistException.class)
     public MyResult<Map<String, String>> handleUsernameExistException(UsernameExistException e) {
-        log.error("用户名唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
-        return MyResult.failed(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION);
+        log.error("用户名唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getAdditionalErrorMessage(), e.getClass(), e);
+        return MyResult.failed(e.getErrorCodeEnum(), e.getAdditionalErrorMessage());
     }
 
     @ExceptionHandler(value = MobileExistException.class)
     public MyResult<Map<String, String>> handleMobileExistException(MobileExistException e) {
-        log.error("手机号码唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
-        return MyResult.failed(ErrorCodeEnum.MOBILE_EXIST_EXCEPTION);
+        log.error("手机号码唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getAdditionalErrorMessage(), e.getClass(), e);
+        return MyResult.failed(e.getErrorCodeEnum(), e.getAdditionalErrorMessage());
     }
 
     @ExceptionHandler(value = EmailExistException.class)
     public MyResult<Map<String, String>> handleEmailExistException(EmailExistException e) {
-        log.error("邮箱唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
-        return MyResult.failed(ErrorCodeEnum.EMAIL_EXIST_EXCEPTION);
+        log.error("邮箱唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getAdditionalErrorMessage(), e.getClass(), e);
+        return MyResult.failed(e.getErrorCodeEnum(), e.getAdditionalErrorMessage());
     }
 
     @ExceptionHandler(value = OldPasswordCheckException.class)
     public MyResult<Map<String, String>> handleOldPasswordCheckException(OldPasswordCheckException e) {
-        log.error("邮箱唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("原密码校验失败异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
         return MyResult.failed(ErrorCodeEnum.OLD_PASSWORD_CHECK_EXCEPTION);
     }
 
     @ExceptionHandler(value = NewPasswordMatchException.class)
     public MyResult<Map<String, String>> handleNewPasswordMatchException(NewPasswordMatchException e) {
-        log.error("邮箱唯一性校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("新密码两次输入不一致校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
         return MyResult.failed(ErrorCodeEnum.NEW_PASSWORD_MATCH_EXCEPTION);
     }
 
