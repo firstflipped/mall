@@ -9,7 +9,7 @@ USE `gulimall_admin`;
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `sys_dict`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sys_dict` (
-  `dict_id` bigint unsigned DEFAULT NULL COMMENT '字典id',
+  `dict_id` bigint unsigned NOT NULL COMMENT '字典id',
   `dict_code` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '字典编码',
   `dict_name` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '字典名称',
   `enable` tinyint unsigned DEFAULT NULL COMMENT '是否启用',
@@ -34,7 +34,8 @@ CREATE TABLE `sys_dict` (
   `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '创建人',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '更新人',
-  `updateTime` datetime DEFAULT NULL COMMENT '更新时间'
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`dict_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,6 +46,40 @@ CREATE TABLE `sys_dict` (
 LOCK TABLES `sys_dict` WRITE;
 /*!40000 ALTER TABLE `sys_dict` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sys_dict` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sys_dict_detail`
+--
+
+DROP TABLE IF EXISTS `sys_dict_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sys_dict_detail` (
+  `dict_detail_id` bigint unsigned NOT NULL COMMENT '字典明细id',
+  `dict_detail_name` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT '字典明细名称',
+  `dict_detail_value` varchar(127) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '字典明细值',
+  `dict_id` bigint unsigned NOT NULL COMMENT '字典id',
+  `description` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '字典明细备注',
+  `pinyin` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '拼音',
+  `enable` tinyint unsigned DEFAULT NULL COMMENT '是否启用',
+  `sort` int DEFAULT NULL COMMENT '排序',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '创建人',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '更新人',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`dict_detail_id`),
+  KEY `sys_dict_detail_dict_id_index` (`dict_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sys_dict_detail`
+--
+
+LOCK TABLES `sys_dict_detail` WRITE;
+/*!40000 ALTER TABLE `sys_dict_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sys_dict_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -304,4 +339,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-28 21:44:40
+-- Dump completed on 2023-02-02 23:40:14
