@@ -43,7 +43,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         // 查询用户信息，如果用户信息不存在则直接返回
         SysUserEntity user = Boolean.TRUE.equals(redisTemplate.hasKey(AdminConstants.ADMIN_INFO + username)) ? getUserByRedis(username) : getUserByMysql(username);
         if (user == null) {
-            throw new UserNotExistException();
+            throw new UserNotExistException("username is: " + username);
         }
 
         // 查询用户权限信息

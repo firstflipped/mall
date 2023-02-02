@@ -123,7 +123,7 @@ public class SysUserServiceImpl implements SysUserService {
 
         SysUserEntity user = sysUserRepository.getByUsernameEquals(adminLoginDTO.getUsername());
         if (user == null) {
-            throw new UserNotExistException();
+            throw new UserNotExistException("username is: " + adminLoginDTO.getUsername());
         }
 
         if (!BCryptPasswordEncoderUtil.matchesPassword(adminLoginDTO.getPassword(), user.getPassword())) {
