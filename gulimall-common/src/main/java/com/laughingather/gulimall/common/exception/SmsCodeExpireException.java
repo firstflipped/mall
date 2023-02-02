@@ -1,5 +1,7 @@
 package com.laughingather.gulimall.common.exception;
 
+import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
+
 /**
  * 验证码过期异常
  *
@@ -7,8 +9,8 @@ package com.laughingather.gulimall.common.exception;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-public class SmsCodeExpireException extends RuntimeException {
+public class SmsCodeExpireException extends BaseException {
     public SmsCodeExpireException() {
-        super("验证码已过期");
+        super(ErrorCodeEnum.SMS_CODE_EXPIRE_EXCEPTION, "验证码已过期");
     }
 }

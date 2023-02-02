@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.common.exception;
 
-import com.laughingather.gulimall.common.api.ErrorCodeEnum;
+import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
 
 /**
  * 用户名存在异常

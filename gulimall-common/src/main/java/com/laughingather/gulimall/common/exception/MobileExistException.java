@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.common.exception;
 
-import com.laughingather.gulimall.common.api.ErrorCodeEnum;
+import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
 
 /**
  * 手机号码存在异常
