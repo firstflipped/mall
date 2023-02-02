@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member.openapi;
 
-import com.laughingather.gulimall.common.api.ErrorCodeEnum;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.exception.MobileExistException;
 import com.laughingather.gulimall.common.exception.UsernameExistException;
 import com.laughingather.gulimall.member.entity.MemberEntity;

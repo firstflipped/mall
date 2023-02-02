@@ -3,7 +3,7 @@ package com.laughingather.gulimall.coupon.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.coupon.dao.CouponDao;
 import com.laughingather.gulimall.coupon.entity.CouponEntity;
 import com.laughingather.gulimall.coupon.entity.query.CouponQuery;

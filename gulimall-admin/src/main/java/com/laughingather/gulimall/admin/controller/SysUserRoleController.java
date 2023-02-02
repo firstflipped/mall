@@ -4,7 +4,7 @@ import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.admin.entity.param.UserRolesParam;
 import com.laughingather.gulimall.admin.service.SysUserRoleService;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

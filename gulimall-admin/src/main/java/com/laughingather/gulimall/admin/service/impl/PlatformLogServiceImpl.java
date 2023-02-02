@@ -8,7 +8,7 @@ import com.laughingather.gulimall.admin.entity.query.PlatformLogQuery;
 import com.laughingather.gulimall.admin.entity.vo.PlatformLogExcelVO;
 import com.laughingather.gulimall.admin.mapper.PlatformLogMapper;
 import com.laughingather.gulimall.admin.service.PlatformLogService;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.common.entity.PlatformLog;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

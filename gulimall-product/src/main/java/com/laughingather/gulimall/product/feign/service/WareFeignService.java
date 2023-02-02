@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product.feign.service;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.product.feign.entity.SkuHasStockDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

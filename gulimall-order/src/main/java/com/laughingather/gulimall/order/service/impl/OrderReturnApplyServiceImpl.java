@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.order.dao.OrderReturnApplyDao;
 import com.laughingather.gulimall.order.entity.OrderReturnApplyEntity;
 import com.laughingather.gulimall.order.entity.query.OrderReturnApplyQuery;

@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.thirdparty.controller;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.thirdparty.service.OssService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

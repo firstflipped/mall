@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.product.entity.AttrEntity;
 import com.laughingather.gulimall.product.entity.param.AttrParam;
 import com.laughingather.gulimall.product.entity.query.AttrQuery;

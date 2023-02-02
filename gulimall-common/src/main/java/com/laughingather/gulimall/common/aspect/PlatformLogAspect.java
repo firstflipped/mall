@@ -3,7 +3,7 @@ package com.laughingather.gulimall.common.aspect;
 
 import cn.hutool.core.net.NetUtil;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.entity.PlatformLog;
 import com.laughingather.gulimall.common.util.HttpContextUtil;

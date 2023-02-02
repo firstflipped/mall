@@ -3,7 +3,7 @@ package com.laughingather.gulimall.admin.service;
 
 import com.laughingather.gulimall.admin.entity.query.PlatformLogQuery;
 import com.laughingather.gulimall.admin.entity.vo.PlatformLogExcelVO;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.common.entity.PlatformLog;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.feign.service;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.order.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.order.feign.entity.FareDTO;
 import com.laughingather.gulimall.order.feign.entity.SkuHashStockDTO;

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.ware.entity.WareInfoEntity;
 import com.laughingather.gulimall.ware.entity.query.WareInfoQuery;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;

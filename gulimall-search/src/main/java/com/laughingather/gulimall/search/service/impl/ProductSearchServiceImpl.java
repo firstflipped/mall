@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.search.service.impl;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.SearchConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;
 import com.laughingather.gulimall.search.config.MyElasticSearchConfig;

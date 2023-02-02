@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.product.dao.AttrGroupDao;
 import com.laughingather.gulimall.product.entity.dto.SpuBoundDTO;
 import com.laughingather.gulimall.product.entity.vo.ItemSaleAttrVO;

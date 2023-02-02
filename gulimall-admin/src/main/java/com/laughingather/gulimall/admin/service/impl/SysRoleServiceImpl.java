@@ -8,7 +8,7 @@ import com.laughingather.gulimall.admin.entity.SysRoleEntity;
 import com.laughingather.gulimall.admin.mapper.SysRoleMapper;
 import com.laughingather.gulimall.admin.service.SysRoleService;
 import com.laughingather.gulimall.admin.util.SecurityUtil;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

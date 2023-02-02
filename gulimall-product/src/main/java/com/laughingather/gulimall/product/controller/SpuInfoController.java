@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.product.controller;
 
-import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.product.entity.param.SpuParam;
 import com.laughingather.gulimall.product.entity.query.SpuInfoQuery;
 import com.laughingather.gulimall.product.entity.vo.SpuInfoVO;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.admin.entity.SysPermissionEntity;
 import com.laughingather.gulimall.admin.entity.param.PermissionEnableParam;
 import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 
 import java.util.List;
 

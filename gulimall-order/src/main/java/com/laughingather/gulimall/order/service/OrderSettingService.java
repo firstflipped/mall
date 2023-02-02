@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.common.entity.query.PageQuery;
 import com.laughingather.gulimall.order.entity.OrderSettingEntity;
 

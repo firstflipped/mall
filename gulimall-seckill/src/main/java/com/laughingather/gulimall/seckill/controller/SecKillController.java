@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.controller;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.seckill.entity.dto.SecKillSkuRedisDTO;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
 import org.apache.commons.collections4.CollectionUtils;

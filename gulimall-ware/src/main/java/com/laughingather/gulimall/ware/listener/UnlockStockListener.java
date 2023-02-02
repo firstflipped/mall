@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.ware.listener;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.OrderConstants;
 import com.laughingather.gulimall.common.constant.WareConstants;
 import com.laughingather.gulimall.common.util.JsonUtil;

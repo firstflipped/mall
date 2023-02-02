@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.gateway.filter;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import com.laughingather.gulimall.common.util.JsonUtil;

@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.order.controller;
 
-import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.order.entity.OrderReturnReasonEntity;
 import com.laughingather.gulimall.order.entity.query.OrderReturnReasonQuery;
 import com.laughingather.gulimall.order.service.OrderReturnReasonService;

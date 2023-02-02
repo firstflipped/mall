@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product.controller;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.valid.AddGroup;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.CategoryBrandRelationEntity;

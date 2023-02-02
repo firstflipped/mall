@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.search.openapi;
 
-import com.laughingather.gulimall.common.api.ErrorCodeEnum;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.search.entity.EsSku;
 import com.laughingather.gulimall.search.service.ProductSaveService;
 import org.springframework.web.bind.annotation.PostMapping;

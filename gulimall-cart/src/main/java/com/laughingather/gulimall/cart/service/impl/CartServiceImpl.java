@@ -7,7 +7,7 @@ import com.laughingather.gulimall.cart.feign.entity.SkuInfoTO;
 import com.laughingather.gulimall.cart.feign.service.ProductFeignService;
 import com.laughingather.gulimall.cart.interceptor.CartInterceptor;
 import com.laughingather.gulimall.cart.service.CartService;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.data.redis.core.BoundHashOperations;

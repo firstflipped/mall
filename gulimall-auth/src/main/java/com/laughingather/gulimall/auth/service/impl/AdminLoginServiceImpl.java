@@ -9,7 +9,7 @@ import com.laughingather.gulimall.auth.feign.entity.AdminInfoDTO;
 import com.laughingather.gulimall.auth.feign.service.AdminFeignService;
 import com.laughingather.gulimall.auth.service.AdminLoginService;
 import com.laughingather.gulimall.auth.service.AuthService;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import com.laughingather.gulimall.common.exception.SmsCodeCheckFailException;

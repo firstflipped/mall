@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.openapi;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.seckill.entity.dto.SecKillSkuRedisDTO;
 import com.laughingather.gulimall.seckill.service.SecKillSkuService;
 import lombok.extern.slf4j.Slf4j;

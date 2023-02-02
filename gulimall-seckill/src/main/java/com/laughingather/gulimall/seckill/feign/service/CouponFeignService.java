@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.seckill.feign.service;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.seckill.feign.entity.SecKillSessionDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

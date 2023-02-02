@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.cart.feign.service;
 
 import com.laughingather.gulimall.cart.feign.entity.SkuInfoTO;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

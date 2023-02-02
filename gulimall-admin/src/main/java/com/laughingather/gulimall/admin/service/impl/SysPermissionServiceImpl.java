@@ -11,7 +11,7 @@ import com.laughingather.gulimall.admin.entity.vo.PermissionsWithTreeVO;
 import com.laughingather.gulimall.admin.mapper.SysPermissionMapper;
 import com.laughingather.gulimall.admin.service.SysPermissionService;
 import com.laughingather.gulimall.admin.util.SecurityUtil;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.common.constant.AdminConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

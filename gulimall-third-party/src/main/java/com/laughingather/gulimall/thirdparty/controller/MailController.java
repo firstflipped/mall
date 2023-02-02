@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.thirdparty.controller;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.thirdparty.entity.param.MailMessageParam;
 import com.laughingather.gulimall.thirdparty.service.MailService;
 import org.springframework.web.bind.annotation.PostMapping;

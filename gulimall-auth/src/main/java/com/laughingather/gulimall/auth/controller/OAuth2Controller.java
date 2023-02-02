@@ -3,7 +3,7 @@ package com.laughingather.gulimall.auth.controller;
 import com.laughingather.gulimall.auth.entity.dto.SocialUserDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberDTO;
 import com.laughingather.gulimall.auth.feign.service.MemberFeignService;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

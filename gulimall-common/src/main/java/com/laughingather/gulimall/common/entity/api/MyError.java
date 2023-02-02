@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.common.api;
+package com.laughingather.gulimall.common.entity.api;
 
 /**
  * 自定义统一异常封装实体

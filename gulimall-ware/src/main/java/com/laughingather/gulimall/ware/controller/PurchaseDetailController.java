@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.ware.controller;
 
-import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.ware.entity.PurchaseDetailEntity;
 import com.laughingather.gulimall.ware.entity.query.PurchaseDetailQuery;
 import com.laughingather.gulimall.ware.service.PurchaseDetailService;

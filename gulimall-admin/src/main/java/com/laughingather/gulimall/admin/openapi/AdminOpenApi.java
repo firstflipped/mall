@@ -6,7 +6,7 @@ import com.laughingather.gulimall.admin.entity.dto.AdminInfoDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.web;
 
-import com.laughingather.gulimall.common.api.ResultCodeEnum;
+import com.laughingather.gulimall.common.entity.api.ResultCodeEnum;
 import com.laughingather.gulimall.order.entity.param.OrderSubmitParam;
 import com.laughingather.gulimall.order.entity.vo.OrderConfirmVO;
 import com.laughingather.gulimall.order.entity.vo.OrderSubmitVO;

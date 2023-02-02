@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.coupon.openapi;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.dto.SecKillSessionDTO;
 import com.laughingather.gulimall.coupon.entity.dto.SkuOtherInfoDTO;
 import com.laughingather.gulimall.coupon.entity.dto.SpuBoundDTO;

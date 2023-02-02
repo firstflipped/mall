@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member.controller;
 
-import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.member.entity.MemberLevelEntity;
 import com.laughingather.gulimall.member.entity.query.MemberLevelQuery;
 import com.laughingather.gulimall.member.service.MemberLevelService;

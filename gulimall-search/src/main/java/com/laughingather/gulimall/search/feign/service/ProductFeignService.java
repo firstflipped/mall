@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.search.feign.service;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.search.feign.entity.AttrDTO;
 import com.laughingather.gulimall.search.feign.entity.BrandDTO;
 import org.springframework.cloud.openfeign.FeignClient;

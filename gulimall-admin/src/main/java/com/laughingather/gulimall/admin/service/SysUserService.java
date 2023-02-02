@@ -5,7 +5,7 @@ import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
 import com.laughingather.gulimall.admin.entity.param.UserEnableParam;
 import com.laughingather.gulimall.admin.entity.param.UserPasswordParam;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 
 import java.util.List;
 

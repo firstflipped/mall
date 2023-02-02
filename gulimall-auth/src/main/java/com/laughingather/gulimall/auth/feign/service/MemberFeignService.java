@@ -4,7 +4,7 @@ import com.laughingather.gulimall.auth.entity.dto.MemberLoginDTO;
 import com.laughingather.gulimall.auth.entity.dto.MemberRegisterDTO;
 import com.laughingather.gulimall.auth.entity.dto.SocialUserDTO;
 import com.laughingather.gulimall.auth.feign.entity.MemberDTO;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

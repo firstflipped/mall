@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.member.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.common.exception.MobileExistException;
 import com.laughingather.gulimall.common.exception.UsernameExistException;
 import com.laughingather.gulimall.member.entity.MemberEntity;

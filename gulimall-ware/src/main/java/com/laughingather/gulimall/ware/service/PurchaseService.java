@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.ware.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.ware.entity.PurchaseEntity;
 import com.laughingather.gulimall.ware.entity.param.DonePurchaseParam;
 import com.laughingather.gulimall.ware.entity.param.MergePurchaseParam;

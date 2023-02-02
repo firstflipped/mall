@@ -3,7 +3,7 @@ package com.laughingather.gulimall.admin.controller;
 import com.laughingather.gulimall.admin.entity.param.RolePermissionParam;
 import com.laughingather.gulimall.admin.service.SysRolePermissionService;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;

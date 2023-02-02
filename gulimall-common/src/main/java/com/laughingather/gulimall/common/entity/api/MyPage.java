@@ -1,4 +1,4 @@
-package com.laughingather.gulimall.common.api;
+package com.laughingather.gulimall.common.entity.api;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Builder;

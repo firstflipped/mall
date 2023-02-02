@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.feign.service;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.order.feign.entity.MemberDTO;
 import com.laughingather.gulimall.order.feign.entity.MemberReceiveAddressDTO;
 import org.springframework.cloud.openfeign.FeignClient;

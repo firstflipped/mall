@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.openapi;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.order.entity.OrderEntity;
 import com.laughingather.gulimall.order.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;

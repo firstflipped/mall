@@ -14,7 +14,7 @@ import com.laughingather.gulimall.admin.mapper.SysUserMapper;
 import com.laughingather.gulimall.admin.repository.SysUserRepository;
 import com.laughingather.gulimall.admin.service.SysUserService;
 import com.laughingather.gulimall.admin.util.SecurityUtil;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 import com.laughingather.gulimall.common.exception.*;
 import com.laughingather.gulimall.common.util.BCryptPasswordEncoderUtil;
 import org.springframework.beans.BeanUtils;

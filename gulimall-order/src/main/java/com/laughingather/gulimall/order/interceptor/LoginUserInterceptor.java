@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.interceptor;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.entity.JwtPayLoad;
 import com.laughingather.gulimall.common.util.TokenProvider;
 import com.laughingather.gulimall.order.feign.entity.MemberDTO;

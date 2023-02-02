@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.coupon.controller;
 
-import com.laughingather.gulimall.common.api.MyPage;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.coupon.entity.SecKillPromotionEntity;
 import com.laughingather.gulimall.coupon.entity.query.SecKillPromotionQuery;
 import com.laughingather.gulimall.coupon.service.SecKillPromotionService;

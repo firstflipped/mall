@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product.openapi;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.product.entity.BrandEntity;
 import com.laughingather.gulimall.product.entity.SkuInfoEntity;
 import com.laughingather.gulimall.product.entity.dto.AttrDTO;

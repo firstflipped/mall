@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.product.controller;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.product.entity.CategoryEntity;
 import com.laughingather.gulimall.product.entity.vo.CategoryTreeVO;
 import com.laughingather.gulimall.product.service.CategoryService;

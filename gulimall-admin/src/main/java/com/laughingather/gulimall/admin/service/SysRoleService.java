@@ -2,7 +2,7 @@ package com.laughingather.gulimall.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.laughingather.gulimall.admin.entity.SysRoleEntity;
-import com.laughingather.gulimall.common.api.MyPage;
+import com.laughingather.gulimall.common.entity.api.MyPage;
 
 import java.util.List;
 

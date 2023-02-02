@@ -1,7 +1,7 @@
 package com.laughingather.gulimall.ware.openapi;
 
-import com.laughingather.gulimall.common.api.ErrorCodeEnum;
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.ware.entity.dto.WareSkuLockDTO;
 import com.laughingather.gulimall.ware.entity.vo.FareVO;
 import com.laughingather.gulimall.ware.entity.vo.SkuHasStockVO;

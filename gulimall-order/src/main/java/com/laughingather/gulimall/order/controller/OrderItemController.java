@@ -1,6 +1,6 @@
 package com.laughingather.gulimall.order.controller;
 
-import com.laughingather.gulimall.common.api.MyResult;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.order.entity.OrderItemEntity;
 import com.laughingather.gulimall.order.service.OrderItemService;
 import io.swagger.v3.oas.annotations.Operation;
