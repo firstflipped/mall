@@ -21,7 +21,7 @@ public interface PlatformLogService {
      * 分页查询日志列表
      *
      * @param platformLogQuery 日志列表查询条件
-     * @return 日志列表
+     * @return 日志列表分页信息
      */
     MyPage<PlatformLog> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery);
 

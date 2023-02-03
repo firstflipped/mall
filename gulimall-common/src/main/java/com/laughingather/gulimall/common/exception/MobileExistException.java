@@ -9,7 +9,7 @@ import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-public class MobileExistException extends BaseException {
+public class MobileExistException extends PlatformException {
     public MobileExistException(String additionalErrorMessage) {
         super(ErrorCodeEnum.MOBILE_EXIST_EXCEPTION, additionalErrorMessage);
     }

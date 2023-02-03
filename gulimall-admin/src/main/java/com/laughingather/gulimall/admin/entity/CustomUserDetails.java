@@ -27,17 +27,17 @@ public class CustomUserDetails implements UserDetails {
     /**
      * 用户信息
      */
-    private SysUserEntity user;
+    private UserEntity user;
 
     /**
      * 菜单列表
      */
-    private List<SysPermissionEntity> permissions;
+    private List<PermissionEntity> permissions;
 
     public CustomUserDetails() {
     }
 
-    public CustomUserDetails(SysUserEntity user, List<SysPermissionEntity> permissions) {
+    public CustomUserDetails(UserEntity user, List<PermissionEntity> permissions) {
         this.user = user;
         this.permissions = permissions;
     }

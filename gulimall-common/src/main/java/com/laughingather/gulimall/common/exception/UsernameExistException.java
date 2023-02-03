@@ -9,7 +9,7 @@ import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-public class UsernameExistException extends BaseException {
+public class UsernameExistException extends PlatformException {
     public UsernameExistException(String additionalErrorMessage) {
         super(ErrorCodeEnum.USERNAME_EXIST_EXCEPTION, additionalErrorMessage);
     }

@@ -41,15 +41,15 @@ public class ExceptionControllerAdvice {
         }
         return MyResult.failed(ErrorCodeEnum.PARAMS_VERIFY_EXCEPTION, String.join(",", errorMessages));
     }
-    
+
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public MyResult<Map<String, String>> handleRequestMethodException(HttpRequestMethodNotSupportedException e) {
         log.error("请求方法异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
 
-    @ExceptionHandler(value = BaseException.class)
-    public MyResult<Map<String, String>> handleBaseException(BaseException e) {
+    @ExceptionHandler(value = PlatformException.class)
+    public MyResult<Map<String, String>> handleBaseException(PlatformException e) {
         log.error("{}：{}，异常类型：{}，异常详情：{}", e.getErrorCodeEnum().getMessage(), e.getAdditionalErrorMessage(),
                 e.getClass(), e);
         return MyResult.failed(e.getErrorCodeEnum(), e.getAdditionalErrorMessage());

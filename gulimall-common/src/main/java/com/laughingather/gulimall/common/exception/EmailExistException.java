@@ -9,7 +9,7 @@ import com.laughingather.gulimall.common.entity.api.ErrorCodeEnum;
  * @version v1.0
  * @since 2022-06-13 13:54:26
  */
-public class EmailExistException extends BaseException {
+public class EmailExistException extends PlatformException {
 
     public EmailExistException(String additionalErrorMessage) {
         super(ErrorCodeEnum.EMAIL_EXIST_EXCEPTION, additionalErrorMessage);

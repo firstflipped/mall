@@ -1,13 +1,13 @@
 package com.laughingather.gulimall.admin.openapi;
 
-import com.laughingather.gulimall.admin.entity.SysUserEntity;
+import com.laughingather.gulimall.admin.entity.UserEntity;
 import com.laughingather.gulimall.admin.entity.dto.AdminDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminInfoDTO;
 import com.laughingather.gulimall.admin.entity.dto.AdminLoginDTO;
-import com.laughingather.gulimall.admin.service.SysUserService;
+import com.laughingather.gulimall.admin.service.UserService;
 import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.entity.api.MyResult;
 import com.laughingather.gulimall.common.constant.LogConstants;
+import com.laughingather.gulimall.common.entity.api.MyResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 public class AdminOpenApi {
 
     @Resource
-    private SysUserService sysUserService;
+    private UserService userService;
 
     /**
      * 远程用户名密码登录接口
@@ -37,7 +37,7 @@ public class AdminOpenApi {
     @PostMapping("/login")
     @PlatformLogAnnotation(value = "管理员用户登录", login = LogConstants.LOGIN)
     MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO) {
-        AdminDTO adminDTO = sysUserService.login(adminLoginDTO);
+        AdminDTO adminDTO = userService.login(adminLoginDTO);
         return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();
     }
 
@@ -49,7 +49,7 @@ public class AdminOpenApi {
      */
     @PostMapping("/login/mobile")
     MyResult<AdminDTO> loginByMobile(@RequestParam(name = "mobile") String mobile) {
-        AdminDTO adminDTO = sysUserService.loginByMobile(mobile);
+        AdminDTO adminDTO = userService.loginByMobile(mobile);
         return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();
     }
 
@@ -61,7 +61,7 @@ public class AdminOpenApi {
      */
     @GetMapping("/userinfo")
     MyResult<AdminInfoDTO> getUserinfo(@RequestParam("userid") Long userid) {
-        SysUserEntity user = sysUserService.getUserById(userid);
+        UserEntity user = userService.getUserById(userid);
 
         if (user == null) {
             return MyResult.failed();
