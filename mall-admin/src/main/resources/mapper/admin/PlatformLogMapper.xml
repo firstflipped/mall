@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flipped.mall.admin.mapper.PlatformLogMapper">
+    <resultMap id="platformLogsWithExportMap" type="com.flipped.mall.admin.entity.vo.PlatformLogExcelVO">
+        <result property="requestUri" column="request_uri"/>
+        <result property="requestUrl" column="request_url"/>
+        <result property="requestMethod" column="request_method"/>
+        <result property="requestParams" column="request_params"/>
+        <result property="className" column="class_name"/>
+        <result property="methodName" column="method_name"/>
+        <result property="methodType" column="method_type"/>
+        <result property="serverIp" column="server_ip"/>
+        <result property="clientIp" column="client_ip"/>
+        <result property="success" column="is_success"/>
+        <result property="login" column="is_login"/>
+        <result property="spendTime" column="spend_time"/>
+        <result property="operationUsername" column="operation_username"/>
+        <result property="operationTime" column="operation_time"/>
+    </resultMap>
+
+    <select id="listPlatformLogsWithExport" resultMap="platformLogsWithExportMap">
+        SELECT
+        request_uri,
+        request_url,
+        request_method,
+        request_params,
+        class_name,
+        method_name,
+        CASE method_type WHEN 1 THEN '增加' WHEN 2 THEN '删除' WHEN 3 THEN '修改' WHEN 4 THEN '查询' ELSE '未知' END AS
+        method_type,
+        server_ip,
+        client_ip,
+        IF(is_success=1, '是', '否') AS is_success,
+        IF(is_login=1, '是', '否') AS is_login,
+        spend_time,
+        operation_username,
+        operation_time
+        FROM sys_platform_log
+        <where>
+            <if test="login != null">
+                AND is_login = #{login}
+            </if>
+            <if test="success != null">
+                AND is_success = #{success}
+            </if>
+            <if test="operation != null and operation != ''">
+                AND (operation_userid = #{operation} OR operation_username = #{operation})
+            </if>
+        </where>
+    </select>
+</mapper>

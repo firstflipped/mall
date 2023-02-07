@@ -2,10 +2,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.laughingather.gulimall</groupId>
-    <artifactId>gulimall</artifactId>
+    <groupId>com.flipped.mall</groupId>
+    <artifactId>mall</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gulimall</name>
+    <name>mall</name>
     <description>谷粒商城聚合服务</description>
 
     <packaging>pom</packaging>
@@ -35,7 +35,7 @@
         <module>gulimall-ware</module>
         <module>gulimall-coupon</module>
         <module>gulimall-member</module>
-        <module>gulimall-admin</module>
+        <module>mall-admin</module>
         <module>gulimall-common</module>
         <module>gulimall-gateway</module>
         <module>gulimall-third-party</module>

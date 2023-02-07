@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flipped.mall.admin.mapper.UserRoleMapper">
+    <select id="listRolesByUserid" resultType="com.flipped.mall.admin.entity.RoleEntity">
+        SELECT r.role_id,
+               r.role_name,
+               r.role_code,
+               r.description,
+               r.create_by,
+               r.create_time,
+               r.update_by,
+               r.update_time
+        FROM sys_user_role ur
+                 INNER JOIN sys_role r ON ur.role_id = r.role_id
+        WHERE ur.userid = #{userid}
+    </select>
+</mapper>
