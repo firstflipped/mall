@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-third-party")
+@FeignClient("mall-third-party")
 public interface ThirdPartyFeignService {
 
     /**
@@ -22,7 +22,7 @@ public interface ThirdPartyFeignService {
      * @param code   验证码
      * @return Void
      */
-    @GetMapping("/gulimall-third-party/openapi/third-party/sms/sms-send.do")
+    @GetMapping("/mall-third-party/openapi/third-party/sms/sms-send.do")
     MyResult<Void> sendCheckCode(@RequestParam(name = "mobile") String mobile,
                                  @RequestParam(name = "code") String code);
 

@@ -12,7 +12,7 @@ public class ThirdPartyConstants {
     /**
      * oss项目名
      */
-    public static final String OSS_PROJECT_NAME = "gulimall";
+    public static final String OSS_PROJECT_NAME = "mall";
 
     public static final String MAIL_FROM = "firstflipped@163.com";
 

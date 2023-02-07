@@ -16,7 +16,7 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-search")
+@FeignClient("mall-search")
 public interface SearchFeignService {
 
     /**
@@ -24,7 +24,7 @@ public interface SearchFeignService {
      *
      * @param skuEsDTOList skuEs传输实体集合
      */
-    @PostMapping("/gulimall-search/openapi/search/product")
+    @PostMapping("/mall-search/openapi/search/product")
     MyResult<Void> productStatusUp(@RequestBody List<SkuEsDTO> skuEsDTOList);
 
 }

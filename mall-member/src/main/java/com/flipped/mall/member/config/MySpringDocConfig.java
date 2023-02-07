@@ -20,7 +20,7 @@ public class MySpringDocConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                .info(new Info().title("GuliMall API").description("SpringDoc API").version("v1.0.0").license(new License().name("Apache 2.0").url("https://www.laughingather.com")))
+                .info(new Info().title("mall API").description("SpringDoc API").version("v1.0.0").license(new License().name("Apache 2.0").url("https://www.laughingather.com")))
                 .externalDocs(new ExternalDocumentation().description("一个用于自学的商城项目").url("https://www.laughingather.com"));
     }
 }

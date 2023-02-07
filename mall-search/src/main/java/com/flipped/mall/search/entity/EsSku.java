@@ -18,8 +18,8 @@ import java.util.List;
  * @since 2022-04-11 19:35:16
  */
 @Data
-@IndexName("gulimall_product")
-@Document(indexName = "gulimall_product")
+@IndexName("mall_product")
+@Document(indexName = "mall_product")
 public class EsSku {
 
     @Id

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-member")
+@FeignClient("mall-member")
 public interface MemberFeignService {
 
     /**
@@ -25,7 +25,7 @@ public interface MemberFeignService {
      * @param memberRegisterDTO 会员注册传输类
      * @return 注册结果
      */
-    @PostMapping("/gulimall-member/openapi/member/register")
+    @PostMapping("/mall-member/openapi/member/register")
     MyResult<Void> register(@RequestBody MemberRegisterDTO memberRegisterDTO);
 
     /**
@@ -35,7 +35,7 @@ public interface MemberFeignService {
      * @param memberLoginDTO 会员登录传输类
      * @return 会员信息
      */
-    @PostMapping("/gulimall-member/openapi/member/login")
+    @PostMapping("/mall-member/openapi/member/login")
     MyResult<MemberDTO> login(@RequestBody MemberLoginDTO memberLoginDTO);
 
     /**
@@ -44,7 +44,7 @@ public interface MemberFeignService {
      * @param socialUserDTO oauth2返回信息
      * @return 会员信息
      */
-    @PostMapping("/gulimall-member/openapi/member/oauth2/login")
+    @PostMapping("/mall-member/openapi/member/oauth2/login")
     MyResult<MemberDTO> oauth2Login(@RequestBody SocialUserDTO socialUserDTO);
 
 }

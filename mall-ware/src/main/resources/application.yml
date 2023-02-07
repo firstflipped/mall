@@ -1,7 +1,7 @@
 server:
   port: 8085
   servlet:
-    context-path: /gulimall-ware
+    context-path: /mall-ware
 
 spring:
   profiles:
@@ -25,4 +25,4 @@ spring:
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.laughingather.gulimall.ware.entity
+  typeAliasesPackage: com.flipped.mall.ware.entity

@@ -1,7 +1,7 @@
 server:
-  port: ${SEREVER.PORT:199}
+  port: ${SERVER.PORT:199}
   servlet:
-    context-path: /gulimall-auth
+    context-path: /mall-auth
 
 spring:
   profiles:

@@ -15,7 +15,7 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-ware")
+@FeignClient("mall-ware")
 public interface WareFeignService {
 
     /**
@@ -24,6 +24,6 @@ public interface WareFeignService {
      * @param skuIds skuId集合
      * @return sku库存信息传输实体集合
      */
-    @PostMapping("/gulimall-ware/openapi/ware/stock")
+    @PostMapping("/mall-ware/openapi/ware/stock")
     MyResult<List<SkuHasStockDTO>> getSkusHasStock(@RequestBody List<Long> skuIds);
 }

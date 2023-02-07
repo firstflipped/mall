@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * exception @RequestMapping annotation not allowed on @FeignClient interfaces
  * 两个注解不能同时出现在类上
  */
-@FeignClient("gulimall-coupon")
+@FeignClient("mall-coupon")
 public interface CouponFeignService {
 
     /**
@@ -26,7 +26,7 @@ public interface CouponFeignService {
      *
      * @param spuBoundDTO spu积分传输实体
      */
-    @PostMapping("/gulimall-coupon/openapi/coupon/spu-bounds")
+    @PostMapping("/mall-coupon/openapi/coupon/spu-bounds")
     MyResult<Void> saveSpuBounds(@RequestBody SpuBoundDTO spuBoundDTO);
 
     /**
@@ -34,7 +34,7 @@ public interface CouponFeignService {
      *
      * @param skuOtherInfoDTO sku其他信息传输实体
      */
-    @PostMapping("/gulimall-coupon/openapi/coupon/sku-other-info")
+    @PostMapping("/mall-coupon/openapi/coupon/sku-other-info")
     MyResult<Void> saveSkuOtherInfo(@RequestBody SkuOtherInfoDTO skuOtherInfoDTO);
 
 }

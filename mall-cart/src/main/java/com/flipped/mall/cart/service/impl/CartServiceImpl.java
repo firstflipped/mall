@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @Service
 public class CartServiceImpl implements CartService {
 
-    public static final String CART_PREFIX = "gulimall:cart:";
+    public static final String CART_PREFIX = "mall:cart:";
 
     @Resource
     private RedisTemplate redisTemplate;

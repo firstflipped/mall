@@ -1,5 +1,5 @@
 spring:
   application:
-    name: gulimall-product
+    name: mall-product
   profiles:
     active: dev

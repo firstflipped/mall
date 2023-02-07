@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * springdoc配置
- * 访问地址 /gulimall-admin/swagger-ui/index.html
+ * 访问地址 /mall-admin/swagger-ui/index.html
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -21,7 +21,7 @@ public class MySpringDocConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                .info(new Info().title("GuliMall API").description("SpringDoc API").version("v1.0.0").license(new License().name("Apache 2.0").url("https://www.laughingather.com")))
-                .externalDocs(new ExternalDocumentation().description("一个用于自学的商城项目").url("https://www.laughingather.com"));
+                .info(new Info().title("Mall API").description("SpringDoc API").version("v1.0.0").license(new License().name("Apache 2.0").url("https://www.flipped.com")))
+                .externalDocs(new ExternalDocumentation().description("一个用于自学的商城项目").url("https://www.flipped.com"));
     }
 }

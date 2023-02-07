@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-seckill")
+@FeignClient("mall-seckill")
 public interface SecKillFeignService {
 
     /**
@@ -22,7 +22,7 @@ public interface SecKillFeignService {
      * @param skuId skuId
      * @return sku秒杀信息传输实体
      */
-    @GetMapping("/gulimall-seckill/openapi/seckill/sec-kill-sku/{sid}/info")
+    @GetMapping("/mall-seckill/openapi/seckill/sec-kill-sku/{sid}/info")
     MyResult<SecKillSkuRedisDTO> getSecKillSkuInfo(@PathVariable("sid") Long skuId);
 }
 

@@ -1,5 +1,5 @@
 spring:
   application:
-    name: gulimall-seckill
+    name: mall-seckill
   profiles:
     active: dev

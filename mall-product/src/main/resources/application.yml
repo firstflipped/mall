@@ -1,7 +1,7 @@
 server:
   port: 8084
   servlet:
-    context-path: /gulimall-product
+    context-path: /mall-product
 
 spring:
   profiles:
@@ -21,13 +21,13 @@ spring:
 #  cloud:
 #    alibaba:
 #      seata:
-#        tx-service-group: gulimall-product-fescar-service-group
+#        tx-service-group: mall-product-fescar-service-group
 
 # mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   # 实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.laughingather.gulimall.product.entity
+  typeAliasesPackage: com.flipped.mall.product.entity
   global-config:
     db-config:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)

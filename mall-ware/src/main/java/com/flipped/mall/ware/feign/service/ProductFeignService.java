@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-product")
+@FeignClient("mall-product")
 public interface ProductFeignService {
 
     /**
@@ -21,7 +21,7 @@ public interface ProductFeignService {
      * @param skuId
      * @return
      */
-    @GetMapping("/gulimall-product/openapi/product/{sid}/name")
+    @GetMapping("/mall-product/openapi/product/{sid}/name")
     MyResult<String> getSkuNameBySkuId(@PathVariable("sid") Long skuId);
 
 }

@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 验证码的开关，默认为 true
      */
-    @Value("${gulimall.captcha.enable:false}")
+    @Value("${mall.captcha.enable:false}")
     private Boolean captchaEnable;
 
     @Override

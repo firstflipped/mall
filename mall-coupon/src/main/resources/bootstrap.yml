@@ -1,5 +1,5 @@
 spring:
   application:
-    name: gulimall-coupon
+    name: mall-coupon
   profiles:
     active: dev

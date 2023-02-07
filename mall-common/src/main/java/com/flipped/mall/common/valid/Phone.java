@@ -27,7 +27,7 @@ public @interface Phone {
      *
      * @return
      */
-    String message() default "{com.laughingather.gulimall.valid.Phone.message}";
+    String message() default "{com.flipped.mall.valid.Phone.message}";
 
     /**
      * 约束注解验证时所属的组别

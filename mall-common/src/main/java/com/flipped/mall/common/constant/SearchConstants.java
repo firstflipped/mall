@@ -12,7 +12,7 @@ public class SearchConstants {
     /**
      * sku数据在es中的索引
      */
-    public static final String PRODUCT_INDEX = "gulimall_product";
+    public static final String PRODUCT_INDEX = "mall_product";
 
     /**
      * 价格参数分隔符
@@ -32,7 +32,7 @@ public class SearchConstants {
     /**
      * 间隔符参数分隔符
      */
-    public static final String URL = "http://search.gulimall.com/list.html?";
+    public static final String URL = "http://search.mall.com/list.html?";
 
     /**
      * 每页条数

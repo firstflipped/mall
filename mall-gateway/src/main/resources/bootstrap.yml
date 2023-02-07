@@ -2,5 +2,5 @@ spring:
   profiles:
     active: ${PROFILES.ACTIVE:dev}
   application:
-    name: gulimall-gateway
+    name: mall-gateway
 

@@ -14,10 +14,10 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-coupon")
+@FeignClient("mall-coupon")
 public interface CouponFeignService {
 
-    @GetMapping("/gulimall-coupon/openapi/coupon/last-3days-session")
+    @GetMapping("/mall-coupon/openapi/coupon/last-3days-session")
     MyResult<List<SecKillSessionDTO>> getLast3DaysSession();
 
 

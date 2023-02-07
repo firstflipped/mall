@@ -25,8 +25,8 @@ public class AdminConstants {
     /**
      * 用户信息及权限
      */
-    public static final String ADMIN_INFO = "gulimall:admin:info:";
-    public static final String ADMIN_PERMISSION = "gulimall:admin:permission:";
+    public static final String ADMIN_INFO = "mall:admin:info:";
+    public static final String ADMIN_PERMISSION = "mall:admin:permission:";
 
 
 }

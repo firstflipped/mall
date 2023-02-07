@@ -16,7 +16,7 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-product")
+@FeignClient("mall-product")
 public interface ProductFeignService {
 
     /**
@@ -25,7 +25,7 @@ public interface ProductFeignService {
      * @param skuId 商品id
      * @return 商品价格
      */
-    @GetMapping("/gulimall-product/openapi/product/{sid}/price")
+    @GetMapping("/mall-product/openapi/product/{sid}/price")
     MyResult<BigDecimal> getSkuPriceBySkuId(@PathVariable("sid") Long skuId);
 
     /**
@@ -34,7 +34,7 @@ public interface ProductFeignService {
      * @param skuId 商品id
      * @return 商品信息
      */
-    @GetMapping("/gulimall-product/openapi/product/{sid}/info")
+    @GetMapping("/mall-product/openapi/product/{sid}/info")
     MyResult<SkuInfoTO> getSkuInfoBySkuId(@PathVariable("sid") Long skuId);
 
     /**
@@ -43,7 +43,7 @@ public interface ProductFeignService {
      * @param skuId 商品id
      * @return 销售属性列表
      */
-    @GetMapping("/gulimall-product/openapi/product/sku-sale-attr-value/list/{sid}")
+    @GetMapping("/mall-product/openapi/product/sku-sale-attr-value/list/{sid}")
     MyResult<List<String>> getSkuSaleAttrValues(@PathVariable("sid") Long skuId);
 
 }

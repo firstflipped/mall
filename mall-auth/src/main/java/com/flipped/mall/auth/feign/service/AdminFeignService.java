@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-admin")
+@FeignClient("mall-admin")
 public interface AdminFeignService {
 
 
@@ -28,7 +28,7 @@ public interface AdminFeignService {
      * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息
      */
-    @PostMapping("/gulimall-admin/openapi/admin/login")
+    @PostMapping("/mall-admin/openapi/admin/login")
     MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO);
 
     /**
@@ -37,7 +37,7 @@ public interface AdminFeignService {
      * @param mobile 手机号
      * @return 用户信息
      */
-    @PostMapping("/gulimall-admin/openapi/admin/login/mobile")
+    @PostMapping("/mall-admin/openapi/admin/login/mobile")
     MyResult<AdminDTO> loginByMobile(@RequestParam(name = "mobile") String mobile);
 
     /**
@@ -46,6 +46,6 @@ public interface AdminFeignService {
      * @param userid 用户id
      * @return 用户信息
      */
-    @GetMapping("/gulimall-admin/openapi/admin/userinfo")
+    @GetMapping("/mall-admin/openapi/admin/userinfo")
     MyResult<AdminInfoDTO> getUserinfo(@RequestParam("userid") Long userid);
 }

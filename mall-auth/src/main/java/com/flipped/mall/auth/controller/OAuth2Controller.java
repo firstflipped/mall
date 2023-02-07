@@ -61,12 +61,12 @@ public class OAuth2Controller {
                 MemberDTO data = memberResult.getData();
                 log.info("用户名：{}", data.getNickname());
                 session.setAttribute(AuthConstants.LOGIN_USER, data);
-                return "redirect:http://gulimall.com";
+                return "redirect:http://mall.com";
             }
         }
 
         // 重定向到登录页（失败）
-        return "redirect:http://auth.gulimall.com/login.html";
+        return "redirect:http://auth.mall.com/login.html";
     }
 
 }

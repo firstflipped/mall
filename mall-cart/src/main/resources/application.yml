@@ -1,7 +1,7 @@
 server:
   port: 8086
   servlet:
-    context-path: /gulimall-cart
+    context-path: /mall-cart
 
 spring:
   profiles:

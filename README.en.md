@@ -1,4 +1,4 @@
-# gulimall
+# mall
 
 #### Description
 

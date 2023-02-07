@@ -60,9 +60,9 @@
             <ul class="header_ul_right">
                 <li style="width: 150px">
                     <a th:if="${session.loginUser != null}">欢迎： [[${session.loginUser.nickname}]]</a>
-                    <a href="http://auth.gulimall.com/login.html" th:if="${session.loginUser == null}">欢迎，请登录 </a>
+                    <a href="http://auth.mall.com/login.html" th:if="${session.loginUser == null}">欢迎，请登录 </a>
                 </li>
-                <li th:if="${session.loginUser == null}"><a class="li_2" href="http://auth.gulimall.com/register.html">免费注册</a>
+                <li th:if="${session.loginUser == null}"><a class="li_2" href="http://auth.mall.com/register.html">免费注册</a>
                 </li>
                 <li><a class="aa" href="/static/item/javascript:;">我的订单</a> |</li>
                 <li class="jingdong"><a href="/static/item/javascript:;">我的京东</a><span
@@ -264,7 +264,7 @@
                 <div class="nav_top_two"><input type="text"/>
                     <button>搜索</button>
                 </div>
-                <div class="nav_top_three"><a href="http://cart.gulimall.com/cart/cart.html">我的购物车</a><span
+                <div class="nav_top_three"><a href="http://cart.mall.com/cart/cart.html">我的购物车</a><span
                         class="glyphicon glyphicon-shopping-cart"></span>
                     <div class="nav_top_three_1">
                         <img src="/static/item/img/44.png"/>购物车还没有商品，赶紧选购吧！
@@ -1281,13 +1281,13 @@
         }
 
         // 跳转页面
-        location.href = "http://item.gulimall.com/" + filterEle[0] + ".html"
+        location.href = "http://item.mall.com/" + filterEle[0] + ".html"
     })
 
     $("#addToCart").click(function () {
         let num = $("#numInput").val();
         let skuId = $(this).attr("skuId");
-        location.href = "http://cart.gulimall.com/cart/add-to-cart?skuId=" + skuId + "&num=" + num;
+        location.href = "http://cart.mall.com/cart/add-to-cart?skuId=" + skuId + "&num=" + num;
         return false;
     });
 

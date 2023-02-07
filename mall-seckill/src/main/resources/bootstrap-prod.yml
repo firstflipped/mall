@@ -3,8 +3,8 @@ spring:
     nacos:
       discovery:
         server-addr: http://nacos-registry:8848
-        namespace: gulimall
+        namespace: mall
       config:
         server-addr: http://nacos-registry:8848
-        namespace: gulimall
+        namespace: mall
         file-extension: yaml

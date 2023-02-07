@@ -65,7 +65,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.laughingather.gulimall.order.GulimallOrderApplication</mainClass>
+                    <mainClass>com.flipped.mall.order.mallOrderApplication</mainClass>
                     <!-- 需要加上该配置才能使dev-tools生效 -->
                     <fork>true</fork>
                     <excludes>

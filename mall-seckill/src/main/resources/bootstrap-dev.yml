@@ -4,9 +4,9 @@ spring:
     nacos:
       discovery:
         server-addr: http://localhost:8848
-        namespace: gulimall
+        namespace: mall
       config:
         server-addr: http://localhost:8848
-        namespace: gulimall
+        namespace: mall
         file-extension: yaml
-        group: GULIMALL-SECKILL
+        group: MALL-SECKILL

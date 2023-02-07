@@ -11,95 +11,95 @@ spring:
     gateway:
       routes:
         ## 一个请求满足多个路由的谓词条件时，请求只会被首个成功匹配的路由转发
-        - id: gulimall-third-party
-          uri: lb://gulimall-third-party
+        - id: mall-third-party
+          uri: lb://mall-third-party
           predicates:
-            - Path=/api/gulimall-third-party/**
+            - Path=/api/mall-third-party/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-admin
-          uri: lb://gulimall-admin
+        - id: mall-admin
+          uri: lb://mall-admin
           predicates:
-            - Path=/api/gulimall-admin/**
+            - Path=/api/mall-admin/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-auth
-          uri: lb://gulimall-auth
+        - id: mall-auth
+          uri: lb://mall-auth
           predicates:
-            - Path=/api/gulimall-auth/**
+            - Path=/api/mall-auth/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-product
-          uri: lb://gulimall-product
+        - id: mall-product
+          uri: lb://mall-product
           predicates:
-            - Path=/api/gulimall-product/**
+            - Path=/api/mall-product/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-member
-          uri: lb://gulimall-member
+        - id: mall-member
+          uri: lb://mall-member
           predicates:
-            - Path=/api/gulimall-member/**
+            - Path=/api/mall-member/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-ware
-          uri: lb://gulimall-ware
+        - id: mall-ware
+          uri: lb://mall-ware
           predicates:
-            - Path=/api/gulimall-ware/**
+            - Path=/api/mall-ware/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-cart
-          uri: lb://gulimall-cart
+        - id: mall-cart
+          uri: lb://mall-cart
           predicates:
-            - Path=/api/gulimall-cart/**
+            - Path=/api/mall-cart/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-coupon
-          uri: lb://gulimall-coupon
+        - id: mall-coupon
+          uri: lb://mall-coupon
           predicates:
-            - Path=/api/gulimall-coupon/**
+            - Path=/api/mall-coupon/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-seckill
-          uri: lb://gulimall-seckill
+        - id: mall-seckill
+          uri: lb://mall-seckill
           predicates:
-            - Path=/api/gulimall-seckill/**
+            - Path=/api/mall-seckill/**
           filters:
             - StripPrefix=1
 
-        - id: gulimall-product-web
-          uri: lb://gulimall-product
+        - id: mall-product-web
+          uri: lb://mall-product
           predicates:
-            - Host=gulimall.com,item.gulimall.com
+            - Host=mall.com,item.mall.com
 
-        - id: gulimall-search-web
-          uri: lb://gulimall-search
+        - id: mall-search-web
+          uri: lb://mall-search
           predicates:
-            - Host=search.gulimall.com
+            - Host=search.mall.com
 
-        - id: gulimall-auth-web
-          uri: lb://gulimall-auth
+        - id: mall-auth-web
+          uri: lb://mall-auth
           predicates:
-            - Host=auth.gulimall.com
+            - Host=auth.mall.com
 
-        - id: gulimall-cart-web
-          uri: lb://gulimall-cart
+        - id: mall-cart-web
+          uri: lb://mall-cart
           predicates:
-            - Host=cart.gulimall.com
+            - Host=cart.mall.com
 
-        - id: gulimall-order-web
-          uri: lb://gulimall-order
+        - id: mall-order-web
+          uri: lb://mall-order
           predicates:
-            - Host=order.gulimall.com
+            - Host=order.mall.com
 
-        - id: gulimall-seckill-web
-          uri: lb://gulimall-seckill
+        - id: mall-seckill-web
+          uri: lb://mall-seckill
           predicates:
-            - Host=seckill.gulimall.com
+            - Host=seckill.mall.com

@@ -1,5 +1,5 @@
 spring:
   application:
-    name: gulimall-member
+    name: mall-member
   profiles:
     active: dev

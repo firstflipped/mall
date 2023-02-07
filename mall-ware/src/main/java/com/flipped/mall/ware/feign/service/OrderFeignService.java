@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-order")
+@FeignClient("mall-order")
 public interface OrderFeignService {
 
     /**
@@ -22,7 +22,7 @@ public interface OrderFeignService {
      * @param orderSn
      * @return
      */
-    @GetMapping("/gulimall-order/openapi/order/{osn}/info")
+    @GetMapping("/mall-order/openapi/order/{osn}/info")
     MyResult<OrderDTO> getOrderByOrderSn(@PathVariable("osn") String orderSn);
 
 }

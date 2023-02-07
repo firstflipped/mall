@@ -1,4 +1,4 @@
-PUT http://localhost:9200/gulimall_product
+PUT http://localhost:9200/mall_product
 {
   "mappings": {
     "properties": {

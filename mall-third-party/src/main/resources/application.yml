@@ -1,7 +1,7 @@
 server:
   port: 99
   servlet:
-    context-path: /gulimall-third-party
+    context-path: /mall-third-party
 
 spring:
   profiles:

@@ -17,7 +17,7 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-product")
+@FeignClient("mall-product")
 public interface ProductFeignService {
 
 
@@ -27,7 +27,7 @@ public interface ProductFeignService {
      * @param attrId
      * @return
      */
-    @GetMapping("/gulimall-product/openapi/product/{aid}")
+    @GetMapping("/mall-product/openapi/product/{aid}")
     MyResult<AttrDTO> getAttrById(@PathVariable("aid") Long attrId);
 
     /**
@@ -36,7 +36,7 @@ public interface ProductFeignService {
      * @param brandIds
      * @return
      */
-    @GetMapping("/gulimall-product/openapi/product/brand/list")
+    @GetMapping("/mall-product/openapi/product/brand/list")
     MyResult<List<BrandDTO>> listBrandsByIds(@RequestParam(value = "bids", required = false) List<Long> brandIds);
 
 }

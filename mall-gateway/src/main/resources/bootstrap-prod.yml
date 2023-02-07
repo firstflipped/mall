@@ -3,8 +3,8 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS.SERVE-ADDR:http://nacos-registry:8848}
-        namespace: ${NACOS.NAMESPACE:gulimall}
+        namespace: ${NACOS.NAMESPACE:mall}
       config:
         server-addr: ${NACOS.SERVE-ADDR:http://nacos-registry:8848}
-        namespace: ${NACOS.NAMESPACE:gulimall}
+        namespace: ${NACOS.NAMESPACE:mall}
         file-extension: yaml

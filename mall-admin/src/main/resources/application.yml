@@ -2,7 +2,7 @@
 server:
   port: ${SERVER.PORT:9090}
   servlet:
-    context-path: /gulimall-admin
+    context-path: /mall-admin
 
 spring:
   # 环境 dev|test|prod
@@ -15,4 +15,4 @@ spring:
 # mybatis
 mybatis-plus:
   mapper-locations: classpath:/mapper/admin/*.xml
-  type-aliases-package: com.laughingather.gulimall.admin.entity
+  type-aliases-package: com.flipped.mall.admin.entity

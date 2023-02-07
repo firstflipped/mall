@@ -4,9 +4,9 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS.SERVER-ADDR:http://localhost:8848}
-        namespace: ${NACOS.NAMESPACE:gulimall}
+        namespace: ${NACOS.NAMESPACE:mall}
       config:
         server-addr: ${NACOS.SERVER-ADDR:http://localhost:8848}
-        namespace: ${NACOS.NAMESPACE:gulimall}
+        namespace: ${NACOS.NAMESPACE:mall}
         file-extension: yaml
-        group: ${NACOS.GROUP:GULIMALL-ADMIN}
+        group: ${NACOS.GROUP:MALL-ADMIN}

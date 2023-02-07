@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-@FeignClient("gulimall-member")
+@FeignClient("mall-member")
 public interface MemberFeignService {
 
     /**
@@ -22,7 +22,7 @@ public interface MemberFeignService {
      * @param id
      * @return
      */
-    @GetMapping("/gulimall-member/openapi/member/{aid}/info")
+    @GetMapping("/mall-member/openapi/member/{aid}/info")
     MyResult<MemberReceiveAddressDTO> getAddressInfoById(@PathVariable("aid") Long id);
 
 }

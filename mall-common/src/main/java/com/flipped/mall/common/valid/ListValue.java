@@ -22,7 +22,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface ListValue {
 
-    String message() default "{com.laughingather.gulimall.valid.ListValue.message}";
+    String message() default "{com.flipped.mall.valid.ListValue.message}";
 
     Class<?>[] groups() default {};
 

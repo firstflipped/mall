@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "gulimall.thread")
+@ConfigurationProperties(prefix = "mall.thread")
 public class ThreadPoolConfigProperties {
 
     /**

@@ -1,5 +1,5 @@
 spring:
   application:
-    name: gulimall-search
+    name: mall-search
   profiles:
     active: dev
