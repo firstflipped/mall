@@ -2,7 +2,7 @@ package com.flipped.mall.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.flipped.mall.admin.entity.RoleEntity;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyPage;
 
 import java.util.List;
 

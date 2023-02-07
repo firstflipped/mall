@@ -5,7 +5,7 @@ import com.flipped.mall.admin.entity.PermissionEntity;
 import com.flipped.mall.admin.entity.param.PermissionEnableParam;
 import com.flipped.mall.admin.entity.query.PermissionQuery;
 import com.flipped.mall.admin.entity.vo.PermissionsWithTreeVO;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyPage;
 
 import java.util.List;
 

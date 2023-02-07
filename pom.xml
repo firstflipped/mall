@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <groupId>com.flipped.mall</groupId>
     <artifactId>mall</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>mall</name>
     <description>谷粒商城聚合服务</description>
+    <modelVersion>4.0.0</modelVersion>
 
     <packaging>pom</packaging>
 
@@ -30,19 +31,19 @@
     </properties>
 
     <modules>
-        <module>gulimall-product</module>
-        <module>gulimall-order</module>
-        <module>gulimall-ware</module>
-        <module>gulimall-coupon</module>
-        <module>gulimall-member</module>
+        <module>mall-product</module>
+        <module>mall-order</module>
+        <module>mall-ware</module>
+        <module>mall-coupon</module>
+        <module>mall-member</module>
         <module>mall-admin</module>
-        <module>gulimall-common</module>
-        <module>gulimall-gateway</module>
-        <module>gulimall-third-party</module>
-        <module>gulimall-search</module>
-        <module>gulimall-auth</module>
-        <module>gulimall-cart</module>
-        <module>gulimall-seckill</module>
+        <module>mall-common</module>
+        <module>mall-gateway</module>
+        <module>mall-third-party</module>
+        <module>mall-search</module>
+        <module>mall-auth</module>
+        <module>mall-cart</module>
+        <module>mall-seckill</module>
     </modules>
 
     <dependencyManagement>

@@ -8,7 +8,7 @@ import com.flipped.mall.admin.entity.param.RolePermissionParam;
 import com.flipped.mall.admin.mapper.PermissionMapper;
 import com.flipped.mall.admin.mapper.RolePermissionMapper;
 import com.flipped.mall.admin.service.RolePermissionService;
-import com.laughingather.gulimall.common.constant.AdminConstants;
+import com.flipped.mall.common.constant.AdminConstants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 

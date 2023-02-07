@@ -8,7 +8,7 @@ import com.flipped.mall.admin.entity.RoleEntity;
 import com.flipped.mall.admin.mapper.RoleMapper;
 import com.flipped.mall.admin.service.RoleService;
 import com.flipped.mall.admin.util.SecurityUtil;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyPage;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

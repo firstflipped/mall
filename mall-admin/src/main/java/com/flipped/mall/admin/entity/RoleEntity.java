@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.laughingather.gulimall.common.valid.AddGroup;
-import com.laughingather.gulimall.common.valid.UpdateGroup;
+import com.flipped.mall.common.valid.AddGroup;
+import com.flipped.mall.common.valid.UpdateGroup;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

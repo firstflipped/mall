@@ -1,6 +1,6 @@
 package com.flipped.mall.admin.entity;
 
-import com.laughingather.gulimall.common.constant.AdminConstants;
+import com.flipped.mall.common.constant.AdminConstants;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

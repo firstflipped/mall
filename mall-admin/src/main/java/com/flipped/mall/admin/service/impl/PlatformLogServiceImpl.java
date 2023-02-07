@@ -8,8 +8,8 @@ import com.flipped.mall.admin.entity.query.PlatformLogQuery;
 import com.flipped.mall.admin.entity.vo.PlatformLogExcelVO;
 import com.flipped.mall.admin.mapper.PlatformLogMapper;
 import com.flipped.mall.admin.service.PlatformLogService;
-import com.laughingather.gulimall.common.entity.PlatformLog;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.PlatformLog;
+import com.flipped.mall.common.entity.api.MyPage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

@@ -12,8 +12,8 @@ import com.flipped.mall.admin.entity.vo.PermissionsWithTreeVO;
 import com.flipped.mall.admin.mapper.PermissionMapper;
 import com.flipped.mall.admin.service.PermissionService;
 import com.flipped.mall.admin.util.SecurityUtil;
-import com.laughingather.gulimall.common.constant.AdminConstants;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.constant.AdminConstants;
+import com.flipped.mall.common.entity.api.MyPage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

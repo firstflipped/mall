@@ -2,8 +2,8 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.param.RolePermissionParam;
 import com.flipped.mall.admin.service.RolePermissionService;
-import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.entity.api.MyResult;
+import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.entity.api.MyResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;

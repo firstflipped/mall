@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flipped.mall.product.dao.BrandDao">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.flipped.mall.product.entity.BrandEntity" id="brandMap">
+        <result property="brandId" column="brand_id"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="logo" column="logo"/>
+        <result property="description" column="description"/>
+        <result property="showStatus" column="show_status"/>
+        <result property="firstLetter" column="first_letter"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="listBrandsWithSelect" resultType="com.flipped.mall.product.entity.vo.BrandSelectVO">
+        SELECT brand_id, brand_name FROM pms_brand
+        <where>
+            <if test="brandName != null and brandName != ''">
+                AND brand_name LIKE CONCAT('%', #{brandName}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

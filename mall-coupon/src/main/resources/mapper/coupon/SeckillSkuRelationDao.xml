@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flipped.mall.coupon.dao.SecKillSkuRelationDao">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.flipped.mall.coupon.entity.SecKillSkuRelationEntity" id="seckillSkuRelationMap">
+        <result property="id" column="id"/>
+        <result property="promotionId" column="promotion_id"/>
+        <result property="promotionSessionId" column="promotion_session_id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="secKillPrice" column="sec_kill_price"/>
+        <result property="secKillCount" column="sec_kill_count"/>
+        <result property="secKillLimit" column="sec_kill_limit"/>
+        <result property="secKillSort" column="sec_kill_sort"/>
+    </resultMap>
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.flipped.mall.coupon.entity.dto.SecKillSkuRelationDTO" id="secKillSkuRelationTOMap">
+        <result property="id" column="id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="promotionSessionId" column="promotion_session_id"/>
+        <result property="secKillPrice" column="sec_kill_price"/>
+        <result property="secKillCount" column="sec_kill_count"/>
+        <result property="secKillLimit" column="sec_kill_limit"/>
+        <result property="secKillSort" column="sec_kill_sort"/>
+    </resultMap>
+
+    <select id="getRelationSkusByPromotionSessionId" resultMap="secKillSkuRelationTOMap">
+        SELECT id, sku_id, promotion_session_id, sec_kill_price, sec_kill_count, sec_kill_limit, sec_kill_sort
+        FROM sms_sec_kill_sku_relation
+        WHERE promotion_session_id = #{promotionSessionId}
+    </select>
+</mapper>

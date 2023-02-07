@@ -3,8 +3,8 @@ package com.flipped.mall.admin.service;
 
 import com.flipped.mall.admin.entity.query.PlatformLogQuery;
 import com.flipped.mall.admin.entity.vo.PlatformLogExcelVO;
-import com.laughingather.gulimall.common.entity.PlatformLog;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.PlatformLog;
+import com.flipped.mall.common.entity.api.MyPage;
 
 import java.util.List;
 

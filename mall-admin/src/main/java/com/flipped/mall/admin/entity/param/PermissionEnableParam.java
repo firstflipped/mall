@@ -1,6 +1,6 @@
 package com.flipped.mall.admin.entity.param;
 
-import com.laughingather.gulimall.common.valid.ListValue;
+import com.flipped.mall.common.valid.ListValue;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

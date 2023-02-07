@@ -1,6 +1,6 @@
 package com.flipped.mall.admin.entity.query;
 
-import com.laughingather.gulimall.common.entity.query.PageQuery;
+import com.flipped.mall.common.entity.query.PageQuery;
 import lombok.Data;
 
 /**

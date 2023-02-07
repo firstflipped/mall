@@ -1,7 +1,7 @@
 package com.flipped.mall.admin.filter;
 
 import com.flipped.mall.admin.service.CustomUserDetailsService;
-import com.laughingather.gulimall.common.constant.AuthConstants;
+import com.flipped.mall.common.constant.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

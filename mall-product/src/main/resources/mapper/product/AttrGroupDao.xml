@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flipped.mall.product.dao.AttrGroupDao">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="attrGroupMap" type="com.flipped.mall.product.entity.AttrGroupEntity">
+        <result property="attrGroupId" column="attr_group_id"/>
+        <result property="attrGroupName" column="attr_group_name"/>
+        <result property="sort" column="sort"/>
+        <result property="description" column="description"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getGroupNameByAttrId" resultType="java.lang.String">
+        SELECT pag.attr_group_name
+        FROM pms_attr pa
+                 INNER JOIN pms_attr_group pag USING (attr_group_id)
+        WHERE pa.attr_id = #{attrId}
+    </select>
+
+    <!-- 索引并不一定是每个关联字段都加上好，具体要看执行解释器 -->
+    <resultMap id="attrGroupWithAttrsMap"
+               type="com.flipped.mall.product.entity.vo.SpuItemAttrGroupWithAttrVO">
+        <result property="attrGroupName" column="attr_group_name" javaType="string"/>
+        <collection property="attrs" ofType="com.flipped.mall.product.entity.vo.SpuBaseAttrVO">
+            <result property="attrName" column="attr_name" javaType="string"/>
+            <result property="attrValue" column="attr_value" javaType="string"/>
+        </collection>
+    </resultMap>
+    <select id="getAttrGroupWithAttrsBySpuId" resultMap="attrGroupWithAttrsMap">
+        SELECT ppav.spu_id,
+               pag.attr_group_id,
+               pag.attr_group_name,
+               pa.attr_id,
+               pa.attr_name,
+               ppav.attr_value
+        FROM pms_attr_group pag
+                 LEFT JOIN pms_attr pa USING (attr_group_id)
+                 LEFT JOIN pms_product_attr_value ppav USING (attr_id)
+        WHERE pag.category_id = #{categoryId}
+          AND ppav.spu_id = #{spuId}
+    </select>
+</mapper>

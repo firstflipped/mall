@@ -2,12 +2,12 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.RoleEntity;
 import com.flipped.mall.admin.service.RoleService;
-import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.constant.LogConstants;
-import com.laughingather.gulimall.common.entity.api.MyPage;
-import com.laughingather.gulimall.common.entity.api.MyResult;
-import com.laughingather.gulimall.common.valid.AddGroup;
-import com.laughingather.gulimall.common.valid.UpdateGroup;
+import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.constant.LogConstants;
+import com.flipped.mall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyResult;
+import com.flipped.mall.common.valid.AddGroup;
+import com.flipped.mall.common.valid.UpdateGroup;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

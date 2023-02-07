@@ -6,7 +6,7 @@ import com.flipped.mall.admin.entity.dto.AdminLoginDTO;
 import com.flipped.mall.admin.entity.param.UserEnableParam;
 import com.flipped.mall.admin.entity.param.UserPasswordParam;
 import com.flipped.mall.admin.entity.query.UserQuery;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyPage;
 
 import java.util.List;
 

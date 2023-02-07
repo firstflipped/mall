@@ -1,6 +1,6 @@
 package com.flipped.mall.admin.config;
 
-import com.laughingather.gulimall.common.config.BaseMybatisPlusConfig;
+import com.flipped.mall.common.config.BaseMybatisPlusConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 

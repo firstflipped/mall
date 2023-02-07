@@ -3,8 +3,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>gulimall</artifactId>
-        <groupId>com.laughingather.gulimall</groupId>
+        <groupId>com.flipped.mall</groupId>
+        <artifactId>mall</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,8 +18,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.laughingather.gulimall</groupId>
-            <artifactId>gulimall-common</artifactId>
+            <groupId>com.flipped.mall</groupId>
+            <artifactId>mall-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 

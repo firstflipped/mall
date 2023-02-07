@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.flipped.mall.admin.entity.DictEntity;
 import com.flipped.mall.admin.entity.query.DictQuery;
 import com.flipped.mall.admin.entity.vo.DictSelectVO;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyPage;
 
 import java.util.List;
 

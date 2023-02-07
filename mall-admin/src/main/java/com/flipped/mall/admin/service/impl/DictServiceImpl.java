@@ -11,7 +11,7 @@ import com.flipped.mall.admin.mapper.DictDetailMapper;
 import com.flipped.mall.admin.mapper.DictMapper;
 import com.flipped.mall.admin.service.DictService;
 import com.flipped.mall.admin.util.SecurityUtil;
-import com.laughingather.gulimall.common.entity.api.MyPage;
+import com.flipped.mall.common.entity.api.MyPage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

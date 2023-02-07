@@ -1,8 +1,8 @@
 package com.flipped.mall.admin;
 
-import com.laughingather.gulimall.common.aspect.PlatformLogAspect;
-import com.laughingather.gulimall.common.exception.ExceptionControllerAdvice;
-import com.laughingather.gulimall.common.handle.MyMetaObjectHandler;
+import com.flipped.mall.common.aspect.PlatformLogAspect;
+import com.flipped.mall.common.exception.ExceptionControllerAdvice;
+import com.flipped.mall.common.handle.MyMetaObjectHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

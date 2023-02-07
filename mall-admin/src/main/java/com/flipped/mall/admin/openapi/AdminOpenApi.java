@@ -5,9 +5,9 @@ import com.flipped.mall.admin.entity.dto.AdminDTO;
 import com.flipped.mall.admin.entity.dto.AdminInfoDTO;
 import com.flipped.mall.admin.entity.dto.AdminLoginDTO;
 import com.flipped.mall.admin.service.UserService;
-import com.laughingather.gulimall.common.annotation.PlatformLogAnnotation;
-import com.laughingather.gulimall.common.constant.LogConstants;
-import com.laughingather.gulimall.common.entity.api.MyResult;
+import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.constant.LogConstants;
+import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 

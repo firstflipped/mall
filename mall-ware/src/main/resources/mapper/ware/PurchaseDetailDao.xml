@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flipped.mall.ware.dao.PurchaseDetailDao">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.flipped.mall.ware.entity.PurchaseDetailEntity" id="purchaseDetailMap">
+        <result property="id" column="id"/>
+        <result property="purchaseId" column="purchase_id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="skuNum" column="sku_num"/>
+        <result property="skuPrice" column="sku_price"/>
+        <result property="wareId" column="ware_id"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="pagePurchaseDetailByParams" resultMap="purchaseDetailMap">
+        SELECT id, purchase_id, sku_id, sku_num, sku_price, ware_id, status
+        FROM wms_purchase_detail
+        <where>
+            <if test="params.key != null and params.key != ''">
+                AND (purchase_id = #{params.key} OR sku_id = #{params.key})
+            </if>
+            <if test="params.status != null">
+                AND status = #{params.status}
+            </if>
+            <if test="params.wareId != null">
+                AND ware_id = #{params.wareId}
+            </if>
+        </where>
+    </select>
+</mapper>
