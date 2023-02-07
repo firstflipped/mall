@@ -13,10 +13,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class GulimallMemberApplication {
+public class MallMemberApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GulimallMemberApplication.class, args);
+        SpringApplication.run(MallMemberApplication.class, args);
     }
 
 }

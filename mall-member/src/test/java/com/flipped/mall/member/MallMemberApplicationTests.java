@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
 
 @SpringBootTest
-class GulimallMemberApplicationTests {
+class MallMemberApplicationTests {
 
     @Resource
     private RestTemplate restTemplate;

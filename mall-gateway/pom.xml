@@ -2,15 +2,21 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父项目坐标-->
     <parent>
         <groupId>com.flipped.mall</groupId>
         <artifactId>mall</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <!-- 项目坐标-->
     <artifactId>mall-gateway</artifactId>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <!-- 项目基本信息-->
+    <name>mall-gateway</name>
+    <description>商城网关服务</description>
 
     <dependencies>
         <dependency>

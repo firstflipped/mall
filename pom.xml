@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 项目坐标-->
     <groupId>com.flipped.mall</groupId>
     <artifactId>mall</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
-    <name>mall</name>
-    <description>谷粒商城聚合服务</description>
-    <modelVersion>4.0.0</modelVersion>
-
+    <!-- 打包方式-->
     <packaging>pom</packaging>
+    <!-- 项目基本信息-->
+    <name>mall</name>
+    <description>商城聚合服务</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +25,7 @@
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
         <spring-boot-alibaba.version>1.0.0</spring-boot-alibaba.version>
 
-        <!-- springboot版本太高会导致和springcloudalibaba冲突 -->
+        <!-- Spring Boot版本太高会导致和Spring Cloud Alibaba冲突 -->
         <!-- <spring-boot.version>2.3.2.RELEASE</spring-boot.version>-->
         <!-- <spring-cloud.version>Hoxton.SR8</spring-cloud.version>-->
         <!-- <spring-cloud-alibaba.version>2.2.7.RELEASE</spring-cloud-alibaba.version>-->
