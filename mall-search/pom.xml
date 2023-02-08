@@ -78,7 +78,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.flipped.mall.search.MallSearchApplication</mainClass>
-                    <fork>true</fork>
                 </configuration>
             </plugin>
         </plugins>

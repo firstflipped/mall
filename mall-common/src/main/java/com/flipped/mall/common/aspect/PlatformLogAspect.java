@@ -2,10 +2,10 @@ package com.flipped.mall.common.aspect;
 
 
 import cn.hutool.core.net.NetUtil;
+import com.flipped.mall.common.annotation.PlatformLogAnnotation;
 import com.flipped.mall.common.constant.AuthConstants;
 import com.flipped.mall.common.entity.PlatformLog;
 import com.flipped.mall.common.entity.api.MyResult;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
 import com.flipped.mall.common.util.HttpContextUtil;
 import com.flipped.mall.common.util.JsonUtil;
 import com.flipped.mall.common.util.RequestUtil;
@@ -46,10 +46,6 @@ import java.util.concurrent.TimeUnit;
 @Order(1)
 @Component
 public class PlatformLogAspect {
-
-    // @Resource
-    // private PlatformLogService platformLogService;
-
 
     @Pointcut("@annotation(com.flipped.mall.common.annotation.PlatformLogAnnotation)")
     public void platformLog() {

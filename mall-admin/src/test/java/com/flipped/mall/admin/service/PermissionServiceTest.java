@@ -20,7 +20,6 @@ import java.util.List;
 @SpringBootTest(classes = MallAdminApplication.class)
 public class PermissionServiceTest {
 
-
     @Resource
     private PermissionMapper permissionMapper;
     @Resource

@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 搜索服务
+ * 搜索服务启动类
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
