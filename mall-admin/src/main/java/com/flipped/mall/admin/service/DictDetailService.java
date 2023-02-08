@@ -12,4 +12,10 @@ import com.flipped.mall.admin.entity.DictDetailEntity;
  */
 public interface DictDetailService extends IService<DictDetailEntity> {
 
+    /**
+     * 保存字典明细
+     *
+     * @param dictDetailEntity 字典明细
+     */
+    void saveDictDetail(DictDetailEntity dictDetailEntity);
 }

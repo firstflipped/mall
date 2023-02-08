@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.flipped.mall.admin.entity.DictDetailEntity;
 import com.flipped.mall.admin.mapper.DictDetailMapper;
 import com.flipped.mall.admin.service.DictDetailService;
+import com.flipped.mall.admin.util.SecurityUtil;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 字典逻辑借口
@@ -15,4 +18,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DictDetailServiceImpl extends ServiceImpl<DictDetailMapper, DictDetailEntity> implements DictDetailService {
+
+    @Resource
+    private DictDetailMapper dictDetailMapper;
+
+    @Override
+    public void saveDictDetail(DictDetailEntity dictDetailEntity) {
+        dictDetailEntity.setCreateBy(SecurityUtil.getUsername());
+
+        dictDetailMapper.insert(dictDetailEntity);
+    }
 }

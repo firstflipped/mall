@@ -1,8 +1,19 @@
 package com.flipped.mall.admin.controller;
 
+import com.flipped.mall.admin.entity.DictDetailEntity;
+import com.flipped.mall.admin.service.DictDetailService;
+import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.constant.LogConstants;
+import com.flipped.mall.common.entity.api.MyResult;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * 字典路由
@@ -15,6 +26,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin/dict-detail")
 @Tag(name = "字典明细管理模块")
 public class DictDetailController {
+
+    @Resource
+    private DictDetailService dictDetailService;
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('admin.dictdetail.view')")
+    @Operation(summary = "保存字典明细")
+    @PlatformLogAnnotation(value = "保存字典明细", type = LogConstants.INSERT)
+    public MyResult<Void> saveDictDetail(@RequestBody DictDetailEntity dictDetailEntity) {
+        dictDetailService.saveDictDetail(dictDetailEntity);
+        return MyResult.success();
+    }
 
 
 }
