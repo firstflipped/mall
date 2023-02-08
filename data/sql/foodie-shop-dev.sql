@@ -13,6 +13,8 @@
 
  Date: 31/10/2022 15:44:16
 */
+CREATE DATABASE IF NOT EXISTS `foodie-shop-dev` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+USE `foodie-shop-dev`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
