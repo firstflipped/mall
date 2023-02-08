@@ -12,10 +12,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <!-- 项目坐标-->
-    <artifactId>mall-reptile</artifactId>
+    <artifactId>mall-spider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <!-- 项目基本信息-->
-    <name>mall-reptile</name>
+    <name>mall-spider</name>
     <description>商城爬虫服务</description>
 
     <dependencies>
@@ -32,7 +32,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.flipped.mall.reptile.MallReptileApplication</mainClass>
+                    <mainClass>com.flipped.mall.reptile.MallSpiderApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

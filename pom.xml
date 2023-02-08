@@ -46,7 +46,7 @@
         <module>mall-auth</module>
         <module>mall-cart</module>
         <module>mall-seckill</module>
-        <module>mall-reptile</module>
+        <module>mall-spider</module>
     </modules>
 
     <dependencyManagement>
