@@ -1,3 +1,6 @@
+自定义网络
+docker network create docker-net
+
 MySQL服务
 docker run \
         --name mysql \
@@ -29,3 +32,24 @@ docker run \
         -v /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs \
         -v /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data \
         -d nacos/nacos-server:v2.2.0-slim
+
+Elasticsearch服务
+docker run \
+        --name elasticsearch \
+        --privileged \
+        --network docker-net \
+        -p 9200:9200 \
+        -p 9300:9300 \
+        -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
+        -e "discovery.type=single-node" \
+        -v /Users/flipped/Server/Docker/Elasticsearch/data:/usr/share/elasticsearch/data \
+        -v /Users/flipped/Server/Docker/Elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+        -v /Users/flipped/Server/Docker/Elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+        -d elasticsearch:7.14.2
+
+Redis服务
+docker run \
+        --name redis \
+        -p 6379:6379 \
+        -d redis \
+        --appendonly yes
