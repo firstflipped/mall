@@ -9,6 +9,10 @@ spring:
   # 网关控制
   cloud:
     gateway:
+      discovery:
+        locator:
+          # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
+          enabled: true
       routes:
         ## 一个请求满足多个路由的谓词条件时，请求只会被首个成功匹配的路由转发
         - id: mall-third-party
@@ -74,32 +78,10 @@ spring:
           filters:
             - StripPrefix=1
 
-        - id: mall-product-web
-          uri: lb://mall-product
+        # springdoc openapi 路由规则转发
+        - id: openapi
+          uri: http://localhost:${server.port}
           predicates:
-            - Host=mall.com,item.mall.com
-
-        - id: mall-search-web
-          uri: lb://mall-search
-          predicates:
-            - Host=search.mall.com
-
-        - id: mall-auth-web
-          uri: lb://mall-auth
-          predicates:
-            - Host=auth.mall.com
-
-        - id: mall-cart-web
-          uri: lb://mall-cart
-          predicates:
-            - Host=cart.mall.com
-
-        - id: mall-order-web
-          uri: lb://mall-order
-          predicates:
-            - Host=order.mall.com
-
-        - id: mall-seckill-web
-          uri: lb://mall-seckill
-          predicates:
-            - Host=seckill.mall.com
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /api/$\{path}/v3/api-docs

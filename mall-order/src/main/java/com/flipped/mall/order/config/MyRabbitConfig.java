@@ -28,8 +28,8 @@ public class MyRabbitConfig {
     /**
      * 自定义化rabbitTemplate
      *
-     * @param connectionFactory
-     * @return
+     * @param connectionFactory 工厂方法
+     * @return rabbitTemplate
      */
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
