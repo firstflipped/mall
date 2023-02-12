@@ -52,7 +52,7 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!-- nacos 必须引入此依赖 -->
+        <!-- macos m1 必须引入此依赖 -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>

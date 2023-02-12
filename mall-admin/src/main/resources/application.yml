@@ -16,3 +16,13 @@ spring:
 mybatis-plus:
   mapper-locations: classpath:/mapper/admin/*.xml
   type-aliases-package: com.flipped.mall.admin.entity
+
+# 监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

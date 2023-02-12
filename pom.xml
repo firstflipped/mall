@@ -47,6 +47,7 @@
         <module>mall-cart</module>
         <module>mall-seckill</module>
         <module>mall-spider</module>
+        <module>mall-monitor</module>
     </modules>
 
     <dependencyManagement>
@@ -96,6 +97,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
 
 </project>

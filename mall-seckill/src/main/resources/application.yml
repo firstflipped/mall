@@ -16,3 +16,12 @@ spring:
         core-size: 20
         max-size: 200
 
+# 监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

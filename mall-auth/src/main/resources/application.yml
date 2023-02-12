@@ -7,6 +7,15 @@ spring:
   profiles:
     active: ${PROFILES.ACTIVE:dev}
 
-
-
-
+# 监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+  server:
+    #    base-path: /${server.servlet.context-path}/actuator
+    base-path: /mall-auth/actuator

@@ -1,0 +1,7 @@
+server:
+  port: ${SERVER.PORT:188}
+
+spring:
+  # 环境 dev|test|prod
+  profiles:
+    active: ${PROFILES.ACTIVE:dev}

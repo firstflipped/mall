@@ -39,20 +39,13 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 允许对于网站静态资源的无授权访问 swagger
-                .antMatchers(HttpMethod.GET,
-                        "/",
-                        "/swagger-ui.html",
-                        "/swagger-ui/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/swagger-resources/**",
-                        "/v3/api-docs/**")
+                .antMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**")
                 .permitAll()
                 // 对登录注册要允许匿名访问
                 .antMatchers("/openapi/admin/**")
+                .permitAll()
+                // 服务健康监控
+                .antMatchers("/actuator/**")
                 .permitAll()
                 // 跨域请求会先进行一次options请求
                 .antMatchers(HttpMethod.OPTIONS)

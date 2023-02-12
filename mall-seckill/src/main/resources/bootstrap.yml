@@ -3,3 +3,11 @@ spring:
     name: mall-seckill
   profiles:
     active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        # 为了解决SpringAdmin监控不到服务信息的问题，Spring boot admin server访问admin client的默认地址为http://ip:port/actuator
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
