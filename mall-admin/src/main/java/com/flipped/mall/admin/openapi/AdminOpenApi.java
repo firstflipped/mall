@@ -5,7 +5,7 @@ import com.flipped.mall.admin.entity.dto.AdminDTO;
 import com.flipped.mall.admin.entity.dto.AdminInfoDTO;
 import com.flipped.mall.admin.entity.dto.AdminLoginDTO;
 import com.flipped.mall.admin.service.UserService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.beans.BeanUtils;
@@ -35,7 +35,7 @@ public class AdminOpenApi {
      * @return 用户信息
      */
     @PostMapping("/login")
-    @PlatformLogAnnotation(value = "管理员用户登录", login = LogConstants.LOGIN)
+    @PlatformLog(value = "管理员用户登录", login = LogConstants.LOGIN)
     MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO) {
         AdminDTO adminDTO = userService.login(adminLoginDTO);
         return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();

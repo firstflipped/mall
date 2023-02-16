@@ -2,7 +2,7 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.RoleEntity;
 import com.flipped.mall.admin.service.RoleService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
@@ -37,7 +37,7 @@ public class RoleController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role:add')")
     @Operation(summary = "保存角色")
-    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存角色")
+    @PlatformLog(type = LogConstants.INSERT, value = "保存角色")
     public MyResult<Void> saveRole(@Validated(AddGroup.class) @RequestBody RoleEntity roleEntity) {
         roleService.saveRole(roleEntity);
         return MyResult.success();
@@ -46,7 +46,7 @@ public class RoleController {
     @DeleteMapping
     @PreAuthorize("hasAuthority('admin:role:delete')")
     @Operation(summary = "批量删除角色")
-    @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除角色")
+    @PlatformLog(type = LogConstants.DELETE, value = "批量删除角色")
     public MyResult<Void> deleteBatchRoleByIds(@RequestBody List<Long> roleIds) {
         roleService.deleteBatchRoleByIds(roleIds);
         return MyResult.success();
@@ -55,7 +55,7 @@ public class RoleController {
     @DeleteMapping("/{rid}")
     @PreAuthorize("hasAuthority('admin:role:delete')")
     @Operation(summary = "删除角色")
-    @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除角色")
+    @PlatformLog(type = LogConstants.DELETE, value = "删除角色")
     public MyResult<Void> deleteRoleById(@PathVariable("rid") Long roleId) {
         roleService.deleteRoleById(roleId);
         return MyResult.success();
@@ -64,7 +64,7 @@ public class RoleController {
     @PutMapping
     @PreAuthorize("hasAuthority('admin:role:update')")
     @Operation(summary = "更新角色")
-    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新角色")
+    @PlatformLog(type = LogConstants.UPDATE, value = "更新角色")
     public MyResult<Void> updateRoleById(@Validated(UpdateGroup.class) @RequestBody RoleEntity roleEntity) {
         roleService.updateRoleById(roleEntity);
         return MyResult.success();
@@ -73,7 +73,7 @@ public class RoleController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:role:view')")
     @Operation(summary = "查询角色列表")
-    @PlatformLogAnnotation(value = "查询角色列表")
+    @PlatformLog(value = "查询角色列表")
     public MyResult<List<RoleEntity>> listRoles() {
         List<RoleEntity> roles = roleService.listRoles();
         return MyResult.success(roles);
@@ -86,7 +86,7 @@ public class RoleController {
             @Parameter(name = "pn", description = "当前页码", example = "1"),
             @Parameter(name = "ps", description = "每页展示条数", example = "10")
     })
-    @PlatformLogAnnotation(value = "分页查询角色列表")
+    @PlatformLog(value = "分页查询角色列表")
     public MyResult<MyPage<RoleEntity>> listRolesWithPage(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum,
                                                           @RequestParam(value = "ps", defaultValue = "10") Integer pageSize) {
         MyPage<RoleEntity> rolesWithPage = roleService.listRolesWithPage(pageNum, pageSize);

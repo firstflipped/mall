@@ -3,7 +3,7 @@ package com.flipped.mall.admin.controller;
 import com.flipped.mall.admin.entity.RoleEntity;
 import com.flipped.mall.admin.entity.param.UserRolesParam;
 import com.flipped.mall.admin.service.UserRoleService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +33,7 @@ public class UserRoleController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin:user-role:add')")
     @Operation(summary = "保存用户角色信息")
-    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存用户角色信息")
+    @PlatformLog(type = LogConstants.INSERT, value = "保存用户角色信息")
     public MyResult<Void> saveUserRoles(@Valid @RequestBody UserRolesParam userRolesParam) {
         userRoleService.saveUserRoles(userRolesParam);
         return MyResult.success();
@@ -43,7 +43,7 @@ public class UserRoleController {
     @GetMapping("/{uid}/roles")
     @PreAuthorize("hasAuthority('admin:user-role:view')")
     @Operation(summary = "获取用户对应角色列表")
-    @PlatformLogAnnotation(value = "获取用户对应角色列表")
+    @PlatformLog(value = "获取用户对应角色列表")
     public MyResult<List<RoleEntity>> listRolesBuUserid(@PathVariable("uid") Long userid) {
         List<RoleEntity> roles = userRoleService.listRolesByUserid(userid);
         return MyResult.success(roles);

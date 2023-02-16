@@ -5,7 +5,7 @@ import com.flipped.mall.admin.entity.param.PermissionEnableParam;
 import com.flipped.mall.admin.entity.query.PermissionQuery;
 import com.flipped.mall.admin.entity.vo.PermissionsWithTreeVO;
 import com.flipped.mall.admin.service.PermissionService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
@@ -38,7 +38,7 @@ public class PermissionController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin:permission:add')")
     @Operation(summary = "保存权限")
-    @PlatformLogAnnotation(type = LogConstants.INSERT, value = "保存权限")
+    @PlatformLog(type = LogConstants.INSERT, value = "保存权限")
     public MyResult<Void> savePermission(@Validated(AddGroup.class) @RequestBody PermissionEntity permissionEntity) {
         permissionService.savePermission(permissionEntity);
         return MyResult.success();
@@ -47,7 +47,7 @@ public class PermissionController {
     @DeleteMapping
     @PreAuthorize("hasAuthority('admin:permission:delete')")
     @Operation(summary = "批量删除权限")
-    @PlatformLogAnnotation(type = LogConstants.DELETE, value = "批量删除权限")
+    @PlatformLog(type = LogConstants.DELETE, value = "批量删除权限")
     public MyResult<Void> deletePermissionByIds(@RequestBody List<Long> permissionIds) {
         permissionService.batchDeletePermission(permissionIds);
         return MyResult.success();
@@ -56,7 +56,7 @@ public class PermissionController {
     @DeleteMapping("/{pid}")
     @PreAuthorize("hasAuthority('admin:permission:delete')")
     @Operation(summary = "删除权限")
-    @PlatformLogAnnotation(type = LogConstants.DELETE, value = "删除权限")
+    @PlatformLog(type = LogConstants.DELETE, value = "删除权限")
     public MyResult<Void> deletePermissionById(@PathVariable("pid") Long permissionId) {
         permissionService.deletePermission(permissionId);
         return MyResult.success();
@@ -65,7 +65,7 @@ public class PermissionController {
     @PutMapping
     @PreAuthorize("hasAuthority('admin:permission:update')")
     @Operation(summary = "更新权限")
-    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "更新权限")
+    @PlatformLog(type = LogConstants.UPDATE, value = "更新权限")
     public MyResult<Void> updatePermissionById(@Validated(UpdateGroup.class) @RequestBody PermissionEntity permissionEntity) {
         permissionService.updatePermission(permissionEntity);
         return MyResult.success();
@@ -74,7 +74,7 @@ public class PermissionController {
     @PutMapping("/enable")
     @PreAuthorize("hasAuthority('admin:permission:update')")
     @Operation(summary = "启用/关闭权限")
-    @PlatformLogAnnotation(type = LogConstants.UPDATE, value = "启用/关闭权限")
+    @PlatformLog(type = LogConstants.UPDATE, value = "启用/关闭权限")
     public MyResult<Void> enableOrClosePermission(@Validated @RequestBody PermissionEnableParam permissionEnableParam) {
         permissionService.enableOrClosePermission(permissionEnableParam);
         return MyResult.success();
@@ -83,7 +83,7 @@ public class PermissionController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:permission:view')")
     @Operation(summary = "查询权限列表")
-    @PlatformLogAnnotation(value = "查询权限列表")
+    @PlatformLog(value = "查询权限列表")
     public MyResult<List<PermissionEntity>> listPermissions() {
         List<PermissionEntity> permissions = permissionService.listPermissions();
         return MyResult.success(permissions);
@@ -92,7 +92,7 @@ public class PermissionController {
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:permission:view')")
     @Operation(summary = "分页查询权限列表")
-    @PlatformLogAnnotation(value = "分页查询权限列表")
+    @PlatformLog(value = "分页查询权限列表")
     public MyResult<MyPage<PermissionEntity>> listPermissionsWithPage(@ModelAttribute PermissionQuery permissionQuery) {
         MyPage<PermissionEntity> permissionsWithPage = permissionService.listPermissionsWithPage(permissionQuery);
         return MyResult.success(permissionsWithPage);
@@ -101,7 +101,7 @@ public class PermissionController {
     @GetMapping("/tree")
     @PreAuthorize("hasAuthority('admin:permission:view')")
     @Operation(summary = "树形查询权限列表")
-    @PlatformLogAnnotation(value = "树形查询权限列表")
+    @PlatformLog(value = "树形查询权限列表")
     public MyResult<List<PermissionsWithTreeVO>> listPermissionsWithTree() {
         List<PermissionsWithTreeVO> permissionsWithTree = permissionService.listPermissionsWithTree();
         return MyResult.success(permissionsWithTree);

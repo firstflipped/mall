@@ -2,7 +2,7 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.param.RolePermissionParam;
 import com.flipped.mall.admin.service.RolePermissionService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.entity.api.MyResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +33,7 @@ public class RolePermissionController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role-permission:add')")
     @Operation(summary = "保存角色对应权限列表")
-    @PlatformLogAnnotation(value = "保存角色对应权限列表")
+    @PlatformLog(value = "保存角色对应权限列表")
     public MyResult<Void> saveRolePermissions(@Valid @RequestBody RolePermissionParam rolePermissionParam) {
         rolePermissionService.saveRolePermissions(rolePermissionParam);
         return MyResult.success();

@@ -2,7 +2,7 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.DictDetailEntity;
 import com.flipped.mall.admin.service.DictDetailService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyResult;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +33,7 @@ public class DictDetailController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin.dictdetail.view')")
     @Operation(summary = "保存字典明细")
-    @PlatformLogAnnotation(value = "保存字典明细", type = LogConstants.INSERT)
+    @PlatformLog(value = "保存字典明细", type = LogConstants.INSERT)
     public MyResult<Void> saveDictDetail(@RequestBody DictDetailEntity dictDetailEntity) {
         dictDetailService.saveDictDetail(dictDetailEntity);
         return MyResult.success();

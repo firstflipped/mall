@@ -21,7 +21,7 @@ import java.lang.annotation.*;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface PlatformLogAnnotation {
+public @interface PlatformLog {
 
     /**
      * 1:增加

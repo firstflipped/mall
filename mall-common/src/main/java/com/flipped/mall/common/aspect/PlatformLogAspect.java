@@ -2,9 +2,8 @@ package com.flipped.mall.common.aspect;
 
 
 import cn.hutool.core.net.NetUtil;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.AuthConstants;
-import com.flipped.mall.common.entity.PlatformLog;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.util.HttpContextUtil;
 import com.flipped.mall.common.util.JsonUtil;
@@ -47,7 +46,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class PlatformLogAspect {
 
-    @Pointcut("@annotation(com.flipped.mall.common.annotation.PlatformLogAnnotation)")
+    @Pointcut("@annotation(com.flipped.mall.common.annotation.PlatformLog)")
     public void platformLog() {
     }
 
@@ -81,7 +80,7 @@ public class PlatformLogAspect {
      * @param time   执行时间
      */
     private void saveLog(ProceedingJoinPoint point, Object result, long time) {
-        PlatformLog platformLog = new PlatformLog();
+        com.flipped.mall.common.entity.PlatformLog platformLog = new com.flipped.mall.common.entity.PlatformLog();
 
         // 获取request对象
         HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
@@ -91,7 +90,7 @@ public class PlatformLogAspect {
         Method method = signature.getMethod();
 
 
-        PlatformLogAnnotation platformLogAnnotation = method.getAnnotation(PlatformLogAnnotation.class);
+        PlatformLog platformLogAnnotation = method.getAnnotation(PlatformLog.class);
         if (platformLogAnnotation != null) {
             platformLog.setMethodType(platformLogAnnotation.type());
             platformLog.setMethodDescription(platformLogAnnotation.value());

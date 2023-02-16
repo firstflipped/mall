@@ -4,7 +4,7 @@ import com.flipped.mall.admin.entity.DictEntity;
 import com.flipped.mall.admin.entity.query.DictQuery;
 import com.flipped.mall.admin.entity.vo.DictSelectVO;
 import com.flipped.mall.admin.service.DictService;
-import com.flipped.mall.common.annotation.PlatformLogAnnotation;
+import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.valid.AddGroup;
@@ -36,7 +36,7 @@ public class DictController {
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin.dict.view')")
     @Operation(summary = "分页查询字典列表")
-    @PlatformLogAnnotation(value = "分页查询字典列表")
+    @PlatformLog(value = "分页查询字典列表")
     public MyResult<MyPage<DictEntity>> listDictWithPage(@ModelAttribute DictQuery dictQuery) {
         MyPage<DictEntity> dictWithPage = dictService.listDictWithPage(dictQuery);
         return MyResult.success(dictWithPage);
@@ -44,7 +44,7 @@ public class DictController {
 
     @GetMapping("/list/select")
     @Operation(summary = "查询字典列表（仅供前端下拉选择器使用）")
-    @PlatformLogAnnotation(value = "查询字典列表（仅供前端下拉选择器使用）")
+    @PlatformLog(value = "查询字典列表（仅供前端下拉选择器使用）")
     public MyResult<List<DictSelectVO>> listDictWithSelect() {
         List<DictSelectVO> dictWithSelect = dictService.listDictWithSelect();
         return MyResult.success(dictWithSelect);
@@ -53,7 +53,7 @@ public class DictController {
     @GetMapping("/{did}")
     @PreAuthorize("hasAuthority('admin.dict.view')")
     @Operation(summary = "查询字典详情")
-    @PlatformLogAnnotation(value = "查询字典详情")
+    @PlatformLog(value = "查询字典详情")
     public MyResult<DictEntity> getDictById(@PathVariable("did") Long dictId) {
         DictEntity dict = dictService.getById(dictId);
         return MyResult.success(dict);
@@ -62,7 +62,7 @@ public class DictController {
     @PostMapping
     @PreAuthorize("hasAuthority('admin.dict.add')")
     @Operation(summary = "保存字典")
-    @PlatformLogAnnotation(value = "保存字典")
+    @PlatformLog(value = "保存字典")
     public MyResult<Void> saveDict(@RequestBody @Validated(AddGroup.class) DictEntity dictEntity) {
         dictService.saveDict(dictEntity);
         return MyResult.success();
@@ -71,7 +71,7 @@ public class DictController {
     @DeleteMapping("/{did}")
     @PreAuthorize("hasAuthority('admin.dict.delete')")
     @Operation(summary = "删除字典")
-    @PlatformLogAnnotation(value = "删除字典")
+    @PlatformLog(value = "删除字典")
     public MyResult<Void> deleteDictById(@PathVariable("did") Long dictId) {
         dictService.deleteDictById(dictId);
         return MyResult.success();
@@ -80,7 +80,7 @@ public class DictController {
     @PutMapping
     @PreAuthorize("hasAuthority('admin.dict.update')")
     @Operation(summary = "保存权限")
-    @PlatformLogAnnotation(value = "保存权限")
+    @PlatformLog(value = "保存权限")
     public MyResult<Void> updateDict(@RequestBody @Validated(UpdateGroup.class) DictEntity dictEntity) {
         dictService.updateDict(dictEntity);
         return MyResult.success();
