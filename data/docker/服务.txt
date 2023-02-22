@@ -21,18 +21,17 @@ docker run \
         -p 9848:9848 \
         -p 9849:9849 \
         -e MODE=standalone \
-        -e TIME_ZONE='Asia/Shanghai' \
-        -v /Users/flipped/Server/Docker/Nacos/conf:/home/nacos/conf \
-        -v /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs \
-        -v /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data \
-        -d nacos/nacos-server:v2.2.0-slim
-        // 数据库配置
+        -e TZ='Asia/Shanghai' \
         -e SPRING_DATASOURCE_PLATFORM=mysql \
         -e MYSQL_SERVICE_HOST=mysql \
         -e MYSQL_SERVICE_PORT=3306 \
         -e MYSQL_SERVICE_USER=root \
         -e MYSQL_SERVICE_PASSWORD=laughingather \
         -e MYSQL_SERVICE_DB_NAME=nacos_config \
+        -v /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs \
+        -v /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data \
+        -d nacos/nacos-server:v2.2.0-slim
+
 
 
 Elasticsearch服务

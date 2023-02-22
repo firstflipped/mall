@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.9'
 
 services:
   mysql:
@@ -22,7 +22,7 @@ services:
       MYSQL_PASSWORD: nacos
 
   nacos:
-    image: nacos/nacos-server
+    image: nacos/nacos-server:v2.2.0-slim
     container_name: nacos
     ports:
       - "8848:8848"
@@ -30,7 +30,6 @@ services:
       - "9849:9849"
     volumes:
       # 挂载宿主机，后面为对应容器内部地址
-      - /Users/flipped/Server/Docker/Nacos/conf:/home/nacos/conf
       - /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs
       - /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data
     # 设置环境变量,相当于docker run命令中的-e
@@ -85,8 +84,9 @@ services:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
 
   redis:
-    image: redis:latest
+    image: redis
     container_name: redis
+    privileged: true
     ports:
       - "6379:6379"
 
