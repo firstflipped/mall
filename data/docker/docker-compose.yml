@@ -1,0 +1,98 @@
+version: '3.3'
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      # 目录挂载
+      - /Users/flipped/Server/Docker/MySQL/data:/var/lib/mysql
+      - /Users/flipped/Server/Docker/MySQL/conf:/etc/mysql/conf.d
+      - /Users/flipped/Server/Docker/MySQL/log:/var/log/mysql
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: laughingather
+      # 初始化数据库(后续的初始化sql会在这个库执行)
+      MYSQL_DATABASE: nacos_config
+      # 初始化用户(不能是root 会报错, 后续需要给新用户赋予权限)
+      MYSQL_USER: nacos
+      # 用户密码
+      MYSQL_PASSWORD: nacos
+
+  nacos:
+    image: nacos/nacos-server
+    container_name: nacos
+    ports:
+      - "8848:8848"
+    volumes:
+      # 挂载宿主机，后面为对应容器内部地址
+      - /Users/flipped/Server/Docker/Nacos/conf:/home/nacos/conf
+      - /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs
+      - /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data
+    # 设置环境变量,相当于docker run命令中的-e
+    environment:
+      # 单机模式启动
+      MODE: standalone
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: mysql
+      MYSQL_SERVICE_USER: nacos
+      MYSQL_SERVICE_PASSWORD: nacos
+      MYSQL_SERVICE_DB_NAME: nacos_config
+      MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=100000&socketTimeout=300000&autoReconnect=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      # nacos1.4.0版本启动后，占用内存过多，配置JVM参数
+      JVM_XMS: 512m
+      JVM_XMX: 512m
+      JVM_XMN: 192m
+    depends_on:
+      - mysql
+    links:
+      - mysql:mysql
+  
+  mongo:
+    image: mongo:4.4.19-rc2
+    container_name: mongo
+    networks:
+      - docker-net
+    ports:
+      - "27017:27017"
+    volumes:
+      # 挂载目录
+      - /Users/flipped/Server/Docker/Mongo/data:/data/db
+      - /Users/flipped/Server/Docker/Mongo/conf:/etc/mongo
+      - /Users/flipped/Server/Docker/Mongo/logs:/var/log/mongodb
+    # 初始化管理员用户名和密码
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    tty: true
+    # 覆盖容器启动后默认执行的命令
+    command: mongod --auth
+
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    container_name: elasticsearch
+    networks:
+      - docker-net
+    ports:
+      - "9200:9200"
+    volumes:
+      - /Users/flipped/Server/Docker/Elasticsearch/data:/usr/share/elasticsearch/data
+      - /Users/flipped/Server/Docker/Elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /Users/flipped/Server/Docker/Elasticsearch/plugins:/usr/share/elasticsearch/plugins
+    environment:
+      - discovery.type=single-node
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+# 加入本地已有的网络配置，如果不进行配置的话会默认生成一个网络
+networks:
+  default:
+    external:
+      name: docker-net
+

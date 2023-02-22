@@ -55,3 +55,14 @@ docker run \
         -p 6379:6379 \
         -d redis \
         --appendonly yes
+
+Mongo服务
+docker run \
+        --name mongo \
+        --network docker-net \
+        -p 27017:27017 \
+        -v /Users/flipped/Server/Docker/Mongo/data:/data/db \
+        -v /Users/flipped/Server/Docker/Mongo/conf:/etc/mongo \
+        -e MONGO_INITDB_ROOT_USERNAME=root \
+        -e MONGO_INITDB_ROOT_PASSWORD=laughingather \
+        -d mongo:4.4.19-rc2
