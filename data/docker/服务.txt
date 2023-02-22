@@ -65,3 +65,14 @@ docker run \
         -e MONGO_INITDB_ROOT_USERNAME=root \
         -e MONGO_INITDB_ROOT_PASSWORD=laughingather \
         -d mongo:4.4.19-rc2
+
+Nginx服务
+docker run \
+        --name nginx \
+        --network docker-net \
+        -p 80:80 \
+        -v /Users/flipped/Server/Docker/Nginx/nginx.conf:/etc/nginx/nginx.conf \
+        -v /Users/flipped/Server/Docker/Nginx/logs:/var/log/nginx \
+        -v /Users/flipped/Server/Docker/Nginx/html:/usr/share/nginx/html \
+        -v /Users/flipped/Server/Docker/Nginx/conf.d:/etc/nginx/conf.d \
+        -d nginx
