@@ -8,9 +8,9 @@ services:
       - "3306:3306"
     volumes:
       # 目录挂载
-      - /Users/flipped/Server/Docker/MySQL/data:/var/lib/mysql
-      - /Users/flipped/Server/Docker/MySQL/conf:/etc/mysql/conf.d
-      - /Users/flipped/Server/Docker/MySQL/log:/var/log/mysql
+      - D:\Service\Docker\MySQL\data:/var/lib/mysql
+      - D:\Service\Docker\MySQL\conf:/etc/mysql/conf.d
+      - D:\Service\Docker\MySQL\log:/var/log/mysql
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: laughingather
@@ -30,9 +30,8 @@ services:
       - "9849:9849"
     volumes:
       # 挂载宿主机，后面为对应容器内部地址
-      - /Users/flipped/Server/Docker/Nacos/conf:/home/nacos/conf
-      - /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs
-      - /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data
+      - D:\Service\Docker\Nacos\logs:/home/nacos/logs
+      - D:\Service\Docker\Nacos\data:/home/nacos/data
     # 设置环境变量,相当于docker run命令中的-e
     environment:
       # 单机模式启动
@@ -59,9 +58,8 @@ services:
       - "27017:27017"
     volumes:
       # 挂载目录
-      - /Users/flipped/Server/Docker/Mongo/data:/data/db
-      - /Users/flipped/Server/Docker/Mongo/conf:/etc/mongo
-      - /Users/flipped/Server/Docker/Mongo/logs:/var/log/mongodb
+      - D:\Service\Docker\Mongo\data:/data/db
+      - D:\Service\Docker\Mongo\logs:/var/log/mongodb
     # 初始化管理员用户名和密码
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -77,9 +75,8 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - /Users/flipped/Server/Docker/Elasticsearch/data:/usr/share/elasticsearch/data
-      - /Users/flipped/Server/Docker/Elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /Users/flipped/Server/Docker/Elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - D:\Service\Docker\Elasticsearch\data:/usr/share/elasticsearch/data
+      - D:\Service\Docker\Elasticsearch\plugins:/usr/share/elasticsearch/plugins
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
