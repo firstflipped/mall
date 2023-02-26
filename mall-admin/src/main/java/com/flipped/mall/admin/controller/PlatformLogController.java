@@ -7,8 +7,6 @@ import com.flipped.mall.admin.service.PlatformLogService;
 import com.flipped.mall.common.entity.PlatformLog;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +19,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 /**
- * 平台日志路由
+ * 平台日志管理模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -29,14 +27,12 @@ import java.net.URLEncoder;
  */
 @RestController
 @RequestMapping("/admin/log")
-@Tag(name = "日志管理模块")
 public class PlatformLogController {
 
     @Resource
     private PlatformLogService platformLogService;
 
     @GetMapping("/page")
-    @Operation(summary = "分页查询日志列表")
     @PreAuthorize("hasAuthority('admin:log:view')")
     public MyResult<MyPage<PlatformLog>> listPlatformLogsWithPage(@ModelAttribute PlatformLogQuery platformLogQuery) {
         MyPage<PlatformLog> platformLogPage = platformLogService.listPlatformLogsWithPage(platformLogQuery);
@@ -45,7 +41,6 @@ public class PlatformLogController {
 
 
     @GetMapping("/export")
-    @Operation(summary = "导出日志文件")
     @PreAuthorize("hasAuthority('admin:log:export')")
     public void exportPlatformLogs(HttpServletResponse response, @ModelAttribute PlatformLogQuery platformLogQuery) throws IOException {
         // 设置返回头信息

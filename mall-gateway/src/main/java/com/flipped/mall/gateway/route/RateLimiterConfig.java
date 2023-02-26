@@ -1,5 +1,6 @@
-package com.flipped.mall.gateway.config;
+package com.flipped.mall.gateway.route;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +17,17 @@ import java.util.Objects;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
+@Slf4j
 @Configuration
 public class RateLimiterConfig {
+
     /**
-     * IP限流 (通过exchange对象可以获取到请求信息，这边用了HostName)
+     * IP限流 (通过exchange对象可以获取到请求信息，这边用了 HostName)
      */
     @Bean
     @Primary
     public KeyResolver ipKeyResolver() {
+        log.info("ip限流");
         return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getAddress().getHostAddress());
     }
 
@@ -41,7 +45,7 @@ public class RateLimiterConfig {
      */
     @Bean
     public KeyResolver apiKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getPath().value());
+        return exchange -> Mono.just(exchange.getRequest().getURI().getPath());
     }
 
 }

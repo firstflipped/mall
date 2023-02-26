@@ -3,8 +3,6 @@ package com.flipped.mall.order.controller;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.order.entity.OrderItemEntity;
 import com.flipped.mall.order.service.OrderItemService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +13,7 @@ import java.util.List;
 
 
 /**
- * 订单项路由
+ * 订单项管理模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -23,14 +21,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("order/order-item")
-@Tag(name = "订单项模块")
 public class OrderItemController {
 
     @Resource
     private OrderItemService orderItemService;
 
     @GetMapping("/{osn}/items")
-    @Operation(summary = "根据订单号查询订单项列表")
     public MyResult<List<OrderItemEntity>> listOrderItemsByOrderSn(@PathVariable("osn") String orderSn) {
         List<OrderItemEntity> orderItems = orderItemService.listOrderItemsByOrderSn(orderSn);
         return MyResult.success(orderItems);

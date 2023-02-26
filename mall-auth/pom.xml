@@ -32,10 +32,6 @@
                     <groupId>com.alibaba</groupId>
                     <artifactId>druid-spring-boot-starter</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>io.springfox</groupId>
-                    <artifactId>springfox-boot-starter</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
 

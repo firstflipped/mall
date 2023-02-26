@@ -2,7 +2,6 @@ package com.flipped.mall.ware.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,55 +35,46 @@ public class PurchaseEntity implements Serializable {
     /**
      * 采购人id
      */
-    @Schema(name = "采购人id")
     private Long assigneeId;
 
     /**
      * 采购人姓名
      */
-    @Schema(name = "采购人姓名")
     private String assigneeName;
 
     /**
      * 联系方式
      */
-    @Schema(name = "联系方式")
     private String phone;
 
     /**
      * 优先级
      */
-    @Schema(name = "优先级")
     private Integer priority;
 
     /**
      * 状态
      */
-    @Schema(name = "状态")
     private Integer status;
 
     /**
      * 仓库id
      */
-    @Schema(name = "仓库id")
     private Long wareId;
 
     /**
      * 总金额
      */
-    @Schema(name = "总金额")
     private BigDecimal amount;
 
     /**
      * 创建日期
      */
-    @Schema(name = "创建时间")
     private LocalDateTime createTime;
 
     /**
      * 更新日期
      */
-    @Schema(name = "更新时间")
     private LocalDateTime updateTime;
 
 }

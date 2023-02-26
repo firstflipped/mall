@@ -1,7 +1,6 @@
 package com.flipped.mall.coupon.controller;
 
 import com.flipped.mall.coupon.service.SkuLadderService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +16,6 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/sku-ladder")
-@Tag(name = "商品阶梯价格模块")
 public class SkuLadderController {
 
     @Resource

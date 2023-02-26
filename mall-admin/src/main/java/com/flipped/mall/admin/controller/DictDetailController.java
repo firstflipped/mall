@@ -5,8 +5,6 @@ import com.flipped.mall.admin.service.DictDetailService;
 import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyResult;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 字典路由
+ * 字典明细管理模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -24,7 +22,6 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/admin/dict-detail")
-@Tag(name = "字典明细管理模块")
 public class DictDetailController {
 
     @Resource
@@ -32,7 +29,6 @@ public class DictDetailController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin.dictdetail.view')")
-    @Operation(summary = "保存字典明细")
     @PlatformLog(value = "保存字典明细", type = LogConstants.INSERT)
     public MyResult<Void> saveDictDetail(@RequestBody DictDetailEntity dictDetailEntity) {
         dictDetailService.saveDictDetail(dictDetailEntity);

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.flipped.mall.common.valid.AddGroup;
 import com.flipped.mall.common.valid.UpdateGroup;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -23,7 +22,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("pms_attr_group")
-@Schema(name = "属性分组实体")
 public class AttrGroupEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +30,6 @@ public class AttrGroupEntity implements Serializable {
      * 分组id
      */
     @TableId
-    @Schema(name = "属性分组id")
     @NotNull(message = "修改属性分组id字段不能为空", groups = {UpdateGroup.class})
     @Null(message = "新增属性分组id字段必须为空", groups = {AddGroup.class})
     private Long attrGroupId;
@@ -40,14 +37,12 @@ public class AttrGroupEntity implements Serializable {
     /**
      * 组名
      */
-    @Schema(name = "属性分组名称")
     @NotBlank(message = "属性分组名称字段不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String attrGroupName;
 
     /**
      * 排序
      */
-    @Schema(name = "属性分组排序")
     @NotNull(message = "属性分组排序字段不能为空", groups = {AddGroup.class, UpdateGroup.class})
     @Min(value = 0, message = "属性分组名称字段最小值不能小于0")
     private Integer sort;
@@ -55,25 +50,21 @@ public class AttrGroupEntity implements Serializable {
     /**
      * 描述
      */
-    @Schema(name = "描述")
     private String description;
 
     /**
      * 所属分类id
      */
-    @Schema(name = "属性分组所属分类id")
     @NotNull(message = "属性分组所属分类id字段不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private Long categoryId;
 
     /**
      * 创建时间
      */
-    @Schema(name = "创建时间")
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @Schema(name = "更新时间")
     private LocalDateTime updateTime;
 }

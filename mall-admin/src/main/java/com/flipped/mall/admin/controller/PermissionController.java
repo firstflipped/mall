@@ -11,8 +11,6 @@ import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.valid.AddGroup;
 import com.flipped.mall.common.valid.UpdateGroup;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 权限路由
+ * 权限管理模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -29,7 +27,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/admin/permission")
-@Tag(name = "权限管理模块")
 public class PermissionController {
 
     @Resource
@@ -37,7 +34,6 @@ public class PermissionController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:permission:add')")
-    @Operation(summary = "保存权限")
     @PlatformLog(type = LogConstants.INSERT, value = "保存权限")
     public MyResult<Void> savePermission(@Validated(AddGroup.class) @RequestBody PermissionEntity permissionEntity) {
         permissionService.savePermission(permissionEntity);
@@ -46,7 +42,6 @@ public class PermissionController {
 
     @DeleteMapping
     @PreAuthorize("hasAuthority('admin:permission:delete')")
-    @Operation(summary = "批量删除权限")
     @PlatformLog(type = LogConstants.DELETE, value = "批量删除权限")
     public MyResult<Void> deletePermissionByIds(@RequestBody List<Long> permissionIds) {
         permissionService.batchDeletePermission(permissionIds);
@@ -55,7 +50,6 @@ public class PermissionController {
 
     @DeleteMapping("/{pid}")
     @PreAuthorize("hasAuthority('admin:permission:delete')")
-    @Operation(summary = "删除权限")
     @PlatformLog(type = LogConstants.DELETE, value = "删除权限")
     public MyResult<Void> deletePermissionById(@PathVariable("pid") Long permissionId) {
         permissionService.deletePermission(permissionId);
@@ -64,7 +58,6 @@ public class PermissionController {
 
     @PutMapping
     @PreAuthorize("hasAuthority('admin:permission:update')")
-    @Operation(summary = "更新权限")
     @PlatformLog(type = LogConstants.UPDATE, value = "更新权限")
     public MyResult<Void> updatePermissionById(@Validated(UpdateGroup.class) @RequestBody PermissionEntity permissionEntity) {
         permissionService.updatePermission(permissionEntity);
@@ -73,7 +66,6 @@ public class PermissionController {
 
     @PutMapping("/enable")
     @PreAuthorize("hasAuthority('admin:permission:update')")
-    @Operation(summary = "启用/关闭权限")
     @PlatformLog(type = LogConstants.UPDATE, value = "启用/关闭权限")
     public MyResult<Void> enableOrClosePermission(@Validated @RequestBody PermissionEnableParam permissionEnableParam) {
         permissionService.enableOrClosePermission(permissionEnableParam);
@@ -82,7 +74,6 @@ public class PermissionController {
 
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:permission:view')")
-    @Operation(summary = "查询权限列表")
     @PlatformLog(value = "查询权限列表")
     public MyResult<List<PermissionEntity>> listPermissions() {
         List<PermissionEntity> permissions = permissionService.listPermissions();
@@ -91,7 +82,6 @@ public class PermissionController {
 
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:permission:view')")
-    @Operation(summary = "分页查询权限列表")
     @PlatformLog(value = "分页查询权限列表")
     public MyResult<MyPage<PermissionEntity>> listPermissionsWithPage(@ModelAttribute PermissionQuery permissionQuery) {
         MyPage<PermissionEntity> permissionsWithPage = permissionService.listPermissionsWithPage(permissionQuery);
@@ -100,7 +90,6 @@ public class PermissionController {
 
     @GetMapping("/tree")
     @PreAuthorize("hasAuthority('admin:permission:view')")
-    @Operation(summary = "树形查询权限列表")
     @PlatformLog(value = "树形查询权限列表")
     public MyResult<List<PermissionsWithTreeVO>> listPermissionsWithTree() {
         List<PermissionsWithTreeVO> permissionsWithTree = permissionService.listPermissionsWithTree();

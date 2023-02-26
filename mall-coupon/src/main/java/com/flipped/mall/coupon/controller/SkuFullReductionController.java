@@ -1,7 +1,6 @@
 package com.flipped.mall.coupon.controller;
 
 import com.flipped.mall.coupon.service.SkuFullReductionService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +8,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 商品满减信息
+ * 商品满减信息模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -17,7 +16,6 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/coupon/sku-full-reduction")
-@Tag(name = "商品满减信息模块")
 public class SkuFullReductionController {
 
     @Resource

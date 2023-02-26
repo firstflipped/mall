@@ -4,8 +4,6 @@ import com.flipped.mall.admin.entity.param.RolePermissionParam;
 import com.flipped.mall.admin.service.RolePermissionService;
 import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.entity.api.MyResult;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +14,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
- * 角色权限关联路由
+ * 角色权限管理模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -24,7 +22,6 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/admin/role-permission")
-@Tag(name = "角色权限管理模块")
 public class RolePermissionController {
 
     @Resource
@@ -32,7 +29,6 @@ public class RolePermissionController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role-permission:add')")
-    @Operation(summary = "保存角色对应权限列表")
     @PlatformLog(value = "保存角色对应权限列表")
     public MyResult<Void> saveRolePermissions(@Valid @RequestBody RolePermissionParam rolePermissionParam) {
         rolePermissionService.saveRolePermissions(rolePermissionParam);

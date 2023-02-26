@@ -14,7 +14,7 @@ spring:
           # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
           enabled: true
       routes:
-        ## 一个请求满足多个路由的谓词条件时，请求只会被首个成功匹配的路由转发
+        # 一个请求满足多个路由的谓词条件时，请求只会被首个成功匹配的路由转发
         - id: mall-third-party
           uri: lb://mall-third-party
           predicates:
@@ -35,6 +35,11 @@ spring:
             - Path=/api/mall-auth/**
           filters:
             - StripPrefix=1
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 1  # 允许用户每秒处理多少个请求
+                redis-rate-limiter.burstCapacity: 3  # 令牌桶的容量，允许在一秒钟内完成的最大请求数
+                key-resolver: "#{@ipKeyResolver}" #SPEL表达式取的对应的bean
 
         - id: mall-product
           uri: lb://mall-product
@@ -77,14 +82,6 @@ spring:
             - Path=/api/mall-seckill/**
           filters:
             - StripPrefix=1
-
-        # springdoc openapi 路由规则转发
-        - id: openapi
-          uri: http://localhost:${server.port}
-          predicates:
-            - Path=/v3/api-docs/**
-          filters:
-            - RewritePath=/v3/api-docs/(?<path>.*), /api/$\{path}/v3/api-docs
 
 # 监控信息
 management:

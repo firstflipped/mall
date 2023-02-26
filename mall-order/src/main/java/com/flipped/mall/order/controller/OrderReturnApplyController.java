@@ -5,8 +5,6 @@ import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.order.entity.OrderReturnApplyEntity;
 import com.flipped.mall.order.entity.query.OrderReturnApplyQuery;
 import com.flipped.mall.order.service.OrderReturnApplyService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,15 +22,18 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("order/order-return-apply")
-@Tag(name = "订单退货申请模块")
 public class OrderReturnApplyController {
 
     @Resource
     private OrderReturnApplyService orderReturnApplyService;
 
-
+    /**
+     * 分页查询清单退货申请列表
+     *
+     * @param orderReturnApplyQuery
+     * @return
+     */
     @GetMapping("/page")
-    @Operation(summary = "分页查询清单退货申请列表")
     public MyResult<MyPage<OrderReturnApplyEntity>> listOrderReturnAppliesWithPage(@ModelAttribute OrderReturnApplyQuery orderReturnApplyQuery) {
         MyPage<OrderReturnApplyEntity> appliesWithPage = orderReturnApplyService.listOrderReturnAppliesWithPage(orderReturnApplyQuery);
         return MyResult.success(appliesWithPage);

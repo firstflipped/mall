@@ -3,7 +3,6 @@ package com.flipped.mall.order.controller;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.order.entity.OrderOperateHistoryEntity;
 import com.flipped.mall.order.service.OrderOperateHistoryService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,7 @@ import java.util.List;
 
 
 /**
- * 订单操作历史记录
+ * 订单操作历史模块
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -22,7 +21,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("order/order-operate-history")
-@Tag(name = "订单操作历史模块")
 public class OrderOperateHistoryController {
 
     @Resource
