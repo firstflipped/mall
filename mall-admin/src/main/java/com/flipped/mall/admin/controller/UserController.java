@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 用户管理模块
+ * 用户管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -32,6 +32,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    /**
+     * 保存用户
+     *
+     * @param userEntity 用户信息
+     * @return MyResult<Void>
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('admin:user:add')")
     @PlatformLog(type = LogConstants.INSERT, value = "保存用户")
@@ -40,7 +46,12 @@ public class UserController {
         return MyResult.success();
     }
 
-
+    /**
+     * 更新用户
+     *
+     * @param userEntity 用户信息
+     * @return MyResult<Void>
+     */
     @PutMapping
     @PreAuthorize("hasAuthority('admin:user:update')")
     @PlatformLog(type = LogConstants.UPDATE, value = "更新用户")
@@ -49,7 +60,12 @@ public class UserController {
         return MyResult.success();
     }
 
-
+    /**
+     * 更新用户状态
+     *
+     * @param userEnableParam 用户状态信息
+     * @return MyResult<Void>
+     */
     @PutMapping("/change/status")
     @PreAuthorize("hasAuthority('admin:user:update')")
     @PlatformLog(type = LogConstants.UPDATE, value = "更新用户状态")
@@ -58,6 +74,12 @@ public class UserController {
         return MyResult.success();
     }
 
+    /**
+     * 更新用户密码
+     *
+     * @param userPasswordParam 用户密码信息
+     * @return MyResult<Void>
+     */
     @PutMapping("/change/password")
     @PreAuthorize("hasAuthority('admin:user:update')")
     @PlatformLog(type = LogConstants.UPDATE, value = "更新用户密码")
@@ -66,28 +88,42 @@ public class UserController {
         return MyResult.success();
     }
 
-
+    /**
+     * 获取用户详情
+     *
+     * @param userid 用户id
+     * @return MyResult<UserEntity> 用户详情
+     */
     @GetMapping("/{uid}")
     @PreAuthorize("hasAuthority('admin:user:view')")
-    @PlatformLog(value = "获取用户详情")
+    @PlatformLog(value = "查询用户详情")
     public MyResult<UserEntity> getUserById(@PathVariable("uid") Long userid) {
         UserEntity user = userService.getUserById(userid);
         return MyResult.success(user);
     }
 
-
+    /**
+     * 查询用户列表
+     *
+     * @return MyResult<List < UserEntity>> 用户列表
+     */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:user:view')")
-    @PlatformLog(value = "获取用户列表")
+    @PlatformLog(value = "查询用户列表")
     public MyResult<List<UserEntity>> listUsers() {
         List<UserEntity> users = userService.listUsers();
         return MyResult.success(users);
     }
 
-
+    /**
+     * 分页查询用户列表
+     *
+     * @param userQuery 用户列表查询条件
+     * @return MyResult<MyPage < UserEntity>> 分页用户列表
+     */
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:user:view')")
-    @PlatformLog(value = "分页获取用户列表")
+    @PlatformLog(value = "分页查询用户列表")
     public MyResult<MyPage<UserEntity>> listUserWithPage(@ModelAttribute UserQuery userQuery) {
         MyPage<UserEntity> usersWithPage = userService.listUserWithPage(userQuery);
         return MyResult.success(usersWithPage);

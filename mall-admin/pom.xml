@@ -83,7 +83,7 @@
                     <!-- 指定生成文档的使用的配置文件,配置文件放在自己的项目中 -->
                     <configFile>./src/main/resources/smart-doc.json</configFile>
                     <!--指定项目名称-->
-                    <projectName>mall</projectName>
+                    <projectName>mall-admin</projectName>
                 </configuration>
                 <executions>
                     <execution>
@@ -106,7 +106,6 @@
                             <build>
                                 <dockerFileDir>${project.basedir}</dockerFileDir>
                             </build>
-                            <!--定义容器启动行为-->
                         </image>
                     </images>
                 </configuration>

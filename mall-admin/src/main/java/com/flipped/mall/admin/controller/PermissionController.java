@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 权限管理模块
+ * 权限管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -32,6 +32,12 @@ public class PermissionController {
     @Resource
     private PermissionService permissionService;
 
+    /**
+     * 保存权限
+     *
+     * @param permissionEntity 权限信息
+     * @return MyResult<Void>
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('admin:permission:add')")
     @PlatformLog(type = LogConstants.INSERT, value = "保存权限")
@@ -40,6 +46,13 @@ public class PermissionController {
         return MyResult.success();
     }
 
+
+    /**
+     * 批量删除权限
+     *
+     * @param permissionIds 权限id列表
+     * @return MyResult<Void>
+     */
     @DeleteMapping
     @PreAuthorize("hasAuthority('admin:permission:delete')")
     @PlatformLog(type = LogConstants.DELETE, value = "批量删除权限")
@@ -48,6 +61,12 @@ public class PermissionController {
         return MyResult.success();
     }
 
+    /**
+     * 删除权限
+     *
+     * @param permissionId 权限id
+     * @return MyResult<Void>
+     */
     @DeleteMapping("/{pid}")
     @PreAuthorize("hasAuthority('admin:permission:delete')")
     @PlatformLog(type = LogConstants.DELETE, value = "删除权限")
@@ -56,6 +75,12 @@ public class PermissionController {
         return MyResult.success();
     }
 
+    /**
+     * 更新权限
+     *
+     * @param permissionEntity 权限信息
+     * @return MyResult<Void>
+     */
     @PutMapping
     @PreAuthorize("hasAuthority('admin:permission:update')")
     @PlatformLog(type = LogConstants.UPDATE, value = "更新权限")
@@ -64,6 +89,12 @@ public class PermissionController {
         return MyResult.success();
     }
 
+    /**
+     * 启用/关闭权限
+     *
+     * @param permissionEnableParam 权限状态信息
+     * @return MyResult<Void>
+     */
     @PutMapping("/enable")
     @PreAuthorize("hasAuthority('admin:permission:update')")
     @PlatformLog(type = LogConstants.UPDATE, value = "启用/关闭权限")
@@ -72,6 +103,11 @@ public class PermissionController {
         return MyResult.success();
     }
 
+    /**
+     * 查询权限列表
+     *
+     * @return MyResult<List < PermissionEntity>> 权限列表
+     */
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:permission:view')")
     @PlatformLog(value = "查询权限列表")
@@ -80,6 +116,12 @@ public class PermissionController {
         return MyResult.success(permissions);
     }
 
+    /**
+     * 分页查询权限列表
+     *
+     * @param permissionQuery 权限列表查询条件
+     * @return MyResult<MyPage < PermissionEntity>> 分页权限列表
+     */
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:permission:view')")
     @PlatformLog(value = "分页查询权限列表")
@@ -88,6 +130,11 @@ public class PermissionController {
         return MyResult.success(permissionsWithPage);
     }
 
+    /**
+     * 树形查询权限列表
+     *
+     * @return MyResult<List < PermissionsWithTreeVO>> 树形权限列表
+     */
     @GetMapping("/tree")
     @PreAuthorize("hasAuthority('admin:permission:view')")
     @PlatformLog(value = "树形查询权限列表")

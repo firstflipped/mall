@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 字典明细管理模块
+ * 字典明细管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -27,6 +27,12 @@ public class DictDetailController {
     @Resource
     private DictDetailService dictDetailService;
 
+    /**
+     * 保存字典明细
+     *
+     * @param dictDetailEntity 字典明细信息
+     * @return MyResult<Void>
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('admin.dictdetail.view')")
     @PlatformLog(value = "保存字典明细", type = LogConstants.INSERT)

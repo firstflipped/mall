@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 /**
- * 平台日志管理模块
+ * 日志管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -32,6 +32,12 @@ public class PlatformLogController {
     @Resource
     private PlatformLogService platformLogService;
 
+    /**
+     * 分页查询日志列表
+     *
+     * @param platformLogQuery 日志列表查询条件
+     * @return MyResult<MyPage < PlatformLog>> 分页日志列表
+     */
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:log:view')")
     public MyResult<MyPage<PlatformLog>> listPlatformLogsWithPage(@ModelAttribute PlatformLogQuery platformLogQuery) {
@@ -40,6 +46,13 @@ public class PlatformLogController {
     }
 
 
+    /**
+     * 导出日志列表
+     *
+     * @param response         javax.servlet.http.HttpServletResponse
+     * @param platformLogQuery 日志列表查询条件
+     * @download 日志导出文件
+     */
     @GetMapping("/export")
     @PreAuthorize("hasAuthority('admin:log:export')")
     public void exportPlatformLogs(HttpServletResponse response, @ModelAttribute PlatformLogQuery platformLogQuery) throws IOException {

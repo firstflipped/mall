@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 /**
- * 角色权限管理模块
+ * 角色权限管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -27,6 +27,12 @@ public class RolePermissionController {
     @Resource
     private RolePermissionService rolePermissionService;
 
+    /**
+     * 保存角色对应权限列表
+     *
+     * @param rolePermissionParam 角色对应权限列表信息
+     * @return MyResult<Void>
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('admin:role-permission:add')")
     @PlatformLog(value = "保存角色对应权限列表")

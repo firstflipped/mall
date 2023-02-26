@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 字典管理模块
+ * 字典管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -35,7 +35,7 @@ public class DictController {
      * 分页查询字典列表
      *
      * @param dictQuery 字典列表查询条件
-     * @return 字典列表（分页）
+     * @return 字典列表
      */
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin.dict.view')")
@@ -48,7 +48,7 @@ public class DictController {
     /**
      * 查询字典列表（仅供前端下拉选择器使用）
      *
-     * @return 字典列表VO
+     * @return 字典列表
      */
     @GetMapping("/list/select")
     @PlatformLog(value = "查询字典列表（仅供前端下拉选择器使用）")
@@ -61,7 +61,7 @@ public class DictController {
      * 查询字典详情
      *
      * @param dictId 字典id
-     * @return 字典信息
+     * @return 字典详情
      */
     @GetMapping("/{did}")
     @PreAuthorize("hasAuthority('admin.dict.view')")
@@ -75,7 +75,7 @@ public class DictController {
      * 保存字典
      *
      * @param dictEntity 字典信息
-     * @return Void
+     * @return MyResult<Void>
      */
     @PostMapping
     @PreAuthorize("hasAuthority('admin.dict.add')")
@@ -89,7 +89,7 @@ public class DictController {
      * 删除字典
      *
      * @param dictId 字典id
-     * @return Void
+     * @return MyResult<Void>
      */
     @DeleteMapping("/{did}")
     @PreAuthorize("hasAuthority('admin.dict.delete')")
@@ -103,7 +103,7 @@ public class DictController {
      * 更新字典
      *
      * @param dictEntity 字典信息
-     * @return Void
+     * @return MyResult<Void>
      */
     @PutMapping
     @PreAuthorize("hasAuthority('admin.dict.update')")

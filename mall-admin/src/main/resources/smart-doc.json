@@ -1,3 +1,11 @@
 {
-  "outPath": "/Users/flipped/Desktop/mall-admin"
+  "serverUrl": "http://localhost:9090/mall-admin",
+  "isStrict": false,
+  "allInOne": true,
+  "outPath": "src/main/resources/static/doc",
+  "coverOld": true,
+  "packageFilters": "com.flipped.mall.admin.controller",
+  "style": "xt256",
+  "allInOneDocFileName": "index.html",
+  "createDebugPage": true
 }

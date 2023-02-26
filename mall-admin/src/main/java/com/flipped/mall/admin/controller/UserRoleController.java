@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * 用户角色关联路由
+ * 用户角色管理
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -27,6 +27,12 @@ public class UserRoleController {
     @Resource
     private UserRoleService userRoleService;
 
+    /**
+     * 保存用户角色信息
+     *
+     * @param userRolesParam 用户角色信息
+     * @return MyResult<Void>
+     */
     @PostMapping
     @PreAuthorize("hasAuthority('admin:user-role:add')")
     @PlatformLog(type = LogConstants.INSERT, value = "保存用户角色信息")
@@ -35,10 +41,15 @@ public class UserRoleController {
         return MyResult.success();
     }
 
-
+    /**
+     * 查询用户对应角色列表
+     *
+     * @param userid 用户id
+     * @return MyResult<List < RoleEntity>> 角色列表
+     */
     @GetMapping("/{uid}/roles")
     @PreAuthorize("hasAuthority('admin:user-role:view')")
-    @PlatformLog(value = "获取用户对应角色列表")
+    @PlatformLog(value = "查询用户对应角色列表")
     public MyResult<List<RoleEntity>> listRolesBuUserid(@PathVariable("uid") Long userid) {
         List<RoleEntity> roles = userRoleService.listRolesByUserid(userid);
         return MyResult.success(roles);
