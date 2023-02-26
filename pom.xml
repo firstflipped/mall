@@ -89,16 +89,25 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!-- maven插件 -->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.6.4</version>
+                    <version>${spring-boot.version}</version>
                 </plugin>
 
+                <!-- API 文档插件 -->
                 <plugin>
                     <groupId>com.github.shalousun</groupId>
                     <artifactId>smart-doc-maven-plugin</artifactId>
                     <version>2.6.4</version>
+                </plugin>
+
+                <!-- docker插件 -->
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.41.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
