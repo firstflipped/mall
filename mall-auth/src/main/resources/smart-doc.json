@@ -1,3 +1,11 @@
 {
-  "outPath": "/Users/flipped/Desktop/mall-admin"
+  "serverUrl": "http://localhost:88/api/mall-auth",
+  "isStrict": false,
+  "allInOne": true,
+  "outPath": "src/main/resources/static/doc",
+  "coverOld": true,
+  "packageFilters": "com.flipped.mall.auth.controller",
+  "style": "xt256",
+  "allInOneDocFileName": "index.html",
+  "createDebugPage": true
 }

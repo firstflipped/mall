@@ -1,4 +1,4 @@
-package com.flipped.mall.gateway.filter;
+package com.flipped.mall.gateway.auth.filter;
 
 import com.flipped.mall.common.constant.AuthConstants;
 import com.flipped.mall.common.entity.JwtPayLoad;
@@ -39,8 +39,8 @@ import java.util.stream.Stream;
 public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-    @Value("${auth.ignore.urls}")
-    private String authIgnoreUrls;
+    @Value("${mall.gateway.auth.allow.urls}")
+    private String authAllowUrls;
 
     /**
      * <p> @SneakyThrows注解用于异常语法糖 </p>
@@ -63,8 +63,8 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
         // 路由白名单，直接放行
         String uri = request.getURI().getPath();
-        boolean flag = Stream.of(authIgnoreUrls.split(","))
-                .anyMatch(ignoreUrl -> antPathMatcher.match(ignoreUrl, uri));
+        boolean flag = Stream.of(authAllowUrls)
+                .anyMatch(allowUrl -> antPathMatcher.match(allowUrl, uri));
         if (flag) {
             return chain.filter(exchange);
         }
@@ -101,7 +101,7 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
     private Mono<Void> out(ServerHttpResponse response, String message) {

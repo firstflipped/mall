@@ -75,7 +75,6 @@
                 </executions>
             </plugin>
 
-
             <plugin>
                 <groupId>com.github.shalousun</groupId>
                 <artifactId>smart-doc-maven-plugin</artifactId>

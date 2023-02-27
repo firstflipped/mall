@@ -36,10 +36,12 @@ public class TokenProvider {
      * 加密方式
      */
     public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+
     /**
      * 加密钥
      */
     private static final SecretKey SIGNING_KEY;
+
     /**
      * 密文
      */
@@ -59,7 +61,7 @@ public class TokenProvider {
             }
             jwtSecret = bos.toByteArray();
         } catch (Exception e) {
-            log.error("读取密钥异常");
+            log.error("========读取系统密文异常，启用自定义密文=========");
         }
         if (jwtSecret == null) {
             jwtSecret = AuthConstants.KEY.getBytes(StandardCharsets.UTF_8);

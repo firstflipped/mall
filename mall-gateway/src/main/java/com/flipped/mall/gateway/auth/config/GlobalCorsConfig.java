@@ -1,4 +1,4 @@
-package com.flipped.mall.gateway.config;
+package com.flipped.mall.gateway.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -64,11 +64,8 @@
             <artifactId>spring-cloud-loadbalancer</artifactId>
         </dependency>
 
-        <!-- mongo 实现日志记录 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
-        </dependency>
+        <!-- es 实现日志记录 -->
+
 
         <!-- redis 实现限流操作 -->
         <dependency>

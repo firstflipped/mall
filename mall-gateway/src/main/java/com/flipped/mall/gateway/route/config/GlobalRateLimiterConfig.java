@@ -1,4 +1,4 @@
-package com.flipped.mall.gateway.route;
+package com.flipped.mall.gateway.route.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 import java.util.Objects;
 
 /**
- * 限流配置
+ * 全局限流配置
  *
  * @author <a href="#">flipped</a>
  * @version v1.0
@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Configuration
-public class RateLimiterConfig {
+public class GlobalRateLimiterConfig {
 
     /**
      * IP限流 (通过exchange对象可以获取到请求信息，这边用了 HostName)
@@ -27,7 +27,7 @@ public class RateLimiterConfig {
     @Bean
     @Primary
     public KeyResolver ipKeyResolver() {
-        log.info("ip限流");
+        log.info("===================== 限流方式为：ip限流 =====================");
         return exchange -> Mono.just(Objects.requireNonNull(exchange.getRequest().getRemoteAddress()).getAddress().getHostAddress());
     }
 

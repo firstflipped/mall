@@ -1,4 +1,4 @@
-package com.flipped.mall.gateway.filter;
+package com.flipped.mall.gateway.route.filter;
 
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
  * @since 2022-04-11 19:35:16
  */
 @Component
-public class GlobalBlockListUrlFilter extends AbstractGatewayFilterFactory<GlobalBlockListUrlFilter.Config> {
+public class GlobalBlockListFilter extends AbstractGatewayFilterFactory<GlobalBlockListFilter.Config> {
 
-    public GlobalBlockListUrlFilter() {
+    public GlobalBlockListFilter() {
         super(Config.class);
     }
 

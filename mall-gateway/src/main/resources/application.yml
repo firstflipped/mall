@@ -28,6 +28,11 @@ spring:
             - Path=/api/mall-admin/**
           filters:
             - StripPrefix=1
+            # Spring Cloud Gateway 重试配置
+            - name: Retry
+              args:
+                retries: 3
+                status: 503
 
         - id: mall-auth
           uri: lb://mall-auth
@@ -35,6 +40,7 @@ spring:
             - Path=/api/mall-auth/**
           filters:
             - StripPrefix=1
+            # Spring Cloud Gateway 限流配置
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 1  # 允许用户每秒处理多少个请求
