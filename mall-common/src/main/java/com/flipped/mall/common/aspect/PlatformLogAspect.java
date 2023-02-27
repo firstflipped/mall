@@ -121,8 +121,12 @@ public class PlatformLogAspect {
         }
 
         // 操作信息
-        platformLog.setOperationUserid(Long.parseLong(request.getHeader(AuthConstants.USERID)));
-        platformLog.setOperationUsername(request.getHeader(AuthConstants.USERNAME));
+        if (StringUtils.isNotBlank(request.getHeader(AuthConstants.USERID))) {
+            platformLog.setOperationUserid(Long.parseLong(request.getHeader(AuthConstants.USERID)));
+        }
+        if (StringUtils.isNotBlank(request.getHeader(AuthConstants.USERNAME))) {
+            platformLog.setOperationUsername(request.getHeader(AuthConstants.USERNAME));
+        }
         platformLog.setSpendTime(time);
         platformLog.setOperationTime(LocalDateTime.now());
 

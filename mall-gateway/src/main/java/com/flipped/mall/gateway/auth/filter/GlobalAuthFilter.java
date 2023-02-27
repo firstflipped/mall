@@ -63,9 +63,9 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
 
         // 路由白名单，直接放行
         String uri = request.getURI().getPath();
-        boolean flag = Stream.of(authAllowUrls)
+        boolean allow = Stream.of(authAllowUrls.split(","))
                 .anyMatch(allowUrl -> antPathMatcher.match(allowUrl, uri));
-        if (flag) {
+        if (allow) {
             return chain.filter(exchange);
         }
 

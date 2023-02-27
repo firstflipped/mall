@@ -25,7 +25,7 @@ public class GlobalRequestFilter implements GlobalFilter {
     @Resource
     private RouteEnhanceService routeEnhanceService;
 
-    @Value("${mall.gateway.route.enhance:false}")
+    @Value("${mall.gateway.route.enhance:False}")
     private Boolean enhance;
 
     @Override

@@ -55,7 +55,7 @@ public class CryptogramUtil {
     public static final String RSA_ALGORITHM = "RSA";
 
 
-    public static Map<String, String> createKeys(int keySize) throws Exception {
+    public static Map<String, String> createKeys(int keySize) {
         // 为RSA算法创建一个KeyPairGenerator对象
         KeyPairGenerator kpg;
         try {
