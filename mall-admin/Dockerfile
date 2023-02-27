@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:8-jre
 # 镜像作者及邮箱
 LABEL maintainer=firstflipped@163.com
 # 指定应用名
