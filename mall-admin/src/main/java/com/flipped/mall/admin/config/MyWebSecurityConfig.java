@@ -1,10 +1,11 @@
 package com.flipped.mall.admin.config;
 
-import com.flipped.mall.admin.filter.UserinfoFilter;
+import com.flipped.mall.admin.filter.TokenAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -58,7 +59,12 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
 
         // 添加 filter
-        httpSecurity.addFilterBefore(userinfoFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     /**
@@ -68,8 +74,8 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @return 用户信息过滤器
      */
     @Bean
-    public UserinfoFilter userinfoFilter() {
-        return new UserinfoFilter();
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter();
     }
 
 }

@@ -1,10 +1,8 @@
 package com.flipped.mall.gateway.auth.filter;
 
 import com.flipped.mall.common.constant.AuthConstants;
-import com.flipped.mall.common.entity.JwtPayLoad;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.util.JsonUtil;
-import com.flipped.mall.common.util.TokenProvider;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -77,25 +75,7 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
             return out(response, "请求头 Authorization 为空或格式不正确");
         }
 
-        // 如果token校验失败则返回
-        String token = authorization.replace(AuthConstants.TOKEN_PREFIX, "");
-        if (!TokenProvider.checkToken(token)) {
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return out(response, "登录凭证不合法");
-        }
-
-        JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
-        if (Objects.isNull(jwtPayLoad)) {
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return out(response, "登录凭证载荷为空");
-        }
-
-        // 将用户名和用户id放到请求头，进入其他微服务
-        ServerHttpRequest buildRequest = request.mutate()
-                .header(AuthConstants.USERID, jwtPayLoad.getUserid().toString())
-                .header(AuthConstants.USERNAME, jwtPayLoad.getUsername())
-                .build();
-        exchange = exchange.mutate().request(buildRequest).build();
+        // 将认证与校验下放到各个微服务模块
         return chain.filter(exchange);
     }
 
@@ -110,7 +90,7 @@ public class GlobalAuthFilter implements GlobalFilter, Ordered {
         result.setData(null);
         result.setMessage(message);
 
-        byte[] bytes = JsonUtil.obj2String(result).getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = JsonUtil.bean2Json(result).getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = response.bufferFactory().wrap(bytes);
         // 指定编码，否则在浏览器中会中文乱码
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");

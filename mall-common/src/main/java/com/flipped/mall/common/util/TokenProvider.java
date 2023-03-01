@@ -61,7 +61,7 @@ public class TokenProvider {
             }
             jwtSecret = bos.toByteArray();
         } catch (Exception e) {
-            log.error("========读取系统密文异常，启用自定义密文=========");
+            log.error("======== 读取系统密文异常，启用自定义密文 =========");
         }
         if (jwtSecret == null) {
             jwtSecret = AuthConstants.KEY.getBytes(StandardCharsets.UTF_8);
@@ -79,7 +79,7 @@ public class TokenProvider {
         // token有效期截止时间
         DateTime expirationDate = DateUtil.offsetSecond(new Date(), Convert.toInt(AuthConstants.TOKEN_EXP_TIME));
 
-        String token = Jwts.builder()
+        return Jwts.builder()
                 // 签发者
                 .setIssuer(AuthConstants.ISSUER)
                 // 消息主题
@@ -91,8 +91,6 @@ public class TokenProvider {
                 .setExpiration(expirationDate)
                 .signWith(SIGNING_KEY, SIGNATURE_ALGORITHM)
                 .compact();
-
-        return token;
     }
 
     /**

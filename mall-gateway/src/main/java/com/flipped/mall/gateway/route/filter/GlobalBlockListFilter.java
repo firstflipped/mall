@@ -1,5 +1,6 @@
 package com.flipped.mall.gateway.route.filter;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.regex.Pattern;
  * @since 2022-04-11 19:35:16
  */
 @Component
+@ConditionalOnProperty(value = "mall.gateway.route.enhance.enable", havingValue = "true")
 public class GlobalBlockListFilter extends AbstractGatewayFilterFactory<GlobalBlockListFilter.Config> {
 
     public GlobalBlockListFilter() {

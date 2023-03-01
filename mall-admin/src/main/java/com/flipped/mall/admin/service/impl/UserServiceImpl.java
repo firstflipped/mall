@@ -21,10 +21,14 @@ import com.flipped.mall.common.util.BCryptPasswordEncoderUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 用户逻辑实现
@@ -42,11 +46,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private UserRepository userRepository;
+    @Resource
+    private AuthenticationManager authenticationManager;
 
     /**
-     * 验证码的开关，默认为 true
+     * 验证码的开关，默认为 false
      */
-    @Value("${mall.captcha.enable:false}")
+    @Value("${mall.captcha.enable:False}")
     private Boolean captchaEnable;
 
     @Override
@@ -144,6 +150,27 @@ public class UserServiceImpl implements UserService {
         return Admin2AdminDTO(user);
     }
 
+
+    /**
+     * 登录过程只需要校验用户名密码，不需要返回权限相关信息，所以暂不调用 Spring Security 的接口验证
+     *
+     * @param adminLoginDTO 用户名密码传输类
+     * @return 用户信息
+     */
+    @Deprecated
+    public AdminDTO loginBySecurity(AdminLoginDTO adminLoginDTO) {
+        // 检验验证码
+        checkCaptcha(adminLoginDTO.getCaptcha());
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(adminLoginDTO.getUsername(), adminLoginDTO.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+
+        if (Objects.isNull(authenticate)) {
+            throw new UserNotExistException("username is: " + adminLoginDTO.getUsername());
+        }
+
+        return Admin2AdminDTO((UserEntity) authenticate.getPrincipal());
+    }
 
     @Override
     public AdminDTO loginByMobile(String mobile) {

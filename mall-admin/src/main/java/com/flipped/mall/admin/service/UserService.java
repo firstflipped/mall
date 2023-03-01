@@ -87,6 +87,15 @@ public interface UserService {
     AdminDTO login(AdminLoginDTO adminLoginDTO);
 
     /**
+     * 用户名密码登录，通过 SpringSecurity 提供的方法进行校验
+     *
+     * @param adminLoginDTO 用户名密码传输类
+     * @return 用户信息
+     */
+    @Deprecated
+    AdminDTO loginBySecurity(AdminLoginDTO adminLoginDTO);
+
+    /**
      * 手机号验证码登录
      *
      * @param mobile 手机号

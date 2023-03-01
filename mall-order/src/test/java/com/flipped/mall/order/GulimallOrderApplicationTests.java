@@ -28,7 +28,7 @@ class mallOrderApplicationTests {
         order.setOrderSn(IdUtil.simpleUUID());
         order.setMemberId(1L);
 
-        rabbitTemplate.convertAndSend("order.event.exchange", "order.create.order", JsonUtil.obj2String(order));
+        rabbitTemplate.convertAndSend("order.event.exchange", "order.create.order", JsonUtil.bean2Json(order));
         System.out.println("发送成功");
     }
 

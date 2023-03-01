@@ -45,7 +45,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public MyResult<Map<String, String>> handleRequestMethodException(HttpRequestMethodNotSupportedException e) {
         log.error("请求方法异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
-        return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
+        return MyResult.failed(ErrorCodeEnum.REQUEST_METHOD_EXCEPTION);
     }
 
     @ExceptionHandler(value = PlatformException.class)

@@ -1,5 +1,6 @@
 package com.flipped.mall.gateway.route.service.impl;
 
+import com.flipped.mall.common.util.JsonUtil;
 import com.flipped.mall.gateway.route.entity.PlatformLogEntity;
 import com.flipped.mall.gateway.route.service.PlatformLogService;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,12 @@ import java.time.format.DateTimeFormatter;
  */
 @Service
 public class PlatformLogServiceImpl implements PlatformLogService {
-    
+
     @Override
     public Mono<PlatformLogEntity> savePlatformLog(PlatformLogEntity platformLog) {
         platformLog.setCreateTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+        System.out.println("===================================" + JsonUtil.bean2Json(platformLog));
 
         return Mono.empty();
     }

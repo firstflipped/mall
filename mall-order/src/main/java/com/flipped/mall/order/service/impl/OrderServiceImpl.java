@@ -241,7 +241,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         }
 
         // 6、发送消息到消息队列
-        String order = JsonUtil.obj2String(orderCreateParam.getOrder());
+        String order = JsonUtil.bean2Json(orderCreateParam.getOrder());
         rabbitTemplate.convertAndSend(OrderConstants.EXCHANGE, OrderConstants.CREATE_ROUTING_KEY, order);
 
         // 全部成功
@@ -275,7 +275,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
             // 立即发送一个消息
             OrderDTO orderDTO = new OrderDTO();
             BeanUtils.copyProperties(order, orderDTO);
-            rabbitTemplate.convertAndSend(OrderConstants.EXCHANGE, OrderConstants.OTHER_ROUTING_KEY, JsonUtil.obj2String(orderDTO));
+            rabbitTemplate.convertAndSend(OrderConstants.EXCHANGE, OrderConstants.OTHER_ROUTING_KEY, JsonUtil.bean2Json(orderDTO));
         }
     }
 

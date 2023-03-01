@@ -100,7 +100,7 @@ public class PlatformLogAspect {
         platformLog.setRequestUri(request.getRequestURI());
         platformLog.setRequestUrl(String.valueOf(request.getRequestURL()));
         platformLog.setRequestMethod(request.getMethod());
-        platformLog.setRequestParams(JsonUtil.obj2String(getParams(method, point.getArgs())));
+        platformLog.setRequestParams(JsonUtil.bean2Json(getParams(method, point.getArgs())));
 
         // 类信息、方法信息
         platformLog.setClassName(point.getTarget().getClass().getName());
@@ -131,7 +131,7 @@ public class PlatformLogAspect {
         platformLog.setOperationTime(LocalDateTime.now());
 
         // 把日志放进消息队列
-        // kafkaProducerService.sendMessage("user-logs", JsonUtil.obj2String(platformLog));
+        // kafkaProducerService.sendMessage("user-logs", JsonUtil.bean2Json(platformLog));
 
         // 把日志放进es
         // esSaveService.savePlatformLog2Es(platformLog);
@@ -139,7 +139,7 @@ public class PlatformLogAspect {
         // 把日志放进数据库
         // platformLogService.saveLog(platformLog);
 
-        log.info("日志输出: {}", JsonUtil.obj2String(platformLog));
+        log.info("日志输出: {}", JsonUtil.bean2Json(platformLog));
     }
 
     /**
