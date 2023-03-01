@@ -212,7 +212,7 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
 
                     // 库存锁定成功就把库存工作单消息添加到rabbitmq
                     rabbitTemplate.convertAndSend(WareConstants.MQEnum.EXCHANGE.getName(),
-                            WareConstants.MQEnum.LOCKED_ROUTING_KEY.getName(), JsonUtil.obj2String(stockLockedDTO));
+                            WareConstants.MQEnum.LOCKED_ROUTING_KEY.getName(), JsonUtil.bean2Json(stockLockedDTO));
 
                     break;
                 }

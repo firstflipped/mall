@@ -135,7 +135,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
     @Override
     public void saveSpuInfo(SpuParam spuParam) {
 
-        log.info(JsonUtil.obj2String(spuParam));
+        log.info(JsonUtil.bean2Json(spuParam));
 
         // 保存spu基本信息
         SpuInfoEntity spuInfo = saveSpuBaseInfo(spuParam);

@@ -116,7 +116,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
          * 3、加锁：解决缓存击穿问题（缓存击穿主要是有一个热点数据再大级别访问请求之前缓存刚好失效造成的）
          */
         String categoryJson = redisTemplate.opsForValue().get(ProductConstants.CATEGORY);
-        Map<String, List<Category2VO>> categoryMap = JsonUtil.string2Obj(categoryJson, Map.class);
+        Map<String, List<Category2VO>> categoryMap = JsonUtil.json2Bean(categoryJson, Map.class);
         if (MapUtils.isEmpty(categoryMap)) {
             return getCategoryJsonFromDbWithRedissonLock();
         }
@@ -172,7 +172,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     @Override
     public Map<String, List<Category2VO>> getCategoryMapFromDb() {
         String categoryJson = redisTemplate.opsForValue().get(ProductConstants.CATEGORY);
-        Map<String, List<Category2VO>> categoryMap = JsonUtil.string2Obj(categoryJson, Map.class);
+        Map<String, List<Category2VO>> categoryMap = JsonUtil.json2Bean(categoryJson, Map.class);
         if (MapUtils.isNotEmpty(categoryMap)) {
             return categoryMap;
         }
@@ -213,7 +213,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 }
         ));
 
-        redisTemplate.opsForValue().set(ProductConstants.CATEGORY, JsonUtil.obj2String(categoryMap));
+        redisTemplate.opsForValue().set(ProductConstants.CATEGORY, JsonUtil.bean2Json(categoryMap));
         return categoryMap;
     }
 

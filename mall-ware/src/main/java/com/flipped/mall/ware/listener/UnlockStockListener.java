@@ -67,7 +67,7 @@ public class UnlockStockListener {
         log.info("定时补偿机制解锁库存");
 
         try {
-            unlockStock(JsonUtil.string2Obj(stockLockedDTO, StockLockedDTO.class));
+            unlockStock(JsonUtil.json2Bean(stockLockedDTO, StockLockedDTO.class));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
             log.error("{}", e.getMessage());
@@ -94,7 +94,7 @@ public class UnlockStockListener {
         log.info("订单关闭主动解锁库存");
 
         try {
-            unlockStock(JsonUtil.string2Obj(orderDTO, OrderDTO.class));
+            unlockStock(JsonUtil.json2Bean(orderDTO, OrderDTO.class));
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
             log.error(e.getMessage());

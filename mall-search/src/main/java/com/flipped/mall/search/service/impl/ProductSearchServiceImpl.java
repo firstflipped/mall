@@ -157,7 +157,7 @@ public class ProductSearchServiceImpl implements ProductSearchService {
         if (ArrayUtils.isNotEmpty(hits)) {
             for (SearchHit hit : hits) {
                 String esSkuJSON = hit.getSourceAsString();
-                EsSku esSku = JsonUtil.string2Obj(esSkuJSON, EsSku.class);
+                EsSku esSku = JsonUtil.json2Bean(esSkuJSON, EsSku.class);
 
                 // 高亮内容替换
                 if (StringUtils.isNotBlank(searchQuery.getKeyword())) {
