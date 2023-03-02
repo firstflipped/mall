@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.flipped.mall.admin.entity.CustomUserDetails;
 import com.flipped.mall.admin.entity.UserEntity;
 import com.flipped.mall.admin.entity.dto.AdminDTO;
 import com.flipped.mall.admin.entity.dto.AdminLoginDTO;
@@ -15,20 +16,28 @@ import com.flipped.mall.admin.mapper.UserMapper;
 import com.flipped.mall.admin.repository.UserRepository;
 import com.flipped.mall.admin.service.UserService;
 import com.flipped.mall.admin.util.SecurityUtil;
+import com.flipped.mall.common.constant.AdminConstants;
+import com.flipped.mall.common.constant.AuthConstants;
+import com.flipped.mall.common.entity.JwtPayLoad;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.exception.*;
 import com.flipped.mall.common.util.BCryptPasswordEncoderUtil;
+import com.flipped.mall.common.util.JsonUtil;
+import com.flipped.mall.common.util.TokenProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户逻辑实现
@@ -46,6 +55,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private UserRepository userRepository;
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
     @Resource
     private AuthenticationManager authenticationManager;
 
@@ -157,7 +168,6 @@ public class UserServiceImpl implements UserService {
      * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息
      */
-    @Deprecated
     public AdminDTO loginBySecurity(AdminLoginDTO adminLoginDTO) {
         // 检验验证码
         checkCaptcha(adminLoginDTO.getCaptcha());
@@ -169,7 +179,18 @@ public class UserServiceImpl implements UserService {
             throw new UserNotExistException("username is: " + adminLoginDTO.getUsername());
         }
 
-        return Admin2AdminDTO((UserEntity) authenticate.getPrincipal());
+        // 查询用户权限，封装到UserDetail类中
+        CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
+        redisTemplate.opsForValue().set(AdminConstants.ADMIN_INFO + adminLoginDTO.getUsername(),
+                JsonUtil.bean2Json(customUserDetails),
+                AuthConstants.TOKEN_EXP_TIME,
+                TimeUnit.SECONDS);
+
+        // 设置上下文信息
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+
+        // 返回用户信息
+        return Admin2AdminDTO(customUserDetails.getUser());
     }
 
     @Override
@@ -180,6 +201,16 @@ public class UserServiceImpl implements UserService {
         }
 
         return Admin2AdminDTO(user);
+    }
+
+    @Override
+    public void logout(String token) {
+        // 解析token
+        token = token.replace(AuthConstants.TOKEN_PREFIX, "");
+        JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
+        String username = jwtPayLoad.getUsername();
+
+        redisTemplate.delete(AdminConstants.ADMIN_INFO + username);
     }
 
 

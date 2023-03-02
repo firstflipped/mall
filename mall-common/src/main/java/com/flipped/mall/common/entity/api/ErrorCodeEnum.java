@@ -26,6 +26,13 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCodeEnum {
 
     /**
+     * 权限校验异常
+     */
+    ACCESS_EXCEPTION(403, HttpStatus.FORBIDDEN, "权限校验异常"),
+
+    AUTHENTICATION_EXCEPTION(401, HttpStatus.UNAUTHORIZED, "认证异常"),
+
+    /**
      * 系统未知异常
      */
     UNKNOWN_EXCEPTION(10000, HttpStatus.BAD_REQUEST, "系统未知异常"),
@@ -39,11 +46,6 @@ public enum ErrorCodeEnum {
      * 请求类型异常
      */
     REQUEST_METHOD_EXCEPTION(10002, HttpStatus.METHOD_NOT_ALLOWED, "请求类型异常"),
-
-    /**
-     * 权限校验异常
-     */
-    ACCESS_EXCEPTION(10003, HttpStatus.UNAUTHORIZED, "权限校验异常"),
 
     /**
      * 用户不存在异常

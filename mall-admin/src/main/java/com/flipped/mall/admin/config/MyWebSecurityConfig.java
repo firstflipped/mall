@@ -1,6 +1,8 @@
 package com.flipped.mall.admin.config;
 
 import com.flipped.mall.admin.filter.TokenAuthenticationFilter;
+import com.flipped.mall.admin.handle.AccessDeniedHandlerImpl;
+import com.flipped.mall.admin.handle.AuthenticationEntryPointImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -58,24 +61,36 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
 
-        // 添加 filter
+        // 添加过滤器
         httpSecurity.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        // 配置异常处理器
+        httpSecurity.exceptionHandling()
+                .authenticationEntryPoint(new AuthenticationEntryPointImpl())
+                .accessDeniedHandler(new AccessDeniedHandlerImpl());
     }
 
     @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     /**
-     * 获取用户信息过滤类
-     * 必须使用@bean注入，要不然可能会发生filter注入service异常问题
+     * jwt检验过滤器
+     * 必须使用@Bean注入，要不然可能会发生filter注入service异常问题以及循环依赖问题
+     * 拦截器注入顺序在servlet之前
      *
-     * @return 用户信息过滤器
+     * @return jwt校验过滤器
      */
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
         return new TokenAuthenticationFilter();
     }
+
 
 }

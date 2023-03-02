@@ -1,6 +1,5 @@
 package com.flipped.mall.auth;
 
-import com.flipped.mall.common.aspect.PlatformLogAspect;
 import com.flipped.mall.common.exception.ExceptionControllerAdvice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +17,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@Import({PlatformLogAspect.class, ExceptionControllerAdvice.class})
+@Import({ExceptionControllerAdvice.class})
 public class MallAuthApplication {
 
     public static void main(String[] args) {

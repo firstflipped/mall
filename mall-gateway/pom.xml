@@ -40,10 +40,6 @@
                     <groupId>com.alibaba</groupId>
                     <artifactId>druid-spring-boot-starter</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-webmvc-core</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
 

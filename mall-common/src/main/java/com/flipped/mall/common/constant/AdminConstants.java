@@ -9,10 +9,6 @@ package com.flipped.mall.common.constant;
  */
 public class AdminConstants {
 
-    public static final Integer YES = 1;
-
-    public static final Integer NO = 0;
-
     public static final Integer ENABLE = 1;
 
     public static final Integer NOT_ENABLE = 0;
@@ -26,7 +22,6 @@ public class AdminConstants {
      * 用户信息及权限
      */
     public static final String ADMIN_INFO = "mall:admin:info:";
-    public static final String ADMIN_PERMISSION = "mall:admin:permission:";
 
 
 }

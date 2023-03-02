@@ -36,7 +36,7 @@ public class AuthConstants {
     /**
      * JWT的签发者
      */
-    public static final String ISSUER = "laughingather";
+    public static final String ISSUER = "flipped";
 
     /**
      * JWT过期时间（24小时）

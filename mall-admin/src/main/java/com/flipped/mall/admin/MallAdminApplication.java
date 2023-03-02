@@ -1,7 +1,6 @@
 package com.flipped.mall.admin;
 
 import com.flipped.mall.common.aspect.PlatformLogAspect;
-import com.flipped.mall.common.exception.ExceptionControllerAdvice;
 import com.flipped.mall.common.handle.MyMetaObjectHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,7 +18,7 @@ import org.springframework.context.annotation.Import;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@Import({PlatformLogAspect.class, ExceptionControllerAdvice.class, MyMetaObjectHandler.class})
+@Import({PlatformLogAspect.class, MyMetaObjectHandler.class})
 public class MallAdminApplication {
 
     public static void main(String[] args) {

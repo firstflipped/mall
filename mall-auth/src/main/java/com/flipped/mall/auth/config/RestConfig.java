@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
  * @since 2022-04-11 19:35:16
  */
 @Configuration
-public class MyRestConfig {
+public class RestConfig {
 
     @Bean
     public RestTemplate restTemplate() {

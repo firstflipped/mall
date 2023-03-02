@@ -24,7 +24,7 @@ public class MemberRegisterDTO {
     private String password;
 
     @NotBlank(message = "手机号码不能为空")
-    @Pattern(regexp = "^[1]([3-9])[0-9]{9}$", message = "手机号码格式不正确")
+    @Pattern(regexp = "^1([3-9])[0-9]{9}$", message = "手机号码格式不正确")
     private String mobile;
 
     @NotBlank(message = "验证码不能为空")

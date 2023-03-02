@@ -11,9 +11,11 @@ import com.flipped.mall.common.constant.AuthConstants;
 import com.flipped.mall.common.entity.api.ErrorCodeEnum;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.concurrent.TimeUnit;
 
@@ -69,17 +71,30 @@ public class AdminLoginController {
     }
 
 
-    @PostMapping("/logout")
-    public MyResult<Void> logout() {
+    @DeleteMapping("/logout")
+    public MyResult<Void> logout(HttpServletRequest request) {
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+
         // TODO: 退出登录功能待实现
-        return null;
+        adminLoginService.logout(token);
+        return MyResult.success();
     }
 
 
     @GetMapping("/userinfo")
-    public MyResult<AdminVO> getUserinfo(@RequestParam("token") String token) {
+    public MyResult<AdminVO> getUserinfo(HttpServletRequest request) {
+        // 获取请求头里面的token信息
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+
         AdminVO adminVO = adminLoginService.getUserinfo(token);
         return MyResult.success(adminVO);
+    }
+
+
+    @PostMapping("/refresh")
+    public MyResult<TokenVO> refreshToken() {
+        // TODO: 刷新token功能待实现
+        return null;
     }
 
 

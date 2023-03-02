@@ -14,7 +14,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.io.ByteArrayOutputStream;
@@ -97,15 +96,19 @@ public class TokenProvider {
      * 根据token获取Claims
      */
     private static Claims getClaimsFromToken(String token) {
-        if (StringUtils.isBlank(token)) {
-            return null;
-        }
 
-        return Jwts.parserBuilder()
-                .setSigningKey(SIGNING_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        Claims claims = null;
+
+        try {
+            claims = Jwts.parserBuilder()
+                    .setSigningKey(SIGNING_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            log.error("获取Claims信息异常：{}", e.getMessage());
+        }
+        return claims;
     }
 
     /**

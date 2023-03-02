@@ -79,7 +79,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 
         MyResult<AdminInfoDTO> getUserinfoResult = adminFeignService.getUserinfo(userid);
 
-        // 登录成功
+        // 获取用户信息为空
         if (!getUserinfoResult.getSuccess()) {
             return null;
         }
@@ -88,6 +88,11 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         AdminVO adminVO = new AdminVO();
         BeanUtils.copyProperties(adminInfoDTO, adminVO);
         return adminVO;
+    }
+
+    @Override
+    public void logout(String token) {
+        adminFeignService.logout(token);
     }
 
 

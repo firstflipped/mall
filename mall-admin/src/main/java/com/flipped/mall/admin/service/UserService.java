@@ -84,6 +84,7 @@ public interface UserService {
      * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息
      */
+    @Deprecated
     AdminDTO login(AdminLoginDTO adminLoginDTO);
 
     /**
@@ -92,7 +93,6 @@ public interface UserService {
      * @param adminLoginDTO 用户名密码传输类
      * @return 用户信息
      */
-    @Deprecated
     AdminDTO loginBySecurity(AdminLoginDTO adminLoginDTO);
 
     /**
@@ -102,5 +102,12 @@ public interface UserService {
      * @return 用户信息
      */
     AdminDTO loginByMobile(String mobile);
+
+    /**
+     * 退出登录功能
+     *
+     * @param token token
+     */
+    void logout(String token);
 }
 

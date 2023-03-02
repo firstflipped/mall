@@ -5,10 +5,8 @@ import com.flipped.mall.auth.feign.entity.AdminDTO;
 import com.flipped.mall.auth.feign.entity.AdminInfoDTO;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 后台管理服务远程调用接口
@@ -48,4 +46,7 @@ public interface AdminFeignService {
      */
     @GetMapping("/mall-admin/openapi/admin/userinfo")
     MyResult<AdminInfoDTO> getUserinfo(@RequestParam("userid") Long userid);
+
+    @DeleteMapping("/mall-admin/openapi/admin/logout")
+    MyResult<Void> logout(@RequestHeader(HttpHeaders.AUTHORIZATION) String token);
 }

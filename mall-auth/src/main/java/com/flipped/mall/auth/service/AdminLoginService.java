@@ -39,5 +39,8 @@ public interface AdminLoginService {
      */
     AdminVO getUserinfo(String token);
 
-
+    /**
+     * 退出登录功能
+     */
+    void logout(String token);
 }

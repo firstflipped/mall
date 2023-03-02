@@ -9,6 +9,7 @@ import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,7 +38,7 @@ public class AdminOpenApi {
     @PostMapping("/login")
     @PlatformLog(value = "管理员用户登录", login = LogConstants.LOGIN)
     MyResult<AdminDTO> login(@RequestBody AdminLoginDTO adminLoginDTO) {
-        AdminDTO adminDTO = userService.login(adminLoginDTO);
+        AdminDTO adminDTO = userService.loginBySecurity(adminLoginDTO);
         return adminDTO != null ? MyResult.success(adminDTO) : MyResult.failed();
     }
 
@@ -70,6 +71,16 @@ public class AdminOpenApi {
         AdminInfoDTO adminInfoDTO = new AdminInfoDTO();
         BeanUtils.copyProperties(user, adminInfoDTO);
         return MyResult.success(adminInfoDTO);
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param token token
+     */
+    @DeleteMapping("/logout")
+    void logout(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        userService.logout(token);
     }
 
 }
