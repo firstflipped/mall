@@ -44,27 +44,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         // 登录等接口没有token，配置白名单后边会直接放行，由下一个链抛出异常
-        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (authorization == null) {
-            chain.doFilter(request, response);
-            return;
-        }
-
         // 如果token体为空，则直接放行，交由后边的过滤器处理
-        String token = authorization.replace(AuthConstants.TOKEN_PREFIX, "");
+        String token = getTokenFromHttpRequest(request);
         JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
-        if (jwtPayLoad == null) {
+        if (StringUtils.isBlank(token) || jwtPayLoad == null) {
             chain.doFilter(request, response);
             return;
         }
 
-        // 获取用户信息及权限
+        // 从缓存中获取用户信息及权限
         String customUserDetailsJson = redisTemplate.opsForValue().get(AdminConstants.ADMIN_INFO + jwtPayLoad.getUsername());
-        if (StringUtils.isBlank(customUserDetailsJson)) {
-            chain.doFilter(request, response);
-            return;
-        }
-
         CustomUserDetails customUserDetails = jsonToCustomUserDetails(customUserDetailsJson);
         if (customUserDetails != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
@@ -77,24 +66,32 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private CustomUserDetails jsonToCustomUserDetails(String customUserDetailsJson) {
-        CustomUserDetails customUserDetails = null;
-        try {
-            // 将 json 格式的字符串转换成 JSONObject 对象
-            JSONObject customUserDetailsJSONObject = JSONObject.parseObject(customUserDetailsJson);
-            // 简单的直接获取值
-            JSONObject userJSONObject = customUserDetailsJSONObject.getJSONObject("user");
-            UserEntity user = JsonUtil.json2Bean(userJSONObject.toJSONString(), UserEntity.class);
-            // 如果 json 格式的字符串里含有数组格式的属性，将其转换成 JSONArray ，以方便后面转换成对应的实体
-            JSONArray permissionJSONArray = customUserDetailsJSONObject.getJSONArray("permissions");
-            List<PermissionEntity> permissions = JsonUtil.json2BeanList(permissionJSONArray.toJSONString(), List.class, PermissionEntity.class);
-
-            customUserDetails = new CustomUserDetails();
-            customUserDetails.setUser(user);
-            customUserDetails.setPermissions(permissions);
-        } catch (Exception e) {
-            log.error("============= json转换成实体类出错，用户拦截获取缓存信息失败 =============\n 错误信息：{}", e.getMessage());
-            e.printStackTrace();
+        if (StringUtils.isBlank(customUserDetailsJson)) {
+            return null;
         }
+
+        // 将 json 格式的字符串转换成 JSONObject 对象
+        JSONObject customUserDetailsJSONObject = JSONObject.parseObject(customUserDetailsJson);
+        // 简单的直接获取值
+        JSONObject userJSONObject = customUserDetailsJSONObject.getJSONObject("user");
+        UserEntity user = JsonUtil.json2Bean(userJSONObject.toJSONString(), UserEntity.class);
+        // 如果 json 格式的字符串里含有数组格式的属性，将其转换成 JSONArray ，以方便后面转换成对应的实体
+        JSONArray permissionJSONArray = customUserDetailsJSONObject.getJSONArray("permissions");
+        List<PermissionEntity> permissions = JsonUtil.json2BeanList(permissionJSONArray.toJSONString(), List.class, PermissionEntity.class);
+
+        CustomUserDetails customUserDetails = new CustomUserDetails();
+        customUserDetails.setUser(user);
+        customUserDetails.setPermissions(permissions);
         return customUserDetails;
     }
+
+    private String getTokenFromHttpRequest(HttpServletRequest request) {
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (authorization == null || !authorization.startsWith(AuthConstants.TOKEN_PREFIX)) {
+            return null;
+        }
+        // 去掉 token 前缀
+        return authorization.replace(AuthConstants.TOKEN_PREFIX, "");
+    }
+
 }
