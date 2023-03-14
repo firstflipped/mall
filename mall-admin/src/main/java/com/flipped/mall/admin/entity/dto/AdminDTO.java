@@ -3,7 +3,7 @@ package com.flipped.mall.admin.entity.dto;
 import lombok.Data;
 
 /**
- * 对外开放接口用户信息返回传输类
+ * 对外开放接口用户登录成功信息返回传输类
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

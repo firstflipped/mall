@@ -4,6 +4,8 @@ import com.flipped.mall.admin.entity.UserEntity;
 import com.flipped.mall.admin.entity.dto.AdminDTO;
 import com.flipped.mall.admin.entity.dto.AdminInfoDTO;
 import com.flipped.mall.admin.entity.dto.AdminLoginDTO;
+import com.flipped.mall.admin.entity.dto.AdminPermissionDTO;
+import com.flipped.mall.admin.service.PermissionService;
 import com.flipped.mall.admin.service.UserService;
 import com.flipped.mall.common.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 后台管理服务对外开放接口
@@ -27,6 +30,8 @@ public class AdminOpenApi {
 
     @Resource
     private UserService userService;
+    @Resource
+    private PermissionService permissionService;
 
     /**
      * 远程用户名密码登录接口
@@ -81,6 +86,16 @@ public class AdminOpenApi {
     @DeleteMapping("/logout")
     void logout(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         userService.logout(token);
+    }
+
+    /**
+     * @param userid
+     * @return
+     */
+    @GetMapping("/permission")
+    MyResult<List<AdminPermissionDTO>> getPermission(@RequestParam("userid") Long userid) {
+        List<AdminPermissionDTO> adminPermissionDTOList = permissionService.listPermissionsWithTreeByUserid(userid);
+        return MyResult.success(adminPermissionDTOList);
     }
 
 }

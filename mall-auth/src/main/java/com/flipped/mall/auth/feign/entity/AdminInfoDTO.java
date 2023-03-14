@@ -43,7 +43,7 @@ public class AdminInfoDTO {
     /**
      * 性别（1: 男 2: 女）
      */
-    private Integer sex;
+    private Integer gender;
 
     /**
      * 电子邮件
@@ -58,12 +58,7 @@ public class AdminInfoDTO {
     /**
      * 状态(1: 正常  2: 冻结 ）
      */
-    private Integer status;
-
-    /**
-     * 删除状态（0: 正常，1: 已删除）
-     */
-    private Integer delete;
+    private Integer enable;
 
 }
 

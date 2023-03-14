@@ -25,4 +25,40 @@
         FROM sys_permission
         WHERE `enable` = 1
     </select>
+
+    <select id="listPermissionsByUserid"
+            resultType="com.flipped.mall.admin.entity.PermissionEntity">
+        SELECT p.permission_id,
+        p.permission_name,
+        p.permission_value,
+        p.path,
+        p.parent_id,
+        p.type,
+        p.icon,
+        p.sort,
+        p.enable,
+        p.description,
+        p.create_by,
+        p.create_time,
+        p.update_by,
+        p.update_time
+        FROM sys_user u
+        INNER JOIN sys_user_role ur ON u.userid = ur.userid
+        INNER JOIN sys_role_permission rp ON ur.role_id = rp.role_id
+        INNER JOIN sys_permission p ON rp.permission_id = p.permission_id
+        WHERE u.userid = #{userid}
+    </select>
+
+    <select id="listPermissionsWithTreeByUserid" resultType="com.flipped.mall.admin.entity.dto.AdminPermissionDTO">
+        SELECT p.permission_id,
+               p.permission_name,
+               p.permission_value,
+               p.path,
+               p.parent_id,
+               p.type,
+               p.icon,
+               p.sort,
+               p.enable
+        FROM sys_permission p
+    </select>
 </mapper>

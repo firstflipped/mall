@@ -3,8 +3,9 @@ package com.flipped.mall.auth.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.flipped.mall.auth.entity.dto.AdminLoginByMobileDTO;
 import com.flipped.mall.auth.entity.dto.AdminLoginDTO;
-import com.flipped.mall.auth.entity.vo.AdminVO;
 import com.flipped.mall.auth.entity.vo.TokenVO;
+import com.flipped.mall.auth.feign.entity.AdminInfoDTO;
+import com.flipped.mall.auth.feign.entity.AdminPermissionDTO;
 import com.flipped.mall.auth.feign.service.ThirdPartyFeignService;
 import com.flipped.mall.auth.service.AdminLoginService;
 import com.flipped.mall.common.constant.AuthConstants;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -82,12 +84,22 @@ public class AdminLoginController {
 
 
     @GetMapping("/userinfo")
-    public MyResult<AdminVO> getUserinfo(HttpServletRequest request) {
+    public MyResult<AdminInfoDTO> getUserinfo(HttpServletRequest request) {
         // 获取请求头里面的token信息
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
-        AdminVO adminVO = adminLoginService.getUserinfo(token);
-        return MyResult.success(adminVO);
+        AdminInfoDTO adminInfoDTO = adminLoginService.getUserinfo(token);
+        return MyResult.success(adminInfoDTO);
+    }
+
+
+    @GetMapping("/permission")
+    public MyResult<List<AdminPermissionDTO>> getPermission(HttpServletRequest request) {
+        // 获取请求头里面的token信息
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        List<AdminPermissionDTO> adminPermissionDTOList = adminLoginService.getPermission(token);
+        return MyResult.success(adminPermissionDTOList);
     }
 
 

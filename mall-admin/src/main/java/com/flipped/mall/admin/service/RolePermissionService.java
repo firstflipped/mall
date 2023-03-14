@@ -19,15 +19,6 @@ public interface RolePermissionService extends IService<RolePermissionEntity> {
     /**
      * 查询权限列表
      *
-     * @param userid 用户id
-     * @return 权限列表
-     */
-    List<PermissionEntity> listPermissionsByUserid(Long userid);
-
-
-    /**
-     * 查询权限列表
-     *
      * @param roleIds 角色id集合
      * @return 权限列表
      */

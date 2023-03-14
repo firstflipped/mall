@@ -4,7 +4,7 @@ import com.flipped.mall.admin.entity.CustomUserDetails;
 import com.flipped.mall.admin.entity.PermissionEntity;
 import com.flipped.mall.admin.entity.UserEntity;
 import com.flipped.mall.admin.service.CustomUserDetailsService;
-import com.flipped.mall.admin.service.RolePermissionService;
+import com.flipped.mall.admin.service.PermissionService;
 import com.flipped.mall.admin.service.UserService;
 import com.flipped.mall.common.exception.UserNotExistException;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     @Resource
     private UserService userService;
     @Resource
-    private RolePermissionService rolePermissionService;
+    private PermissionService permissionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -39,7 +39,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         if (user == null) {
             throw new UserNotExistException("username is:" + username);
         }
-        List<PermissionEntity> permissions = rolePermissionService.listPermissionsByUserid(user.getUserid());
+        List<PermissionEntity> permissions = permissionService.listPermissionsByUserid(user.getUserid());
         return new CustomUserDetails(user, permissions);
     }
 

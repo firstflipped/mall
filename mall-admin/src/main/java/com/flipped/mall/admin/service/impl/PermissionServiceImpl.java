@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.flipped.mall.admin.entity.PermissionEntity;
+import com.flipped.mall.admin.entity.dto.AdminPermissionDTO;
 import com.flipped.mall.admin.entity.param.PermissionEnableParam;
 import com.flipped.mall.admin.entity.query.PermissionQuery;
 import com.flipped.mall.admin.entity.vo.PermissionsWithTreeVO;
@@ -130,6 +131,55 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
                 .peek(item -> item.setChildren(getChild(permissionsWithTreeVOList, item.getPermissionId())))
                 .collect(Collectors.toList());
 
+    }
+
+    /**
+     * 获取子类集合
+     *
+     * @param adminPermissionDTOList 权限列表
+     * @param id                     id
+     * @return 权限数集合
+     */
+    private List<AdminPermissionDTO> getChildDTO(List<AdminPermissionDTO> adminPermissionDTOList, Long id) {
+
+        // 防止空指针抛出异常
+        return Optional.ofNullable(adminPermissionDTOList)
+                .map(List::stream)
+                .orElseGet(Stream::empty)
+                .filter(item -> Objects.equals(id, item.getParentId()))
+                .peek(item -> item.setChildren(getChildDTO(adminPermissionDTOList, item.getPermissionId())))
+                .collect(Collectors.toList());
+
+    }
+
+
+    @Override
+    public List<PermissionEntity> listPermissionsByUserid(Long userid) {
+        // 如果为root权限则
+        if (Objects.equals(userid, AdminConstants.ROOT_ID)) {
+            return permissionMapper.selectList(null);
+        }
+
+        return permissionMapper.listPermissionsByUserid(userid);
+    }
+
+    @Override
+    public List<AdminPermissionDTO> listPermissionsWithTreeByUserid(Long userid) {
+        List<AdminPermissionDTO> adminPermissionDTOList;
+        if (Objects.equals(userid, AdminConstants.ROOT_ID)) {
+            adminPermissionDTOList = permissionMapper.listPermissionsWithTreeByUserid();
+        } else {
+            adminPermissionDTOList = permissionMapper.listPermissionsWithTreeByUserid(userid);
+        }
+        // 过滤出一级菜单
+        List<AdminPermissionDTO> permissions1Level = adminPermissionDTOList.stream()
+                .filter(item -> Objects.equals(AdminConstants.PERMISSION_ROOT_LEVEL, item.getParentId()))
+                .collect(Collectors.toList());
+
+        return permissions1Level.stream().peek(item -> {
+            // 设置子类集合
+            item.setChildren(getChildDTO(adminPermissionDTOList, item.getPermissionId()));
+        }).collect(Collectors.toList());
     }
 }
 

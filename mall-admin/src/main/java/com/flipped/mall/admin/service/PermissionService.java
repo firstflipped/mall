@@ -2,6 +2,7 @@ package com.flipped.mall.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.flipped.mall.admin.entity.PermissionEntity;
+import com.flipped.mall.admin.entity.dto.AdminPermissionDTO;
 import com.flipped.mall.admin.entity.param.PermissionEnableParam;
 import com.flipped.mall.admin.entity.query.PermissionQuery;
 import com.flipped.mall.admin.entity.vo.PermissionsWithTreeVO;
@@ -74,4 +75,20 @@ public interface PermissionService extends IService<PermissionEntity> {
      * @return 树形结构权限列表
      */
     List<PermissionsWithTreeVO> listPermissionsWithTree();
+
+    /**
+     * 查询权限列表
+     *
+     * @param userid 用户id
+     * @return 权限列表
+     */
+    List<PermissionEntity> listPermissionsByUserid(Long userid);
+
+    /**
+     * 查询权限列表
+     *
+     * @param userid 用户id
+     * @return 权限列表
+     */
+    List<AdminPermissionDTO> listPermissionsWithTreeByUserid(Long userid);
 }

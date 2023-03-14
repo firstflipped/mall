@@ -5,16 +5,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.flipped.mall.admin.entity.PermissionEntity;
 import com.flipped.mall.admin.entity.RolePermissionEntity;
 import com.flipped.mall.admin.entity.param.RolePermissionParam;
-import com.flipped.mall.admin.mapper.PermissionMapper;
 import com.flipped.mall.admin.mapper.RolePermissionMapper;
 import com.flipped.mall.admin.service.RolePermissionService;
-import com.flipped.mall.common.constant.AdminConstants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -31,18 +28,6 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionMapper,
     private Snowflake snowflake;
     @Resource
     private RolePermissionMapper rolePermissionMapper;
-    @Resource
-    private PermissionMapper permissionMapper;
-
-    @Override
-    public List<PermissionEntity> listPermissionsByUserid(Long userid) {
-        // 如果为root权限则
-        if (Objects.equals(userid, AdminConstants.ROOT_ID)) {
-            return permissionMapper.selectList(null);
-        }
-
-        return rolePermissionMapper.listPermissionsByUserid(userid);
-    }
 
     @Override
     public List<PermissionEntity> listPermissionsByRoleIds(List<Long> roleIds) {

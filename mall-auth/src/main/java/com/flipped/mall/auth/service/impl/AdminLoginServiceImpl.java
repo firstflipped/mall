@@ -2,10 +2,10 @@ package com.flipped.mall.auth.service.impl;
 
 import com.flipped.mall.auth.entity.dto.AdminLoginByMobileDTO;
 import com.flipped.mall.auth.entity.dto.AdminLoginDTO;
-import com.flipped.mall.auth.entity.vo.AdminVO;
 import com.flipped.mall.auth.entity.vo.TokenVO;
 import com.flipped.mall.auth.feign.entity.AdminDTO;
 import com.flipped.mall.auth.feign.entity.AdminInfoDTO;
+import com.flipped.mall.auth.feign.entity.AdminPermissionDTO;
 import com.flipped.mall.auth.feign.service.AdminFeignService;
 import com.flipped.mall.auth.service.AdminLoginService;
 import com.flipped.mall.auth.service.AuthService;
@@ -15,11 +15,11 @@ import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.exception.SmsCodeCheckFailException;
 import com.flipped.mall.common.exception.SmsCodeExpireException;
 import com.flipped.mall.common.util.TokenProvider;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -71,11 +71,9 @@ public class AdminLoginServiceImpl implements AdminLoginService {
     }
 
     @Override
-    public AdminVO getUserinfo(String token) {
+    public AdminInfoDTO getUserinfo(String token) {
         // 解析token
-        token = token.replace(AuthConstants.TOKEN_PREFIX, "");
-        JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
-        Long userid = jwtPayLoad.getUserid();
+        Long userid = getUseridByToken(token);
 
         MyResult<AdminInfoDTO> getUserinfoResult = adminFeignService.getUserinfo(userid);
 
@@ -84,15 +82,26 @@ public class AdminLoginServiceImpl implements AdminLoginService {
             return null;
         }
 
-        AdminInfoDTO adminInfoDTO = getUserinfoResult.getData();
-        AdminVO adminVO = new AdminVO();
-        BeanUtils.copyProperties(adminInfoDTO, adminVO);
-        return adminVO;
+        return getUserinfoResult.getData();
     }
 
     @Override
     public void logout(String token) {
         adminFeignService.logout(token);
+    }
+
+    @Override
+    public List<AdminPermissionDTO> getPermission(String token) {
+        // 解析token
+        Long userid = getUseridByToken(token);
+        MyResult<List<AdminPermissionDTO>> getPermissionResult = adminFeignService.getPermission(userid);
+
+        // 获取用户信息为空
+        if (!getPermissionResult.getSuccess()) {
+            return null;
+        }
+
+        return getPermissionResult.getData();
     }
 
 
@@ -108,6 +117,22 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         Long tokenExpire = authService.getTokenExpire(token.replace(AuthConstants.TOKEN_PREFIX, ""));
 
         return TokenVO.builder().token(token).expiresIn(tokenExpire).build();
+    }
+
+    /**
+     * 解析token，获取userid
+     *
+     * @param token
+     * @return
+     */
+    private Long getUseridByToken(String token) {
+        token = token.replace(AuthConstants.TOKEN_PREFIX, "");
+        JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
+        if (jwtPayLoad == null) {
+            return null;
+        }
+
+        return jwtPayLoad.getUserid();
     }
 
 }

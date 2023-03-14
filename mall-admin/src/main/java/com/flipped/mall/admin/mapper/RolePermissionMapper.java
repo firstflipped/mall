@@ -19,14 +19,6 @@ public interface RolePermissionMapper extends BaseMapper<RolePermissionEntity> {
     /**
      * 查询权限列表
      *
-     * @param userid 用户id
-     * @return 用户的权限列表
-     */
-    List<PermissionEntity> listPermissionsByUserid(@Param("userid") Long userid);
-
-    /**
-     * 查询权限列表
-     *
      * @param roleIds 角色id集合
      * @return 角色的权限列表
      */

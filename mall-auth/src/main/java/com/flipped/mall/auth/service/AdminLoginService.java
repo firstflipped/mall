@@ -3,8 +3,11 @@ package com.flipped.mall.auth.service;
 
 import com.flipped.mall.auth.entity.dto.AdminLoginByMobileDTO;
 import com.flipped.mall.auth.entity.dto.AdminLoginDTO;
-import com.flipped.mall.auth.entity.vo.AdminVO;
 import com.flipped.mall.auth.entity.vo.TokenVO;
+import com.flipped.mall.auth.feign.entity.AdminInfoDTO;
+import com.flipped.mall.auth.feign.entity.AdminPermissionDTO;
+
+import java.util.List;
 
 /**
  * 管理登录逻辑接口
@@ -37,10 +40,18 @@ public interface AdminLoginService {
      * @param token token
      * @return 用户展示视图实体
      */
-    AdminVO getUserinfo(String token);
+    AdminInfoDTO getUserinfo(String token);
 
     /**
      * 退出登录功能
      */
     void logout(String token);
+
+    /**
+     * 获取用户权限
+     *
+     * @param token token
+     * @return 权限列表
+     */
+    List<AdminPermissionDTO> getPermission(String token);
 }
