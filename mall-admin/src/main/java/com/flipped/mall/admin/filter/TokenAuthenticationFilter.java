@@ -40,14 +40,17 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         // 登录等接口没有token，配置白名单后边会直接放行，由下一个链抛出异常
         // 如果token体为空，则直接放行，交由后边的过滤器处理
         String token = getTokenFromHttpRequest(request);
+        if (StringUtils.isBlank(token)) {
+            chain.doFilter(request, response);
+            return;
+        }
         JwtPayLoad jwtPayLoad = TokenProvider.getJwtPayLoad(token);
-        if (StringUtils.isBlank(token) || jwtPayLoad == null) {
+        if (jwtPayLoad == null) {
             chain.doFilter(request, response);
             return;
         }
@@ -65,6 +68,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
+
+    /**
+     * json转换为对象
+     *
+     * @param customUserDetailsJson json串
+     * @return CustomUserDetails
+     */
     private CustomUserDetails jsonToCustomUserDetails(String customUserDetailsJson) {
         if (StringUtils.isBlank(customUserDetailsJson)) {
             return null;
@@ -85,6 +95,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         return customUserDetails;
     }
 
+    /**
+     * 从请求头中获取token
+     *
+     * @param request 请求
+     * @return token
+     */
     private String getTokenFromHttpRequest(HttpServletRequest request) {
         String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authorization == null || !authorization.startsWith(AuthConstants.TOKEN_PREFIX)) {

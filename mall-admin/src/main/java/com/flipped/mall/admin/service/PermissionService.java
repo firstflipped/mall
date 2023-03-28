@@ -85,7 +85,7 @@ public interface PermissionService extends IService<PermissionEntity> {
     List<PermissionEntity> listPermissionsByUserid(Long userid);
 
     /**
-     * 查询权限列表
+     * 查询树形权限列表
      *
      * @param userid 用户id
      * @return 权限列表

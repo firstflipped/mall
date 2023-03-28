@@ -116,6 +116,9 @@ public class TokenProvider {
      */
     public static JwtPayLoad getJwtPayLoad(String token) {
         Claims claims = getClaimsFromToken(token);
+        if (claims == null) {
+            return null;
+        }
         return BeanUtil.toBean(claims, JwtPayLoad.class, null);
     }
 

@@ -92,4 +92,5 @@ public class DictDetailEntity {
      */
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
+
 }
