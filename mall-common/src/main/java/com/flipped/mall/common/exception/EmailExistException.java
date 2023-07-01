@@ -15,5 +15,9 @@ public class EmailExistException extends PlatformException {
         super(ErrorCodeEnum.EMAIL_EXIST_EXCEPTION, additionalErrorMessage);
     }
 
+    public EmailExistException(String additionalErrorMessage, Throwable cause) {
+        super(ErrorCodeEnum.EMAIL_EXIST_EXCEPTION, additionalErrorMessage, cause);
+    }
+
 }
 

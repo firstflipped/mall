@@ -16,23 +16,34 @@ public class PlatformException extends RuntimeException {
     /**
      * 异常枚举
      */
-    private final ErrorCodeEnum errorCodeEnum;
+    private ErrorCodeEnum errorCodeEnum;
 
     /**
      * 附加异常信息
      */
-    private final String additionalErrorMessage;
+    private String additionalErrorMessage;
+
+    /**
+     * 原始一场信息
+     */
+    private Throwable cause;
 
     public PlatformException(ErrorCodeEnum errorCodeEnum) {
         super(errorCodeEnum.getMessage());
         this.errorCodeEnum = errorCodeEnum;
-        this.additionalErrorMessage = "";
     }
 
     public PlatformException(ErrorCodeEnum errorCodeEnum, String additionalErrorMessage) {
         super(errorCodeEnum.getMessage());
         this.errorCodeEnum = errorCodeEnum;
         this.additionalErrorMessage = additionalErrorMessage;
+    }
+
+    public PlatformException(ErrorCodeEnum errorCodeEnum, String additionalErrorMessage, Throwable cause) {
+        super(errorCodeEnum.getMessage());
+        this.errorCodeEnum = errorCodeEnum;
+        this.additionalErrorMessage = additionalErrorMessage;
+        this.cause = cause;
     }
 
 }

@@ -159,8 +159,8 @@ public class TokenProvider {
     /**
      * 获取token有效期（秒为单位）
      *
-     * @param token
-     * @return
+     * @param token token
+     * @return token有效期
      */
     public static Long getTokenExpire(String token) {
         try {
