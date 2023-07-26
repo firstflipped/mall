@@ -4,7 +4,7 @@ import com.flipped.mall.admin.entity.DictEntity;
 import com.flipped.mall.admin.entity.query.DictQuery;
 import com.flipped.mall.admin.entity.vo.DictSelectVO;
 import com.flipped.mall.admin.service.DictService;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
