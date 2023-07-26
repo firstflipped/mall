@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.flipped.mall.common.aspect.annotation.Dict;
 import com.flipped.mall.common.valid.AddGroup;
 import com.flipped.mall.common.valid.ListValue;
 import com.flipped.mall.common.valid.Phone;
@@ -90,6 +91,7 @@ public class UserEntity {
      * 性别（0：保密 1：男 2：女）
      */
     @ListValue(values = {0, 1, 2}, message = "性别不符合要求", groups = {AddGroup.class, UpdateGroup.class})
+    @Dict(value = "gender")
     private Integer gender;
 
     /**

@@ -2,7 +2,7 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.RoleEntity;
 import com.flipped.mall.admin.service.RoleService;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
