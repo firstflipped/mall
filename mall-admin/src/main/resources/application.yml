@@ -1,6 +1,6 @@
 # Tomcat
 server:
-  port: ${SERVER.PORT:9090}
+  port: ${SERVER.PORT:9080}
   servlet:
     context-path: /mall-admin
 

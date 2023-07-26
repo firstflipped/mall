@@ -10,3 +10,5 @@ spring:
         namespace: ${NACOS.NAMESPACE:mall}
         file-extension: yaml
         group: ${NACOS.GROUP:MALL-ADMIN}
+      username: ${NACOS.USERNAME:nacos}
+      password: ${NACOS.PASSWORD:laughingather}

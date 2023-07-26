@@ -21,16 +21,27 @@ docker run \
         -p 9848:9848 \
         -p 9849:9849 \
         -e MODE=standalone \
+        -e NACOS_AUTH_ENABLE=true \
         -e TZ='Asia/Shanghai' \
-        -e SPRING_DATASOURCE_PLATFORM=mysql \
-        -e MYSQL_SERVICE_HOST=mysql \
-        -e MYSQL_SERVICE_PORT=3306 \
-        -e MYSQL_SERVICE_USER=root \
-        -e MYSQL_SERVICE_PASSWORD=laughingather \
-        -e MYSQL_SERVICE_DB_NAME=nacos_config \
         -v /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs \
         -v /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data \
-        -d nacos/nacos-server:v2.2.0-slim
+        -v /Users/flipped/Server/Docker/Nacos/conf:/home/nacos/conf \
+        -d nacos/nacos-server:v2.2.3-slim
+
+// 挂载文件的方式启动
+docker run \
+        --name nacos \
+        --network docker-net \
+        -p 8848:8848 \
+        -p 9848:9848 \
+        -p 9849:9849 \
+        -e MODE=standalone \
+        -e NACOS_AUTH_ENABLE=true \
+        -e TZ='Asia/Shanghai' \
+        -v /Users/flipped/Server/Docker/Nacos/logs:/home/nacos/logs \
+        -v /Users/flipped/Server/Docker/Nacos/data:/home/nacos/data \
+        -v /Users/flipped/Server/Docker/Nacos/conf:/home/nacos/conf \
+        -d nacos/nacos-server:v2.2.3-slim
 
 
 
