@@ -55,6 +55,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        request.setAttribute(AuthConstants.USERID, jwtPayLoad.getUserid());
+        request.setAttribute(AuthConstants.USERNAME, jwtPayLoad.getUsername());
+
         // 从缓存中获取用户信息及权限
         String customUserDetailsJson = redisTemplate.opsForValue().get(AdminConstants.ADMIN_INFO + jwtPayLoad.getUsername());
         CustomUserDetails customUserDetails = jsonToCustomUserDetails(customUserDetailsJson);
