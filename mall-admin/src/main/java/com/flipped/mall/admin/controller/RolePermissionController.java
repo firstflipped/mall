@@ -2,7 +2,7 @@ package com.flipped.mall.admin.controller;
 
 import com.flipped.mall.admin.entity.param.RolePermissionParam;
 import com.flipped.mall.admin.service.RolePermissionService;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;

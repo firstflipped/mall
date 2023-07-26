@@ -5,7 +5,8 @@ import com.flipped.mall.admin.entity.param.UserEnableParam;
 import com.flipped.mall.admin.entity.param.UserPasswordParam;
 import com.flipped.mall.admin.entity.query.UserQuery;
 import com.flipped.mall.admin.service.UserService;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.AutoDict;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
@@ -94,6 +95,7 @@ public class UserController {
      * @param userid 用户id
      * @return MyResult<UserEntity> 用户详情
      */
+    @AutoDict
     @GetMapping("/{uid}")
     @PreAuthorize("hasAuthority('admin:user:view')")
     @PlatformLog(value = "查询用户详情")
@@ -107,6 +109,7 @@ public class UserController {
      *
      * @return MyResult<List < UserEntity>> 用户列表
      */
+    @AutoDict
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('admin:user:view')")
     @PlatformLog(value = "查询用户列表")
@@ -121,6 +124,7 @@ public class UserController {
      * @param userQuery 用户列表查询条件
      * @return MyResult<MyPage < UserEntity>> 分页用户列表
      */
+    @AutoDict
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:user:view')")
     @PlatformLog(value = "分页查询用户列表")

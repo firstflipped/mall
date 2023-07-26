@@ -5,7 +5,7 @@ import com.flipped.mall.admin.entity.param.PermissionEnableParam;
 import com.flipped.mall.admin.entity.query.PermissionQuery;
 import com.flipped.mall.admin.entity.vo.PermissionsWithTreeVO;
 import com.flipped.mall.admin.service.PermissionService;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;

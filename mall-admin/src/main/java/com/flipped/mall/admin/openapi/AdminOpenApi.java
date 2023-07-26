@@ -7,7 +7,7 @@ import com.flipped.mall.admin.entity.dto.AdminLoginDTO;
 import com.flipped.mall.admin.entity.dto.AdminPermissionDTO;
 import com.flipped.mall.admin.service.PermissionService;
 import com.flipped.mall.admin.service.UserService;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.constant.LogConstants;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.beans.BeanUtils;
