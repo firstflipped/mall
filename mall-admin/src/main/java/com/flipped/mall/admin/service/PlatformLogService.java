@@ -3,7 +3,7 @@ package com.flipped.mall.admin.service;
 
 import com.flipped.mall.admin.entity.query.PlatformLogQuery;
 import com.flipped.mall.admin.entity.vo.PlatformLogExcelVO;
-import com.flipped.mall.common.entity.PlatformLog;
+import com.flipped.mall.common.entity.PlatformLogEntity;
 import com.flipped.mall.common.entity.api.MyPage;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public interface PlatformLogService {
      * @param platformLogQuery 日志列表查询条件
      * @return 日志列表分页信息
      */
-    MyPage<PlatformLog> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery);
+    MyPage<PlatformLogEntity> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery);
 
     /**
      * 查询导出日志列表

@@ -4,7 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.flipped.mall.admin.entity.query.PlatformLogQuery;
 import com.flipped.mall.admin.entity.vo.PlatformLogExcelVO;
 import com.flipped.mall.admin.service.PlatformLogService;
-import com.flipped.mall.common.entity.PlatformLog;
+import com.flipped.mall.common.entity.PlatformLogEntity;
 import com.flipped.mall.common.entity.api.MyPage;
 import com.flipped.mall.common.entity.api.MyResult;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,8 +40,8 @@ public class PlatformLogController {
      */
     @GetMapping("/page")
     @PreAuthorize("hasAuthority('admin:log:view')")
-    public MyResult<MyPage<PlatformLog>> listPlatformLogsWithPage(@ModelAttribute PlatformLogQuery platformLogQuery) {
-        MyPage<PlatformLog> platformLogPage = platformLogService.listPlatformLogsWithPage(platformLogQuery);
+    public MyResult<MyPage<PlatformLogEntity>> listPlatformLogsWithPage(@ModelAttribute PlatformLogQuery platformLogQuery) {
+        MyPage<PlatformLogEntity> platformLogPage = platformLogService.listPlatformLogsWithPage(platformLogQuery);
         return MyResult.success(platformLogPage);
     }
 

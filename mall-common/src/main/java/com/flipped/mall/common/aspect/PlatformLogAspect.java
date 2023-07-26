@@ -2,12 +2,14 @@ package com.flipped.mall.common.aspect;
 
 
 import cn.hutool.core.net.NetUtil;
-import com.flipped.mall.common.annotation.PlatformLog;
+import com.flipped.mall.common.aspect.annotation.PlatformLog;
 import com.flipped.mall.common.constant.AuthConstants;
+import com.flipped.mall.common.entity.PlatformLogEntity;
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.util.HttpContextUtil;
 import com.flipped.mall.common.util.JsonUtil;
 import com.flipped.mall.common.util.RequestUtil;
+import com.flipped.mall.modules.service.BasePlatformLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -46,7 +49,10 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class PlatformLogAspect {
 
-    @Pointcut("@annotation(com.flipped.mall.common.annotation.PlatformLog)")
+    @Resource
+    private BasePlatformLogService basePlatformLogService;
+
+    @Pointcut("@annotation(com.flipped.mall.common.aspect.annotation.PlatformLog)")
     public void platformLog() {
     }
 
@@ -80,7 +86,7 @@ public class PlatformLogAspect {
      * @param time   执行时间
      */
     private void saveLog(ProceedingJoinPoint point, Object result, long time) {
-        com.flipped.mall.common.entity.PlatformLog platformLog = new com.flipped.mall.common.entity.PlatformLog();
+        PlatformLogEntity platformLogEntity = new PlatformLogEntity();
 
         // 获取request对象
         HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
@@ -92,43 +98,43 @@ public class PlatformLogAspect {
 
         PlatformLog platformLogAnnotation = method.getAnnotation(PlatformLog.class);
         if (platformLogAnnotation != null) {
-            platformLog.setMethodType(platformLogAnnotation.type());
-            platformLog.setMethodDescription(platformLogAnnotation.value());
-            platformLog.setLogin(platformLogAnnotation.login() ? 1 : 0);
+            platformLogEntity.setMethodType(platformLogAnnotation.type());
+            platformLogEntity.setMethodDescription(platformLogAnnotation.value());
+            platformLogEntity.setLogin(platformLogAnnotation.login() ? 1 : 0);
         }
 
-        platformLog.setRequestUri(request.getRequestURI());
-        platformLog.setRequestUrl(String.valueOf(request.getRequestURL()));
-        platformLog.setRequestMethod(request.getMethod());
-        platformLog.setRequestParams(JsonUtil.bean2Json(getParams(method, point.getArgs())));
+        platformLogEntity.setRequestUri(request.getRequestURI());
+        platformLogEntity.setRequestUrl(String.valueOf(request.getRequestURL()));
+        platformLogEntity.setRequestMethod(request.getMethod());
+        platformLogEntity.setRequestParams(JsonUtil.bean2Json(getParams(method, point.getArgs())));
 
         // 类信息、方法信息
-        platformLog.setClassName(point.getTarget().getClass().getName());
-        platformLog.setMethodName(method.getName() + "()");
+        platformLogEntity.setClassName(point.getTarget().getClass().getName());
+        platformLogEntity.setMethodName(method.getName() + "()");
 
         // ip信息
-        platformLog.setServerIp(NetUtil.getLocalhostStr());
-        platformLog.setClientIp(RequestUtil.getClientIp(request));
+        platformLogEntity.setServerIp(NetUtil.getLocalhostStr());
+        platformLogEntity.setClientIp(RequestUtil.getClientIp(request));
 
         // 判断请求是否成功
         if (result instanceof MyResult) {
             MyResult myResult = (MyResult) result;
             if (myResult.getSuccess()) {
-                platformLog.setSuccess(1);
+                platformLogEntity.setSuccess(1);
             } else {
-                platformLog.setSuccess(0);
+                platformLogEntity.setSuccess(0);
             }
         }
 
         // 操作信息
-        if (StringUtils.isNotBlank(request.getHeader(AuthConstants.USERID))) {
-            platformLog.setOperationUserid(Long.parseLong(request.getHeader(AuthConstants.USERID)));
+        if (StringUtils.isNotBlank(request.getAttribute(AuthConstants.USERID).toString())) {
+            platformLogEntity.setOperationUserid(Long.parseLong(request.getAttribute(AuthConstants.USERID).toString()));
         }
-        if (StringUtils.isNotBlank(request.getHeader(AuthConstants.USERNAME))) {
-            platformLog.setOperationUsername(request.getHeader(AuthConstants.USERNAME));
+        if (StringUtils.isNotBlank(request.getAttribute(AuthConstants.USERNAME).toString())) {
+            platformLogEntity.setOperationUsername(request.getAttribute(AuthConstants.USERNAME).toString());
         }
-        platformLog.setSpendTime(time);
-        platformLog.setOperationTime(LocalDateTime.now());
+        platformLogEntity.setSpendTime(time);
+        platformLogEntity.setOperationTime(LocalDateTime.now());
 
         // 把日志放进消息队列
         // kafkaProducerService.sendMessage("user-logs", JsonUtil.bean2Json(platformLog));
@@ -137,9 +143,9 @@ public class PlatformLogAspect {
         // esSaveService.savePlatformLog2Es(platformLog);
 
         // 把日志放进数据库
-        // platformLogService.saveLog(platformLog);
+        basePlatformLogService.save(platformLogEntity);
 
-        log.info("日志输出: {}", JsonUtil.bean2Json(platformLog));
+        log.info("日志输出: {}", JsonUtil.bean2Json(platformLogEntity));
     }
 
     /**

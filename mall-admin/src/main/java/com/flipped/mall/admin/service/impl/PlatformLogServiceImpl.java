@@ -8,7 +8,7 @@ import com.flipped.mall.admin.entity.query.PlatformLogQuery;
 import com.flipped.mall.admin.entity.vo.PlatformLogExcelVO;
 import com.flipped.mall.admin.mapper.PlatformLogMapper;
 import com.flipped.mall.admin.service.PlatformLogService;
-import com.flipped.mall.common.entity.PlatformLog;
+import com.flipped.mall.common.entity.PlatformLogEntity;
 import com.flipped.mall.common.entity.api.MyPage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -31,23 +31,23 @@ public class PlatformLogServiceImpl implements PlatformLogService {
     private PlatformLogMapper platformLogMapper;
 
     @Override
-    public MyPage<PlatformLog> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery) {
+    public MyPage<PlatformLogEntity> listPlatformLogsWithPage(PlatformLogQuery platformLogQuery) {
         // 分页参数
-        IPage<PlatformLog> page = new Page<>(platformLogQuery.getPn(), platformLogQuery.getPs());
+        IPage<PlatformLogEntity> page = new Page<>(platformLogQuery.getPn(), platformLogQuery.getPs());
 
         // 拼接查询条件
-        QueryWrapper<PlatformLog> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<PlatformLogEntity> queryWrapper = new QueryWrapper<>();
         if (Objects.nonNull(platformLogQuery.getLogin())) {
-            queryWrapper.lambda().eq(PlatformLog::getLogin, platformLogQuery.getLogin());
+            queryWrapper.lambda().eq(PlatformLogEntity::getLogin, platformLogQuery.getLogin());
         }
         if (Objects.nonNull(platformLogQuery.getSuccess())) {
-            queryWrapper.lambda().eq(PlatformLog::getSuccess, platformLogQuery.getSuccess());
+            queryWrapper.lambda().eq(PlatformLogEntity::getSuccess, platformLogQuery.getSuccess());
         }
         if (StringUtils.isNotBlank(platformLogQuery.getOperation())) {
-            queryWrapper.lambda().eq(PlatformLog::getOperationUserid, platformLogQuery.getOperation()).or().eq(PlatformLog::getOperationUsername, platformLogQuery.getOperation());
+            queryWrapper.lambda().eq(PlatformLogEntity::getOperationUserid, platformLogQuery.getOperation()).or().eq(PlatformLogEntity::getOperationUsername, platformLogQuery.getOperation());
         }
 
-        IPage<PlatformLog> platformLogPage = platformLogMapper.selectPage(page, queryWrapper);
+        IPage<PlatformLogEntity> platformLogPage = platformLogMapper.selectPage(page, queryWrapper);
         return MyPage.restPage(platformLogPage);
     }
 

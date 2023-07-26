@@ -1,6 +1,7 @@
 package com.flipped.mall.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,8 @@ import java.time.LocalDateTime;
  * @since 2022-04-11 19:35:16
  */
 @Data
-public class PlatformLog {
+@TableName(value = "sys_platform_log")
+public class PlatformLogEntity {
 
     private Long logId;
 

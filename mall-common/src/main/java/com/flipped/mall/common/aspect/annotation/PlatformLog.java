@@ -1,4 +1,4 @@
-package com.flipped.mall.common.annotation;
+package com.flipped.mall.common.aspect.annotation;
 
 import com.flipped.mall.common.constant.LogConstants;
 

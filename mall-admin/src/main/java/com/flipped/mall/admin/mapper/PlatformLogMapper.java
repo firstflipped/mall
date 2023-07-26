@@ -3,7 +3,7 @@ package com.flipped.mall.admin.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.flipped.mall.admin.entity.query.PlatformLogQuery;
 import com.flipped.mall.admin.entity.vo.PlatformLogExcelVO;
-import com.flipped.mall.common.entity.PlatformLog;
+import com.flipped.mall.common.entity.PlatformLogEntity;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @version v1.0
  * @since 2022-04-11 19:35:16
  */
-public interface PlatformLogMapper extends BaseMapper<PlatformLog> {
+public interface PlatformLogMapper extends BaseMapper<PlatformLogEntity> {
 
     /**
      * 查询日志列表（导出接口使用）
