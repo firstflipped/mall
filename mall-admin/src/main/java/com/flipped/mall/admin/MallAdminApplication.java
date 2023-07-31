@@ -8,20 +8,18 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * 后台管理服务启动类
  *
- * <p>
- *
- * @author <a href="#">flipped</a>
- * @version v1.0
- * @SpringBootApplication(scanBasePackages = {"com.flipped.mall.*"})
- * 注入common包中的类
- * </p>
+ * <p> @SpringBootApplication(scanBasePackages = {"com.flipped.mall.*"}) 注入common包中的类 </p>
  *
  * <p>
  * @Import({ PlatformLogAspect.class,
  * DictAspect.class,
  * MyMetaObjectHandler.class
  * })
+ * 扫描common包中的类
  * </p>
+ *
+ * @author <a href="#">flipped</a>
+ * @version v1.0
  * @since 2022-04-11 19:35:16
  */
 @SpringBootApplication

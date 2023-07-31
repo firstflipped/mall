@@ -58,11 +58,13 @@ public class PlatformLogAspect {
 
     @Around("platformLog()")
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
+        // 方法执行前执行的操作，记录开始时间
         StopWatch stopWatch = StopWatch.createStarted();
 
         // 执行目标方法
         Object result = point.proceed();
 
+        // 方法执行后执行的操作，记录结束时间，并记录日志
         stopWatch.stop();
         long time = stopWatch.getTime(TimeUnit.MILLISECONDS);
 
