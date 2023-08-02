@@ -26,7 +26,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public MyResult<Map<String, String>> handleValidException(MethodArgumentNotValidException e) {
-        log.error("数据校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("数据校验异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e.getStackTrace());
 
         List<String> errorMessages = new ArrayList<>();
         BindingResult bindingResult = e.getBindingResult();
@@ -44,26 +44,26 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public MyResult<Map<String, String>> handleRequestMethodException(HttpRequestMethodNotSupportedException e) {
-        log.error("请求方法异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("请求方法异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e.getStackTrace());
         return MyResult.failed(ErrorCodeEnum.REQUEST_METHOD_EXCEPTION);
     }
 
     @ExceptionHandler(value = PlatformException.class)
     public MyResult<Map<String, String>> handleBaseException(PlatformException e) {
         log.error("{}：{}，异常类型：{}，异常详情：{}", e.getErrorCodeEnum().getMessage(), e.getAdditionalErrorMessage(),
-                e.getClass(), e);
+                e.getClass(), e.getStackTrace());
         return MyResult.failed(e.getErrorCodeEnum(), e.getAdditionalErrorMessage());
     }
 
     @ExceptionHandler(value = RuntimeException.class)
     public MyResult<Map<String, String>> handleRuntimeException(RuntimeException e) {
-        log.error("未知异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("未知异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e.getStackTrace());
         return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION);
     }
 
     @ExceptionHandler(value = Throwable.class)
     public MyResult<String> handleThrowable(Throwable throwable) {
-        log.error("系统异常：{}，异常类型：{}，异常详情：{}", throwable.getMessage(), throwable.getClass(), throwable);
+        log.error("系统异常：{}，异常类型：{}，异常详情：{}", throwable.getMessage(), throwable.getClass(), throwable.getStackTrace());
         return MyResult.failed(ErrorCodeEnum.UNKNOWN_EXCEPTION, throwable.getMessage());
     }
 

@@ -1,4 +1,4 @@
-package com.flipped.mall.admin.handle;
+package com.flipped.mall.admin.exception;
 
 import com.flipped.mall.common.entity.api.MyResult;
 import com.flipped.mall.common.util.JsonUtil;
@@ -14,7 +14,7 @@ import java.time.ZoneOffset;
 
 /**
  * 自定义权限异常处理
- * 该配置不生效，异常由全局统一异常拦截处理器处理：com.flipped.mall.admin.handle.MallAdminExceptionControllerAdvice
+ * 该配置不生效，异常由全局统一异常拦截处理器处理：com.flipped.mall.admin.exception.MallAdminExceptionControllerAdvice
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

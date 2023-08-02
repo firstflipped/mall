@@ -1,4 +1,4 @@
-package com.flipped.mall.admin.handle;
+package com.flipped.mall.admin.exception;
 
 import com.flipped.mall.common.entity.api.ErrorCodeEnum;
 import com.flipped.mall.common.entity.api.MyResult;

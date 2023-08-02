@@ -55,7 +55,7 @@ public class CompletableFutureTest {
 //            int i = 10 / 4;
 //            log.info("运行结果:{}", i);
 //            return i;
-//        }, executorService).handle((result, exception) -> {
+//        }, executorService).exception((result, exception) -> {
 //            if (Objects.nonNull(result)) {
 //                return result * 2;
 //            }

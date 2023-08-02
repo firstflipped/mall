@@ -1,8 +1,8 @@
 package com.flipped.mall.admin.config;
 
+import com.flipped.mall.admin.exception.AccessDeniedHandlerImpl;
+import com.flipped.mall.admin.exception.AuthenticationEntryPointImpl;
 import com.flipped.mall.admin.filter.TokenAuthenticationFilter;
-import com.flipped.mall.admin.handle.AccessDeniedHandlerImpl;
-import com.flipped.mall.admin.handle.AuthenticationEntryPointImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
