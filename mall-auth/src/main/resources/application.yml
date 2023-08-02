@@ -16,6 +16,3 @@ management:
   endpoint:
     health:
       show-details: always
-  server:
-    #    base-path: /${server.servlet.context-path}/actuator
-    base-path: /mall-auth/actuator

@@ -5,3 +5,5 @@ spring:
       discovery:
         server-addr: ${NACOS.SERVE-ADDR:http://localhost:8848}
         namespace: ${NACOS.NAMESPACE:mall}
+      username: ${NACOS.USERNAME:nacos}
+      password: ${NACOS.PASSWORD:laughingather}

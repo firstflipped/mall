@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * ${DESCRIPTION}
+ * 监控服务启动累
  *
  * @author <a href="#">flipped</a>
  * @version v1.0

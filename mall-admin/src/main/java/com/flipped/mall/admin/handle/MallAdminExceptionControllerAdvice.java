@@ -24,13 +24,13 @@ public class MallAdminExceptionControllerAdvice extends ExceptionControllerAdvic
 
     @ExceptionHandler(AccessDeniedException.class)
     public MyResult<Map<String, String>> accessDeniedException(AccessDeniedException e) throws AccessDeniedException {
-        log.error("权限异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("权限异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e.getStackTrace());
         return MyResult.failed(ErrorCodeEnum.ACCESS_EXCEPTION);
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public MyResult<Map<String, String>> authenticationException(AuthenticationException e) throws AuthenticationException {
-        log.error("认证异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e);
+        log.error("认证异常：{}，异常类型：{}，异常详情：{}", e.getMessage(), e.getClass(), e.getStackTrace());
         return MyResult.failed(ErrorCodeEnum.AUTHENTICATION_EXCEPTION);
     }
 

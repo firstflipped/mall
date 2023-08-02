@@ -8,6 +8,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
+/**
+ * Security自定义配置
+ *
+ * @author flipped
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,6 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/oauth2.0/**").permitAll()
                 .antMatchers("/auth/admin/**").permitAll()
                 .antMatchers("/auth/member/**").permitAll()
+                // 监控服务放行
+                .antMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated();
     }
 
