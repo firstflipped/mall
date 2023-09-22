@@ -119,8 +119,8 @@ public class PlatformLogAspect {
         platformLogEntity.setClientIp(RequestUtil.getClientIp(request));
 
         // 判断请求是否成功
-        if (result instanceof MyResult) {
-            MyResult myResult = (MyResult) result;
+        if (result instanceof MyResult<?>) {
+            MyResult<?> myResult = (MyResult<?>) result;
             if (myResult.getSuccess()) {
                 platformLogEntity.setSuccess(1);
             } else {
