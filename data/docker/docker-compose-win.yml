@@ -16,10 +16,10 @@ services:
       MYSQL_ROOT_PASSWORD: laughingather
       # 初始化数据库(后续的初始化sql会在这个库执行)
       MYSQL_DATABASE: nacos_config
-      # 初始化用户(不能是root 会报错, 后续需要给新用户赋予权限)
+      # 初始化用户(不能是root会报错, 后续需要给新用户赋予权限)
       MYSQL_USER: nacos
       # 用户密码
-      MYSQL_PASSWORD: nacos
+      MYSQL_PASSWORD: laughingather
 
   nacos:
     image: nacos/nacos-server
@@ -36,10 +36,11 @@ services:
     environment:
       # 单机模式启动
       MODE: standalone
+      NACOS_AUTH_ENABLE: true
       SPRING_DATASOURCE_PLATFORM: mysql
       MYSQL_SERVICE_HOST: mysql
       MYSQL_SERVICE_USER: nacos
-      MYSQL_SERVICE_PASSWORD: nacos
+      MYSQL_SERVICE_PASSWORD: laughingather
       MYSQL_SERVICE_DB_NAME: nacos_config
       MYSQL_SERVICE_DB_PARAM: characterEncoding=utf8&connectTimeout=100000&socketTimeout=300000&autoReconnect=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       # nacos1.4.0版本启动后，占用内存过多，配置JVM参数
@@ -63,7 +64,7 @@ services:
     # 初始化管理员用户名和密码
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_ROOT_PASSWORD: laughingather
     tty: true
     # 覆盖容器启动后默认执行的命令
     command: mongod --auth
@@ -80,12 +81,21 @@ services:
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ELASTIC_PASSWORD=laughingather
+      - xpack.security.enabled=true
 
   redis:
     image: redis:latest
     container_name: redis
     ports:
       - "6379:6379"
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - D:\Service\Docker\Redis\data:/data
+      - D:\Service\Docker\Redis\conf\redis.conf:/etc/redis/redis.conf
+      - D:\Service\Docker\Redis\logs:/logs
+    command: [ "redis-server","/etc/redis/redis.conf" ]
 
 # 加入本地已有的网络配置，如果不进行配置的话会默认生成一个网络
 networks:
